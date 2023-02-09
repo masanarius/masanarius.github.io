@@ -33,6 +33,11 @@ a img:hover {
 	padding-bottom: 0.5rem;
 }
 
+li {
+	margin-left: 1.4em;
+	text-indent: -1.4em;
+}
+
 /*ヘッダー
 -------------------------------------*/
 .head {
