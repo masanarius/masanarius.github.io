@@ -4,11 +4,9 @@
 :root {
     /* 色変更される場合は、#以降のカラーコードを変更してください IE非対応 */
     --base-color: #13334c;
-    --link-color: #005792;
+    --banner-link-color: #f6f6e9;
     --linkhover-color: #fd5f00;
-    --back-color: #f6f6e9;
-    --border-color: #13334c;
-    --white-color: #fff;
+    --back-color: #005792;
 }
 
 img {
@@ -19,7 +17,7 @@ img {
 
 a {
     display: block;
-    color: var(--link-color);
+    color: var(--banner-link-color);
     text-decoration-line: none;
 }
 
@@ -128,7 +126,7 @@ nav a {
 
     nav li {
         padding-top: 0;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--base-color);
         margin-bottom: 0;
     }
 
@@ -180,7 +178,7 @@ main {
 
 .news li {
     list-style-type: none;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--base-color);
     padding: 0.5rem 0;
 }
 
@@ -192,7 +190,7 @@ footer {
 }
 
 footer h5 {
-    border-bottom: 3px solid var(--border-color);
+    border-bottom: 3px solid var(--base-color);
 }
 
 /*コピーライト
@@ -200,7 +198,7 @@ footer h5 {
 .copyright {
     text-align: center;
     padding: 1rem 0;
-    background-color: var(--white-color);
+    background-color: var(--back-color);
 }
 
 .copyright a {
@@ -220,14 +218,14 @@ footer h5 {
 #pagetop a {
     display: block;
     background-color: var(--base-color);
-    color: var(--white-color);
+    color: var(--banner-link-color);
     width: 50px;
     padding: 10px 5px;
     text-align: center;
 }
 
 #pagetop a:hover {
-    background-color: var(--link-color);
+    background-color: var(--banner-link-color);
 }
 
 /*パンくずリスト
@@ -243,5 +241,5 @@ footer h5 {
 
 .breadcrumb li a {
     display: inline-block;
-    color: var(--link-color);
+    color: var(--banner-link-color);
 }
