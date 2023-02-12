@@ -51,6 +51,7 @@ li {
     display: flex;
     flex-direction: row;
     padding: 1rem 0 0 0;
+    background-color: var(--back-color);
 }
 
 .head h1 {
