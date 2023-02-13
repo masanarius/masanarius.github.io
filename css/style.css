@@ -3,12 +3,12 @@
 
 :root {
     /* 色変更される場合は、#以降のカラーコードを変更してください IE非対応 */
-    --base-color: #000;
-    --link-color: #666;
-    --linkhover-color: #999;
-    --back-color: #f7f7f7;
-    --border-color: #ccc;
-    --white-color: #fff;
+    --base-color: #13334c;
+    --link-color: #005792;
+    --linkhover-color: #fd5f00;
+    --back-color: #f6f6e9;
+    --border-color: #005792;
+    --white-color: #ffffff;
 }
 
 img {
