@@ -171,6 +171,11 @@ main {
     margin: 5rem 0 5rem 0;
 }
 
+li {
+    margin-left: 1.4em;
+    text-indent: -1.4em;
+}
+
 /*新着情報
 -------------------------------------*/
 .news h2 {
