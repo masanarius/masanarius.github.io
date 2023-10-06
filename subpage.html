@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>シンプルコーポレートサイト</title>
+    <title>ベーシックコーポレートサイト</title>
 <link rel="stylesheet" media="all" href="css/ress.min.css" />
 <link rel="stylesheet" media="all" href="css/style.css" />
 <script src="js/jquery-3.6.0.min.js"></script>
@@ -19,19 +19,22 @@
 <div class="row">
     <div class="col span-12">
     <div class="head">
-        <h1><a href="index.html">SimpleCorp</a></h1>
+        <h1><a href="index.html">BasicCorp</a></h1>
 		<div class="telbox">TEL：00-0000-0000</div>
+        <div id="open"></div>
+        <div id="close"></div> 
         </div>
     </div></div>
+	</div>
+<div class="menu">
+<div class="container">
 <div class="row">
     <div class="col span-12">
-        <nav>
-            <div id="open"></div>
-            <div id="close"></div>    
+        <nav>  
             <div id="navi">
         <ul>
             <li><a href="index.html">ホーム</a></li>
-            <li><a href="subpage.html">店舗について</a></li>
+            <li><a href="subpage.html">会社概要</a></li>
             <li><a href="subpage.html">サブページ</a></li>
             <li><a href="subpage.html">サブページ</a></li>
             <li><a href="subpage.html">サブページ</a></li>
@@ -42,6 +45,7 @@
     </div>
         </div>
     </div>
+	</div>
     </header>
     <div class="mainimg">
               <img src="img/subimg.jpg" alt="サブページ画像">
@@ -50,14 +54,14 @@
 	<article>
 <div class="container">
 <div class="row">
-    <div class="col span-8">
+    <div class="col span-12">
 	<div class="breadcrumb">
 		<ul>
 			<li><a href="index.html">ホーム</a> > サブページ</li>
 		</ul>
 		</div>
     
-		<h2 class="underline">見出し</h2>
+		<h2 class="blueback">見出し</h2>
 <p>タイトルなどの見出しに使用します。h1からh6までの大きさがあります。</p>
         <h1>h1　見出し</h1>
         <h2>h2　見出し</h2>
@@ -66,7 +70,7 @@
         <h5>h5　見出し</h5>
         <h6>h6　見出し</h6>
 
-        <h2 class="underline">カラム</h2>
+        <h2 class="blueback">カラム</h2>
 		<p>シンプルなカラムのみ制作しています。横幅が12の数字になるように、レイアウトを組みます。</p>
 <div class="row">
 	<div style="background-color: #F1F1F1; padding:1rem 0; margin-bottom: 1em;" class="col span-1">カラム1</div>
@@ -116,10 +120,10 @@
 	<div style="background-color: #F1F1F1; padding:1rem 0;  margin-bottom: 1rem;"  class="col span-12">カラム12</div>
 	</div>
 
-		<h2 class="underline">ボタン</h2>
+		<h2 class="blueback">ボタン</h2>
             <p><a href="" class="button">ボタン</a><a href="" class="button">ボタン</a><a href="" class="button">ボタン</a><a href="" class="button">ボタン</a><a href="" class="button">ボタン</a><a href="" class="button">ボタン</a><a href="" class="button">ボタン</a><a href="" class="button">ボタン</a><a href="" class="button">ボタン</a><a href="" class="button">ボタン</a></p>
 		
-		<h2 class="underline">フォーム</h2>
+		<h2 class="blueback">フォーム</h2>
 		<form action="" method="post">
                 <p>
                 <label for="name">お名前</label>
@@ -138,7 +142,7 @@
                 </p>
             </form>
 		
-		<h2 class="underline">リスト</h2>
+		<h2 class="blueback">リスト</h2>
 		<ul>
         <li>リストスタイル</li>
         <li>リストスタイル</li>
@@ -150,7 +154,7 @@
         <li>番号付きのリスト</li>
         </ol>
 		
-		<h2 class="underline">テーブル</h2>
+		<h2 class="blueback">テーブル</h2>
 		<table class="full-width">
      <thead>
          <tr>
@@ -178,17 +182,12 @@
     </tbody>    
     </table>
 	
-	<h2 class="underline">コード</h2>
+	<h2 class="blueback">コード</h2>
 	<pre><code>.test-class {
 background-color: F1F1F1;
 font-size: 16px;}</code></pre>
 
 		</div>
-	<div class="col span-4">
-		<a href=""><img src="img/banner.png" alt="バナー画像"></a>
-	    <a href=""><img src="img/banner.png" alt="バナー画像"></a>
-	    <a href=""><img src="img/banner.png" alt="バナー画像"></a>
-	</div>
     </div>    
         </div>
 	</article>
