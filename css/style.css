@@ -2,40 +2,43 @@
 @import url("grid.css");
 
 :root { /* 色変更される場合は、#以降のカラーコードを変更してください IE非対応 */
-    --base-color: #000;
-    --link-color: #666;
-    --linkhover-color: #3366FF; ;
-    --back-color: #003399;
-    --border-color: #ccc;
-    --white-color: #fff;
+    --black:#000000;
+    --gray: #666666;
+    --white:#ffffff;
+    --red:  #ff4631;
 }
+
+h1 {font-size: 24pt}
+h2 {font-size: 16pt}
+p  {font-size: 12pt}
 
 img {
 	max-width:100%;
 	height: auto;/*高さ自動*/
 }
+
 a {
     display:block;
-    color: var(--base-color);
+    color: var(--black);/*リンクの色*/
     text-decoration-line: none;
+    padding: 0 0;
 }
+
 a:hover { 
-    color: var(--linkhover-color);
+    color: var(--red);
 }
 a img {
     margin-bottom: 1rem;
 }
-a img:hover {
-	opacity: 0.8;
-}
+
 .blueback {
-	background-color: var(--back-color);
-	color: var(--white-color);
+	background-color: var(--white);
+	color: var(--white);
 	padding: 1rem;
 }
 .underline {
-	border-bottom: 3px solid var(--back-color);
-	padding-bottom: 0.5rem;
+	border-bottom: 3px solid var(--red);
+	padding-bottom: 5px;
 }
 .center {
 	text-align: center;
@@ -46,20 +49,19 @@ a img:hover {
 .head {
 	display: flex;
     flex-direction: row;
-    padding: 1rem 0 0 0;
+    /* padding: 0 0 10px 0; */
+    background-color: var(--white);
 }
 
-.head h1 { 
-    padding: 1rem 0;
-}
-.telbox {
-	margin-left: auto;
-	font-size: 3.0rem;
-	padding: 1rem 0 0 0;
-}
+/* .head h1 { 
+    padding: 100px 0px 0px 0px;
+} */
+
 .menu {
-	background-color: var(--back-color);
+    color: var(--white);/*文字の色*/
+	background-color: var(--gray);/*ボタンの色*/
 }
+
 nav ul {
 	display: flex;
     flex-direction: row;
@@ -77,11 +79,11 @@ nav li a {
 	color: var(--white-color);
 }
 nav a:hover {
-    background-color: var(--linkhover-color);   
-	color: var(--white-color);
+    background-color: var(--red);   
+	color: var(--white);
 }
 nav a {
-    padding: 2rem 1rem;
+    padding: 20px 10px;
 	display: block;
 }
 
@@ -100,16 +102,13 @@ nav a {
 .head {
 	flex-direction: column;
     text-align: left;
-    margin-bottom: 20px;
+    margin-bottom: 70px;
 }
-.telbox {
-	margin-left: 0;
-	text-align: center;
-}
+
 .head #open,#close  {
     position: absolute;
-    top: 20px;
-    right: 12px;
+    /* top: 20px;
+    right: 12px; */
     }
 nav ul {
 	flex-direction: column;
@@ -117,33 +116,33 @@ nav ul {
 
 nav li {
 	padding-top: 0;
-	border-bottom: 1px solid var(--border-color);
 	margin-bottom: 0;
 }
+
 /* スマホ時はMENUボタンを表示 */
 #open {
     display: block;
-    background: url(../img/button.png);
+    background: url(../img/hamburger.png);
     background-repeat: no-repeat;
     background-size: contain;
     width: 50px;
     height: 50px;
     border: none;
     position: absolute;
-    top: 20px;
-    right: 12px;
+    top: 10px;
+    /*right: 12px; */
 }
 #close  {
     display: block;
-    background: url(../img/button2.png);
+    background: url(../img/close.png);
     background-repeat: no-repeat;
     background-size: contain;
     width: 50px;
     height: 50px;
     border: none;
     position: absolute;
-    top: 20px;
-    right: 12px;
+    top: 10px;
+    /*right: 12px; */
 }
 /* スマホ時はメニューを非表示 */
 #navi {
@@ -151,53 +150,31 @@ nav li {
 }
 }
 
-/*メイン画像
--------------------------------------*/
-.mainimg img {
-	width: 100vw;
-}
-
 /*メインコンテンツ
 -------------------------------------*/
 main {
-    margin: 5rem 0 5rem 0;
-}
-
-/*新着情報
--------------------------------------*/
-.news h2 {
-    background-color: var(--back-color);
-	color: var(--white-color);
-	padding: 1rem;
-}
-.news li {
-    list-style-type: none;
-	border-bottom: 1px solid var(--border-color);
-	padding: 0.5rem 0;
+    margin: 50px 0 50px 0;
 }
 
 /*フッター
 -------------------------------------*/
 footer {
-    background-color: var(--back-color);
-    padding: 5rem 0;
-	color: var(--white-color);
+    background-color: var(--gray);
+    padding: 10px 0;
+	color: var(--white);
 }
+
 footer h5 {
-    border-bottom: 2px solid var(--white-color);
+    border-bottom: solid var(--white);
 }
 
 /*コピーライト
 -------------------------------------*/
 .copyright {
     text-align: center;
-    padding: 1rem 0;
-    background-color: var(--white-color);
-}
-.copyright a {
-    color: var(--base-color);
-    text-decoration: none;
-	display: inline-block;
+    color: var(--gray);
+    padding: 10px 0;
+    background-color: var(--white);
 }
 
 /*ページトップへ戻るボタン
@@ -209,14 +186,14 @@ footer h5 {
 }
 #pagetop a {
     display: block;
-    background: var(--back-color);
-    color: var(--white-color);
+    background: var(--black);
+    color: var(--white);
     width: 50px;
     padding: 10px 5px;
     text-align: center;
 }
 #pagetop a:hover {
-    background: var(--back-color);
+    background: var(--red);
 }
 /*パンくずリスト
 -----------------------------------*/
@@ -229,5 +206,5 @@ footer h5 {
 }
 .breadcrumb li a {
     display: inline-block;
-    color: var(--link-color);
+    color: var(--red);
 }
