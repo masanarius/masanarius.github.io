@@ -3,18 +3,30 @@
 
 :root { /* 色変更される場合は、#以降のカラーコードを変更してください IE非対応 */
     --black:#000000;
-    --gray: #666666;
+    --gray: #323232;
     --white:#ffffff;
     --red:  #ff4631;
 }
 
-h1 {font-size: 24pt}
-h2 {font-size: 16pt}
+h1 {font-size: 24pt; font-weight: bold;}
+h2 {font-size: 16pt;}
 p  {font-size: 12pt}
 
 img {
 	max-width:100%;
 	height: auto;/*高さ自動*/
+}
+
+li {
+	margin-left: 1.4em;
+	text-indent: -1.4em;
+}
+
+hr {
+    margin: 50px;
+    border: none;
+    border-top: solid 1px #ff4631;
+    border-bottom: solid 1px #ff4631;
 }
 
 a {
