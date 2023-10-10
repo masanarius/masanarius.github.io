@@ -114,7 +114,7 @@ nav a {
 .head {
 	flex-direction: column;
     text-align: left;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
 .head #open,#close  {
@@ -137,8 +137,8 @@ nav li {
     background: url(../img/hamburger.png);
     background-repeat: no-repeat;
     background-size: contain;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border: none;
     position: absolute;
     top: 10px;
@@ -149,8 +149,8 @@ nav li {
     background: url(../img/close.png);
     background-repeat: no-repeat;
     background-size: contain;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border: none;
     position: absolute;
     top: 10px;
