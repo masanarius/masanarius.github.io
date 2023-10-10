@@ -23,7 +23,7 @@ li {
 }
 
 hr {
-    margin: 50px;
+    margin: 20px;
     border: none;
     border-top: solid 1px #ff4631;
     border-bottom: solid 1px #ff4631;
@@ -114,7 +114,7 @@ nav a {
 .head {
 	flex-direction: column;
     text-align: left;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
 }
 
 .head #open,#close  {
@@ -137,8 +137,8 @@ nav li {
     background: url(../img/hamburger.png);
     background-repeat: no-repeat;
     background-size: contain;
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     border: none;
     position: absolute;
     top: 10px;
@@ -149,8 +149,8 @@ nav li {
     background: url(../img/close.png);
     background-repeat: no-repeat;
     background-size: contain;
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     border: none;
     position: absolute;
     top: 10px;
