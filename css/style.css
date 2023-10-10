@@ -10,7 +10,6 @@
 
 h1 {font-size: 3.0rem; font-weight: bold;}
 h2 {font-size: 2.0rem;}
-p  {font-size: 2.0rem}
 
 img {
 	max-width:100%;
@@ -23,7 +22,7 @@ li {
 }
 
 hr {
-    margin: 20px;
+    margin: 30px;
     border: none;
     border-top: solid 1px #ff4631;
     border-bottom: solid 1px #ff4631;
@@ -193,15 +192,16 @@ footer h5 {
 -------------------------------------*/
 #pagetop {
     position: fixed;
-    bottom: 15px;
-    right: 15px;
+    bottom: 20px;
+    right: 20px;
 }
 #pagetop a {
     display: block;
     background: var(--black);
     color: var(--white);
-    width: 50px;
-    padding: 10px 5px;
+    width: 40px;
+    height: 40px;
+    padding: 7.5px 0px;
     text-align: center;
 }
 #pagetop a:hover {
