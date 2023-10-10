@@ -8,9 +8,9 @@
     --red:  #ff4631;
 }
 
-h1 {font-size: 24pt; font-weight: bold;}
-h2 {font-size: 16pt;}
-p  {font-size: 12pt}
+h1 {font-size: 3.0rem; font-weight: bold;}
+h2 {font-size: 2.0rem;}
+p  {font-size: 2.0rem}
 
 img {
 	max-width:100%;
