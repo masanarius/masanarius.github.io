@@ -106,6 +106,10 @@ nav a {
 #navi {
     display: block !important;
 }
+
+main {
+    margin: 50px 100px 50px 100px;
+}
 }
 
 @media screen and (max-width: 768px){
@@ -113,6 +117,10 @@ nav a {
 	flex-direction: column;
     text-align: left;
     margin-bottom: 60px;
+}
+
+main {
+    margin: 50px 20px 50px 20px;
 }
 
 .head #open,#close  {
@@ -162,9 +170,9 @@ nav li {
 
 /*メインコンテンツ
 -------------------------------------*/
-main {
-    margin: 50px 200px 50px 200px;
-}
+/* main {
+    margin: 50px 50px 50px 50px;
+} */
 
 /*フッター
 -------------------------------------*/
