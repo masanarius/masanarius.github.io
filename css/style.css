@@ -52,10 +52,7 @@ a img {
 	color: var(--white);
 	padding: 1rem;
 }
-.underline {
-	border-bottom: 3px solid var(--red);
-	padding-bottom: 5px;
-}
+
 .center {
 	text-align: center;
 }
@@ -166,7 +163,7 @@ nav li {
 /*メインコンテンツ
 -------------------------------------*/
 main {
-    margin: 50px 0 50px 0;
+    margin: 50px 200px 50px 200px;
 }
 
 /*フッター
