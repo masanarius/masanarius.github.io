@@ -192,16 +192,16 @@ footer h5 {
 -------------------------------------*/
 #pagetop {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 25px;
+    right: 25px;
 }
 #pagetop a {
     display: block;
     background: var(--black);
     color: var(--white);
-    width: 40px;
-    height: 40px;
-    padding: 7.5px 0px;
+    width: 50px;
+    height: 50px;
+    padding: 12.5px 0px;
     text-align: center;
 }
 #pagetop a:hover {
