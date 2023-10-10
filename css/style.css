@@ -38,7 +38,6 @@ a {
     display:block;
     color: var(--black);/*リンクの色*/
     text-decoration-line: none;
-    padding: 0 0;
 }
 
 a:hover { 
@@ -66,13 +65,8 @@ a img {
 .head {
 	display: flex;
     flex-direction: row;
-    /* padding: 0 0 10px 0; */
     background-color: var(--white);
 }
-
-/* .head h1 { 
-    padding: 100px 0px 0px 0px;
-} */
 
 .menu {
     color: var(--white);/*文字の色*/
@@ -88,6 +82,8 @@ nav ul {
 }
 nav li {
     flex: 1 0 auto;
+    margin-left: 0;
+	text-indent: 0;
 	margin-bottom: 0;
 }
 nav li a {
@@ -100,7 +96,7 @@ nav a:hover {
 	color: var(--white);
 }
 nav a {
-    padding: 20px 10px;
+    padding: 2rem 1rem;
 	display: block;
 }
 
