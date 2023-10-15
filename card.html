@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Contact | Masanari ICHIKAWA</title>
+    <title>Masanari ICHIKAWA</title>
     <link rel="stylesheet" media="all" href="css/ress.min.css" />
     <link rel="stylesheet" media="all" href="css/style.css" />
+    <link rel="stylesheet" media="all" href="css/cardstyle.css" />
     <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/style.js"></script>
     <link rel="icon" type="image/png" href="img/favicon.png">
@@ -49,11 +50,23 @@
         <div class="container">
             <div class="row">
                 <div class="col span-12">
-                    <a hlef=""><img src="img/card/masanari_ichikawa_jp.jpg" alt="市川雅也"></a>
+                    <img id=card src="img/card/masanari_ichikawa_jp.jpg" alt="市川雅也">
                 </div>
             </div>
         </div>
+
+        <div class="container">
+            <div class="row">
+                <a class="button" onclick="card.style='transform: rotate(0deg);'">Normal</a>
+                <a class="button" onclick="card.style='transform: rotate(180deg);'">Reverse</a>
+                <a class="button" onclick="card.src='img/card/masanari_ichikawa_jp.jpg'">Japanese</a>
+                <a class="button" onclick="card.src='img/card/masanari_ichikawa_en.jpg'">English</a>
+            </div>
+        </div>
+
     </main>
+
+    
 
     <div class="copyright">
         <div class="container">
@@ -64,8 +77,6 @@
             </div>
         </div>
     </div>
-
-    <p id="pagetop"><a href="#">TOP</a></p>    
 
 </body>
 

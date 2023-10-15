@@ -21,10 +21,6 @@ img {
 	height: auto;/*高さ自動*/
 }
 
-img[src$="masanari_ichikawa"] {
-    border: 1px #232323;
-  }
-
 li {
 	margin-left: 1.4em;
 	text-indent: -1.4em;
