@@ -188,7 +188,6 @@ input[type="reset"],
 input[type="button"] {
   display: inline-block;
   height: 40px;
-  width: 50%;
   margin:  0 auto;
   margin-left: 5px;
   margin-right: 5px;
