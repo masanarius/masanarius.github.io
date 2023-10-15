@@ -189,8 +189,10 @@ input[type="button"] {
   display: inline-block;
   height: 40px;
   width: 50%;
-  padding: 0 30px;
+  margin:  0 auto;
+  margin-left: 5px;
   margin-right: 5px;
+  padding: 0 30px;
   color: #323232;
   text-align: center;
   font-size: 16px;
@@ -215,8 +217,8 @@ button:focus,
 input[type="submit"]:focus,
 input[type="reset"]:focus,
 input[type="button"]:focus {
-  color: #323232;
-  border-color: #323232;
+  color: #ff4631;
+  border-color: #ff4631;
   outline: 0; }
 
 
