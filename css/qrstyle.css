@@ -1,0 +1,34 @@
+body {
+    width: 100%;
+    /* height: 100vh; */
+    background:linear-gradient(
+        90deg,
+        #cc3626,
+        #ff4631,
+        #ff7f2e,
+        #feba2b
+    );/*グラデーションを定義*/
+    /* background-size: 200% 200%;サイズを大きくひきのばす */
+    animation: bggradient 10s ease infinite;
+}
+
+img {
+width: 50%;
+margin: 0 auto;
+}
+
+p {
+    text-align: center;
+}
+  
+@keyframes bggradient{
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
