@@ -9,9 +9,11 @@ output_file_name = [
     'masanari_ichikawa_tel_en.jpg'
 ]
 
-for i in range(1,6):
+for i in range(1,7):
     org_file_name = 'Slide' + str(i) + '.jpeg'
+    print(org_file_name + ' is found')
     im = Image.open('businesscard_original/'+ org_file_name)
     im_rotate = im.rotate(-90, expand=True)
     im_rotate.save('businesscard/'+output_file_name[i-1])
+    print(org_file_name + ' is saved as ' + output_file_name[i-1])
 
