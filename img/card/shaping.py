@@ -17,7 +17,7 @@ for i in range(1,7):
     im_rotate.save('businesscard/'+output_file_name[i-1])
     print(org_file_name + ' is saved as ' + output_file_name[i-1])
 
-im = Image.open('businesscard_original/Slide4.jpeg')
+im = Image.open('businesscard_original/Slide5.jpeg')
 im.save('businesscard/sample.jpg')
 print('sample.jpg saved')
 
