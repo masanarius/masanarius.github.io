@@ -1,12 +1,12 @@
 from PIL import Image
 
 output_file_name = [
-    'masanari_ichikawa_qr.jpg',
-    'masanari_ichikawa_jp.jpg',
-    'masanari_ichikawa_en.jpg',
-    'masanari_ichikawa_tel_qr.jpg',
-    'masanari_ichikawa_tel_jp.jpg',
-    'masanari_ichikawa_tel_en.jpg'
+    'mail_qr.jpg',
+    'mail_jp.jpg',
+    'mail_en.jpg',
+    'tel_qr.jpg',
+    'tel_jp.jpg',
+    'tel_en.jpg'
 ]
 
 for i in range(1,7):
