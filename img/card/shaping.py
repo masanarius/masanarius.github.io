@@ -17,11 +17,9 @@ for i in range(1,7):
     im_rotate.save('businesscard/'+output_file_name[i-1])
     print(org_file_name + ' is saved as ' + output_file_name[i-1])
 
-org_file_name = 'Slide4.jpeg'
-print(org_file_name + ' is found')
-im = Image.open('businesscard_original/'+ org_file_name)
-im_rotate.save('businesscard/sample.jpg')
-print(org_file_name + ' is saved as sample.jpg')
+im = Image.open('businesscard_original/Slide4.jpeg')
+im.save('businesscard/sample.jpg')
+print('sample.jpg saved')
 
 
 
