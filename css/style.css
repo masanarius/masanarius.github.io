@@ -180,13 +180,13 @@ nav li {
 /*フッター
 -------------------------------------*/
 footer {
-    background-color: var(--gray);
+    background-color: var(--white);
     padding: 10px 0;
-	color: var(--white);
+	color: var(--gray);
 }
 
 footer h5 {
-    border-bottom: solid var(--white);
+    border-bottom: solid var(--gray);
 }
 
 /*コピーライト
@@ -230,3 +230,4 @@ footer h5 {
     display: inline-block;
     color: var(--red);
 }
+
