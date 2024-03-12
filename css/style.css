@@ -4,13 +4,11 @@
 :root { /* 色変更される場合は、#以降のカラーコードを変更してください IE非対応 */
     --black:#000000;
     --gray: #232323;
+    --lightgray: #DEDEDE;
     --white:#ffffff;
     --red:  #ff4631;
 }
 
-h1 {font-size: 3.0rem; font-weight: bold;}
-h2 {font-size: 3.0rem; font-weight: bold;}
-h3 {font-size: 2.0rem;}
 
 body {
     color: var(--gray);
@@ -29,13 +27,26 @@ li {
 
 
 
-hr {
-    margin: 30px;
-    height: 2px;
-    background-color: var(--red);
-    border: none;
-    color: var(--red);
-}
+.hr-dots {
+
+    border: 0;
+    height: 1px;
+    margin: 2.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    &::before {
+      content: '••••••••••••••••••••';
+      font-size: 1.25em;
+      letter-spacing: .75em;
+      opacity: .75;
+      color: var(--red);
+    }
+  
+  }
+  
+  
 
 a {
     display:block;
@@ -72,6 +83,8 @@ a img {
     color: var(--white);/*文字の色*/
 	background-color: var(--gray);/*ボタンの色*/
 }
+
+
 
 nav ul {
 	display: flex;
