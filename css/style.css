@@ -37,7 +37,7 @@ li {
     justify-content: center;
   
     &::before {
-      content: '••••••••••••••••••••';
+      content: '•••';
       font-size: 1.25em;
       letter-spacing: .75em;
       opacity: .75;
