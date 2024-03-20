@@ -10,7 +10,7 @@ output_file_name = [
 ]
 
 for i in range(1,7):
-    org_file_name = 'Slide' + str(i) + '.jpeg'
+    org_file_name = 'スライド' + str(i) + '.jpeg'
     print(org_file_name + ' is found')
     im = Image.open('businesscard_original/'+ org_file_name)
     im_rotate = im.rotate(-90, expand=True)
