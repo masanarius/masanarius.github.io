@@ -5,8 +5,15 @@
 .centering_item {
   background-color: #ffffff;  /* 背景色指定 */
   width: 100%;                 /* 幅指定 */
+  max-width: 600px;
   padding: 50px;
   margin:  0 auto;              /* 中央寄せ */
+}
+
+@media screen and (min-width: 800px) {
+  .container_item {
+    width: 600px; /* デバイスの幅に合わせる */
+  }
 }
 
 :root{
