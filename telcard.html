@@ -1,53 +1,99 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masanari ICHIKAWA</title>
-    <link rel="stylesheet" media="all" href="css/ress.min.css" />
-    <link rel="stylesheet" media="all" href="css/style.css" />
-    <link rel="stylesheet" media="all" href="css/cardstyle.css" />
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script src="js/style.js"></script>
-    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-   
+    <div class="centering_parent">
+        <div class="centering_item">
 
-    <main>
-        <div class="container">
-            <div class="row">
-                <div class="col span-12">
-                    <img id="card" src="img/card/businesscard/masanari_ichikawa_tel_jp.jpg" alt="市川雅也">
-                </div>
+            <!-- ヘッダー 開始 -->
+
+            <!-- <div style="height: 2em;"></div>
+            <div style="text-align: center;"><img src="img/myimg/Nyhavn_sq.jpg" alt="こんにちは．市川雅也です．" width="50%"></div>
+            <div style="height: 2em;"></div>
+
+
+            <h1>Masanari ICHIKAWA<br><span style="font-size:85%;">Ph.D. Student in Informatics</span></h1>
+
+            <div style="height: 2em;"></div>
+            <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
+            <div style="height: 2em;"></div>
+
+            <div class="flex-container">
+                <a href="index.html"><b>Home</b></a>
+                <a href="about.html"><b>About</b></a>
+                <a href="publication.html"><b>Publications</b></a>
+                <a href="news.html"><b>News</b></a>
+                <a href="contact.html"><b>Contact</b></a>
             </div>
-        </div>
 
-        <div class="container">
+            <div style="height: 2em;"></div>
+            <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
+            <div style="height: 2em;"></div> -->
+
+            <!-- ヘッダー ここまで -->
+
+            <style>
+                img{
+                    width: 100%;
+                    margin: 0 auto;
+                    border: 1px solid black;
+                }
+
+                p{
+                    text-align: center;
+                }
+            </style>
+
+            <div style="height: 2em;"></div>
+            <div style="text-align: center;"><img id="card" src="img/card/businesscard/masanari_ichikawa_tel_jp.jpg" alt="市川雅也">
+            </div>
+
             <p>Hold down the card to download</p>
-        </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="button" onclick="card.src='img/card/businesscard/masanari_ichikawa_tel_jp.jpg'">日本語版</div>
-                <div class="button" onclick="card.src='img/card/businesscard/masanari_ichikawa_tel_en.jpg'">English ver.</div>
+            <div style="height: 2em;"></div>
+
+
+            <div class="flex-container">
+                <a onclick="changeImage('img/card/businesscard/masanari_ichikawa_tel_jp.jpg')"><b>日本語版</b></a>
+                <a onclick="changeImage('img/card/businesscard/masanari_ichikawa_tel_en.jpg')"><b>English ver.</b></a>
             </div>
-        </div>
 
-        
+            <script>
+                function changeImage(imageName) {
+                    document.getElementById('card').src = imageName;
+                }
+            </script>
 
-    </main>
+            
+            
 
-    
+            <!-- フッター 開始 -->
+            
+            <!-- <div style="height: 2em;"></div>
+            <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
+            <div style="height: 2em;"></div>
 
-    <div class="copyright">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    (C) 2024<a href="index.html" style="display:inline"> <u>Masanari ICHIKAWA</u></a> 
-                </div>    
-            </div>
+            <div class="flex-container">
+                <a href="index.html"><b>Home</b></a>
+                <a href="about.html"><b>About</b></a>
+                <a href="publication.html"><b>Publications</b></a>
+                <a href="news.html"><b>News</b></a>
+                <a href="contact.html"><b>Contact</b></a>
+            </div> -->
+
+            <div style="height: 2em;"></div>
+            <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
+            <div style="height: 2em;"></div>
+
+            <div style="text-align: center;"><p>(C) 2024 <a href="index.html">Masanari ICHIKAWA</a></p></div>
+            <!-- フッター ここまで -->
         </div>
     </div>
 
