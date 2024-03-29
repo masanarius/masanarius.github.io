@@ -5,7 +5,7 @@
   
 .centering_item {
   background-color: #ffffff;  /* 背景色指定 */
-  width: 50%;
+  width: 40%;
   max-width: 80%;                 /* 幅指定 */
   margin:  0 auto;              /* 中央寄せ */
 }
