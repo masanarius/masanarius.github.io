@@ -4,7 +4,7 @@
 
 @media (min-width: 768px) {
   .container {
-    width: 50%; /* PCではコンテナの幅を50%に */
+    width: 40%; /* PCではコンテナの幅を40%に */
     margin: 0 auto; /* 中央に配置 */
   }
 }
