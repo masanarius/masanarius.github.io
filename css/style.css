@@ -16,6 +16,12 @@
   --accent : #ff4631; 
   --pale: #888;
 }
+
+img {
+  text-align: center;
+  max-width: 100%; /* スマートフォンで画像の幅を100%にする */
+  width: 300px; /* PCで画像の幅を300pxにする */
+}
   
   
   
