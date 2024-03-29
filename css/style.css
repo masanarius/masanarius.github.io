@@ -1,11 +1,20 @@
-.centering_parent {
-  background-color: #ffffff;    /* 背景色指定 */
-}
-  
-.centering_item {
+.container {
   background-color: #ffffff;  /* 背景色指定 */
-  width: 80%;                   /* 幅指定 */
-  margin:  0 auto;              /* 中央寄せ */
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 50%; /* PCではコンテナの幅を50%に */
+    margin: 0 auto; /* 中央に配置 */
+  }
+}
+
+/* スマートフォン用のスタイル */
+@media (max-width: 767px) {
+  .container {
+    width: 80%; /* スマートフォンではコンテナの幅を80%に */
+    margin: 0 auto; /* 中央に配置 */
+  }
 }
 
 
