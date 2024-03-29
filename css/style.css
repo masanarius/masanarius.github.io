@@ -48,7 +48,7 @@ h1,h2 {
   color: var(--text); /* テキストの色を指定 */
 }
 
-h3, h4, p, td, li {
+h3, h4, p, td, li, a{
   font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
   font-size: 1em;
   font-weight: normal;
