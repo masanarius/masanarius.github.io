@@ -5,8 +5,8 @@
   
 .centering_item {
   background-color: #ffffff;  /* 背景色指定 */
-  width: 80%;                 /* 幅指定 */
-  /* padding: 0px; */
+  width: 50%;
+  max-width: 80%;                 /* 幅指定 */
   margin:  0 auto;              /* 中央寄せ */
 }
 
@@ -21,6 +21,11 @@ img {
   text-align: center;
   max-width: 100%; /* スマートフォンで画像の幅を100%にする */
   width: 300px; /* PCで画像の幅を300pxにする */
+}
+
+.icon{
+  text-align: center;
+  width: 1em
 }
   
   
