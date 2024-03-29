@@ -4,8 +4,8 @@
   
 .centering_item {
   background-color: #ffffff;  /* 背景色指定 */
-  width: 500px;                 /* 幅指定 */
-  padding: 10px;
+  width: 100%;                 /* 幅指定 */
+  padding: 50px;
   margin:  0 auto;              /* 中央寄せ */
 }
 
