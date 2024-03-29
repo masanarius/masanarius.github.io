@@ -1,11 +1,10 @@
 .centering_parent {
   background-color: #ffffff;    /* 背景色指定 */
-  
 }
   
 .centering_item {
   background-color: #ffffff;  /* 背景色指定 */
-  width: 100%;        /* 幅指定 */
+  width: 80%;                   /* 幅指定 */
   margin:  0 auto;              /* 中央寄せ */
 }
 
