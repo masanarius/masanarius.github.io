@@ -1,5 +1,5 @@
 .container {
-  background-color: #ffffff;  /* 背景色指定 */
+  background-color: var(--background); /* 背景色指定 */
 }
 
 @media (min-width: 768px) {
@@ -21,7 +21,9 @@
 
 :root{
   --accent : #ff4631; 
-  --pale: #888;
+  --pale: #caa;
+  --text: #323232;
+  --background: #fff;
 }
 
 img {
@@ -43,7 +45,7 @@ h1,h2 {
   font-size: 1.2em;
   font-weight: bolder;
   line-height: 1.5;
-  color: #333; /* テキストの色を指定 */
+  color: var(--text); /* テキストの色を指定 */
 }
 
 h3, h4, p, td, li {
@@ -51,7 +53,7 @@ h3, h4, p, td, li {
   font-size: 1em;
   font-weight: normal;
   line-height: 1.5;
-  color: #333; /* テキストの色を指定 */
+  color: var(--text); /* テキストの色を指定 */
 }
 
 
@@ -79,13 +81,13 @@ th, td {
 }
 
 a {
-  color: #333; /* リンクの色を指定 */
+  color: var(--text); /* リンクの色を指定 */
   text-decoration: none; /* リンクの下線を表示 */
 }
 
 /* マウスオーバー時のリンクのスタイル */
 a:hover {
-  color: #ff4631; /* マウスオーバー時のリンクの色を指定 */
+  color: var(--accent); /* マウスオーバー時のリンクの色を指定 */
   text-decoration: none; /* マウスオーバー時のリンクの下線を非表示 */
 }
 
