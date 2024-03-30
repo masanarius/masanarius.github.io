@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masanari ICHIKAWA</title>
+    <title>Home | Masanari ICHIKAWA</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="img/favicon.png">
 </head>
 
 <body>
@@ -38,38 +39,21 @@
 
         <!-- ヘッダー ここまで -->
 
-        <style>
-            img{
-                width: 100%;
-                margin: 0 auto;
-                border: 1px solid var(--text);
-            }
-
-            p{
-                text-align: center;
-            }
-
-            .box {
-                padding: 0.5em 1em;
-                margin: 1em 0;
-                font-weight: bold;
-                border: solid 1px var(--text);
-            }
-        </style>
-
         <div style="height: 2em;"></div>
-        <div style="text-align: center;"><img id="card" src="img/card/businesscard/masanari_ichikawa_jp.jpg" alt="市川雅也">
+        <div style="text-align: center;"><img id="card" src="img/card/businesscard/masanari_ichikawa_jp.jpg" alt="市川雅也" class="poster">
         </div>
 
-        <p>Hold down the card to download</p>
+        <div style="text-align: center;">
+            <p>Hold down the card to download</p>
+        </div>
 
         <div style="height: 1em;"></div>
         <div style="text-align: center;">
-            <div class="box">
-                <a onclick="changeImage('img/card/businesscard/masanari_ichikawa_jp.jpg')"><b>日本語版</b></a>
+            <div class="box" onclick="changeImage('img/card/businesscard/masanari_ichikawa_jp.jpg')">
+               日本語版
             </div>
-            <div class="box">
-                <a onclick="changeImage('img/card/businesscard/masanari_ichikawa_en.jpg')"><b>English ver.</b></a>
+            <div class="box" onclick="changeImage('img/card/businesscard/masanari_ichikawa_en.jpg')">
+                English ver.
             </div>
         </div>
 

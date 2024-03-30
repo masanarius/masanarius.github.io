@@ -22,6 +22,7 @@
 :root{
   --accent : #ff4631; 
   --pale: #aaa;
+  --faint: #ddd;
   --text: #323232;
   --background: #fff;
 }
@@ -30,6 +31,12 @@ img {
   text-align: center;
   max-width: 100%; /* スマートフォンで画像の幅を100%にする */
   width: 300px; /* PCで画像の幅を300pxにする */
+}
+
+.poster{/* 画像に枠線をつける */
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid var(--text);
 }
 
 .icon{
@@ -98,15 +105,27 @@ padding: 0em 1em; /* リスト全体のパディングをリセット */
 
 .bg {
   background-color: var(--background);
-  color: var(--pale);
+  color: var(--faint);
   display: inline-block;
   padding: 4px 8px;
-  border: 1px solid var(--pale) /* 枠のスタイルを指定 */
+  border: 1px solid var(--faint) /* 枠のスタイルを指定 */
 }
 
 .bg:hover {
-  background-color: var(--pale); /* カーソルを乗せた時の背景色 */
+  background-color: var(--faint); /* カーソルを乗せた時の背景色 */
   color: var(--background); /* カーソルを乗せた時のテキスト色 */
+}
+
+.box {
+  padding: 0.5em 1em;
+  margin: 1em 0;
+  font-weight: bold;
+  border: solid 1px var(--text);
+}
+
+.box:hover{
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 
