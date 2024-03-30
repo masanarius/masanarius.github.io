@@ -96,4 +96,8 @@ margin: 0; /* リスト全体のマージンをリセット */
 padding: 0em 1em; /* リスト全体のパディングをリセット */
 }
 
+.hidden {
+  display: none;
+}
+
 
