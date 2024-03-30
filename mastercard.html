@@ -44,7 +44,18 @@
             img{
                 width: 100%;
                 margin: 0 auto;
-                border: 1px solid black;
+                border: 1px solid var(--text);
+            }
+
+            p{
+                text-align: center;
+            }
+
+            .box {
+                padding: 0.5em 1em;
+                margin: 1em 0;
+                font-weight: bold;
+                border: solid 1px var(--text);
             }
         </style>
 
@@ -54,22 +65,32 @@
         <div style="height: 2em;"></div>
 
         
-        <div style="height: 2em;"></div>
-
-        <div class="flex-container">
-            <a href="img/card/businesscard/masanari_ichikawa_qr.jpg" target="_blank"><b>QR-Mail</b></a>
-            <a href="img/card/businesscard/masanari_ichikawa_tel_qr.jpg" target="_blank"><b>QR-Tel</b></a>
-            <a href="img/card/website_qr.jpg" target="_blank"><b>QR-Website</b></a>
+        <div style="text-align: center;">
+            <div class="box">
+                <a href="img/card/businesscard/masanari_ichikawa_qr.jpg" target="_blank"><b>QR-Mail</b></a>
+            </div>
+            <div class="box">
+                <a href="img/card/businesscard/masanari_ichikawa_tel_qr.jpg" target="_blank"><b>QR-Tel</b></a>
+            </div>
+            <div class="box">
+                <a href="img/card/website_qr.jpg" target="_blank"><b>QR-Website</b></a>
+            </div>
         </div>
 
         <div style="height: 2em;"></div>
         <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
         <div style="height: 2em;"></div>
 
-        <div class="flex-container">
-            <a href="card.html">Card page</a>
-            <a href="telcard.html">Telcard page</a>
+        <div style="text-align: center;">
+            <div class="box">
+                <a href="card.html"><b>Card page</b></a>
+            </div>
+            <div class="box">
+                <a href="telcard.html"><b>Telcard page</b></a>
+            </div>
         </div>
+
+        
 
 
         <!-- フッター 開始 -->
