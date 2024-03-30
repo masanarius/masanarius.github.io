@@ -97,15 +97,17 @@ padding: 0em 1em; /* リスト全体のパディングをリセット */
 }
 
 .bg {
-  background-color: var(--pale);
-  color: var(--background);
+  background-color: var(--background);
+  color: var(--pale);
   display: inline-block;
-  padding: 8px;
+  padding: 4px 8px;
+  border: 1px solid var(--pale) /* 枠のスタイルを指定 */
 }
 
 .bg:hover {
   background-color: var(--text); /* カーソルを乗せた時の背景色 */
   color: var(--background); /* カーソルを乗せた時のテキスト色 */
 }
+
 
 
