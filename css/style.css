@@ -29,7 +29,7 @@
 img {
   text-align: center;
   max-width: 100%; /* スマートフォンで画像の幅を100%にする */
-  width: 250px; /* PCで画像の幅を300pxにする */
+  width: 300px; /* PCで画像の幅を300pxにする */
 }
 
 .icon{
