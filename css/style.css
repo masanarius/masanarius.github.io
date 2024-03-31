@@ -1,6 +1,7 @@
 .container {
   background-color: var(--background); /* 背景色指定 */
   width: 90%;
+  max-width: 40%;
   margin: 0 auto; /* 中央に配置 */
 }
 
@@ -21,12 +22,6 @@ img {
   width: 1em
 }
 
-
-@media (min-width: 500px) {
-  .container {
-    width: 40%; 
-  }
-}
 
 :root{
   --accent : #ff4631; 
