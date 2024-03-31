@@ -1,8 +1,13 @@
 .container {
   background-color: var(--background); /* 背景色指定 */
-  width: 90%;
-  max-width: 40%;
+  width: 40%;
   margin: 0 auto; /* 中央に配置 */
+}
+
+@media screen and (max-width: 600px){
+  .container{
+    width: 90%;
+  }
 }
 
 img {
