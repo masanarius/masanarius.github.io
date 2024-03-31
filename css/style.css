@@ -1,23 +1,15 @@
 .container {
   background-color: var(--background); /* 背景色指定 */
-}
-
-@media (min-width: 701px) {
-  .container {
-    width: 40%; /* PCではコンテナの幅を40%に */
-    margin: 0 auto; /* 中央に配置 */
-  }
+  width: 40%;
+  margin: 0 auto; /* 中央に配置 */
 }
 
 /* スマートフォン用のスタイル */
-@media (max-width: 700px) {
+@media (max-width: 500px) {
   .container {
     width: 90%; /* スマートフォンではコンテナの幅を80%に */
-    margin: 0 auto; /* 中央に配置 */
   }
 }
-
-
 
 :root{
   --accent : #ff4631; 
