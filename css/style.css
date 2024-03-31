@@ -12,7 +12,7 @@
 /* スマートフォン用のスタイル */
 @media (max-width: 767px) {
   .container {
-    width: 80%; /* スマートフォンではコンテナの幅を80%に */
+    width: 90%; /* スマートフォンではコンテナの幅を80%に */
     margin: 0 auto; /* 中央に配置 */
   }
 }
@@ -48,17 +48,17 @@ img {
   
   
 h1,h2 {
-  font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
   font-size: 1.3em;
   font-weight: bolder;
-  line-height: 1.5;
-  color: var(--text); /* テキストの色を指定 */
 }
 
 h3, h4, p, td, li, a{
-  font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
   font-size: 1em;
   font-weight: normal;
+}
+
+h1, h2, h3, h4, p, td, li, a {
+  font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
   line-height: 1.5;
   color: var(--text); /* テキストの色を指定 */
 }
