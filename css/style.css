@@ -113,6 +113,8 @@ padding: 0em 1em; /* リスト全体のパディングをリセット */
 .box {
   padding: 0.5em 1em;
   margin: 1em 0;
+  display: flex;
+  justify-content: center;
   font-weight: bold;
   border: solid 1px var(--text);
 }
