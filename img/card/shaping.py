@@ -3,13 +3,10 @@ from PIL import Image
 output_file_name = [
     'masanari_ichikawa_qr.jpg',
     'masanari_ichikawa_jp.jpg',
-    'masanari_ichikawa_en.jpg',
-    'masanari_ichikawa_tel_qr.jpg',
-    'masanari_ichikawa_tel_jp.jpg',
-    'masanari_ichikawa_tel_en.jpg'
+    'masanari_ichikawa_en.jpg'
 ]
 
-for i in range(1,7):
+for i in range(1,4):
     org_file_name = 'スライド' + str(i) + '.jpeg'
     print(org_file_name + ' is found')
     im = Image.open('businesscard_original/'+ org_file_name)
