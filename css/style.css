@@ -1,93 +1,172 @@
 .container {
-  background-color: var(--background); /* 背景色指定 */
+  background-color: var(--background);
+  /* 背景色指定 */
   width: 40%;
-  margin: 0 auto; /* 中央に配置 */
+  margin: 0 auto;
+  /* 中央に配置 */
 }
 
-@media screen and (max-width: 600px){
-  .container{
+
+
+@media screen and (max-width: 1000px) {
+  .container {
     width: 90%;
   }
+
+  .profbox {
+    width: 100%;
+  }
+
 }
 
 img {
   text-align: center;
   width: 100%;
-  max-width: 300px;
+  max-width: 350px;
 }
 
-.poster{/* 画像に枠線をつける */
+.poster {
+  /* 画像に枠線をつける */
   width: 100%;
   margin: 0 auto;
   border: 1px solid var(--text);
 }
 
-.icon{
+.icon {
   text-align: center;
   width: 1em
 }
 
-:root{
-  --accent : #ff4631; 
+
+
+:root {
+  --accent: #ff4631;
   --pale: #aaa;
   --faint: #ddd;
   --text: #323232;
   --background: #fff;
 }
-  
-h1,h2 {
-  font-size: 1.3em;
+
+h1 {
+  font-size: 2em;
   font-weight: bolder;
 }
 
-h3, h4, p, td, li, a{
+h2 {
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+
+.spaced-table {
+  border-spacing: 10px;
+  /* セル間のスペースを設定 */
+  border-collapse: separate;
+  /* セルの境界線を重ねない */
+}
+
+/* 行間のない表のスタイル */
+.compact-table {
+  border-spacing: 0px;
+  /* セル間のスペースをゼロに設定 */
+  border-collapse: collapse;
+  /* セルの境界線を重ねて表示 */
+}
+
+th,
+td {
+  padding: 10px;
+  /* デフォルトのパディング */
+  vertical-align: top;
+  /* セルの内容を上揃えにする */
+}
+
+.compact-table th,
+.compact-table td {
+  padding: 1px 10px 0px 0px;
+  /* 上下のパディングをゼロ、左右のパディングを10pxに設定 */
+}
+
+
+h3,
+h4,
+p,
+td,
+li,
+a {
   font-size: 1em;
   font-weight: normal;
 }
 
-h1, h2, h3, h4, p, td, li, a {
-  font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+h1,
+h2,
+h3,
+h4,
+td,
+li,
+a {
+  font-family: "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN", Arial, "メイリオ", sans-serif;
   line-height: 1.5;
-  color: var(--text); /* テキストの色を指定 */
+  color: var(--text);
+  /* テキストの色を指定 */
+}
+
+p {
+  font-family: "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN", Arial, "メイリオ", sans-serif;
+  line-height: 0;
+  color: var(--text);
+  /* テキストの色を指定 */
 }
 
 
-li{
+li {
   margin-bottom: 2em;
 }
 
-th, td {
+th,
+td {
   padding: 10px 10px 10px 0px;
-  vertical-align: top; /* セルの内容を上揃えにする */
+  vertical-align: top;
+  /* セルの内容を上揃えにする */
 }
 
 .flex-container {
   display: flex;
-  justify-content: center; /* リンクを均等に配置 */
+  justify-content: right;
+  /* リンクを均等に配置 */
 }
 
 .flex-container a {
-  margin-right: 20px; /* 各リンクの右側に20pxの間隔を設定 */
+  margin-right: 20px;
+  /* 各リンクの右側に20pxの間隔を設定 */
+  font-family: "Helvetica Neue";
 }
 
 .flex-container a:last-child {
-  margin-right: 0; /* 最後のリンクの右側の間隔を削除 */
+  margin-right: 0;
+  /* 最後のリンクの右側の間隔を削除 */
 }
 
 a {
-  color: var(--text); /* リンクの色を指定 */
-  text-decoration: none; /* リンクの下線を表示 */
+  color: var(--text);
+  /* リンクの色を指定 */
+  text-decoration: none;
+  /* リンクの下線を表示 */
 }
 
 /* マウスオーバー時のリンクのスタイル */
 a:hover {
-  color: var(--accent); /* マウスオーバー時のリンクの色を指定 */
-  text-decoration: none; /* マウスオーバー時のリンクの下線を非表示 */
+  color: var(--accent);
+  /* マウスオーバー時のリンクの色を指定 */
+  text-decoration: none;
+  /* マウスオーバー時のリンクの下線を非表示 */
 }
 
-ul,ol {
-margin: 0; /* リスト全体のマージンをリセット */
-padding: 0em 1em; /* リスト全体のパディングをリセット */
+ul,
+ol {
+  margin: 0;
+  /* リスト全体のマージンをリセット */
+  padding: 0em 1em;
+  /* リスト全体のパディングをリセット */
 }
 
 .bg {
@@ -95,12 +174,15 @@ padding: 0em 1em; /* リスト全体のパディングをリセット */
   color: var(--faint);
   display: inline-block;
   padding: 4px 8px;
-  border: 1px solid var(--faint) /* 枠のスタイルを指定 */
+  border: 1px solid var(--faint)
+    /* 枠のスタイルを指定 */
 }
 
 .bg:hover {
-  background-color: var(--faint); /* カーソルを乗せた時の背景色 */
-  color: var(--background); /* カーソルを乗せた時のテキスト色 */
+  background-color: var(--faint);
+  /* カーソルを乗せた時の背景色 */
+  color: var(--background);
+  /* カーソルを乗せた時のテキスト色 */
 }
 
 .box {
@@ -112,7 +194,7 @@ padding: 0em 1em; /* リスト全体のパディングをリセット */
   border: solid 1px var(--text);
 }
 
-.box:hover{
+.box:hover {
   border-color: var(--accent);
   color: var(--accent);
 }
