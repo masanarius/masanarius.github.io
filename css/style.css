@@ -110,6 +110,10 @@ a {
   /* テキストの色を指定 */
 }
 
+rt {
+  font-size: 0.4em;
+}
+
 p {
   font-family: "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN", Arial, "メイリオ", sans-serif;
   line-height: 0;
