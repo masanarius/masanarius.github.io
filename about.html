@@ -11,206 +11,62 @@
 
 <body>
     <div class="container">
+        <header>
+            <nav>
+                <ul id="menu" class="menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="publication.html">Publication</a></li>
+                    <li><a href="news.html">News</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <button id="lang-switch" class="lang-btn">EN</button>
+            </nav>
+        </header>
 
-        <!-- ヘッダー 開始 -->
-        <div style="height: 2em;"></div>
-        <div class="flex-container">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="publication.html">Publications</a>
-            <a href="news.html">News</a>
-            <a href="en/about.html">ENG</a>
-        </div>
-        <div style="height: 2em;"></div>
+        <div style="height: 1rem;"></div>
 
-        <!-- ヘッダー ここまで -->
-
-        <div style="height: 5em;"></div>
         <h1>About</h1>
-        <div style="height: 5em;"></div>
 
-        <h2>プロフィール</h2>
-
-        <table class="full-width">
-            <tr>
-                <td>👨‍🎓</td>
-                <td>市川 雅也 （いちかわ まさなり）</td>
-            </tr>
-            <tr>
-                <td>🎓</td>
-                <td>修士（情報学）</td>
-            </tr>
-            <tr>
-                <td>🎂</td>
-                <td>1999年12月5日 生まれ</td>
-            </tr>
-            <tr>
-                <td>🏠</td>
-                <td>静岡県静岡市 出身・浜松市 在住</td>
-            </tr>
-            <tr>
-                <td>🏫</td>
-                <td>静岡大学 創造科学技術大学院 自然科学系教育部 在籍 （博士学生）</td>
-            </tr>
-            <tr>
-                <td>🔬</td>
-                <td>認知的コミュニケーション研究室 所属</td>
-            </tr>
+        <h2 data-key="about.profile"></h2>
+        <table class="dot-table" id="profile-table">
+            <tbody></tbody>
         </table>
+        <button class="button" data-key="about.show-more-profile"></button>
 
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
-
-        <h2>宛先</h2>
-
-        <table class="full-width">
-            <tr>
-                <td>📮</td>
-                <td>〒432-8011 静岡県浜松市中央区城北3-5-1 静岡大学 浜松キャンパス</td>
-            </tr>
-            <tr>
-                <td>📧</td>
-                <td>ichikawa.masanari.18@shizuoka.ac.jp</td>
-            </tr>
-            <tr>
-                <td style="text-align: center;"><img src="img/facebook.png" class="icon"></td>
-                <td><a href="https://www.facebook.com/masanarius" target="_blank">@masanarius</a></td>
-            </tr>
+        <h2 data-key="about.education"></h2>
+        <table class="dot-table" id="education-table">
+            <tbody></tbody>
         </table>
+        <button class="button" data-key="about.show-more-education"></button>
 
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
+        <h2 data-key="about.work"></h2>
+        <ul id="work-container"></ul>
+        <button class="button" data-key="about.show-more-work"></button>
 
-        <h2>研究テーマ</h2>
+        <h2 data-key="about.management"></h2>
+        <ul id="management-container"></ul>
+        <button class="button" data-key="about.show-more-management"></button>
 
-        <ul>
-            <li>コンピュータを媒介した人のコミュニケーション<br>Computer Mediated Communication (CMC)</li>
-            <li>ネットワークを利用した共同学習・作業<br>Computer Supported Cooperative Learning/Working (CSCL/CSCW)</li>
-            <li>人と人工物とのインタラクション<br>Human-Agent Interaction (HAI)</li>
-        </ul>
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
-
-        <h2>学歴</h2>
-
-
-        <table class="full-width">
-            <tr>
-                <td><span style="color:var(--pale);">2024.04 - </span><br><b>静岡大学創造科学技術大学院</b></td>
-                <td><br>自然科学系教育部 情報科学専攻</td>
-            </tr>
-            <tr>
-                <td><span style="color:var(--pale);">2022.04 - 2024.03</span><br><b>静岡大学大学院</b></td>
-                <td><br>総合科学技術研究科 情報学専攻</td>
-            </tr>
-            <tr>
-                <td><span style="color:var(--pale);">2018.04 - 2022.03</span><br><b>静岡大学</b></td>
-                <td><br>情報学部 情報科学科</td>
-            </tr>
-            <tr>
-                <td><span style="color:var(--pale);">2015.04 - 2018.03</span><br><b>常葉大学附属橘高等学校</b></td>
-                <td><br>英数科</td>
-            </tr>
-            <tr>
-                <td><span style="color:var(--pale);">2012.04 - 2015.03</span><br><b>静岡市立清水袖師中学校</b></td>
-            </tr>
-            <tr>
-                <td><span style="color:var(--pale);">2006.04 - 2012.03</span><br><b>静岡市立清水袖師小学校</b></td>
-            </tr>
-        </table>
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
-
-        <h2>職歴</h2>
-
-        <ul>
-            <li>
-                <b>国立大学法人 静岡大学 情報学部</b><br>
-                学術研究員<br>
-                <span style="color:var(--pale);">2023.12 - </span><br>
-                パート教務職員<br>
-                <span style="color:var(--pale);">2021.06 - </span>
-            </li>
-            <li>
-                <b>国立大学法人 静岡大学 創造科学技術大学院</b><br>
-                研究補佐員<br>
-                <span style="color:var(--pale);">2022.05 - </span>
-            </li>
-            <li>
-                <b>家庭教師</b><br>
-                <span style="color:var(--pale);">2023.08 - </span>
-            </li>
-            <li>
-                <b>株式会社TRGネットワーク 個別指導塾トライプラス助信校</b><br>
-                塾講師<br>
-                <span style="color:var(--pale);">2021.03 - 2024.03</span>
-            </li>
-            <li>
-                <b>静岡大学生活協同組合</b><br>
-                学生監事<br>
-                <span style="color:var(--pale);">2020.05 - 2021.05</span><br>
-                学生理事<br>
-                <span style="color:var(--pale);">2019.05 - 2020.05</span><br>
-                新入生サポートセンター／入学準備説明会スタッフ ほか<br>
-                <span style="color:var(--pale);">2019.01 - 2023.03（一時雇用）</span>
-            </li>
-        </ul>
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
-
-        <h2>マネジメント経験</h2>
-
-        <ul>
-            <li>
-                静岡大学 認知的コミュニケーション研究室 学生代表<br>
-                <span style="color:var(--pale);">2022.04 - 2023.03</span>
-            </li>
-            <li>
-                第21回 認知的コミュニケーションワークショップ 幹事<br>
-                <span style="color:var(--pale);">2022.09</span>
-            </li>
-            <li>
-                静岡大学生協学生委員会 学生委員長<br>
-                <span style="color:var(--pale);">2019.04 - 2020.03</span>
-            </li>
-            <li>
-                常葉大学附属橘高等学校 生徒会長<br>
-                <span style="color:var(--pale);">2016.11 - 2017.10</span>
-            </li>
-            <li>
-                静岡市立清水袖師中学校 学年委員長<br>
-                <span style="color:var(--pale);">2014.04 - 2015.03</span>
-            </li>
-            <li>
-                静岡市立清水袖師小学校 児童会執行部<br>
-                <span style="color:var(--pale);">2011.04 - 2012.03</span>
-            </li>
-
-        </ul>
-
-        <!-- フッター 開始 -->
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
-
-        <div style="text-align: center;">
-            <p>(C) 2024 <a href="index.html">Masanari ICHIKAWA</a></p>
-        </div>
-        <!-- フッター ここまで -->
-
-        <a class="pagetop" href="#">
-            <div class="pagetop__arrow"></div>
-        </a>
     </div>
+
+    <a class="pagetop" href="#">
+        <div class="pagetop_arrow"></div>
+    </a>
+
+    <!-- JavaScriptの読み込み -->
+    <script src="js/menu.js"></script>
+    <script src="js/general.js"></script>
+
+    <script src="js/about_profile.js"></script>
+    <script src="js/about_education.js"></script>
+    <script src="js/about_work.js"></script>
+    <script src="js/about_management.js"></script>
+
 </body>
 
 </html>

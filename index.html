@@ -11,110 +11,76 @@
 
 <body>
     <div class="container">
+        <header>
+            <nav>
+                <ul id="menu" class="menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="publication.html">Publication</a></li>
+                    <li><a href="news.html">News</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <button id="lang-switch" class="lang-btn">EN</button>
+            </nav>
+        </header>
 
-        <!-- ヘッダー 開始 -->
-        <div style="height: 2em;"></div>
-        <div class="flex-container">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="publication.html">Publications</a>
-            <a href="news.html">News</a>
-            <a href="en/index.html">EN</a>
-        </div>
-        <div style="height: 2em;"></div>
-
-        <!-- ヘッダー ここまで -->
-
-        <div style="text-align: center;"><img src="img/portrait.jpg" alt="いちかわまさなり" width="100%"></div>
-        <div style="height: 2em;"></div>
-
-        <h1>
-            <ruby>市川
-                <rt>いちかわ</rt>
-            </ruby>
-            <ruby>雅也
-                <rt>まさなり</rt>
-            </ruby>
-        </h1>
-
+        <div style="height: 1rem;"></div>
+        <div style="text-align: center;"><img src="img/portrait.jpg" alt="Masanari Ichikawa"></div>
+        <h1 data-key="home.name_with_ruby"></h1>
         <table class="compact-table">
             <tr>
                 <td>🧑‍🎓</td>
-                <td>博士学生（情報科学）</td>
+                <td data-key="home.position"></td>
             </tr>
             <tr>
                 <td>🏫</td>
-                <td>静岡大学 創造科学技術大学院</td>
+                <td data-key="home.institution"></td>
             </tr>
             <tr>
-                <td>📧</td>
-                <td>ichikawa.masanari.18@shizuoka.ac.jp</td>
+                <td>✏️</td>
+                <td data-key="home.description"></td>
             </tr>
         </table>
 
+        <button class="button" id='show-contact-detail' data-key="home.show-contact-detail"></button>
+        <div style="height: 1rem;"></div>
 
+        <div class="hidden-content" id="table-contact-detail">
+            <table class="compact-table">
+                <tr>
+                    <td>📮</td>
+                    <td data-key="home.address"></td>
+                </tr>
+                <tr>
+                    <td>📧</td>
+                    <td data-key="home.email"></td>
+                </tr>
+            </table>
+        </div>
 
-        <div style="height: 5em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
+        <h2 data-key="home.latest-news"></h2>
 
-
-        <h2>最新の活動</h2>
-
-        <table class="full-width">
-            <tr>
-                <td>
-                    <span style="color:var(--pale);">2024.08.23</span><br>
-                    あいち健康の森プラザホテル（知多郡）で開催された認知的コミュニケーションワークショップ2024で研究発表をしました．
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span style="color:var(--pale);">2024.05.31</span><br>
-                    アクトシティ浜松（浜松市）で開催された2024年度人工知能学会全国大会（第38回）で口頭発表をしました．また同会で現地スタッフを務めました．
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span style="color:var(--pale);">2024.04.01</span><br>
-                    静岡大学大学院自然科学系教育部情報科学専攻に入学しました．
-                </td>
-            </tr>
+        <table class="dot-table" id="news-table">
+            <tbody></tbody>
         </table>
 
-        <p style="text-align: right">
-            <a href="news.html" style="display:inline"> <u>See More</u></a>
-        </p>
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
-
-        <h2>最新の投稿</h2>
-        <div style="text-align: center;">
-            <iframe
-                src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fmasanarius%2Fposts%2Fpfbid029wEwYEkjY3pzHaNYfq8CgrVwR3jNcNDMkMn7qr4tbPo9ruP1TN7yZbLWx8jUuxdal&show_text=true&width=500&preview=comet_preview"
-                width="500" height="667" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
-                allowfullscreen="true"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-        </div>
+        <a href="news.html" class="button" data-key="home.show-more-news"></a>
 
 
-
-        <!-- フッター 開始 -->
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
-
-        <div style="text-align: center;">
-            <p>(C) 2024 <a href="index.html">Masanari ICHIKAWA</a></p>
-        </div>
-        <!-- フッター ここまで -->
         <a class="pagetop" href="#">
-            <div class="pagetop__arrow"></div>
+            <div class="pagetop_arrow"></div>
         </a>
-    </div>
+
+        <!-- JavaScriptの読み込み -->
+        <script src="js/menu.js"></script>
+        <script src="js/general.js"></script>
+        <script src="js/index_contact.js"></script>
+        <script src="js/index_news.js"></script>
+
 </body>
 
 </html>

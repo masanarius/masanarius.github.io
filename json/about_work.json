@@ -1,0 +1,92 @@
+{
+    "array": [
+        {
+            "position": {
+                "jp": "学術研究員",
+                "en": "Academic Researcher"
+            },
+            "company": {
+                "jp": "国立大学法人 静岡大学 情報学部",
+                "en": "Faculty of Informatics, National University Corporation Shizuoka University"
+            },
+            "period": {
+                "jp": "2023.12 - 現在",
+                "en": "Dec 2023 - Present"
+            }
+        },
+        {
+            "position": {
+                "jp": "研究補佐員",
+                "en": "Research Assistant"
+            },
+            "company": {
+                "jp": "国立大学法人 静岡大学 創造科学技術大学院",
+                "en": "Graduate School of Science and Technology, National University Corporation Shizuoka University"
+            },
+            "period": {
+                "jp": "2022.05 - 2023.03，2024.05 - 現在",
+                "en": "May 2022 - Mar 2023, May 2024 - Present"
+            }
+        },
+        {
+            "position": {
+                "jp": "パート教務職員",
+                "en": "Part-time Academic Staff"
+            },
+            "company": {
+                "jp": "国立大学法人 静岡大学 情報学部",
+                "en": "Faculty of Informatics, National University Corporation Shizuoka University"
+            },
+            "period": {
+                "jp": "2021.06 - 現在",
+                "en": "Jun 2021 - Present"
+            },
+            "description": {
+                "jp": "プログラミングやデータサイエンスなどの演習講義におけるティーチングアシスタント",
+                "en": "Teaching assistant for various practice courses, including programming and data science."
+            }
+        },
+        {
+            "position": {
+                "jp": "家庭教師",
+                "en": "Private Tutor"
+            },
+            "period": {
+                "jp": "2023.08 - 現在",
+                "en": "Aug 2023 - Present"
+            }
+        },
+        {
+            "position": {
+                "jp": "塾講師",
+                "en": "Tutoring School Instructor"
+            },
+            "company": {
+                "jp": "株式会社TRGネットワーク 個別指導塾トライプラス助信校",
+                "en": "TRG Network Inc., Try Plus Sukenobu School"
+            },
+            "period": {
+                "jp": "2021.03 - 2024.03",
+                "en": "Mar 2021 - Mar 2024"
+            }
+        },
+        {
+            "position": {
+                "jp": "学生スタッフ",
+                "en": "Student Staff"
+            },
+            "company": {
+                "jp": "静岡大学生活協同組合",
+                "en": "Shizuoka University Cooperative Association (Shizuoka Univ. CO-OP)"
+            },
+            "period": {
+                "jp": "2019.01 - 2023.03",
+                "en": "Jan 2019 - Mar 2023"
+            },
+            "description": {
+                "jp": "学生理事および学生監事（各1年間），毎春設置される新入生サポートセンターおよび入学準備説明会のスタッフ",
+                "en": "Served as a student director and auditor (one year each), and as staff for the Freshman Support Center and Admission Preparation Orientation held every spring."
+            }
+        }
+    ]
+}

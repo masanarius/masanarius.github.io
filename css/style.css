@@ -1,231 +1,435 @@
-.container {
-  background-color: var(--background);
-  /* 背景色指定 */
-  width: 40%;
-  margin: 0 auto;
-  /* 中央に配置 */
-}
-
-
-
-@media screen and (max-width: 1000px) {
-  .container {
-    width: 90%;
-  }
-
-  .profbox {
-    width: 100%;
-  }
-
-}
-
-img {
-  text-align: center;
-  width: 100%;
-  max-width: 350px;
-}
-
-.poster {
-  /* 画像に枠線をつける */
-  width: 100%;
-  margin: 0 auto;
-  border: 1px solid var(--text);
-}
-
-.icon {
-  text-align: center;
-  width: 1em
-}
-
-
-
 :root {
-  --accent: #ff4631;
-  --pale: #aaa;
-  --faint: #ddd;
-  --text: #323232;
-  --background: #fff;
+    --gray-dark: #333;
+    /* ダークグレーの背景色 */
+    --gray-medium: #888888;
+    /* ミディアムグレーのホバー時の背景色 */
+    --gray-light: #aaaaaaee;
+    /* ライトグレー */
+    --white: #FFFFFFEE;
+    /* 白色 */
+    --primary: #ff4631;
+    --secondary: #b83a23;
+
 }
+
+body {
+    margin: 0;
+    font-family: "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN", Arial, "メイリオ", sans-serif;
+    margin-bottom: 5rem;
+}
+
+.container {
+    margin: 0 auto;
+    /* 左右のマージンをautoにして中央寄せ */
+    text-align: center;
+    /* テキストや要素も中央寄せ */
+}
+
+header {
+    position: relative;
+    width: 100%;
+    background-color: var(--white);
+    /* ヘッダーの背景色を白に */
+    height: 60px;
+    display: flex;
+    align-items: center;
+    z-index: 998;
+}
+
+.button {
+    display: inline-block;
+    /* ボタンをインラインブロックにして中央寄せ */
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: transparent;
+    color: var(--gray-dark);
+    border: 2px solid var(--gray-dark);
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 20px auto;
+    width: 100%;
+    /* 左右のマージンをautoにして中央寄せ */
+}
+
+/* button:hover の修正（セレクタ名の修正） */
+.button:hover {
+    background-color: var(--gray-dark);
+    color: var(--white);
+}
+
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    justify-content: flex-end;
+    /* ナビゲーションリストを右揃え */
+    flex-grow: 1;
+    /* 言語ボタンの左にナビゲーションリストを配置 */
+}
+
+.menu li {
+    margin: 0;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: var(--gray-dark);
+    /* ナビゲーションメニューの文字色をダークグレーに */
+    padding: 5px;
+    display: block;
+
+
+}
+
+.menu li a:hover {
+    color: var(--primary);
+    text-decoration-line: underline;
+    /* 下線を指定 */
+    text-decoration-color: var(--primary);
+    /* 下線の色を指定 */
+    text-decoration-style: solid;
+    /* 下線のスタイル（solid, dashed, dottedなど） */
+    text-decoration-thickness: 3px;
+    text-underline-offset: 10px;
+    /* 下線の太さを指定 */
+    /* ホバー時の背景色をライトグレーに */
+}
+
+/* ハンバーガーメニューのスタイル */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.hamburger span {
+    display: block;
+    height: 4px;
+    background-color: var(--gray-dark);
+    /* ハンバーガーの色をダークグレーに */
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+/* メディアクエリで小さい画面時のスタイルを定義 */
+@media (max-width: 749px) {
+
+    .container {
+        width: 90%;
+    }
+
+    .menu {
+        position: fixed;
+        /* Fixes menu in place */
+        top: 0;
+        left: 0;
+        background-color: var(--white);
+        flex-direction: column;
+        width: 50%;
+        /* Covers the left half of the screen */
+        height: 0;
+        overflow: hidden;
+        justify-content: flex-start;
+        z-index: 999;
+        transition: height;
+        text-align: left;
+        padding: 0 18px;
+    }
+
+    .menu.open {
+        height: 100vh;
+        /* Full viewport height */
+    }
+
+    .menu li {
+        border-bottom: 1px solid var(--gray-medium);
+        /* Adds a bottom border to each list item */
+        padding: 10px 0;
+        /* Adds vertical padding for better spacing */
+    }
+
+    /* 1項目目の位置を下げる */
+    .menu li:first-child {
+        margin-top: 60px;
+        /* 調整したい分だけマージンを追加 */
+    }
+
+    .hamburger {
+        display: flex;
+        position: absolute;
+        top: 50%;
+        left: 0px;
+        transform: translateY(-50%);
+    }
+}
+
+
+
+/* メディアクエリ外：画面幅が広い場合 */
+@media (min-width: 750px) {
+
+    .container {
+        width: 40%;
+        min-width: 675px;
+    }
+
+
+    .hamburger {
+        display: none;
+    }
+
+    .menu {
+        display: flex;
+        align-items: center;
+        background-color: var(--white);
+        /* 広い画面でもメニューの背景を反転 */
+    }
+}
+
+.lang-btn {
+    margin-left: 20px;
+    /* ナビゲーションリスト内の項目と同じ間隔に設定 */
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: transparent;
+    /* 塗りつぶしなし */
+    color: var(--gray-dark);
+    /* 文字色はグレー */
+    border: 2px solid var(--gray-dark);
+    /* グレーの枠線 */
+    border-radius: 25px;
+    /* 左右を角丸に */
+    cursor: pointer;
+}
+
+.lang-btn:hover {
+    background-color: var(--gray-dark);
+    /* ホバー時に背景色をグレーに */
+    color: var(--white);
+    /* 文字色を白に反転 */
+}
+
+
+
+
+table {
+    margin: 0 auto;
+    text-align: left;
+    width: auto;
+    /* テーブル内のテキストは左寄せにして見やすく */
+}
+
+.compact-table {
+    margin: 0 auto;
+    text-align: left;
+    width: 100%;
+}
+
+.compact-table td,
+.compact-table th {
+    vertical-align: text-bottom;
+    /* 文字を上寄せ */
+}
+
+.compact-table td:first-child {
+    width: 2rem;
+    /* 1列目の幅を50pxに指定、必要に応じて変更 */
+}
+
+.dot-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto
+}
+
+.dot-table th,
+.dot-table td {
+    padding: 15px;
+    text-align: left;
+}
+
+.dot-table th {
+    font-weight: bold;
+}
+
+.dot-table td:first-child,
+.dot-table th:first-child {
+    min-width: 4rem;
+    /* white-space: nowrap; */
+    /* 最左列の幅を固定 */
+    font-weight: bold;
+    /* 文字を太字 */
+}
+
+.dot-table tr {
+    border-bottom: 1px dotted var(--gray-light);
+    /* 行は点線で仕切る */
+}
+
+
+
 
 h1 {
-  font-size: 2em;
-  font-weight: bolder;
+    font-size: 2.25rem;
+    color: var(--gray-dark);
+    text-align: center;
 }
 
 h2 {
-  font-size: 1.5em;
-  font-weight: bolder;
-}
-
-.spaced-table {
-  border-spacing: 10px;
-  /* セル間のスペースを設定 */
-  border-collapse: separate;
-  /* セルの境界線を重ねない */
-}
-
-/* 行間のない表のスタイル */
-.compact-table {
-  border-spacing: 0px;
-  /* セル間のスペースをゼロに設定 */
-  border-collapse: collapse;
-  /* セルの境界線を重ねて表示 */
-}
-
-th,
-td {
-  padding: 10px;
-  /* デフォルトのパディング */
-  vertical-align: top;
-  /* セルの内容を上揃えにする */
-}
-
-.compact-table th,
-.compact-table td {
-  padding: 1px 10px 0px 0px;
-  /* 上下のパディングをゼロ、左右のパディングを10pxに設定 */
-}
-
-
-h3,
-h4,
-p,
-td,
-li,
-a {
-  font-size: 1em;
-  font-weight: normal;
-}
-
-h1,
-h2,
-h3,
-h4,
-td,
-li,
-a {
-  font-family: "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN", Arial, "メイリオ", sans-serif;
-  line-height: 1.5;
-  color: var(--text);
-  /* テキストの色を指定 */
-}
-
-rt {
-  font-size: 0.4em;
+    padding-top: 3rem;
+    color: var(--secondary);
+    text-align: left;
 }
 
 p {
-  font-family: "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN", Arial, "メイリオ", sans-serif;
-  line-height: 0;
-  color: var(--text);
-  /* テキストの色を指定 */
+    color: var(--gray-dark);
+    font-size: 1rem;
+    margin: 0.25rem;
+    text-align: left;
 }
 
+#work-container,
+#management-containar {
+    text-align: left;
+    /* コンテナ内のテキストを左揃え */
+    padding-left: 1rem;
+    /* 左のインデントをなしにする */
+}
 
 li {
-  margin-bottom: 2em;
+
+    /* マーカーを左に戻す */
+    padding-left: 1em;
+    margin-bottom: 2rem;
+
 }
 
-th,
-td {
-  padding: 10px 10px 10px 0px;
-  vertical-align: top;
-  /* セルの内容を上揃えにする */
+.tight-ul {
+    padding-left: 1rem;
+    margin: 0;
 }
 
-.flex-container {
-  display: flex;
-  justify-content: right;
-  /* リンクを均等に配置 */
+.tight-li {
+    line-height: 1.5rem;
+    margin-bottom: 0rem;
 }
 
-.flex-container a {
-  margin-right: 20px;
-  /* 各リンクの右側に20pxの間隔を設定 */
-  font-family: "Helvetica Neue";
-}
-
-.flex-container a:last-child {
-  margin-right: 0;
-  /* 最後のリンクの右側の間隔を削除 */
-}
-
-a {
-  color: var(--text);
-  /* リンクの色を指定 */
-  text-decoration: none;
-  /* リンクの下線を表示 */
-}
-
-/* マウスオーバー時のリンクのスタイル */
-a:hover {
-  color: var(--accent);
-  /* マウスオーバー時のリンクの色を指定 */
-  text-decoration: none;
-  /* マウスオーバー時のリンクの下線を非表示 */
-}
-
-ul,
 ol {
-  margin: 0;
-  /* リスト全体のマージンをリセット */
-  padding: 0em 1em;
-  /* リスト全体のパディングをリセット */
+    padding-left: 1rem;
 }
 
-.bg {
-  background-color: var(--background);
-  color: var(--faint);
-  display: inline-block;
-  padding: 4px 8px;
-  border: 1px solid var(--faint)
-    /* 枠のスタイルを指定 */
+ul {
+    list-style-type: disc;
+    padding-left: 1rem;
+    /* Options: disc, circle, square */
 }
 
-.bg:hover {
-  background-color: var(--faint);
-  /* カーソルを乗せた時の背景色 */
-  color: var(--background);
-  /* カーソルを乗せた時のテキスト色 */
+
+
+.work-list-item p,
+.management-list-item p {
+    margin: 0.3rem 0;
+    text-align: left;
+    color: var(--gray-dark);
+    /* 各要素を左揃え */
 }
 
-.box {
-  padding: 0.5em 1em;
-  margin: 1em 0;
-  display: flex;
-  justify-content: center;
-  font-weight: bold;
-  border: solid 1px var(--text);
+.work-list-item .period,
+.management-list-item .period {
+    color: var(--gray-light);
 }
 
-.box:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+.work-list-item .description,
+.management-list-item p .description {
+    color: var(--gray-light);
+    font-size: 0.8rem;
+}
+
+
+
+
+img {
+    width: 350px;
+    height: 350px;
+    /* 正方形にするためにheightも300px */
+    border-radius: 50%;
+    /* 円形にする */
+    object-fit: cover;
+    /* 画像が正方形に収まるように調整 */
+}
+
+.hidden-content {
+    display: none;
+}
+
+/* 通常のリンクスタイル */
+a {
+    color: var(--gray-dark);
+    text-decoration: none;
+    /* 通常時は下線なし */
+    position: relative;
+}
+
+/* マウスオーバー時のリンクの色 */
+a:hover {
+    color: var(--primary);
+}
+
+/* マウスオーバー時にテキスト部分のみに下線を表示 */
+a:hover::before {
+    content: attr(data-text);
+    /* テキスト部分を表示 */
+    text-decoration: underline;
+    color: inherit;
+}
+
+/* 外部リンクに「>」マークを追加（下線なし） */
+a.external::after {
+    content: " >";
+    /* マーク */
+    font-weight: bold;
+    margin-left: 4px;
+    color: var(--primary);
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 .pagetop {
-  height: 50px;
-  width: 50px;
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  background: var(--background);
-  border: solid 2px var(--faint);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
+    height: 50px;
+    width: 50px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: var(--background);
+    border: solid 2px var(--gray-light);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
 }
 
-.pagetop__arrow {
-  height: 10px;
-  width: 10px;
-  border-top: 3px solid var(--faint);
-  border-right: 3px solid var(--faint);
-  transform: translateY(20%) rotate(-45deg);
+.pagetop_arrow {
+    height: 10px;
+    width: 10px;
+    border-top: 3px solid var(--gray-light);
+    border-right: 3px solid var(--gray-light);
+    transform: translateY(20%) rotate(-45deg);
 }

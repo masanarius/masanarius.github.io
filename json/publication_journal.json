@@ -1,0 +1,60 @@
+{
+    "array": [
+        {
+            "title": [
+                {
+                    "jp": "エージェントの援助に対する人の返報行動に立脚したHAIデザイン",
+                    "en": "HAI Design Based on People's Reprisal Behavior to Agents Assist"
+                }
+            ],
+            "author": [
+                {
+                    "jp": "<u>市川雅也</u>，坂本孝丈，竹内勇剛",
+                    "en": "<u>Masanari Ichikawa</u>, Takafumi Sakamoto, and Yugo Takeuchi"
+                }
+            ],
+            "conference": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "book": [
+                {
+                    "jp": "電子情報通信学会和文論文誌(A)",
+                    "en": "IEICE Transactions on Fundamentals of Electronics, Communications and Computer Sciences (Japanese Edition)"
+                }
+            ],
+            "vol": "Vol. 106-A",
+            "no": "No. 3",
+            "page": "pp. 114-124",
+            "day": "1",
+            "month": "Mar.",
+            "year": "2023",
+            "review": [
+                {
+                    "jp": "査読あり",
+                    "en": "Peer reviewed"
+                }
+            ],
+            "presentation": [
+                {
+                    "jp": "発表なし",
+                    "en": "Not presented"
+                }
+            ],
+            "location": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "misc": [
+                {
+                    "jp": "",
+                    "en": "Available in Japanese only"
+                }
+            ]
+        }
+    ]
+}

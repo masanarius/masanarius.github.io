@@ -1,0 +1,144 @@
+{
+    "array": [
+        {
+            "label": {
+                "jp": "氏名",
+                "en": "Name"
+            },
+            "content": {
+                "jp": "市川雅也（いちかわまさなり）",
+                "en": "Masanari Ichikawa"
+            }
+        },
+        {
+            "label": {
+                "jp": "役職",
+                "en": "Position"
+            },
+            "content": {
+                "jp": "博士学生（情報科学）",
+                "en": "Ph.D Student in Informatics"
+            }
+        },
+        {
+            "label": {
+                "jp": "所属",
+                "en": "Affiliation"
+            },
+            "content": {
+                "jp": "<a href='https://gsst.shizuoka.ac.jp' class='external' target='_blank'>静岡大学 創造科学技術大学院</a>",
+                "en": "<a href='https://gsst.shizuoka.ac.jp/?lang=en' class='external' target='_blank'>Graduate School of Science and Technology, Shizuoka University</a>"
+            }
+        },
+        {
+            "label": {
+                "jp": "研究室",
+                "en": "Laboratory"
+            },
+            "content": {
+                "jp": "<a href='http://cog.cs.inf.shizuoka.ac.jp' class='external' target='_blank'>認知的コミュニケーション研究室</a>",
+                "en": "<a href='http://cog.cs.inf.shizuoka.ac.jp/#' class='external' target='_blank'>Cognitive Communication Laboratory</a>"
+            }
+        },
+        {
+            "label": {
+                "jp": "研究分野",
+                "en": "Research Field"
+            },
+            "content": {
+                "jp": "<ul class=\"tight-ul\"><li class=\"tight-li\">コンピュータを介した人のコミュニケーション</li><li class=\"tight-li\">人とエージェントとのインタラクション</li></ul>",
+                "en": "<ul class=\"tight-ul\"><li class=\"tight-li\">Computer-Mediated Communication (CMC)</li><li class=\"tight-li\">Human-Agent Interaction (HAI)</li></ul>"
+            }
+        },
+        {
+            "label": {
+                "jp": "学位",
+                "en": "Degree"
+            },
+            "content": {
+                "jp": "修士（情報学）",
+                "en": "Master of Science in Informatics"
+            }
+        },
+        {
+            "label": {
+                "jp": "生年月日",
+                "en": "Date of Birth"
+            },
+            "content": {
+                "jp": "1999年12月5日",
+                "en": "December 5, 1999"
+            }
+        },
+        {
+            "label": {
+                "jp": "在住地",
+                "en": "Residence"
+            },
+            "content": {
+                "jp": "浜松市",
+                "en": "Hamamatsu City"
+            }
+        },
+        {
+            "label": {
+                "jp": "出身地",
+                "en": "Hometown"
+            },
+            "content": {
+                "jp": "静岡市",
+                "en": "Shizuoka City"
+            }
+        },
+        {
+            "label": {
+                "jp": "MBTI",
+                "en": "MBTI"
+            },
+            "content": {
+                "jp": "ENTP-A",
+                "en": "ENTP-A"
+            }
+        },
+        {
+            "label": {
+                "jp": "宛先",
+                "en": "Address"
+            },
+            "content": {
+                "jp": "<a href='https://ur0.jp/v8G5L' class='external' target='_blank'>〒432-8011 静岡県浜松市中央区城北3-5-1 静岡大学 浜松キャンパス 情報学部 認知的コミュニケーション研究室</a>",
+                "en": "<a href='https://ur0.jp/v8G5L' class='external' target='_blank'>Cognitive Communication Laboratory, Faculty of Informatics, Hamamatsu Campus, Shizuoka University, 3-5-1 Johoku, Chuo-ku, Hamamatsu, Shizuoka, 4328011, Japan</a>"
+            }
+        },
+        {
+            "label": {
+                "jp": "E-mail",
+                "en": "E-mail"
+            },
+            "content": {
+                "jp": "ichikawa.masanari.18@shizuoka.ac.jp",
+                "en": "ichikawa.masanari.18@shizuoka.ac.jp"
+            }
+        },
+        {
+            "label": {
+                "jp": "SNS",
+                "en": "SNS"
+            },
+            "content": {
+                "jp": "<a href='https://www.facebook.com/masanarius' class='external' target='_blank'>Facebook</a>",
+                "en": "<a href='https://www.facebook.com/masanarius' class='external' target='_blank'>Facebook</a>"
+            }
+        },
+        {
+            "label": {
+                "jp": "Website",
+                "en": "Website"
+            },
+            "content": {
+                "jp": "<a href='https://masanarius.github.io' class='external' target='_blank'>https://masanarius.github.io</a>",
+                "en": "<a href='https://masanarius.github.io' class='external' target='_blank'>https://masanarius.github.io</a>"
+            }
+        }
+    ]
+}

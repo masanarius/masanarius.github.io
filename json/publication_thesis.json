@@ -1,0 +1,116 @@
+{
+    "array": [
+        {
+            "title": [
+                {
+                    "jp": "参与構造理論に立脚したオンライン対話システムにおける多重参与デザイン",
+                    "en": "Multi-Dialogue Participation Design for Voice Communication System Based on Participation Structure"
+                }
+            ],
+            "author": [
+                {
+                    "jp": "<u>市川雅也</u>",
+                    "en": "<u>Masanari Ichikawa</u>"
+                }
+            ],
+            "conference": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "book": [
+                {
+                    "jp": "静岡大学大学院修士論文",
+                    "en": "Master's Thesis, Graduate School, Shizuoka University"
+                }
+            ],
+            "vol": "",
+            "no": "",
+            "page": "",
+            "day": "",
+            "month": "Mar",
+            "year": "2024",
+            "review": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "presentation": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "location": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "misc": [
+                {
+                    "jp": "指導教員：竹内勇剛",
+                    "en": "Supervisor: Yugo Takeuchi"
+                }
+            ]
+        },
+        {
+            "title": [
+                {
+                    "jp": "グラフ理論に基づくオンラインコミュニケーション量子化の試み",
+                    "en": "Attempt at Quantization of Online Communication Based on Graph Theory"
+                }
+            ],
+            "author": [
+                {
+                    "jp": "<u>市川雅也</u>",
+                    "en": "<u>Masanari Ichikawa</u>"
+                }
+            ],
+            "conference": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "book": [
+                {
+                    "jp": "静岡大学卒業論文",
+                    "en": "Bachelor's Thesis, Shizuoka University"
+                }
+            ],
+            "vol": "",
+            "no": "",
+            "page": "",
+            "day": "",
+            "month": "Mar",
+            "year": "2022",
+            "review": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "presentation": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "location": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "misc": [
+                {
+                    "jp": "指導教員：竹内勇剛",
+                    "en": "Supervisor: Yugo Takeuchi"
+                }
+            ]
+        }
+    ]
+}

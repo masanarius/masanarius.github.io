@@ -1,0 +1,60 @@
+{
+    "array": [
+        {
+            "title": [
+                {
+                    "jp": "2022年度HCS研究会賞",
+                    "en": "2022 HCS Workshop Award"
+                }
+            ],
+            "author": [
+                {
+                    "jp": "<u>市川雅也</u>，竹内勇剛",
+                    "en": "<u>Masanari Ichikawa</u> and Yugo Takeuchi"
+                }
+            ],
+            "conference": [
+                {
+                    "jp": "電子情報通信学会ヒューマンコミュニケーション基礎（HCS）研究会",
+                    "en": "IEICE Human Communication Society (HCS)"
+                }
+            ],
+            "book": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "vol": "",
+            "no": "",
+            "page": "",
+            "day": "",
+            "month": "Jan.",
+            "year": "2023",
+            "review": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "presentation": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "location": [
+                {
+                    "jp": "@京都府",
+                    "en": "＠Kyoto"
+                }
+            ],
+            "misc": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ]
+        }
+    ]
+}
