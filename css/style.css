@@ -417,13 +417,13 @@ html {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    background: var(--background);
+    background: var(--white);
     border: solid 2px var(--gray-light);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 1000;
 }
 
 .pagetop_arrow {
