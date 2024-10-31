@@ -297,10 +297,6 @@ table {
 .dot-table td {
     padding: 15px;
     text-align: left;
-    white-space: normal;
-    /* 折り返しを許容 */
-    word-break: break-word;
-    /* 長い単語も折り返す */
 }
 
 
@@ -365,6 +361,7 @@ li {
 .tight-li {
     line-height: 1.5rem;
     margin-bottom: 0rem;
+    padding-left: 0;
 }
 
 ol {

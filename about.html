@@ -34,7 +34,11 @@
         <h1>About</h1>
 
         <h2 data-key="about.profile"></h2>
-        <table class="dot-table" id="profile-table">
+        <table class="dot-table" id="profile-table" style="width: 100%; table-layout: fixed;">
+            <colgroup>
+                <col style="width: 6rem;">
+                <col style="width: calc(100% - 6rem);">
+            </colgroup>
             <tbody></tbody>
         </table>
         <button class="button" data-key="about.show-more-profile"></button>
