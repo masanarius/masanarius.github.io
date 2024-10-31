@@ -206,6 +206,25 @@ nav {
         left: 0px;
         transform: translateY(-50%);
     }
+
+    #profile-table {
+        width: 100%;
+        table-layout: fixed;
+        /* 固定幅レイアウト */
+    }
+
+    #profile-table .fixed-width-col {
+        width: 5rem;
+        /* 1列目の固定幅 */
+    }
+
+    #education-table col:first-child {
+        width: auto;
+        /* スマホでは幅を自動調整 */
+    }
+
+
+
 }
 
 
@@ -228,6 +247,22 @@ nav {
         align-items: center;
         background-color: var(--white);
         /* 広い画面でもメニューの背景を反転 */
+    }
+
+    #profile-table {
+        width: 100%;
+        table-layout: fixed;
+        /* 固定幅レイアウト */
+    }
+
+    #profile-table .fixed-width-col {
+        width: 9rem;
+        /* 1列目の固定幅 */
+    }
+
+    #education-table col:first-child {
+        width: 11rem;
+        /* 1列目の固定幅 */
     }
 }
 
