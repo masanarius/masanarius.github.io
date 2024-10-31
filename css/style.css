@@ -276,6 +276,7 @@ table {
 .compact-table td,
 .compact-table th {
     vertical-align: text-bottom;
+    padding: 2px;
     /* 文字を上寄せ */
 }
 
