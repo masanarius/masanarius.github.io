@@ -293,7 +293,7 @@ table {
 
 .dot-table th,
 .dot-table td {
-    padding: 15px;
+    padding: 15px 5px;
     text-align: left;
 }
 
@@ -301,7 +301,7 @@ table {
 
 .dot-table td:first-child,
 .dot-table th:first-child {
-    /* min-width: 4rem; */
+    min-width: 4rem;
     /* white-space: nowrap; */
     /* 最左列の幅を固定 */
     font-weight: bold;
