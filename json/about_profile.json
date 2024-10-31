@@ -33,7 +33,7 @@
         {
             "label": {
                 "jp": "研究室",
-                "en": "Laboratory"
+                "en": "Lab"
             },
             "content": {
                 "jp": "<a href='http://cog.cs.inf.shizuoka.ac.jp' class='external' target='_blank'>認知的コミュニケーション研究室</a>",
@@ -73,7 +73,7 @@
         {
             "label": {
                 "jp": "在住地",
-                "en": "Residence"
+                "en": "Location"
             },
             "content": {
                 "jp": "浜松市",
@@ -83,7 +83,7 @@
         {
             "label": {
                 "jp": "出身地",
-                "en": "Hometown"
+                "en": "Origin"
             },
             "content": {
                 "jp": "静岡市",
