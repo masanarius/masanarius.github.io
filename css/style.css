@@ -124,6 +124,7 @@ nav {
     text-decoration-color: var(--primary);
     /* 下線の色を指定 */
     text-decoration-style: solid;
+
     /* 下線のスタイル（solid, dashed, dottedなど） */
     text-decoration-thickness: 3px;
     text-underline-offset: 10px;
@@ -190,6 +191,7 @@ nav {
 
     .menu li a:hover {
         text-decoration: none;
+        transform: scale(1.05);
     }
 
     /* 1項目目の位置を下げる */
