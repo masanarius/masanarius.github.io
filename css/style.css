@@ -261,7 +261,6 @@ nav {
 table {
     margin: 0 auto;
     text-align: left;
-    table-layout: fixed;
     width: 100%;
     /* テーブル全体がビューポート幅に収まる */
     max-width: 100vw;
