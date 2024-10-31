@@ -22,6 +22,7 @@ html {
 body {
     margin: 0;
     font-family: "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN", Arial, "メイリオ", sans-serif;
+    overflow-x: hidden;
 }
 
 
@@ -29,6 +30,8 @@ body {
     width: 100%;
     padding: 10px;
     text-align: center;
+    color: var(--white);
+    font-size: small;
     background-color: var(--secondary);
     /* 色を指定 (例: ダークグレー) */
     position: relative;
@@ -433,8 +436,11 @@ a.external::after {
     height: 50px;
     width: 50px;
     position: fixed;
+    /* 修正: 画面の固定位置に設定 */
     right: 20px;
+    /* 画面の右端から20px離す */
     bottom: 20px;
+    /* 画面の下端から20px離す */
     background: var(--white);
     border: solid 2px var(--gray-light);
     border-radius: 50%;
