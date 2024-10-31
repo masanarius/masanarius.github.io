@@ -47,6 +47,7 @@ body {
     /* 左右のマージンをautoにして中央寄せ */
     text-align: center;
     /* テキストや要素も中央寄せ */
+    margin-bottom: 4rem;
 }
 
 header {
@@ -258,7 +259,7 @@ nav {
 table {
     margin: 0 auto;
     text-align: left;
-    width: auto;
+    table-layout: fixed;
     width: 100%;
     /* テーブル全体がビューポート幅に収まる */
     max-width: 100vw;
