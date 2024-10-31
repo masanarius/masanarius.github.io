@@ -398,8 +398,9 @@ ul {
 
 
 img {
-    width: 350px;
-    height: 350px;
+    width: 70%;
+    max-width: 350px;
+    max-height: 350px;
     /* 正方形にするためにheightも300px */
     border-radius: 50%;
     /* 円形にする */
