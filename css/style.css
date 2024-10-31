@@ -81,6 +81,40 @@ header {
     color: var(--white);
 }
 
+.custom-button-container {
+    display: flex;
+    justify-content: space-between;
+    /* ボタンを中央に配置 */
+    gap: 10px;
+    /* ボタン間の隙間を設定 */
+}
+
+/* 左側のみ丸く、右側を角形にするカスタムスタイル */
+.custom-rounded-button-l {
+    margin-top: -10px;
+    width: 45%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.custom-rounded-button-r {
+    margin-top: -10px;
+    width: 45%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.custom-rounded-button-c {
+    margin-top: -10px;
+    width: 90%;
+}
+
+
+
+
+
+
+
 
 nav {
     display: flex;
@@ -440,6 +474,19 @@ img {
     /* 円形にする */
     object-fit: cover;
     /* 画像が正方形に収まるように調整 */
+}
+
+img.card {
+    width: 90%;
+    max-width: none;
+    max-height: none;
+    /* 元のサイズを維持 */
+    border-radius: 0%;
+    /* 角丸なし */
+
+    /* オブジェクトフィットを無効化 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
+    /* 影を追加 */
 }
 
 .hidden-content {

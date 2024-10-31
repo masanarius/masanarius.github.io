@@ -4,90 +4,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
+    <title>Gallery | Masanari ICHIKAWA</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="img/favicon.png">
+
+    <style>
+        /* ダウンロードボタン用スタイルのみ */
+        .custom-rounded-button-l,
+        .custom-rounded-button-r {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .custom-rounded-button-l:hover,
+        .custom-rounded-button-r:hover {
+            background-color: var(--primary);
+        }
+    </style>
 </head>
 
 <body>
+    <div class="band"></div>
     <div class="container">
-
-        <!-- ヘッダー 開始 -->
-
-        <!-- <div style="height: 2em;"></div>
-        <div style="text-align: center;"><img src="img/myimg/Nyhavn_sq.jpg" alt="こんにちは．市川雅也です．" width="50%"></div>
-        <div style="height: 2em;"></div>
-
-        <h1>Masanari ICHIKAWA<br><span style="font-size:85%;">Ph.D. Student in Informatics</span></h1>
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
-
-        <div class="flex-container">
-            <a href="index.html"><b>Home</b></a>
-            <a href="about.html"><b>About</b></a>
-            <a href="publication.html"><b>Publications</b></a>
-            <a href="news.html"><b>News</b></a>
-            <a href="contact.html"><b>Contact</b></a>
-        </div>
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div> -->
-
-        <!-- ヘッダー ここまで -->
 
         <h1>Gallery</h1>
 
-        <style>
-            img {
-                width: 100%;
-                margin: 0 auto;
-                border: 1px solid var(--text);
-            }
-        </style>
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><img src="gallery/jcss2024-P3-37.jpg" alt="Poster" class="poster"></div>
-
-
-        <a class="box" href="gallery/jcss2024-P3-37.jpg"><b>View Larger</b></a>
-        <a class="box" href="gallery/jcss2024-P3-37.jpg" download><b>Download JPG</b></a>
-        <a class="box" href="gallery/jcss2024-P3-37.pdf"><b>Download PDF</b></a>
-
-
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
-
-        <a class="box" href="index.html"><b>Presenter's Info</b></a>
-        <a class="box" href="card.html"><b>Meishi</b></a>
-
-        <!-- フッター 開始 -->
-
-        <!-- <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
-
-        <div class="flex-container">
-            <a href="index.html"><b>Home</b></a>
-            <a href="about.html"><b>About</b></a>
-            <a href="publication.html"><b>Publications</b></a>
-            <a href="news.html"><b>News</b></a>
-            <a href="contact.html"><b>Contact</b></a>
-        </div> -->
-
-        <!-- <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div> -->
-
         <div style="text-align: center;">
-            <p>(C) 2024 <a href="index.html">Masanari ICHIKAWA</a></p>
+            <div style="height: 10px;"></div>
+            <!-- 初期表示の画像 -->
+            <img id="card" class="card" src="poster/jcss2024-P3-37.jpg">
+            <div style="height: 10px;"></div>
         </div>
-        <!-- フッター ここまで -->
+
+        <div style="height: 50px;"></div>
+
+        <button class="button custom-rounded-button-c" onclick="window.location.href='poster/jcss2024-P3-37.jpg';">
+            View Larger
+        </button>
+
+
+
+        <div class="button-container">
+            <!-- 画像切り替えボタン -->
+            <button class="button custom-rounded-button-l" onclick="downloadFile('poster/jcss2024-P3-37.jpg')">Download
+                JPG</button>
+            <button class="button custom-rounded-button-r" onclick="downloadFile('poster/jcss2024-P3-37.pdf')">Download
+                PDF</button>
+        </div>
+
+
+
+        <div style="height: 50px;"></div>
+
+        <p style="text-align: center;">Author info <span style="color: var(--primary);">></span>
+            <a href="index.html" style="text-decoration: underline;">https://masanarius.github.io</a>
+        </p>
+
+
+
     </div>
+
+    <script>
+        function downloadFile(url) {
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = url.split('/').pop(); // ファイル名はURLから取得
+            link.click();
+        }
+    </script>
+
+
+
 
 </body>
 

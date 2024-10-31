@@ -4,92 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masanari ICHIKAWA</title>
+    <title>Business Card | Masanari ICHIKAWA</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="img/favicon.png">
+
+    <style>
+        /* ダウンロードボタン用スタイルのみ */
+        .custom-rounded-button-c {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .custom-rounded-button-c:hover {
+            background-color: var(--primary);
+        }
+    </style>
 </head>
 
 <body>
+    <div class="band"></div>
     <div class="container">
 
-        <!-- ヘッダー 開始 -->
-
-        <!-- <div style="height: 2em;"></div>
-        <div style="text-align: center;"><img src="img/myimg/Nyhavn_sq.jpg" alt="こんにちは．市川雅也です．" width="50%"></div>
-        <div style="height: 2em;"></div>
-
-
-        <h1>Masanari ICHIKAWA<br><span style="font-size:85%;">Ph.D. Student in Informatics</span></h1>
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
-
-        <div class="flex-container">
-            <a href="index.html"><b>Home</b></a>
-            <a href="about.html"><b>About</b></a>
-            <a href="publication.html"><b>Publications</b></a>
-            <a href="news.html"><b>News</b></a>
-            <a href="contact.html"><b>Contact</b></a>
-        </div>
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div> -->
-
-        <!-- ヘッダー ここまで -->
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><img id="card" src="img/card/businesscard/masanari_ichikawa_jp.jpg" alt="市川雅也"
-                class="poster">
-        </div>
+        <h1>Business Card</h1>
 
         <div style="text-align: center;">
-            <p>Hold down the card to download</p>
+            <div style="height: 100px;"></div>
+            <!-- 初期表示の画像 -->
+            <img id="card" class="card" src="img/masanari_ichikawa_jp.jpg" alt="Masanari Ichikawa">
+            <div style="height: 100px;"></div>
         </div>
 
-        <div style="height: 1em;"></div>
-        <div style="text-align: center;">
-            <div class="box" onclick="changeImage('img/card/businesscard/masanari_ichikawa_jp.jpg')">
-                日本語版
-            </div>
-            <div class="box" onclick="changeImage('img/card/businesscard/masanari_ichikawa_en.jpg')">
-                English ver.
-            </div>
+        <div class="button-container">
+            <!-- 画像切り替えボタン -->
+            <button class="button custom-rounded-button-l"
+                onclick="changeImage('img/masanari_ichikawa_jp.jpg', 'Japanese')">Japanese</button>
+            <button class="button custom-rounded-button-r"
+                onclick="changeImage('img/masanari_ichikawa_en.jpg', 'English')">English</button>
         </div>
 
-        <script>
-            function changeImage(imageName) {
-                document.getElementById('card').src = imageName;
-            }
-        </script>
+        <button id="downloadButton" class="button custom-rounded-button-c" onclick="downloadImage()">Download</button>
 
+        <div style="height: 50px;"></div>
 
+        <p style="text-align: center;">For more information <span style="color: var(--primary);">></span>
+            <a href="index.html" style="text-decoration: underline;">https://masanarius.github.io</a>
+        </p>
 
-
-        <!-- フッター 開始 -->
-
-        <!-- <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
-
-        <div class="flex-container">
-            <a href="index.html"><b>Home</b></a>
-            <a href="about.html"><b>About</b></a>
-            <a href="publication.html"><b>Publications</b></a>
-            <a href="news.html"><b>News</b></a>
-            <a href="contact.html"><b>Contact</b></a>
-        </div> -->
-
-        <div style="height: 2em;"></div>
-        <div style="text-align: center;"><span style="color:var(--accent);">- - -</span></div>
-        <div style="height: 2em;"></div>
-
-        <div style="text-align: center;">
-            <p>(C) 2024 <a href="index.html">Masanari ICHIKAWA</a></p>
-        </div>
-        <!-- フッター ここまで -->
     </div>
+
+    <script>
+        function changeImage(imageName, version) {
+            document.getElementById('card').src = imageName;
+            const downloadButton = document.getElementById("downloadButton");
+
+            // ボタンのテキストを更新
+            if (version === "Japanese") {
+                downloadButton.textContent = "Download Japanese ver.";
+            } else if (version === "English") {
+                downloadButton.textContent = "Download English ver.";
+            }
+        }
+
+        function downloadImage() {
+            const image = document.getElementById("card").src;
+            const link = document.createElement("a");
+            link.href = image;
+            link.download = "Masanari_Ichikawa.jpg";
+            link.click();
+        }
+    </script>
 
 </body>
 
