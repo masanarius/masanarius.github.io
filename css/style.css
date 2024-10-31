@@ -15,14 +15,13 @@
 
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     font-family: "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN", Arial, "メイリオ", sans-serif;
-
-}
-
-* {
-    box-sizing: border-box;
 }
 
 
@@ -38,6 +37,7 @@ body {
 
 
 .container {
+    width: 100%;
     margin: 0 auto;
     /* 左右のマージンをautoにして中央寄せ */
     text-align: center;
@@ -427,9 +427,7 @@ a.external::after {
     color: var(--primary);
 }
 
-html {
-    scroll-behavior: smooth;
-}
+
 
 .pagetop {
     height: 50px;
