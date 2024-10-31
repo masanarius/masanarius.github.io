@@ -50,3 +50,29 @@ window.onload = () => {
 
 // 言語切り替えボタンのクリックイベントを設定
 document.getElementById("lang-switch").addEventListener("click", toggleLanguage);
+
+
+const pagetopButton = document.querySelector(".pagetop");
+
+// ページロード時に最上部なら非表示に
+window.addEventListener("load", () => {
+    if (window.scrollY === 0) {
+        pagetopButton.style.opacity = "0";
+        pagetopButton.style.visibility = "hidden";
+    }
+});
+
+// スクロール時に表示・非表示を切り替え
+window.addEventListener("scroll", () => {
+    if (window.scrollY === 0) {
+        pagetopButton.style.transition = "opacity 1s ease";
+        pagetopButton.style.opacity = "0";
+        pagetopButton.style.visibility = "hidden";
+    } else {
+        pagetopButton.style.transition = "opacity 1s ease";
+        pagetopButton.style.opacity = "1";
+        pagetopButton.style.visibility = "visible";
+    }
+});
+
+
