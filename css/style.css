@@ -5,18 +5,32 @@
     /* ミディアムグレーのホバー時の背景色 */
     --gray-light: #aaaaaaee;
     /* ライトグレー */
-    --white: #FFFFFFEE;
+    --white: #FFFFFF;
+    --white-skeleton: #FFFFFFEE;
+    --background: #FFFFFF;
     /* 白色 */
-    --primary: #ff4631;
-    --secondary: #b83a23;
+    --primary: #EF4437;
+    --secondary: #d94736;
+    --secondary: #EF4437;
 
 }
 
 body {
     margin: 0;
     font-family: "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN", Arial, "メイリオ", sans-serif;
-    margin-bottom: 5rem;
+
 }
+
+.band {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--secondary);
+    /* 色を指定 (例: ダークグレー) */
+    position: relative;
+    /* スクロールに追従させる */
+}
+
 
 .container {
     margin: 0 auto;
@@ -138,7 +152,7 @@ nav {
         /* Fixes menu in place */
         top: 0;
         left: 0;
-        background-color: var(--white);
+        background-color: var(--white-skeleton);
         flex-direction: column;
         width: 50%;
         /* Covers the left half of the screen */
@@ -157,15 +171,15 @@ nav {
     }
 
     .menu li {
-        border-bottom: 1px solid var(--gray-medium);
+        /* border-bottom: 1px solid var(--gray-medium); */
         /* Adds a bottom border to each list item */
-        padding: 10px 0;
+        padding: 15px 0;
         /* Adds vertical padding for better spacing */
     }
 
     /* 1項目目の位置を下げる */
     .menu li:first-child {
-        margin-top: 60px;
+        margin-top: 80px;
         /* 調整したい分だけマージンを追加 */
     }
 
@@ -388,6 +402,7 @@ a {
 /* マウスオーバー時のリンクの色 */
 a:hover {
     color: var(--primary);
+    text-decoration: underline;
 }
 
 /* マウスオーバー時にテキスト部分のみに下線を表示 */
