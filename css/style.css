@@ -290,18 +290,20 @@ table {
 .dot-table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: auto
+    table-layout: auto;
 }
 
 .dot-table th,
 .dot-table td {
     padding: 15px;
     text-align: left;
+    white-space: normal;
+    /* 折り返しを許容 */
+    word-break: break-word;
+    /* 長い単語も折り返す */
 }
 
-.dot-table th {
-    font-weight: bold;
-}
+
 
 .dot-table td:first-child,
 .dot-table th:first-child {
@@ -400,7 +402,7 @@ ul {
 
 
 img {
-    width: 80%;
+    width: 90%;
     max-width: 400px;
     max-height: 400px;
     /* 正方形にするためにheightも300px */
