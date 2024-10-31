@@ -42,7 +42,7 @@
         },
         {
             "label": {
-                "jp": "研究分野",
+                "jp": "<span style=\"white-space: nowrap;\">研究分野</span>",
                 "en": "Research Field"
             },
             "content": {
@@ -62,7 +62,7 @@
         },
         {
             "label": {
-                "jp": "生年月日",
+                "jp": "<span style=\"white-space: nowrap;\">生年月日</span>",
                 "en": "Date of Birth"
             },
             "content": {
