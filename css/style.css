@@ -259,6 +259,10 @@ table {
     margin: 0 auto;
     text-align: left;
     width: auto;
+    width: 100%;
+    /* テーブル全体がビューポート幅に収まる */
+    max-width: 100vw;
+    /* ビューポート幅を超えないようにする */
     /* テーブル内のテキストは左寄せにして見やすく */
 }
 
