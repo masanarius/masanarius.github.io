@@ -2,6 +2,18 @@
     "array": [
         {
             "date": {
+                "jp": "2024.11.04",
+                "en": "4 Nov 2024"
+            },
+            "event": [
+                {
+                    "jp": "投稿論文の採択通知が届きました．タイトルは\"Online Communication Environment Design for Encouraging Reciprocal Use of Information among Groups.\"",
+                    "en": "The paper submitted has been accepted for publication. The title is \"Online Communication Environment Design for Encouraging Reciprocal Use of Information among Groups.\""
+                }
+            ]
+        },
+        {
+            "date": {
                 "jp": "2024.10.30",
                 "en": "30 Oct 2024"
             },

@@ -3,6 +3,62 @@
         {
             "title": [
                 {
+                    "jp": "Online Communication Environment Design for Encouraging Reciprocal Use of Information among Groups",
+                    "en": "Online Communication Environment Design for Encouraging Reciprocal Use of Information among Groups"
+                }
+            ],
+            "author": [
+                {
+                    "jp": "<u>Masanari Ichikawa</u> and Yugo Takeuchi",
+                    "en": "<u>Masanari Ichikawa</u> and Yugo Takeuchi"
+                }
+            ],
+            "conference": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "book": [
+                {
+                    "jp": "IEICE Transactions on Information and Systems, Special Section on Human Communication VI",
+                    "en": "IEICE Transactions on Information and Systems, Special Section on Human Communication VI"
+                }
+            ],
+            "vol": "",
+            "no": "",
+            "page": "",
+            "day": "1",
+            "month": "Jun.",
+            "year": "2025",
+            "review": [
+                {
+                    "jp": "査読あり",
+                    "en": "Peer reviewed"
+                }
+            ],
+            "presentation": [
+                {
+                    "jp": "発表なし",
+                    "en": "Not presented"
+                }
+            ],
+            "location": [
+                {
+                    "jp": "",
+                    "en": ""
+                }
+            ],
+            "misc": [
+                {
+                    "jp": "採録決定済み",
+                    "en": "Publication Approved"
+                }
+            ]
+        },
+        {
+            "title": [
+                {
                     "jp": "エージェントの援助に対する人の返報行動に立脚したHAIデザイン",
                     "en": "HAI Design Based on People's Reprisal Behavior to Agents Assist"
                 }
