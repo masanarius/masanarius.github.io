@@ -9,8 +9,8 @@
     --white-skeleton: #FFFFFFEE;
     --background: #FFFFFF;
     /* 白色 */
-    --primary: #E60012;
-    --secondary: #E60012;
+    --primary: #ff7f2e;
+    --secondary: var(--primary);
 
 }
 
@@ -508,11 +508,11 @@ a:hover {
 }
 
 /* マウスオーバー時にテキスト部分のみに下線を表示 */
-a:hover::before {
+a.external:hover {
     content: attr(data-text);
-    /* テキスト部分を表示 */
-    text-decoration: underline;
-    color: inherit;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--primary);
 }
 
 /* 外部リンクに「>」マークを追加（下線なし） */
