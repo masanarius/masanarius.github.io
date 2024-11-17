@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description"
+        content="市川雅也(いちかわまさなり)．静岡大学創造科学技術大学院に在籍している博士学生です．人の対話構造に調和するオンライン対話システムの研究と開発をしています．情報科学専攻．認知的コミュニケーション研究室所属．">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research | Masanari ICHIKAWA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+
+    <style>
+        .container {
+            width: 70%;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .flex-container figure {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 50%;
+            /* 必要に応じて幅を調整 */
+        }
+
+        .flex-container img {
+            object-fit: contain;
+            width: 100%;
+            height: auto;
+            border-radius: 0;
+        }
+
+        .flex-container .text {
+            flex: 1;
+        }
+
+        p {
+            padding-bottom: 0.5rem;
+        }
+
+        /* 表示幅が狭いときは縦並びにする */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            .flex-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .flex-container img {
+                max-width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="band"></div>
+    <div class="container">
+        <header>
+            <nav>
+                <ul id="menu" class="menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="research.html">Research</a></li>
+                    <li><a href="publication.html">Publication</a></li>
+                    <li><a href="news.html">News</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <button id="lang-switch" class="lang-btn">EN</button>
+            </nav>
+        </header>
+
+        <h1>Research</h1>
+
+        <h2>1. 人の対話構造に調和するオンライン対話環境の研究と開発</h2>
+        <div class="flex-container">
+            <figure>
+                <img src="img/inperson.png" alt="対面状況の対話場">
+                <figcaption>図1. 対面状況の対話の場</figcaption>
+            </figure>
+
+            <div>
+                <h3>「多重参与」できる対面状況，できないオンライン環境</h3>
+                <p>
+                    　教室やオフィスではしばしば，
+                </p>
+            </div>
+        </div>
+
+        <div class="flex-container">
+
+            <img src="img/online.png" alt="オンライン環境の対話場">
+            <div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+    <a class="pagetop" href="#">
+        <div class="pagetop_arrow"></div>
+    </a>
+    <div class="band">&copy; 2024 Masanari Ichikawa. All rights reserved.</div>
+    <!-- JavaScriptの読み込み -->
+    <script src="js/menu.js"></script>
+    <script src="js/general.js"></script>
+    <script src="js/index_contact.js"></script>
+    <script src="js/index_news.js"></script>
+</body>
+
+</html>

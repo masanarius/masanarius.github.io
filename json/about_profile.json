@@ -126,8 +126,8 @@
                 "en": "SNS"
             },
             "content": {
-                "jp": "<a href='https://www.facebook.com/masanarius' class='external' target='_blank'>Facebook</a>",
-                "en": "<a href='https://www.facebook.com/masanarius' class='external' target='_blank'>Facebook</a>"
+                "jp": "<ul class=\"tight-ul\"><li class=\"tight-li\"><a href='https://www.facebook.com/masanarius' class='external' target='_blank'>Facebook</a></li><li class=\"tight-li\"><a href='https://www.linkedin.com/in/masanari-ichikawa-1b5b25300/' class='external' target='_blank'>LinkedIn</a></li></ul>",
+                "en": "<ul class=\"tight-ul\"><li class=\"tight-li\"><a href='https://www.facebook.com/masanarius' class='external' target='_blank'>Facebook</a></li><li class=\"tight-li\"><a href='https://www.linkedin.com/in/masanari-ichikawa-1b5b25300/' class='external' target='_blank'>LinkedIn</a></li></ul>"
             }
         },
         {

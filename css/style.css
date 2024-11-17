@@ -397,6 +397,12 @@ h2 {
     text-align: left;
 }
 
+h3 {
+
+    color: var(--gray-medium);
+    text-align: left;
+}
+
 p {
     color: var(--gray-dark);
     font-size: 1rem;
