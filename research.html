@@ -12,7 +12,7 @@
 
     <style>
         .container {
-            width: 70%;
+            width: 80%;
         }
 
         .flex-container {
@@ -22,17 +22,12 @@
             gap: 20px;
         }
 
-        .flex-container figure {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 50%;
-            /* 必要に応じて幅を調整 */
-        }
-
         .flex-container img {
             object-fit: contain;
             width: 100%;
+            align-content: center;
+            margin: auto;
+            /* 追加: 真ん中に配置 */
             height: auto;
             border-radius: 0;
         }
@@ -46,7 +41,7 @@
         }
 
         /* 表示幅が狭いときは縦並びにする */
-        @media (max-width: 768px) {
+        @media (max-width: 1000px) {
             .container {
                 width: 90%;
             }
@@ -54,10 +49,12 @@
             .flex-container {
                 flex-direction: column;
                 align-items: flex-start;
+                margin-bottom: 4rem;
             }
 
             .flex-container img {
-                max-width: 100%;
+                max-width: 600px;
+                width: 100%;
             }
         }
     </style>
@@ -87,28 +84,53 @@
 
         <h1>Research</h1>
 
-        <h2>1. 人の対話構造に調和するオンライン対話環境の研究と開発</h2>
+        <h2>1: 人の対話構造に調和するオンライン対話環境の研究と開発</h2>
         <div class="flex-container">
-            <figure>
-                <img src="img/inperson.png" alt="対面状況の対話場">
-                <figcaption>図1. 対面状況の対話の場</figcaption>
-            </figure>
-
+            <img src="img/dialog_inperson.svg" alt="対面状況の対話場">
             <div>
-                <h3>「多重参与」できる対面状況，できないオンライン環境</h3>
-                <p>
-                    　教室やオフィスではしばしば，
+                <h3>研究の背景：人は日常的に対話を掛け持ちしている</h3>
+                <p style="text-align: justify; text-align-last: left;">
+                    　複数の対話が点在している状況において，人は複数の対話に掛け持ちして所属すること（多重参与）ができます。
+                    例えばオフィスやグループワーク中の教室では，あるグループに所属しながら，それと並行して近傍の人と内々に情報交換したり，そうした会話を傍聴・傍観したりすることがあります。
+                    こうした機会は私たち想定していなかった他者の画期的な意見や発想と触れられるキッカケを提供しており，
+                    オフィスや教室全体のコミュニケーションにおける創造性や了解性の向上に貢献しています。
                 </p>
             </div>
         </div>
 
         <div class="flex-container">
-
-            <img src="img/online.png" alt="オンライン環境の対話場">
+            <img src="img/dialog_online.svg" alt="オンライン環境における対話場">
             <div>
-
+                <h3>解決すべき問題：オンライン対話では対話の掛け持ちができない</h3>
+                <p style="text-align: justify; text-align-last: left;">
+                    　ところがオンライン環境では，ブレイクアウトルームのように対話ごと部屋が区切られることが一般的であり，複数の対話に同時に所属することは許容されていません。
+                    そのため上述したように，思いがけず会話が生じたり，それを通じて他者の優れた価値観に触れる機会を得たりすることは極めて困難な状況です。
+                    また各対話が外部から干渉を受けにくいため，同じ部屋の中の人たちの意見が均質化したり，偏向したりする結果，自身の態度と異なる意見に対し忌避的になることも指摘されています（この状況は「エコーチェンバー」と呼ばれています）。
+                    このように現在のオンライン対話環境は，知的な議論の場として利用する上で課題があり，これを解決する必要があります。
+                </p>
             </div>
         </div>
+
+        <button class="button" id='' data-key="">もっと詳しく見る</button>
+
+        <!-- <div class="hidden-content" id="table-contact-detail"> -->
+        <div class="flex-container">
+            <img src="img/dialog_theory.svg" alt="オンライン環境における対話場">
+            <div>
+                <h3>研究目的・内容</h3>
+                <p style="text-align: justify; text-align-last: left;">
+                    　本研究は対話するグループ同士が　多重参与を実現するオンライン対話環境の開発
+                </p>
+            </div>
+        </div>
+        <!-- </div> -->
+
+
+
+
+
+
+
 
 
 
