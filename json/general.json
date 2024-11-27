@@ -206,11 +206,9 @@
         ]
     },
     "research": {
-        "show-dialog-detail": [
-            {
-                "jp": "もっと見る",
-                "en": "Show More"
-            }
-        ]
+        "show-dialog-detail": {
+            "jp": "もっと見る",
+            "en": "Show More"
+        }
     }
 }
