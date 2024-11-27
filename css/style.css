@@ -398,10 +398,15 @@ h2 {
 }
 
 h3 {
+    margin-top: 0;
     margin-bottom: 0.5rem;
-    color: var(--gray-medium);
+    color: var(--white);
     text-align: left;
+    background-color: var(--gray-light);
+    padding-left: 1rem;
 }
+
+
 
 p {
     color: var(--gray-dark);

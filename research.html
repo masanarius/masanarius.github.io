@@ -18,48 +18,22 @@
         .flex-container {
             display: flex;
             flex-direction: row;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 1rem;
+            align-items: flex-start;
+            /* 全体的に上揃え */
+            gap: 50px;
+            margin-bottom: 2rem;
         }
 
         .flex-container img {
-            object-fit: contain;
+            align-self: flex-start;
+            /* 画像を明示的に上揃え */
             width: 100%;
-            align-content: center;
-            margin: auto;
-            /* 追加: 真ん中に配置 */
             height: auto;
-            border-radius: 0;
-        }
-
-        .flex-container .text {
-            flex: 1;
-        }
-
-        p {
-            padding-bottom: 0.5rem;
-        }
-
-        .banner {
-            margin: 2rem 0;
-            display: inline-block;
-            border: 2px solid transparent;
-            /* 枠線をデフォルトでは非表示 */
-            overflow: hidden;
-            /* 画像が枠をはみ出さないようにする */
-            transition: transform 0.3s, border-color 0.3s;
-            /* アニメーション効果 */
-        }
-
-        .banner img {
             display: block;
-            border-radius: 0%;
-            width: 100%;
-            max-width: 600px;
-            /* リンク全体に画像を広げる */
-            height: auto;
-            /* アスペクト比を維持 */
+            border-radius: 0;
+            /* 隙間を防止 */
+            margin: 0;
+            /* 不要な余白をリセット */
         }
 
         /* 表示幅が狭いときは縦並びにする */
@@ -82,9 +56,6 @@
                 height: auto;
                 /* 高さを自動調整 */
             }
-
-
-
         }
     </style>
 
@@ -113,7 +84,7 @@
 
         <h1>Research</h1>
 
-        <h2>1: 人の対話構造に調和するオンライン対話環境の研究と開発</h2>
+        <h2>人の対話構造に調和するオンライン対話環境の研究と開発</h2>
         <div class="flex-container">
             <img src="img/dialog_inperson.svg" alt="対面状況の対話場">
             <div>
@@ -153,6 +124,8 @@
                         それらに従事する人たちの創造性や了解性を向上させる対話環境デザインとして応用されることが期待されます。
                     </p>
 
+                    <div style="height: 2rem;"></div>
+
                     <h3>研究アプローチ：参与構造をグラフで記述する</h3>
                     <p>
                         　対話する人たちは「話し手」「受け手」「傍参与者」などの役割（参与役割）を持ち，その役割の構造を参与構造といいます。
@@ -173,7 +146,7 @@
             <div class="flex-container">
                 <img src="img/dialog_system.svg">
                 <div>
-                    <h3>特色と新規性：身体的・空間的な制約から解放された対話環境を目指していること</h3>
+                    <h3>研究の新規性：対面状況のインタラクションを模倣していないこと</h3>
                     <p>
                         　多くのオンライン対話研究では，「人の身体」に着目しこれを仮想空間で忠実に模倣することを通して臨場感を向上させることが試みられています。
                         これに対し本研究では「参与構造」に着目し，これをコンピュータを利用した対話に適したインタフェースによって実装しています。
@@ -183,25 +156,9 @@
                 </div>
             </div>
 
-            <a href="https://masanarius.github.io/grape" target="_blank" class="banner">
-                <img src="img/dialog_banner_jp.svg" alt="Banner 1">
-            </a>
-
 
 
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
     </div>
     <a class="pagetop" href="#">
