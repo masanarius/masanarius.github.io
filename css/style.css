@@ -398,7 +398,7 @@ h2 {
 }
 
 h3 {
-
+    margin-bottom: 0.5rem;
     color: var(--gray-medium);
     text-align: left;
 }
@@ -407,7 +407,7 @@ p {
     color: var(--gray-dark);
     font-size: 1rem;
     margin: 0.25rem;
-    text-align: left;
+    text-align: justify;
 }
 
 #work-container,
@@ -474,7 +474,7 @@ ul {
 img {
     width: 90%;
     max-width: 400px;
-    max-height: 400px;
+    /* max-height: 400px; */
     /* 正方形にするためにheightも300px */
     border-radius: 50%;
     /* 円形にする */

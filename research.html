@@ -20,6 +20,7 @@
             flex-direction: row;
             align-items: center;
             gap: 20px;
+            margin-bottom: 1rem;
         }
 
         .flex-container img {
@@ -40,6 +41,27 @@
             padding-bottom: 0.5rem;
         }
 
+        .banner {
+            margin: 2rem 0;
+            display: inline-block;
+            border: 2px solid transparent;
+            /* 枠線をデフォルトでは非表示 */
+            overflow: hidden;
+            /* 画像が枠をはみ出さないようにする */
+            transition: transform 0.3s, border-color 0.3s;
+            /* アニメーション効果 */
+        }
+
+        .banner img {
+            display: block;
+            border-radius: 0%;
+            width: 100%;
+            max-width: 600px;
+            /* リンク全体に画像を広げる */
+            height: auto;
+            /* アスペクト比を維持 */
+        }
+
         /* 表示幅が狭いときは縦並びにする */
         @media (max-width: 1000px) {
             .container {
@@ -54,8 +76,15 @@
 
             .flex-container img {
                 max-width: 600px;
+                /* 最大幅を600pxに制限 */
                 width: 100%;
+                /* 幅を親要素に合わせる */
+                height: auto;
+                /* 高さを自動調整 */
             }
+
+
+
         }
     </style>
 
@@ -89,7 +118,7 @@
             <img src="img/dialog_inperson.svg" alt="対面状況の対話場">
             <div>
                 <h3>研究の背景：人は日常的に対話を掛け持ちしている</h3>
-                <p style="text-align: justify; text-align-last: left;">
+                <p>
                     　複数の対話が点在している状況において，人は複数の対話に掛け持ちして所属すること（多重参与）ができます。
                     例えばオフィスやグループワーク中の教室では，あるグループに所属しながら，それと並行して近傍の人と内々に情報交換したり，そうした会話を傍聴・傍観したりすることがあります。
                     こうした機会は私たち想定していなかった他者の画期的な意見や発想と触れられるキッカケを提供しており，
@@ -102,7 +131,7 @@
             <img src="img/dialog_online.svg" alt="オンライン環境における対話場">
             <div>
                 <h3>解決すべき問題：オンライン対話では対話の掛け持ちができない</h3>
-                <p style="text-align: justify; text-align-last: left;">
+                <p>
                     　ところがオンライン環境では，ブレイクアウトルームのように対話ごと部屋が区切られることが一般的であり，複数の対話に同時に所属することは許容されていません。
                     そのため上述したように，思いがけず会話が生じたり，それを通じて他者の優れた価値観に触れる機会を得たりすることは極めて困難な状況です。
                     また各対話が外部から干渉を受けにくいため，同じ部屋の中の人たちの意見が均質化したり，偏向したりする結果，自身の態度と異なる意見に対し忌避的になることも指摘されています（この状況は「エコーチェンバー」と呼ばれています）。
@@ -111,35 +140,56 @@
             </div>
         </div>
 
-        <button class="button" id='' data-key="">もっと詳しく見る</button>
+        <button class="button" id='show-dialog-detail' data-key="research.show-dialog-detail">もっと見る</button>
 
-        <!-- <div class="hidden-content" id="table-contact-detail"> -->
-        <div class="flex-container">
-            <img src="img/dialog_system.svg" alt="オンライン環境における対話場">
-            <div>
-                <h3>研究目的：多重参与ができるオンライン対話環境を作ること</h3>
-                <p style="text-align: justify; text-align-last: left;">
-                    　そこで本研究は，対話するグループ同士の協調を実現するために，多重参与が可能なオンライン対話環境の開発に挑戦しています。
-                    本研究の成果は，今後普及が見込まれているバーチャル空間での対話環境のデザイン提案に貢献するものです。
-                    具体的には，教育や産業の現場など多人数が集うバーチャル空間におけるコミュニケーションの促進を通して，それらに従事する人たちの創造性や了解性の向上を目指しています。
-                </p>
+        <div class="hidden-content" id="dialog-detail">
+            <div class="flex-container">
+                <img src="img/dialog_theory.svg">
+                <div>
+                    <h3>研究目的：多重参与を実現するオンライン対話環境を作ること</h3>
+                    <p>
+                        　本研究は，オンライン環境で対話するグループ同士の協調を促進するために，多重参与を実現するオンライン対話システム開発しています。
+                        本研究の成果は，教育や産業の現場など多人数が集うバーチャル空間でのコミュニケーションを活性化し，
+                        それらに従事する人たちの創造性や了解性を向上させる対話環境デザインとして応用されることが期待されます。
+                    </p>
+
+                    <h3>研究アプローチ：参与構造をグラフで記述する</h3>
+                    <p>
+                        　対話する人たちは「話し手」「受け手」「傍参与者」などの役割（参与役割）を持ち，その役割の構造を参与構造といいます。
+                        対面では他者との距離や視線の向きなどの非言語情報から参与役割を察知し，適切に行動できます。
+                        しかしオンライン対話では非言語情報が制約され、役割の把握が難しく，これが多重参与が困難な原因となっています。
+                        そのためオンライン対話環境に参与構造を実装することが多重参与を実現する上でのカギとなります。
+                    </p>
+
+                    <p>
+                        　参与構造をシステムとして実装するには、記号で表現する必要があります。
+                        本研究では「人（ユーザ）」と「対話」の関係である参与役割をグラフ理論を用いて記述しています。
+                        グラフ理論はノード（点）とエッジ（線）を用いて物事の関係を表す離散数学で、参与構造を記述するのに適しています。
+                        これにより「ユーザノード」と「対話ノード」を結ぶ「参与エッジ」の接続や線幅の調整で、参与役割を表現できるようになります。
+                    </p>
+                </div>
             </div>
-        </div>
 
-        <div class="flex-container">
-            <img src="img/dialog_theory.svg" alt="オンライン環境における対話場">
-            <div>
-                <h3>課題に対するアプローチ：参与構造をグラフ構造で非言語的に記述する</h3>
-                <p style="text-align: justify; text-align-last: left;">
-                    　参与構造理論とは，人が対話の中でどのような役割を果たしたり，対話に対してどうどう関わるのかを分析するための対話科学の有名な理論です。
-                    グラフ理論とは事物の関係をノード（点）とエッジ（線）を使って表す離散数学の一種です。
-                    私の研究では，参与構造理論における「話し手」，「受け手」，「傍参与者」などの役割は，「人」と「対話」との「関係」であると定義しています。
-                    すると，「人ノード」と「対話ノード」
-
-                </p>
+            <div class="flex-container">
+                <img src="img/dialog_system.svg">
+                <div>
+                    <h3>特色と新規性：身体的・空間的な制約から解放された対話環境を目指していること</h3>
+                    <p>
+                        　多くのオンライン対話研究では，「人の身体」に着目しこれを仮想空間で忠実に模倣することを通して臨場感を向上させることが試みられています。
+                        これに対し本研究では「参与構造」に着目し，これをコンピュータを利用した対話に適したインタフェースによって実装しています。
+                        これによりユーザは身体的・空間的制約に束縛されることなく参与程度を調整／認識できるようになります。
+                        同時にこのことは，対面状況では構成が困難なあらゆる対話環境を，グラフの組み替えによって自在にデザイン／アレンジできるようになることを意味しています。
+                    </p>
+                </div>
             </div>
+
+            <a href="https://masanarius.github.io/grape" target="_blank" class="banner">
+                <img src="img/dialog_banner_jp.svg" alt="Banner 1">
+            </a>
+
+
+
         </div>
-        <!-- </div> -->
 
 
 
@@ -161,8 +211,8 @@
     <!-- JavaScriptの読み込み -->
     <script src="js/menu.js"></script>
     <script src="js/general.js"></script>
-    <script src="js/index_contact.js"></script>
-    <script src="js/index_news.js"></script>
+    <script src="js/research_dialog.js"></script>
+
 </body>
 
 </html>
