@@ -29,6 +29,7 @@
             /* 画像を明示的に上揃え */
             width: 100%;
             height: auto;
+            align-items: center;
             display: block;
             border-radius: 0;
             /* 隙間を防止 */
@@ -84,7 +85,7 @@
 
         <h1>Research</h1>
 
-        <h2>人の対話構造に調和するオンライン対話環境の研究と開発</h2>
+        <h2>1: 人の対話構造に調和するオンライン対話環境の研究と開発</h2>
         <div class="flex-container">
             <img src="img/dialog_inperson.svg" alt="対面状況の対話場">
             <div>
@@ -111,7 +112,7 @@
             </div>
         </div>
 
-        <button class="button" id='show-dialog-detail' data-key="research.show-dialog-detail"></button>
+        <button class="button" id='show-dialog-detail' data-key="research.show-dialog-detail">Show More</button>
 
         <div class="hidden-content" id="dialog-detail">
             <div class="flex-container">
@@ -136,7 +137,7 @@
 
                     <p>
                         　参与構造をシステムとして実装するには、記号で表現する必要があります。
-                        本研究では「人（ユーザ）」と「対話」の関係である参与役割をグラフ理論を用いて記述しています。
+                        本研究では「ユーザ（人）」と「対話」の関係である参与役割をグラフ理論を用いて記述しています。
                         グラフ理論はノード（点）とエッジ（線）を用いて物事の関係を表す離散数学で、参与構造を記述するのに適しています。
                         これにより「ユーザノード」と「対話ノード」を結ぶ「参与エッジ」の接続や線幅の調整で、参与役割を表現できるようになります。
                     </p>
@@ -155,9 +156,6 @@
                     </p>
                 </div>
             </div>
-
-
-
         </div>
 
     </div>

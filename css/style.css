@@ -403,7 +403,7 @@ h3 {
     color: var(--white);
     text-align: left;
     background-color: var(--gray-light);
-    padding-left: 1rem;
+    padding: 2px 1rem;
 }
 
 

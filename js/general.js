@@ -10,13 +10,12 @@ async function applyLanguage(lang) {
         // data-key 属性を基に一括でテキストを更新
         document.querySelectorAll("[data-key]").forEach(element => {
             const key = element.getAttribute("data-key");
+            console.log(`Processing key: ${key}`); // デバッグ用ログ
             const [mainKey, subKey] = key.split('.');
 
             let value;
-            if (mainKey === "lang-switch") {
-                value = texts["lang-switch"][0][lang];
-            } else if (texts[mainKey] && texts[mainKey][subKey]) {
-                value = texts[mainKey][subKey][0][lang]; // publication のような配列アクセス
+            if (texts[mainKey] && texts[mainKey][subKey]) {
+                value = texts[mainKey][subKey][0][lang];
             }
 
             if (value) {
@@ -25,6 +24,7 @@ async function applyLanguage(lang) {
                 console.warn(`Warning: '${key}' is not defined in the JSON file.`);
             }
         });
+
 
         // 言語切り替えボタンのラベルを更新
         const langSwitch = texts["lang-switch"][0];
