@@ -206,7 +206,13 @@
         ]
     },
     "research": {
-        "show-dialog-detail": [
+        "dialog": [
+            {
+                "jp": "1: 人の対話構造に調和するオンライン対話環境の研究と開発",
+                "en": "1: Research and development of online communication environments that harmonize with the structure of human conversations"
+            }
+        ],
+        "show-more-dialog": [
             {
                 "jp": "もっと見る",
                 "en": "Show More"

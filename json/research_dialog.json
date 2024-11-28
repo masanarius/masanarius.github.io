@@ -1,0 +1,74 @@
+{
+    "array": [
+        {
+            "title": {
+                "jp": "研究の背景：人は日常的に対話を掛け持ちしている",
+                "en": "Research Background: People Frequently Participate in Multiple Conversations"
+            },
+            "content": {
+                "jp": "複数の対話が点在している状況において，人は複数の対話に掛け持ちして所属すること（多重参与）ができます。例えばオフィスやグループワーク中の教室では，あるグループに所属しながら，それと並行して近傍の人と内々に情報交換したり，そうした会話を傍聴・傍観したりすることがあります。こうした機会は私たち想定していなかった他者の画期的な意見や発想と触れられるキッカケを提供しており，オフィスや教室全体のコミュニケーションにおける創造性や了解性の向上に貢献しています。",
+                "en": "In situations where multiple conversations coexist, people can participate in and belong to multiple conversations simultaneously (multi-dialogue participation). For example, in an office or a classroom during group work, individuals may belong to one group while simultaneously exchanging information privately with nearby individuals or observing and listening to other conversations. Such opportunities provide chances to encounter groundbreaking ideas and perspectives unexpectedly, thereby enhancing the creativity and mutual understanding within the overall communication in offices or classrooms."
+            },
+            "figure": {
+                "jp": "img/dialog_inperson_jp.svg",
+                "en": "img/dialog_inperson_en.svg"
+            }
+        },
+        {
+            "title": {
+                "jp": "解決すべき問題：オンライン対話では対話の掛け持ちができない",
+                "en": "Problem to Solve: Multi-Dialogue Participation is Restricted in Online Conversations"
+            },
+            "content": {
+                "jp": "ところがオンライン環境では，ブレイクアウトルームのように対話ごと部屋が区切られることが一般的であり，複数の対話に同時に所属することは許容されていません。そのため上述したように，思いがけず会話が生じたり，それを通じて他者の優れた価値観に触れる機会を得たりすることは極めて困難な状況です。また各対話が外部から干渉を受けにくいため，同じ部屋の中の人たちの意見が均質化したり，偏向したりする結果，自身の態度と異なる意見に対し忌避的になることも指摘されています（この状況は「エコーチェンバー」と呼ばれています）。このように現在のオンライン対話環境は，知的な議論の場として利用する上で課題があり，これを解決する必要があります。",
+                "en": "In online environments, it is common for conversations to be segregated into breakout rooms, and multi-dialogue participation is not typically permitted. This makes it extremely difficult to encounter spontaneous conversations or gain insights into others' outstanding perspectives. Furthermore, since each conversation is less susceptible to external influences, opinions within the same room tend to become homogenized or biased, leading to aversion toward differing opinions (a phenomenon known as the 'echo chamber'). These challenges highlight the need to address issues in current online communication environments for their use as platforms for intellectual discussions."
+            },
+            "figure": {
+                "jp": "img/dialog_online_jp.svg",
+                "en": "img/dialog_online_en.svg"
+            }
+        },
+        {
+            "title": {
+                "jp": "研究目的：多重参与を実現するオンライン対話環境を作ること",
+                "en": "Research Objective: Developing an Online Environment Allowing Multi-Dialogue Participation"
+            },
+            "content": {
+                "jp": "本研究は，オンライン環境で対話するグループ同士の協調を促進するために，多重参与を実現するオンライン対話システム開発しています。本研究の成果は，教育や産業の現場など多人数が集うバーチャル空間でのコミュニケーションを活性化し，それらに従事する人たちの創造性や了解性を向上させる対話環境デザインとして応用されることが期待されます。",
+                "en": "This research aims to develop an online dialogue system to facilitate collaboration between groups engaging in conversations. The outcomes of this study are expected to invigorate communication in virtual spaces where many people gather, such as in educational and industrial settings, and to contribute to designing dialogue environments that enhance the creativity and mutual understanding of the people involved."
+            },
+            "figure": {
+                "jp": "img/dialog_concept_jp.svg",
+                "en": "img/dialog_concept_en.svg"
+            }
+        },
+        {
+            "title": {
+                "jp": "研究アプローチ：参与構造をグラフで記述する",
+                "en": "Research Approach: Describing Participation Structures with Graphs"
+            },
+            "content": {
+                "jp": "対話する人たちは「話し手」「受け手」「傍参与者」などの役割（参与役割）を持ち，その役割の構造を参与構造といいます。対面では他者との距離や視線の向きなどの非言語情報から参与役割を察知し，適切に行動できます。しかしオンライン対話では非言語情報が制約され、役割の把握が難しく，これが多重参与が困難な原因となっています。そのためオンライン対話環境に参与構造を実装することが多重参与を実現する上でのカギとなります。 <br> <br> 参与構造をシステムとして実装するには、記号で表現する必要があります。本研究では「ユーザ（人）」と「対話」の関係である参与役割をグラフ理論を用いて記述しています。グラフ理論はノード（点）とエッジ（線）を用いて物事の関係を表す離散数学で、参与構造を記述するのに適しています。これにより「ユーザノード」と「対話ノード」を結ぶ「参与エッジ」の接続や線幅の調整で、参与役割を表現できるようになります。",
+                "en": "People engaged in a dialogue take on roles such as \"speaker,\" \"addressee,\" and \"side-participant,\" which are collectively referred to as participation roles. The structure of these roles is known as the participation framework. In face-to-face communication, participation roles can be inferred from nonverbal cues such as distance from others and gaze direction, enabling appropriate behavior. However, in online dialogues, nonverbal information is constrained, making it difficult to grasp roles, which is a primary reason why multi-participation is challenging. Thus, implementing the participation framework in online dialogue environments is key to enabling multi-dialogue participation. <br> <br> To implement the participation framework as a system, it needs to be expressed symbolically. This study uses graph theory to describe participation roles, which represent the relationships between \"users\" (humans) and \"dialogues.\" Graph theory, a branch of discrete mathematics, represents relationships using nodes (points) and edges (lines), making it well-suited for describing participation frameworks. By adjusting connections and line thicknesses of \"participation edges\" linking \"user nodes\" and \"dialogue nodes,\" participation roles can be effectively represented."
+            },
+            "figure": {
+                "jp": "img/dialog_theory_jp.svg",
+                "en": "img/dialog_theory_en.svg"
+            }
+        },
+        {
+            "title": {
+                "jp": "研究の新規性：対面状況のインタラクションを模倣していないこと",
+                "en": "Novelty of the Research: Avoiding Mimicking Face-to-Face Interactions"
+            },
+            "content": {
+                "jp": "多くのオンライン対話研究では，「人の身体」に着目しこれを仮想空間で忠実に模倣することを通して臨場感を向上させることが試みられています。これに対し本研究では「参与構造」に着目し，これをコンピュータを利用した対話に適したインタフェースによって実装しています。これによりユーザは身体的・空間的制約に束縛されることなく参与程度を調整／認識できるようになります。同時にこのことは，対面状況では構成が困難なあらゆる対話環境を，グラフの組み替えによって自在にデザイン／アレンジできるようになることを意味しています。",
+                "en": "Most online communication studies focus on replicating 'human body' interactions faithfully in virtual spaces to enhance a sense of realism. In contrast, this research emphasizes 'participation structures,' implementing them through interfaces tailored to computer-mediated communication. This approach allows users to adjust and recognize their degree of participation without being constrained by physical or spatial limitations. Additionally, this method enables the flexible design and arrangement of any conversational environment that would be challenging to configure in face-to-face scenarios, using graph-based recompositions."
+            },
+            "figure": {
+                "jp": "img/dialog_system.gif",
+                "en": "img/dialog_system.gif"
+            }
+        }
+    ]
+}

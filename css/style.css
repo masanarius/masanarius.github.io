@@ -413,6 +413,7 @@ p {
     font-size: 1rem;
     margin: 0.25rem;
     text-align: justify;
+    /* text-indent: 1rem; */
 }
 
 #work-container,
@@ -486,6 +487,8 @@ img {
     object-fit: cover;
     /* 画像が正方形に収まるように調整 */
 }
+
+
 
 img.card {
     width: 90%;
