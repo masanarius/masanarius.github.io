@@ -77,14 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to apply flex styles dynamically
     function applyFlexStyles(container) {
-        container.style.display = "flex";
-        container.style.alignItems = "flex-start"; // Align items at the top
-        container.style.gap = "50px"; // Space between elements
-        container.style.marginBottom = "2rem"; // Add space between dialog items
-
-
-
-
+        container.style.display = "flex"; // 基本的なフレックスボックス設定
     }
 
     // Initial load

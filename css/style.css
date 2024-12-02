@@ -259,6 +259,7 @@ nav {
 
 
 
+
 }
 
 
@@ -298,6 +299,10 @@ nav {
         width: 11rem;
         /* 1列目の固定幅 */
     }
+
+
+
+
 }
 
 .lang-btn {
@@ -404,6 +409,8 @@ h3 {
     text-align: left;
     background-color: var(--gray-light);
     padding: 2px 1rem;
+    display: block;
+    /* 行全体を占有する */
 }
 
 

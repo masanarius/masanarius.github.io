@@ -11,6 +11,28 @@
     <link rel="icon" type="image/png" href="img/favicon.png">
 
     <style>
+        /* ベーススタイル */
+        .item {
+            display: flex;
+            align-items: flex-start;
+            gap: 50px;
+            margin-bottom: 2rem;
+        }
+
+        .item img {
+            max-width: 100%;
+            /* 画像をコンテナ幅に収める */
+            height: auto;
+            /* アスペクト比を維持 */
+            order: 0;
+        }
+
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            order: 1;
+        }
+
         .container {
             width: 80%;
         }
@@ -18,25 +40,26 @@
         .flex-container img {
             align-self: flex-start;
             /* 画像を明示的に上揃え */
-            width: 100%;
+            width: 50%;
+            max-width: 400px;
+
             height: auto;
             display: block;
             border-radius: 0;
             /* 隙間を防止 */
             margin: auto;
             /* 不要な余白をリセット */
+
+        }
+
+        h3 {
+            border-top: 0px solid var(--gray-dark);
         }
 
         /* 表示幅が狭いときは縦並びにする */
         @media (max-width: 1000px) {
             .container {
                 width: 90%;
-            }
-
-            .flex-container {
-                flex-direction: column;
-                align-items: flex-start;
-                margin-bottom: 4rem;
             }
 
             .flex-container img {
@@ -46,9 +69,34 @@
                 /* 幅を親要素に合わせる */
                 height: auto;
                 /* 高さを自動調整 */
+
+            }
+
+            .item {
+                flex-direction: column;
+                /* コンテンツを縦に並べる */
+                align-items: center;
+                /* 中央揃えにする場合 */
+            }
+
+            /* 順序変更の追加スタイル */
+            .item img {
+                margin-bottom: 5rem;
+                order: 1;
+                /* 画像を後に表示 */
+            }
+
+            .text-container {
+                order: 0;
+                /* テキストを先に表示 */
+            }
+
+            h3 {
+                border-top: 2px solid var(--gray-dark);
             }
         }
     </style>
+
 
 </head>
 
