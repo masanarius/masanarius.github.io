@@ -41,16 +41,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Function to create each dialog item
+    // Function to create each dialog item
     function createElement(item, lang) {
         const container = document.createElement("div");
         container.classList.add("item");
 
-        // Figure as img
+        // Figure as img or video
         if (item.figure && item.figure[lang]) {
-            const figure = document.createElement("img");
-            figure.src = item.figure[lang];
-            figure.alt = `Figure for ${item.title[lang]}`;
-            container.appendChild(figure);
+            const figureUrl = item.figure[lang];
+
+            if (figureUrl.endsWith(".mp4")) {
+                // Create a <video> element for MP4
+                const video = document.createElement("video");
+                video.src = figureUrl;
+                video.controls = true; // Add controls for play/pause
+                video.autoplay = true; // Optional: autoplay
+                video.loop = true; // Optional: loop playback
+                video.muted = true; // Optional: mute by default
+                video.style.maxWidth = "100%"; // Ensure it fits within the container
+                container.appendChild(video);
+            } else {
+                // Create an <img> element for images
+                const img = document.createElement("img");
+                img.src = figureUrl;
+                img.alt = `Figure for ${item.title[lang]}`;
+                container.appendChild(img);
+            }
         }
 
         // Text container for h3 and p
@@ -74,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         return container;
     }
+
 
     // Function to apply flex styles dynamically
     function applyFlexStyles(container) {

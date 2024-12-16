@@ -418,6 +418,7 @@ h3 {
 p {
     color: var(--gray-dark);
     font-size: 1rem;
+
     margin: 0.25rem;
     text-align: justify;
     /* text-indent: 1rem; */
