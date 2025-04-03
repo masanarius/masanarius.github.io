@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Works | Masanari Ichikawa</title>
+  <link rel="icon" href="img/favicon.png" type="image/png">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+
+</head>
+
+<body class="bg-white text-gray-800 font-sans">
+  <header class="p-6 border-b flex justify-between items-center">
+    <a href="index.html" class="flex items-center space-x-2">
+      <img src="img/favicon.png" alt="Logo" class="w-6 h-6">
+      <span class="font-bold text-lg">Masanari Ichikawa</span>
+    </a>
+    <nav class="hidden md:flex gap-6 text-sm text-gray-600 items-center">
+      <a href="about.html" class="hover:text-black">About</a>
+      <a href="works.html" class="hover:text-black">Works</a>
+      <a href="contact.html" class="hover:text-black">Contact</a>
+      <button id="langToggle" onclick="toggleLang()"
+        class="lang-toggle rounded border border-gray-400 px-3 py-1 text-sm hover:bg-gray-100 transition-colors">English</button>
+    </nav>
+    <div class="md:hidden relative">
+      <button onclick="document.getElementById('menu').classList.toggle('hidden')" class="text-2xl">☰</button>
+      <div id="menu" class="hidden absolute right-0 mt-2 w-40 bg-white border rounded shadow p-4 space-y-2 text-sm">
+        <a href="about.html" class="block">About</a>
+        <a href="works.html" class="block">Works</a>
+        <a href="contact.html" class="block">Contact</a>
+        <hr class="my-2 border-t border-gray-300">
+        <button onclick="toggleLang()" id="langToggleMobile"
+          class="lang-toggle block text-left text-sm text-gray-600 hover:text-black">English</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto p-6 space-y-12">
+    <h1 class="text-4xl font-bold mt-2 mb-9">Works</h1>
+
+
+
+
+
+
+
+
+    <div id="card-container" class="space-y-8"></div>
+
+    <div id="category-index" class="flex flex-wrap justify-center gap-2 mb-6"></div>
+
+
+
+    <!-- フッターのようにページ末尾に配置 -->
+    <div class="text-center mt-12 mb-6">
+      <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+        class="bg-gray-700 text-white px-4 py-2 rounded-full shadow hover:bg-gray-800 transition">
+        ↑ Back to Top
+      </button>
+    </div>
+
+
+
+
+
+
+
+
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="js/langToggle.js" defer></script>
+
+  <script src="js/renderWorks.js" defer></script>
+
+</body>
+
+</html>

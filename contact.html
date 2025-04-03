@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Masanari Ichikawa</title>
+    <link rel="icon" href="img/favicon.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-white text-gray-800 font-sans">
+    <header class="p-6 border-b flex justify-between items-center">
+        <a href="index.html" class="flex items-center space-x-2">
+            <img src="img/favicon.png" alt="Logo" class="w-6 h-6">
+            <span class="font-bold text-lg">Masanari Ichikawa</span>
+        </a>
+        <nav class="hidden md:flex gap-6 text-sm text-gray-600 items-center">
+            <a href="about.html" class="hover:text-black">About</a>
+            <a href="works.html" class="hover:text-black">Works</a>
+            <a href="contact.html" class="hover:text-black">Contact</a>
+            <button id="langToggle" onclick="toggleLang()"
+                class="lang-toggle rounded border border-gray-400 px-3 py-1 text-sm hover:bg-gray-100 transition-colors">English</button>
+        </nav>
+        <div class="md:hidden relative">
+            <button onclick="document.getElementById('menu').classList.toggle('hidden')" class="text-2xl">☰</button>
+            <div id="menu"
+                class="hidden absolute right-0 mt-2 w-40 bg-white border rounded shadow p-4 space-y-2 text-sm">
+                <a href="about.html" class="block">About</a>
+                <a href="works.html" class="block">Works</a>
+                <a href="contact.html" class="block">Contact</a>
+                <hr class="my-2 border-t border-gray-300">
+                <button onclick="toggleLang()" id="langToggleMobile"
+                    class="lang-toggle block text-left text-sm text-gray-600 hover:text-black">English</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-6 space-y-12">
+
+
+        <section class="space-y-6">
+            <h1 class="text-4xl font-bold mt-2 mb-9">Contact</h1>
+
+            <!-- About me -->
+            <div class="flex items-start border rounded-lg shadow px-6 py-4">
+
+                <div class="w-full">
+                    <table class="text-sm text-gray-700 rounded w-full">
+                        <tbody>
+                            <!-- 宛先の行 -->
+                            <tr>
+                                <td class="leading-loose align-top text-left px-2 py-3 border-b font-semibold"
+                                    data-lang="ja">宛先</td>
+                                <td class="leading-loose align-top text-left px-2 py-3 border-b font-semibold"
+                                    data-lang="en">Address</td>
+                                <td class="leading-loose align-top px-2 py-3 border-b">
+
+                                    <!-- 日本語 -->
+                                    <span data-lang="ja">
+                                        〒432-8011 静岡県浜松市中央区城北3-5-1 静岡大学 浜松キャンパス 情報学部 J1514
+                                        <a href="https://qr.paps.jp/x53p" target="_blank"
+                                            class="ml-2 text-xs bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded-md inline-flex items-center gap-1 whitespace-nowrap align-middle">
+                                            Google Map
+                                            <img src="img/popup.png" alt="popup icon" class="w-3 h-3">
+                                        </a>
+                                    </span>
+
+                                    <!-- 英語 -->
+                                    <span data-lang="en">
+                                        J1514, Faculty of Informatics, Hamamatsu Campus, Shizuoka University, 3-5-1
+                                        Johoku,
+                                        Chuo-ku, Hamamatsu, Shizuoka, 4328011, Japan
+                                        <a href="https://qr.paps.jp/x53p" target="_blank"
+                                            class="ml-2 text-xs bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded-md inline-flex items-center gap-1 whitespace-nowrap align-middle">
+                                            Google Maps
+                                            <img src="img/popup.png" alt="popup icon" class="w-3 h-3">
+                                        </a>
+                                    </span>
+
+                                </td>
+                            </tr>
+
+
+
+
+                            <!-- メールアドレスの行 -->
+                            <tr>
+                                <td class="leading-loose align-top text-left px-2 py-3 border-b font-semibold">E-mail
+                                </td>
+                                <td class="leading-loose px-2 py-3 border-b">
+                                    ichikawa.masanari.18@shizuoka.ac.jp
+                                    <button id="copyEmailBtn" onclick="copyEmail()"
+                                        class="ml-2 text-xs bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded-md inline-flex items-center gap-1 whitespace-nowrap transition">
+                                        <span id="copyText">Copy</span>
+                                        <img src="img/copy.png" alt="Copy" class="w-4 h-4">
+                                    </button>
+                                </td>
+                            </tr>
+
+
+
+                            <tr>
+                                <td class="leading-loose align-top text-left px-2 py-3 border-b font-semibold">Website
+                                </td>
+                                <td class="leading-loose px-2 py-3 border-b">masanarius@github.io</td>
+
+                            </tr>
+
+                            <tr>
+                                <td class="leading-loose align-top text-left px-2 py-3 border-b font-semibold">SNS</td>
+                                <td class="leading-loose px-2 py-3 border-b">
+                                    <div class="flex flex-wrap gap-4">
+                                        <a href="https://www.facebook.com/masanarius" target="_blank"
+                                            class="text-sm bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded-md inline-flex items-center gap-1 whitespace-nowrap">
+                                            <img src="img/facebook.png" alt="Facebook" class="w-4 h-4">
+                                            Facebook
+                                            <img src="img/popup.png" alt="popup icon" class="w-3 h-3">
+                                        </a>
+                                        <a href="https://www.linkedin.com/in/masanari-ichikawa-1b5b25300/"
+                                            target="_blank"
+                                            class="text-sm bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded-md inline-flex items-center gap-1 whitespace-nowrap">
+                                            <img src="img/linkedin.png" alt="LinkedIn" class="w-4 h-4">
+                                            LinkedIn
+                                            <img src="img/popup.png" alt="popup icon" class="w-3 h-3">
+                                        </a>
+                                        <a href="https://github.com/masanarius" target="_blank"
+                                            class="text-sm bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded-md inline-flex items-center gap-1 whitespace-nowrap">
+                                            <img src="img/github.png" alt="GitHub" class="w-4 h-4">
+                                            GitHub
+                                            <img src="img/popup.png" alt="popup icon" class="w-3 h-3">
+                                        </a>
+                                        <a href="https://scholar.google.co.jp/citations?user=JsQfgRgAAAAJ&hl=ja"
+                                            target="_blank"
+                                            class="text-sm bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded-md inline-flex items-center gap-1 whitespace-nowrap">
+                                            <img src="img/scholar.png" alt="Google Scholar" class="w-4 h-4">
+                                            Google Scholar
+                                            <img src="img/popup.png" alt="popup icon" class="w-3 h-3">
+                                        </a>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+        </section>
+
+
+    </main>
+
+    <script>
+        function copyEmail() {
+            const email = 'ichikawa.masanari.18@shizuoka.ac.jp';
+            navigator.clipboard.writeText(email).then(() => {
+                const btn = document.getElementById('copyEmailBtn');
+                const text = document.getElementById('copyText');
+                text.textContent = 'Copied!';
+                btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
+                btn.classList.add('bg-green-200');
+
+                setTimeout(() => {
+                    text.textContent = 'Copy';
+                    btn.classList.remove('bg-green-200');
+                    btn.classList.add('bg-gray-100', 'hover:bg-gray-200');
+                }, 2000);
+            });
+        }
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="js/langToggle.js" defer></script>
+    <script src="js/renderKeyWorks.js"></script>
+</body>
+
+</html>
