@@ -21,36 +21,44 @@ async function renderLatestNews() {
         const lines = text.trim().split("\n").slice(1, 3); // 最新2件のみ取得
 
         const table = document.createElement("table");
-        table.className = "text-sm text-gray-700 mt-1 border-separate border-spacing-y-1";
+        table.className = "w-full border-collapse";
 
         lines.forEach(line => {
-            const [start, end, title_ja, title_en] = line.split(/,(?=(?:(?:[^\"]*\"){2})*[^\"]*$)/);
+            const [start, end, title_ja, title_en, ,] = line.split(/,(?=(?:(?:[^\"]*\"){2})*[^\"]*$)/);
 
-            // 日本語行
-            const rowJa = document.createElement("tr");
-            rowJa.setAttribute("data-lang", "ja");
+            const row = document.createElement("tr");
+            row.className = "border-none";
+
+            // 日付（日本語）
             const dateCellJa = document.createElement("td");
-            dateCellJa.className = "align-top pr-4 whitespace-nowrap font-semibold";
+            dateCellJa.className = "text-sm text-gray-600 leading-loose px-2 pr-4 w-[6.5rem] whitespace-nowrap";
+            dateCellJa.setAttribute("data-lang", "ja");
             dateCellJa.textContent = formatLatestDate(end, 'ja');
-            const titleCellJa = document.createElement("td");
-            titleCellJa.textContent = title_ja.replace(/^"|"$/g, '').replace(/""/g, '"');
-            rowJa.appendChild(dateCellJa);
-            rowJa.appendChild(titleCellJa);
 
-            // 英語行
-            const rowEn = document.createElement("tr");
-            rowEn.setAttribute("data-lang", "en");
-            rowEn.classList.add("hidden");
+            // 日付（英語）
             const dateCellEn = document.createElement("td");
-            dateCellEn.className = "align-top pr-4 whitespace-nowrap font-semibold";
+            dateCellEn.className = "text-sm text-gray-600 leading-loose px-2 pr-4 w-[8.5rem] whitespace-nowrap hidden";
+            dateCellEn.setAttribute("data-lang", "en");
             dateCellEn.textContent = formatLatestDate(end, 'en');
-            const titleCellEn = document.createElement("td");
-            titleCellEn.textContent = title_en.replace(/^"|"$/g, '').replace(/""/g, '"');
-            rowEn.appendChild(dateCellEn);
-            rowEn.appendChild(titleCellEn);
 
-            table.appendChild(rowJa);
-            table.appendChild(rowEn);
+            // タイトル（日本語）
+            const titleCellJa = document.createElement("td");
+            titleCellJa.className = "text-sm";
+            titleCellJa.setAttribute("data-lang", "ja");
+            titleCellJa.textContent = title_ja.trim().replace(/^"|"$/g, "").replace(/""/g, '"');
+
+            // タイトル（英語）
+            const titleCellEn = document.createElement("td");
+            titleCellEn.className = "text-sm hidden";
+            titleCellEn.setAttribute("data-lang", "en");
+            titleCellEn.textContent = title_en.trim().replace(/^"|"$/g, "").replace(/""/g, '"');
+
+            row.appendChild(dateCellJa);
+            row.appendChild(dateCellEn);
+            row.appendChild(titleCellJa);
+            row.appendChild(titleCellEn);
+
+            table.appendChild(row);
         });
 
         const headings = Array.from(document.querySelectorAll("h3[data-lang='ja']"));
