@@ -1,17 +1,6 @@
-// js/renderLatestNews.js
-
-function formatLatestDate(dateStr, lang) {
-    const date = new Date(dateStr.trim());
-    if (lang === 'en') {
-        return date.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric"
-        });
-    } else {
-        const [y, m, d] = dateStr.split(/[\/\-]/);
-        return `${y}.${m.padStart(2, '0')}.${d.padStart(2, '0')}`;
-    }
+function formatLatestDate(dateStr) {
+    const [y, m, d] = dateStr.trim().split(/[\/\-]/);
+    return `${y}.${m.padStart(2, '0')}.${d.padStart(2, '0')}`;
 }
 
 async function renderLatestNews() {
@@ -24,22 +13,23 @@ async function renderLatestNews() {
         table.className = "w-full border-collapse";
 
         lines.forEach(line => {
-            const [start, end, title_ja, title_en, ,] = line.split(/,(?=(?:(?:[^\"]*\"){2})*[^\"]*$)/);
+            const [start, , title_ja, title_en, ,] = line.split(/,(?=(?:(?:[^\"]*\"){2})*[^\"]*$)/);
 
             const row = document.createElement("tr");
             row.className = "border-none";
 
-            // 日付（日本語）
-            const dateCellJa = document.createElement("td");
-            dateCellJa.className = "text-sm text-gray-600 leading-loose px-2 pr-4 w-[6.5rem] whitespace-nowrap";
-            dateCellJa.setAttribute("data-lang", "ja");
-            dateCellJa.textContent = formatLatestDate(end, 'ja');
+            const formattedDate = formatLatestDate(start);
 
-            // 日付（英語）
+            // 日付（共通フォーマット）
+            const dateCellJa = document.createElement("td");
+            dateCellJa.className = "text-sm text-gray-600 leading-loose px-2 pr-4 w-[8rem] whitespace-nowrap";
+            dateCellJa.setAttribute("data-lang", "ja");
+            dateCellJa.textContent = formattedDate;
+
             const dateCellEn = document.createElement("td");
-            dateCellEn.className = "text-sm text-gray-600 leading-loose px-2 pr-4 w-[8.5rem] whitespace-nowrap hidden";
+            dateCellEn.className = "text-sm text-gray-600 leading-loose px-2 pr-4 w-[8rem] whitespace-nowrap hidden";
             dateCellEn.setAttribute("data-lang", "en");
-            dateCellEn.textContent = formatLatestDate(end, 'en');
+            dateCellEn.textContent = formattedDate;
 
             // タイトル（日本語）
             const titleCellJa = document.createElement("td");

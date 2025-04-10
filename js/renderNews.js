@@ -1,52 +1,15 @@
-function formatDateJa(dateStr) {
-    const [year, month, day] = dateStr.trim().split(/[\/\-]/);
-    return {
-        year,
-        month: month.padStart(2, '0'),
-        day: day.padStart(2, '0'),
-        full: `${year}.${month.padStart(2, '0')}.${day.padStart(2, '0')}`
+function formatDateDot(startStr, endStr) {
+    const format = (dateStr) => {
+        const [y, m, d] = dateStr.trim().split(/[\/\-]/);
+        return `${y}.${m.padStart(2, '0')}.${d.padStart(2, '0')}`;
     };
-}
 
-function formatDateEn(dateStr) {
-    const date = new Date(dateStr.trim());
-    return {
-        year: date.getFullYear(),
-        month: date.toLocaleString("en-US", { month: "short" }),
-        monthNum: (date.getMonth() + 1).toString().padStart(2, '0'),
-        day: date.getDate().toString().padStart(2, '0'),
-        full: date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
-    };
-}
+    const s = format(startStr);
+    const e = format(endStr);
 
-function formatDateJaRange(startStr, endStr) {
-    const s = formatDateJa(startStr);
-    const e = formatDateJa(endStr);
+    if (s === e) return s;
 
-    if (s.year !== e.year) {
-        return `${s.full} - ${e.full}`;
-    } else if (s.month !== e.month) {
-        return `${s.full} - ${e.month}.${e.day}`;
-    } else if (s.day !== e.day) {
-        return `${s.full} - ${e.day}`;
-    } else {
-        return s.full;
-    }
-}
-
-function formatDateEnRange(startStr, endStr) {
-    const s = formatDateEn(startStr);
-    const e = formatDateEn(endStr);
-
-    if (s.year !== e.year) {
-        return `${s.full} - ${e.full}`;
-    } else if (s.month !== e.month) {
-        return `${s.month} ${s.day} - ${e.month} ${e.day}, ${s.year}`;
-    } else if (s.day !== e.day) {
-        return `${s.month} ${s.day} - ${e.day}, ${s.year}`;
-    } else {
-        return s.full;
-    }
+    return `<span class="hidden sm:inline">${s} - ${e}</span><span class="sm:hidden block">${s} -<br>${e}</span>`;
 }
 
 async function loadNews() {
@@ -69,18 +32,17 @@ async function loadNews() {
                 const row = document.createElement("tr");
                 row.className = "border-b";
 
-                const dateCellJa = document.createElement("td");
-                dateCellJa.className = "text-sm text-gray-600 leading-loose px-2 py-6 pr-4 w-[6.5rem] whitespace-nowrap";
+                const dateRangeHTML = formatDateDot(start, end);
 
+                const dateCellJa = document.createElement("td");
+                dateCellJa.className = "text-sm text-gray-600 leading-loose px-2 py-6 pr-4 w-[9rem] whitespace-nowrap align-top";
                 dateCellJa.setAttribute("data-lang", "ja");
-                dateCellJa.textContent = formatDateJaRange(start, end);
+                dateCellJa.innerHTML = dateRangeHTML;
 
                 const dateCellEn = document.createElement("td");
-                dateCellEn.className = "text-sm text-gray-600 leading-loose px-2 py-6 pr-4 w-[8.5rem] whitespace-nowrap hidden";
-
-
+                dateCellEn.className = "text-sm text-gray-600 leading-loose px-2 py-6 pr-4 w-[9rem] whitespace-nowrap hidden align-top";
                 dateCellEn.setAttribute("data-lang", "en");
-                dateCellEn.textContent = formatDateEnRange(start, end);
+                dateCellEn.innerHTML = dateRangeHTML;
 
                 const eventCellJa = document.createElement("td");
                 eventCellJa.className = "text-sm py-2";
@@ -108,4 +70,15 @@ async function loadNews() {
     }
 }
 
-loadNews();
+function applyLanguageSetting() {
+    const lang = localStorage.getItem("lang") || "ja";
+
+    const elements = document.querySelectorAll("[data-lang]");
+    elements.forEach(el => {
+        el.classList.toggle("hidden", el.getAttribute("data-lang") !== lang);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadNews().then(applyLanguageSetting);
+});

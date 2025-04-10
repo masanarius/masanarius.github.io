@@ -23,7 +23,7 @@
                 class="lang-toggle rounded border border-gray-400 px-3 py-1 text-sm hover:bg-gray-100 transition-colors">English</button>
         </nav>
         <div class="md:hidden relative">
-            <button onclick="document.getElementById('menu').classList.toggle('hidden')" class="text-2xl">☰</button>
+            <button id="hamburgerToggle" class="text-2xl">☰</button>
             <div id="menu"
                 class="hidden absolute right-0 mt-2 w-40 bg-white border rounded shadow p-4 space-y-2 text-sm">
                 <a href="about.html" class="block">About</a>
@@ -183,6 +183,7 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="js/hamburgerMenu.js" defer></script>
     <script src="js/langToggle.js" defer></script>
     <script src="js/renderKeyWorks.js"></script>
 </body>
