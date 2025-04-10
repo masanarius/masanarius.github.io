@@ -65,6 +65,8 @@ async function renderLatestNews() {
     } catch (err) {
         console.error("[renderLatestNews.js] Error:", err);
     }
+
+    applyLang();
 }
 
 document.addEventListener("DOMContentLoaded", renderLatestNews);
