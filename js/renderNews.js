@@ -35,12 +35,12 @@ async function loadNews() {
                 const dateRangeHTML = formatDateDot(start, end);
 
                 const dateCellJa = document.createElement("td");
-                dateCellJa.className = "text-sm text-gray-600 leading-loose px-2 py-6 pr-4 w-[9rem] whitespace-nowrap align-top";
+                dateCellJa.className = "text-sm text-gray-600 leading-loose px-2 py-6 pr-4 align-top";
                 dateCellJa.setAttribute("data-lang", "ja");
                 dateCellJa.innerHTML = dateRangeHTML;
 
                 const dateCellEn = document.createElement("td");
-                dateCellEn.className = "text-sm text-gray-600 leading-loose px-2 py-6 pr-4 w-[9rem] whitespace-nowrap hidden align-top";
+                dateCellEn.className = "text-sm text-gray-600 leading-loose px-2 py-6 pr-4 hidden align-top";
                 dateCellEn.setAttribute("data-lang", "en");
                 dateCellEn.innerHTML = dateRangeHTML;
 
