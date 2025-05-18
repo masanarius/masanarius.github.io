@@ -6,8 +6,7 @@
     <title>麻雀点数計算機</title>
     <style>
         html {
-            font-size: 1em;
-            /* スマホ対応の基準文字サイズ */
+            font-size: 2vw;
         }
 
         body {
@@ -31,7 +30,6 @@
         #resetButton {
             margin-top: 1em;
             align-self: flex-end;
-            font-size: 1em;
         }
 
         #inputContainer {
@@ -58,7 +56,12 @@
         #isOpenHandToggle button,
         #honbaCounter button {
             width: 4em;
-            font-size: 1em;
+
+        }
+
+        button {
+            font-size: 2vw;
+            /* ← これを追加 */
         }
 
         #winnerToggle button,
@@ -69,7 +72,6 @@
         #yakuhaiButton {
             margin: 0.3em;
             padding: 0.4em 0.6em;
-            font-size: 1em;
             border: 1px solid #888;
             background: #eee;
             cursor: pointer;
@@ -97,17 +99,6 @@
             margin: 0;
             padding: 0;
             list-style: none;
-        }
-
-        h1 {
-            font-size: 2em;
-        }
-
-        h4,
-        label,
-        button,
-        span {
-            font-size: 1em;
         }
     </style>
 </head>
@@ -194,7 +185,7 @@
             <div id="yakuButtons">
                 <button onclick="toggleHan('ダブリー', [2, 2], this)"><ruby>ダブリー<rt>　　</rt></ruby></button>
                 <button onclick="toggleHan('七対子', [2, 2], this)"><ruby>七対子<rt>チートイツ</rt></ruby></button>
-                <button onclick="toggleHan('対々和', [2, 2], this)"><ruby>対々和<rt>トイトイ</rt></ruby></button>
+                <button onclick="toggleHan('対々和', [2, 2], this)"><ruby>対々和<rt>トイトイホー</rt></ruby></button>
                 <button onclick="toggleHan('三暗刻', [2, 2], this)"><ruby>三暗刻<rt>サンアンコウ</rt></ruby></button>
                 <button onclick="toggleHan('三色同刻', [2, 2], this)"><ruby>三色同刻<rt>サンショクドウコウ</rt></ruby></button>
                 <button onclick="toggleHan('三色同順', [2, 1], this)"><ruby>三色同順<rt>サンショクドウジュン</rt></ruby></button>
