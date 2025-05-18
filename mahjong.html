@@ -6,7 +6,7 @@
     <title>麻雀点数計算機</title>
     <style>
         html {
-            font-size: 3.5vw;
+            font-size: 1em;
             /* スマホ対応の基準文字サイズ */
         }
 
@@ -35,7 +35,7 @@
         }
 
         #inputContainer {
-            margin-top: 22em;
+            margin-top: 30em;
             padding: 1em;
         }
 
@@ -108,13 +108,6 @@
         button,
         span {
             font-size: 1em;
-        }
-
-        @media screen and (min-width: 768px) {
-            html {
-                font-size: 24px;
-                /* タブレットやPC向けに固定 */
-            }
         }
     </style>
 </head>
@@ -201,7 +194,6 @@
             <div id="yakuButtons">
                 <button onclick="toggleHan('ダブリー', [2, 2], this)"><ruby>ダブリー<rt>　　</rt></ruby></button>
                 <button onclick="toggleHan('七対子', [2, 2], this)"><ruby>七対子<rt>チートイツ</rt></ruby></button>
-                <button onclick="toggleHan('連風牌', [2, 2], this)"><ruby>連風牌<rt>レンプウハイ</rt></ruby></button>
                 <button onclick="toggleHan('対々和', [2, 2], this)"><ruby>対々和<rt>トイトイ</rt></ruby></button>
                 <button onclick="toggleHan('三暗刻', [2, 2], this)"><ruby>三暗刻<rt>サンアンコウ</rt></ruby></button>
                 <button onclick="toggleHan('三色同刻', [2, 2], this)"><ruby>三色同刻<rt>サンショクドウコウ</rt></ruby></button>
