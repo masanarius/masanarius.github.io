@@ -5,15 +5,23 @@
     <meta charset="UTF-8">
     <title>麻雀点数計算機</title>
     <style>
+        html {
+            font-size: 3.5vw;
+            /* スマホ対応の基準文字サイズ */
+        }
+
+        body {
+            font-family: sans-serif;
+        }
+
         #resultContainer {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            height: auto;
             background: #eee;
             border-bottom: 1px solid #ccc;
-            padding: 20px;
+            padding: 1em;
             z-index: 1000;
             box-sizing: border-box;
             display: flex;
@@ -21,26 +29,27 @@
         }
 
         #resetButton {
-            margin-top: 10px;
+            margin-top: 1em;
             align-self: flex-end;
+            font-size: 1em;
         }
 
-
         #inputContainer {
-            margin-top: 350px;
-            padding: 10px;
+            margin-top: 22em;
+            padding: 1em;
         }
 
         .rowContainer {
             display: flex;
-            gap: 20px;
+            gap: 1em;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         .fieldBlock {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 0.3em;
             align-items: center;
             text-align: center;
         }
@@ -48,10 +57,9 @@
         #winnerToggle button,
         #isOpenHandToggle button,
         #honbaCounter button {
-            width: 50px;
-            /* 必要に応じて調整 */
+            width: 4em;
+            font-size: 1em;
         }
-
 
         #winnerToggle button,
         #isOpenHandToggle button,
@@ -59,9 +67,9 @@
         #yakuButtons button,
         #doraButton,
         #yakuhaiButton {
-            margin: 3px;
-            padding: 5px 10px;
-            font-size: 14px;
+            margin: 0.3em;
+            padding: 0.4em 0.6em;
+            font-size: 1em;
             border: 1px solid #888;
             background: #eee;
             cursor: pointer;
@@ -78,21 +86,35 @@
             color: white;
         }
 
-
-
         #yakuhaiButton .label-wrapper,
         #doraButton .label-wrapper {
             display: flex;
             align-items: baseline;
-            gap: 4px;
+            gap: 0.2em;
         }
-
-
 
         #resultList {
             margin: 0;
             padding: 0;
             list-style: none;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        h4,
+        label,
+        button,
+        span {
+            font-size: 1em;
+        }
+
+        @media screen and (min-width: 768px) {
+            html {
+                font-size: 16px;
+                /* タブレットやPC向けに固定 */
+            }
         }
     </style>
 </head>
@@ -186,7 +208,7 @@
                 <button onclick="toggleHan('三色同順', [2, 1], this)"><ruby>三色同順<rt>サンショクドウジュン</rt></ruby></button>
                 <button onclick="toggleHan('混老頭', [2, 2], this)"><ruby>混老頭<rt>ホンロウトウ</rt></ruby></button>
                 <button onclick="toggleHan('一気通貫', [2, 1], this)"><ruby>一気通貫<rt>イッキツウカン</rt></ruby></button>
-                <button onclick="toggleHan('チャンタ', [2, 1], this)"><ruby>混全帯么九<rt>チャンタ</rt></ruby></button>
+                <button onclick="toggleHan('チャンタ', [2, 1], this)"><ruby>全帯么九<rt>チャンタ</rt></ruby></button>
                 <button onclick="toggleHan('小三元', [2, 2], this)"><ruby>小三元<rt>ショウサンゲン</rt></ruby></button>
                 <button onclick="toggleHan('三槓子', [2, 2], this)"><ruby>三槓子<rt>サンカンツ</rt></ruby></button>
             </div>
