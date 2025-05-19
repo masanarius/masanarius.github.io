@@ -1,15 +1,17 @@
 // script.js
 
 const scoreTable = {
+
     1: {
         30: { parent: { ron: 1500, tsumo: 500 }, child: { ron: 1000, tsumo: [300, 500] }, rank: "" },
         40: { parent: { ron: 2000, tsumo: 700 }, child: { ron: 1300, tsumo: [400, 700] }, rank: "" },
         50: { parent: { ron: 2400, tsumo: 800 }, child: { ron: 1600, tsumo: [400, 800] }, rank: "" },
-        60: { parent: { ron: 2900, tsumo: 1000 }, child: { ron: 2000, tsumo: [500, 1000] }, rank: "" }
+        60: { parent: { ron: 2900, tsumo: 1000 }, child: { ron: 2000, tsumo: [500, 1000] }, rank: "" },
+        70: { parent: { ron: 3400, tsumo: 1200 }, child: { ron: 2300, tsumo: [600, 1200] }, rank: "" }
     },
     2: {
-        20: { parent: { ron: 2000, tsumo: 700 }, child: { ron: 1300, tsumo: [400, 700] }, rank: "" },
-        25: { parent: { ron: 2400, tsumo: 800 }, child: { ron: 1600, tsumo: [400, 800] }, rank: "" },
+        20: { parent: { ron: 2000, tsumo: 700 }, child: { ron: 1300, tsumo: [400, 700] }, rank: "平和" },
+        25: { parent: { ron: 2400, tsumo: 800 }, child: { ron: 1600, tsumo: [400, 800] }, rank: "七対" },
         30: { parent: { ron: 2900, tsumo: 1000 }, child: { ron: 2000, tsumo: [500, 1000] }, rank: "" },
         40: { parent: { ron: 3900, tsumo: 1300 }, child: { ron: 2600, tsumo: [700, 1300] }, rank: "" },
         50: { parent: { ron: 4800, tsumo: 1600 }, child: { ron: 3200, tsumo: [800, 1600] }, rank: "" },
@@ -17,16 +19,22 @@ const scoreTable = {
         70: { parent: { ron: 6800, tsumo: 2300 }, child: { ron: 4500, tsumo: [1200, 2300] }, rank: "" }
     },
     3: {
+        20: { parent: { ron: 3900, tsumo: 1300 }, child: { ron: 2600, tsumo: [700, 1300] }, rank: "平和" },
+        25: { parent: { ron: 4800, tsumo: 1600 }, child: { ron: 3200, tsumo: [800, 1600] }, rank: "七対" },
         30: { parent: { ron: 5800, tsumo: 2000 }, child: { ron: 3900, tsumo: [1000, 2000] }, rank: "" },
         40: { parent: { ron: 7700, tsumo: 2600 }, child: { ron: 5200, tsumo: [1300, 2600] }, rank: "" },
         50: { parent: { ron: 9600, tsumo: 3200 }, child: { ron: 6400, tsumo: [1600, 3200] }, rank: "" },
-        60: { parent: { ron: 11600, tsumo: 3900 }, child: { ron: 7700, tsumo: [2000, 3900] }, rank: "満貫" }
+        60: { parent: { ron: 11600, tsumo: 3900 }, child: { ron: 7700, tsumo: [2000, 3900] }, rank: "満貫" },
+        70: { parent: { ron: 12000, tsumo: 4000 }, child: { ron: 8000, tsumo: [2000, 4000] }, rank: "満貫" }
     },
     4: {
-        30: { parent: { ron: 11600, tsumo: 3900 }, child: { ron: 7700, tsumo: [2000, 3900] }, rank: "満貫" },
+        20: { parent: { ron: 5800, tsumo: 2000 }, child: { ron: 3900, tsumo: [1000, 2000] }, rank: "平和" },
+        25: { parent: { ron: 7700, tsumo: 2600 }, child: { ron: 5200, tsumo: [1300, 2600] }, rank: "七対" },
+        30: { parent: { ron: 12000, tsumo: 4000 }, child: { ron: 8000, tsumo: [2000, 4000] }, rank: "満貫" },
         40: { parent: { ron: 12000, tsumo: 4000 }, child: { ron: 8000, tsumo: [2000, 4000] }, rank: "満貫" },
         50: { parent: { ron: 12000, tsumo: 4000 }, child: { ron: 8000, tsumo: [2000, 4000] }, rank: "満貫" },
-        60: { parent: { ron: 12000, tsumo: 4000 }, child: { ron: 8000, tsumo: [2000, 4000] }, rank: "満貫" }
+        60: { parent: { ron: 12000, tsumo: 4000 }, child: { ron: 8000, tsumo: [2000, 4000] }, rank: "満貫" },
+        70: { parent: { ron: 12000, tsumo: 4000 }, child: { ron: 8000, tsumo: [2000, 4000] }, rank: "満貫" }
     },
     5: {
         all: { parent: { ron: 12000, tsumo: 4000 }, child: { ron: 8000, tsumo: [2000, 4000] }, rank: "満貫" }
@@ -219,9 +227,9 @@ function getHanPair(name) {
     const hanMap = {
         "門前摸和": [1, 0], "立直": [1, 0], "一発": [1, 0], "断幺九": [1, 1],
         "平和": [1, 0], "一盃口": [1, 0], "槍槓": [1, 1], "嶺上開花": [1, 1],
-        "海底撈月": [1, 1], "河底撈魚": [1, 1], "ダブリー": [2, 2],
+        "海底撈月": [1, 1], "河底撈魚": [1, 1], "ダブル立直": [2, 2],
         "七対子": [2, 2], "対々和": [2, 2], "三暗刻": [2, 2], "三色同刻": [2, 2],
-        "三色同順": [2, 1], "混老頭": [2, 2], "一気通貫": [2, 1], "チャンタ": [2, 1],
+        "三色同順": [2, 1], "混老頭": [2, 2], "一気通貫": [2, 1], "全帯么九": [2, 1],
         "小三元": [2, 2], "三槓子": [2, 2], "混一色": [3, 2], "純全帯么九": [3, 2],
         "二盃口": [3, 0], "流し満貫": [5, 5], "清一色": [6, 5],
         "天和": [13, 13], "地和": [13, 13], "人和": [13, 13], "緑一色": [13, 13],
