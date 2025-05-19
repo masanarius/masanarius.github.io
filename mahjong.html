@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>麻雀点数計算機</title>
     <style>
         html {
@@ -32,7 +33,6 @@
             position: absolute;
             bottom: 1em;
             right: 1em;
-
         }
 
         #inputContainer {
@@ -59,19 +59,18 @@
         #isOpenHandToggle button,
         #honbaCounter button {
             width: 4em;
-
         }
 
         button {
             font-size: 3vw;
             color: black;
-            /* ← これを追加 */
+            touch-action: manipulation;
         }
 
         #winnerToggle button,
         #isOpenHandToggle button,
         #honbaCounter button,
-        #yakuButtons button,
+        .yakuButtons button,
         #doraButton,
         #yakuhaiButton {
             margin: 0.3em;
@@ -87,7 +86,7 @@
 
         #winnerToggle button.active,
         #isOpenHandToggle button.active,
-        #yakuButtons button.active {
+        .yakuButtons button.active {
             background: #4CAF50;
             color: white;
         }
@@ -108,14 +107,11 @@
 </head>
 
 <body>
-
     <div id="resultContainer">
-        <h1><span id="totalHan">0</span>翻
-            <span id="rankLabel"></span>
-        </h1>
+        <h1><span id="totalHan">0</span>翻 <span id="rankLabel"></span></h1>
         <input type="hidden" id="han" value="0">
         <ul id="resultList"></ul>
-        <button id="resetButton" onclick="window.onload()">リセット</button>
+        <button id="resetButton">リセット</button>
     </div>
 
     <div id="inputContainer">
@@ -123,358 +119,110 @@
             <div class="fieldBlock">
                 <label>和了家</label>
                 <div id="winnerToggle">
-                    <button type="button" data-value="parent" onclick="setWinner('parent')">親</button>
-                    <button type="button" data-value="child" onclick="setWinner('child')">子</button>
+                    <button type="button" data-value="parent">親</button>
+                    <button type="button" data-value="child">子</button>
                 </div>
                 <input type="hidden" id="winner" value="parent">
             </div>
-
             <div class="fieldBlock">
                 <label>副露</label>
                 <div id="isOpenHandToggle">
-                    <button type="button" data-value="false" onclick="setIsOpenHand(false)">なし</button>
-                    <button type="button" data-value="true" onclick="setIsOpenHand(true)">あり</button>
+                    <button type="button" data-value="false">なし</button>
+                    <button type="button" data-value="true">あり</button>
                 </div>
                 <input type="hidden" id="isOpenHand" value="false">
             </div>
-
             <div class="fieldBlock">
                 <label><span id="honbaValue">0</span> 本場</label>
                 <div id="honbaCounter">
-                    <button type="button" onclick="changeHonba(-1)">−</button>
-                    <button type="button" onclick="changeHonba(1)">＋</button>
+                    <button type="button" data-delta="-1">−</button>
+                    <button type="button" data-delta="1">＋</button>
                 </div>
                 <input type="hidden" id="honba" value="0">
             </div>
         </div>
-
-
-
-
-
         <br>
         <hr>
-
-        <div>
-            <h4>1翻役</h4>
-            <div id="yakuButtons">
-                <button onclick="toggleHan('門前摸和', [1, 0], this)"><ruby>門前摸和<rt>メンゼンツモ</rt></ruby></button>
-                <button onclick="toggleHan('立直', [1, 0], this)"><ruby>立直<rt>リーチ</rt></ruby></button>
-                <button onclick="toggleHan('一発', [1, 0], this)"><ruby>一発<rt>イッパツ</rt></ruby></button>
-                <button onclick="toggleHan('断幺九', [1, 1], this)"><ruby>断幺九<rt>タンヤオ</rt></ruby></button>
-                <button onclick="toggleHan('平和', [1, 0], this)"><ruby>平和<rt>ピンフ</rt></ruby></button>
-                <button onclick="toggleHan('一盃口', [1, 0], this)"><ruby>一盃口<rt>イーペイコー</rt></ruby></button>
-
-                <button id="yakuhaiButton" onclick="addHan('役牌', 1, 'yakuhaiButton', 'blue')">
-                    <div class="label-wrapper">
-                        <ruby>役牌<rt>ヤクハイ</rt></ruby>
-                        <span id="yakuhaiCount">0</span>
-                    </div>
-                </button>
-
-                <button id="doraButton" onclick="addHan('ドラ', 1, 'doraButton', 'red')">
-
-                    <div class="label-wrapper">
-                        <ruby>ドラ<rt>　　</rt></ruby>
-                        <span id="doraCount">0</span>
-                    </div>
-                </button>
-
-                <button onclick="toggleHan('槍槓', [1, 1], this)"><ruby>槍槓<rt>チャンカン</rt></ruby></button>
-                <button onclick="toggleHan('嶺上開花', [1, 1], this)"><ruby>嶺上開花<rt>リンシャンカイホウ</rt></ruby></button>
-                <button onclick="toggleHan('海底撈月', [1, 1], this)"><ruby>海底撈月<rt>ハイテイラオユエ</rt></ruby></button>
-                <button onclick="toggleHan('河底撈魚', [1, 1], this)"><ruby>河底撈魚<rt>ホウテイラオユイ</rt></ruby></button>
-            </div>
-            <h4>2翻役</h4>
-            <div id="yakuButtons">
-                <button onclick="toggleHan('ダブリー', [2, 2], this)">ダブル<ruby>立直<rt>リーチ</rt></ruby></button>
-                <button onclick="toggleHan('七対子', [2, 2], this)"><ruby>七対子<rt>チートイツ</rt></ruby></button>
-                <button onclick="toggleHan('対々和', [2, 2], this)"><ruby>対々和<rt>トイトイホー</rt></ruby></button>
-                <button onclick="toggleHan('三暗刻', [2, 2], this)"><ruby>三暗刻<rt>サンアンコウ</rt></ruby></button>
-                <button onclick="toggleHan('三色同刻', [2, 2], this)"><ruby>三色同刻<rt>サンショクドウコウ</rt></ruby></button>
-                <button onclick="toggleHan('三色同順', [2, 1], this)"><ruby>三色同順<rt>サンショクドウジュン</rt></ruby></button>
-                <button onclick="toggleHan('混老頭', [2, 2], this)"><ruby>混老頭<rt>ホンロウトウ</rt></ruby></button>
-                <button onclick="toggleHan('一気通貫', [2, 1], this)"><ruby>一気通貫<rt>イッキツウカン</rt></ruby></button>
-                <button onclick="toggleHan('チャンタ', [2, 1], this)"><ruby>全帯么九<rt>チャンタ</rt></ruby></button>
-                <button onclick="toggleHan('小三元', [2, 2], this)"><ruby>小三元<rt>ショウサンゲン</rt></ruby></button>
-                <button onclick="toggleHan('三槓子', [2, 2], this)"><ruby>三槓子<rt>サンカンツ</rt></ruby></button>
-            </div>
-
-            <h4>3・5・6翻役</h4>
-            <div id="yakuButtons">
-                <button onclick="toggleHan('混一色', [3, 2], this)"><ruby>混一色<rt>ホンイーソー</rt></ruby></button>
-                <button onclick="toggleHan('純全帯么九', [3, 2], this)"><ruby>純全帯么九<rt>ジュンチャン</rt></ruby></button>
-                <button onclick="toggleHan('二盃口', [3, 0], this)"><ruby>二盃口<rt>リャンペイコー</rt></ruby></button>
-
-                <button onclick="toggleHan('流し満貫', [5, 5], this)"><ruby>流し満貫<rt>ナガシマンガン</rt></ruby></button>
-
-                <button onclick="toggleHan('清一色', [6, 5], this)"><ruby>清一色<rt>チンイーソー</rt></ruby></button>
-
-
-            </div>
-
-            <h4>役満</h4>
-            <div id="yakuButtons">
-                <button onclick="toggleHan('天和', [13, 13], this)"><ruby>天和<rt>テンホー</rt></ruby></button>
-                <button onclick="toggleHan('地和', [13, 13], this)"><ruby>地和<rt>チーホー</rt></ruby></button>
-                <button onclick="toggleHan('人和', [13, 13], this)"><ruby>人和<rt>レンホー</rt></ruby></button>
-                <button onclick="toggleHan('緑一色', [13, 13], this)"><ruby>緑一色<rt>リューイーソー</rt></ruby></button>
-                <button onclick="toggleHan('大三元', [13, 13], this)"><ruby>大三元<rt>ダイサンゲン</rt></ruby></button>
-                <button onclick="toggleHan('小四喜', [13, 13], this)"><ruby>小四喜<rt>ショウスーシー</rt></ruby></button>
-                <button onclick="toggleHan('字一色', [13, 13], this)"><ruby>字一色<rt>ツーイーソー</rt></ruby></button>
-                <button onclick="toggleHan('国士無双', [13, 13], this)"><ruby>国士無双<rt>コクシムソウ</rt></ruby></button>
-                <button onclick="toggleHan('九蓮宝燈', [13, 13], this)"><ruby>九蓮宝燈<rt>チューレンポートウ</rt></ruby></button>
-                <button onclick="toggleHan('四暗刻', [13, 13], this)"><ruby>四暗刻<rt>スーアンコウ</rt></ruby></button>
-                <button onclick="toggleHan('清老頭', [13, 13], this)"><ruby>清老頭<rt>チンロウトウ</rt></ruby></button>
-                <button onclick="toggleHan('四槓子', [13, 13], this)"><ruby>四槓子<rt>スーカンツ</rt></ruby></button>
-            </div>
-
-            <h4>ダブル役満</h4>
-            <div id="yakuButtons">
-                <button onclick="toggleHan('四暗刻単騎', [26, 26], this)"><ruby>四暗刻単騎<rt>スーアンコウタンキ</rt></ruby></button>
-                <button onclick="toggleHan('大四喜', [26, 26], this)"><ruby>大四喜<rt>ダイスーシー</rt></ruby></button>
-                <button onclick="toggleHan('純正九蓮宝燈', [26, 26], this)"><ruby>純正九蓮宝燈<rt>ジュンセイチューレンポートウ</rt>
-                    </ruby></button>
-                <button onclick="toggleHan('国士無双十三面待ち', [26, 26], this)"><ruby>国士無双十三面待ち<rt>コクシムソウジュウサンメンマチ</rt>
-                    </ruby></button>
-            </div>
-
-
+        <h4>1翻役</h4>
+        <div class="yakuButtons">
+            <button data-name="門前摸和"><ruby>門前摸和<rt>メンゼンツモ</rt></ruby></button>
+            <button data-name="立直"><ruby>立直<rt>リーチ</rt></ruby></button>
+            <button data-name="一発"><ruby>一発<rt>イッパツ</rt></ruby></button>
+            <button data-name="断幺九"><ruby>断幺九<rt>タンヤオ</rt></ruby></button>
+            <button data-name="平和"><ruby>平和<rt>ピンフ</rt></ruby></button>
+            <button data-name="一盃口"><ruby>一盃口<rt>イーペイコー</rt></ruby></button>
+            <button id="yakuhaiButton" data-name="役牌">
+                <div class="label-wrapper">
+                    <ruby>役牌<rt>ヤクハイ</rt></ruby>
+                    <span id="yakuhaiCount">0</span>
+                </div>
+            </button>
+            <button id="doraButton" data-name="ドラ">
+                <div class="label-wrapper">
+                    <ruby>ドラ<rt>　　</rt></ruby>
+                    <span id="doraCount">0</span>
+                </div>
+            </button>
+            <button data-name="槍槓"><ruby>槍槓<rt>チャンカン</rt></ruby></button>
+            <button data-name="嶺上開花"><ruby>嶺上開花<rt>リンシャンカイホウ</rt></ruby></button>
+            <button data-name="海底撈月"><ruby>海底撈月<rt>ハイテイラオユエ</rt></ruby></button>
+            <button data-name="河底撈魚"><ruby>河底撈魚<rt>ホウテイラオユイ</rt></ruby></button>
         </div>
+
+        <h4>2翻役</h4>
+        <div class="yakuButtons">
+            <button data-name="ダブリー"><ruby>ダブル立直<rt>リーチ</rt></ruby></button>
+            <button data-name="七対子"><ruby>七対子<rt>チートイツ</rt></ruby></button>
+            <button data-name="対々和"><ruby>対々和<rt>トイトイホー</rt></ruby></button>
+            <button data-name="三暗刻"><ruby>三暗刻<rt>サンアンコウ</rt></ruby></button>
+            <button data-name="三色同刻"><ruby>三色同刻<rt>サンショクドウコウ</rt></ruby></button>
+            <button data-name="三色同順"><ruby>三色同順<rt>サンショクドウジュン</rt></ruby></button>
+            <button data-name="混老頭"><ruby>混老頭<rt>ホンロウトウ</rt></ruby></button>
+            <button data-name="一気通貫"><ruby>一気通貫<rt>イッキツウカン</rt></ruby></button>
+            <button data-name="チャンタ"><ruby>チャンタ<rt>チャンタ</rt></ruby></button>
+            <button data-name="小三元"><ruby>小三元<rt>ショウサンゲン</rt></ruby></button>
+            <button data-name="三槓子"><ruby>三槓子<rt>サンカンツ</rt></ruby></button>
+        </div>
+
+        <h4>3・5・6翻役</h4>
+        <div class="yakuButtons">
+            <button data-name="混一色"><ruby>混一色<rt>ホンイーソー</rt></ruby></button>
+            <button data-name="純全帯么九"><ruby>純全帯么九<rt>ジュンチャン</rt></ruby></button>
+            <button data-name="二盃口"><ruby>二盃口<rt>リャンペイコー</rt></ruby></button>
+            <button data-name="流し満貫"><ruby>流し満貫<rt>ナガシマンガン</rt></ruby></button>
+            <button data-name="清一色"><ruby>清一色<rt>チンイーソー</rt></ruby></button>
+        </div>
+
+        <h4>役満</h4>
+        <div class="yakuButtons">
+            <button data-name="天和"><ruby>天和<rt>テンホー</rt></ruby></button>
+            <button data-name="地和"><ruby>地和<rt>チーホー</rt></ruby></button>
+            <button data-name="人和"><ruby>人和<rt>レンホー</rt></ruby></button>
+            <button data-name="緑一色"><ruby>緑一色<rt>リューイーソー</rt></ruby></button>
+            <button data-name="大三元"><ruby>大三元<rt>ダイサンゲン</rt></ruby></button>
+            <button data-name="小四喜"><ruby>小四喜<rt>ショウスーシー</rt></ruby></button>
+            <button data-name="字一色"><ruby>字一色<rt>ツーイーソー</rt></ruby></button>
+            <button data-name="国士無双"><ruby>国士無双<rt>コクシムソウ</rt></ruby></button>
+            <button data-name="九蓮宝燈"><ruby>九蓮宝燈<rt>チューレンポートウ</rt></ruby></button>
+            <button data-name="四暗刻"><ruby>四暗刻<rt>スーアンコウ</rt></ruby></button>
+            <button data-name="清老頭"><ruby>清老頭<rt>チンロウトウ</rt></ruby></button>
+            <button data-name="四槓子"><ruby>四槓子<rt>スーカンツ</rt></ruby></button>
+        </div>
+
+        <h4>ダブル役満</h4>
+        <div class="yakuButtons">
+            <button data-name="四暗刻単騎"><ruby>四暗刻単騎<rt>スーアンコウタンキ</rt></ruby></button>
+            <button data-name="大四喜"><ruby>大四喜<rt>ダイスーシー</rt></ruby></button>
+            <button data-name="純正九蓮宝燈"><ruby>純正九蓮宝燈<rt>ジュンセイチューレンポートウ</rt></ruby></button>
+            <button data-name="国士無双十三面待ち"><ruby>国士無双十三面待ち<rt>コクシムソウジュウサンメンマチ</rt></ruby></button>
+        </div>
+
+
+
+
     </div>
 
-    <script>
-
-        const scoreTable = {
-            1: {
-                30: { parent: { ron: 1500, tsumo: 500 }, child: { ron: 1000, tsumo: [300, 500] }, rank: "" },
-                40: { parent: { ron: 2000, tsumo: 700 }, child: { ron: 1300, tsumo: [400, 700] }, rank: "" },
-                50: { parent: { ron: 2400, tsumo: 800 }, child: { ron: 1600, tsumo: [400, 800] }, rank: "" },
-                60: { parent: { ron: 2900, tsumo: 1000 }, child: { ron: 2000, tsumo: [500, 1000] }, rank: "" }
-            },
-            2: {
-                20: { parent: { ron: 2000, tsumo: 700 }, child: { ron: 1300, tsumo: [400, 700] }, rank: "" },
-                25: { parent: { ron: 2400, tsumo: 800 }, child: { ron: 1600, tsumo: [400, 800] }, rank: "" },
-                30: { parent: { ron: 2900, tsumo: 1000 }, child: { ron: 2000, tsumo: [500, 1000] }, rank: "" },
-                40: { parent: { ron: 3900, tsumo: 1300 }, child: { ron: 2600, tsumo: [700, 1300] }, rank: "" },
-                50: { parent: { ron: 4800, tsumo: 1600 }, child: { ron: 3200, tsumo: [800, 1600] }, rank: "" },
-                60: { parent: { ron: 5800, tsumo: 2000 }, child: { ron: 3900, tsumo: [1000, 2000] }, rank: "" },
-                70: { parent: { ron: 6800, tsumo: 2300 }, child: { ron: 4500, tsumo: [1200, 2300] }, rank: "" }
-            },
-            3: {
-                30: { parent: { ron: 5800, tsumo: 2000 }, child: { ron: 3900, tsumo: [1000, 2000] }, rank: "" },
-                40: { parent: { ron: 7700, tsumo: 2600 }, child: { ron: 5200, tsumo: [1300, 2600] }, rank: "" },
-                50: { parent: { ron: 9600, tsumo: 3200 }, child: { ron: 6400, tsumo: [1600, 3200] }, rank: "" },
-                60: { parent: { ron: 11600, tsumo: 3900 }, child: { ron: 7700, tsumo: [2000, 3900] }, rank: "満貫" }
-            },
-            4: {
-                30: { parent: { ron: 11600, tsumo: 3900 }, child: { ron: 7700, tsumo: [2000, 3900] }, rank: "満貫" },
-                40: { parent: { ron: 12000, tsumo: 4000 }, child: { ron: 8000, tsumo: [2000, 4000] }, rank: "満貫" },
-                50: { parent: { ron: 12000, tsumo: 4000 }, child: { ron: 8000, tsumo: [2000, 4000] }, rank: "満貫" },
-                60: { parent: { ron: 12000, tsumo: 4000 }, child: { ron: 8000, tsumo: [2000, 4000] }, rank: "満貫" }
-            },
-            5: {
-                all: { parent: { ron: 12000, tsumo: 4000 }, child: { ron: 8000, tsumo: [2000, 4000] }, rank: "満貫" }
-            },
-            6: {
-                all: { parent: { ron: 18000, tsumo: 6000 }, child: { ron: 12000, tsumo: [3000, 6000] }, rank: "跳満" }
-            },
-            7: {
-                all: { parent: { ron: 18000, tsumo: 6000 }, child: { ron: 12000, tsumo: [3000, 6000] }, rank: "跳満" }
-            },
-            8: {
-                all: { parent: { ron: 24000, tsumo: 8000 }, child: { ron: 16000, tsumo: [4000, 8000] }, rank: "倍満" }
-            },
-            9: {
-                all: { parent: { ron: 24000, tsumo: 8000 }, child: { ron: 16000, tsumo: [4000, 8000] }, rank: "倍満" }
-            },
-            10: {
-                all: { parent: { ron: 24000, tsumo: 8000 }, child: { ron: 16000, tsumo: [4000, 8000] }, rank: "倍満" }
-            },
-            11: {
-                all: { parent: { ron: 36000, tsumo: 12000 }, child: { ron: 24000, tsumo: [6000, 12000] }, rank: "三倍満" }
-            },
-            12: {
-                all: { parent: { ron: 36000, tsumo: 12000 }, child: { ron: 24000, tsumo: [6000, 12000] }, rank: "三倍満" }
-            },
-            13: {
-                all: { parent: { ron: 48000, tsumo: 16000 }, child: { ron: 32000, tsumo: [8000, 16000] }, rank: "役満" }
-            },
-            26: {
-                all: { parent: { ron: 96000, tsumo: 32000 }, child: { ron: 64000, tsumo: [16000, 32000] }, rank: "ダブル役満" }
-            },
-            39: {
-                all: { parent: { ron: 144000, tsumo: 48000 }, child: { ron: 96000, tsumo: [24000, 48000] }, rank: "トリプル役満" }
-            }
-        };
-
-        for (let i = 14; i <= 25; i++) {
-            scoreTable[i] = { all: scoreTable[13].all };
-        }
-
-        for (let i = 27; i <= 38; i++) {
-            scoreTable[i] = { all: scoreTable[26].all };
-        }
-
-        for (let i = 40; i <= 51; i++) {
-            scoreTable[i] = { all: scoreTable[39].all };
-        }
-
-        let selectedYakus = [];
-
-        function toggleHan(name, hanPair, buttonElement) {
-            const isOpen = document.getElementById("isOpenHand").value === "true";
-            const han = isOpen ? hanPair[1] : hanPair[0];
-
-            const index = selectedYakus.findIndex(y => y.name === name);
-            if (index >= 0) {
-                selectedYakus.splice(index, 1);
-                buttonElement.classList.remove("active");
-            } else {
-                selectedYakus.push({ name, hanPair, han });
-                buttonElement.classList.add("active");
-            }
-            updateTotalHan();
-        }
-
-        function reevaluateYakus() {
-            const isOpen = document.getElementById("isOpenHand").value === "true";
-            selectedYakus.forEach(yaku => {
-                if (yaku.hanPair) {
-                    yaku.han = isOpen ? yaku.hanPair[1] : yaku.hanPair[0];
-                }
-            });
-        }
-
-        function addHan(name, han, buttonId, color) {
-            const y = selectedYakus.find(y => y.name === name);
-            if (y) {
-                y.han += han;
-            } else {
-                selectedYakus.push({ name, han });
-            }
-            updateAdditiveButton(name, buttonId, color);
-            updateTotalHan();
-        }
-
-        function updateAdditiveButton(name, buttonId, color) {
-            const yaku = selectedYakus.find(y => y.name === name);
-            const count = yaku ? yaku.han : 0;
-            const button = document.getElementById(buttonId);
-            const countSpan = button.querySelector("span:last-child"); // 後ろの <span> を取得
-            if (countSpan) {
-                countSpan.textContent = ` ${count}`;
-            }
-            const intensity = Math.min(count * 0.1, 1.0);
-            const rgb = count === 0 ? '#eee' :
-                color === "red" ? `rgba(255, 0, 0, ${intensity})`
-                    : color === "blue" ? `rgba(0, 0, 255, ${intensity})`
-                        : `rgba(0, 0, 0, ${intensity})`;
-            button.style.backgroundColor = rgb;
-        }
-
-
-        function updateTotalHan() {
-            const total = selectedYakus.reduce((sum, yaku) => sum + yaku.han, 0);
-            document.getElementById("han").value = total;
-            document.getElementById("totalHan").textContent = total;
-            showScores();
-        }
-
-        function showScores() {
-            const winner = document.getElementById("winner").value;
-            const han = parseInt(document.getElementById("han").value);
-            const honba = parseInt(document.getElementById("honba").value);
-            const resultList = document.getElementById("resultList");
-            const rankLabelEl = document.getElementById("rankLabel");
-            resultList.innerHTML = "";
-            rankLabelEl.textContent = "";  // 初期化
-
-            const entries = scoreTable[han];
-            const winnerLabel = winner === "parent" ? "親" : "子";
-
-            if (!entries) {
-                resultList.innerHTML = "<li>データなし</li>";
-                return;
-            }
-
-            if (entries.all) {
-                const d = entries.all[winner];
-                const rank = entries.all.rank || "-";
-                const ron = d.ron + 300 * honba;
-                const tsumo = Array.isArray(d.tsumo)
-                    ? `${d.tsumo[0] + 100 * honba} / ${d.tsumo[1] + 100 * honba}`
-                    : d.tsumo + 300 * honba;
-                rankLabelEl.textContent = `${rank}`;
-                resultList.innerHTML = `<li>${winnerLabel} ${rank}：${ron} ( ${tsumo} )</li>`;
-                return;
-            }
-
-            for (const fu in entries) {
-                const d = entries[fu][winner];
-                const ron = d.ron + 300 * honba;
-                const tsumoArray = Array.isArray(d.tsumo)
-                    ? [d.tsumo[0] + 100 * honba, d.tsumo[1] + 100 * honba]
-                    : d.tsumo + 300 * honba;
-                const tsumo = Array.isArray(tsumoArray)
-                    ? `${tsumoArray[0]} / ${tsumoArray[1]}`
-                    : tsumoArray;
-                const rank = entries[fu].rank || "　　";
-                const label = `${winnerLabel} ${fu}符（${rank}）： ${ron} ( ${tsumo} )`;
-                const li = document.createElement("li");
-                li.textContent = label;
-                resultList.appendChild(li);
-
-                if (fu === Object.keys(entries)[0]) {
-                    rankLabelEl.textContent = `${rank}`;
-                }
-            }
-        }
-
-
-        function setIsOpenHand(value) {
-            document.getElementById("isOpenHand").value = value;
-            document.querySelectorAll("#isOpenHandToggle button").forEach(btn => {
-                btn.classList.toggle("active", btn.dataset.value === String(value));
-            });
-            reevaluateYakus();
-            updateTotalHan();
-        }
-
-        function changeHonba(delta) {
-            const honbaInput = document.getElementById("honba");
-            let value = parseInt(honbaInput.value);
-            value = Math.min(10, Math.max(0, value + delta));
-            honbaInput.value = value;
-            document.getElementById("honbaValue").textContent = value;
-            showScores();
-        }
-
-        function setWinner(value) {
-            document.getElementById("winner").value = value;
-            document.querySelectorAll("#winnerToggle button").forEach(btn => {
-                btn.classList.toggle("active", btn.dataset.value === value);
-            });
-            showScores();
-        }
-
-        function resetAll() {
-            selectedYakus = [];
-            document.querySelectorAll("#yakuButtons button").forEach(btn => btn.classList.remove("active"));
-            updateAdditiveButton("ドラ", "doraButton", "red");
-            updateAdditiveButton("役牌", "yakuhaiButton", "blue");
-            updateTotalHan();
-            window.scrollTo(0, 0);
-        }
-
-        window.onload = () => {
-            setWinner("parent");
-            setIsOpenHand(false);
-            document.getElementById("honba").value = 0;
-            document.getElementById("honbaValue").textContent = "0";
-            resetAll();
-        };
-    </script>
+    <script src="js/mahjong.js"></script>
 </body>
 
 </html>
