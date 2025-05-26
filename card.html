@@ -2,75 +2,161 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Card | Masanari ICHIKAWA</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="img/favicon.png">
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Business Card</title>
     <style>
-        /* ダウンロードボタン用スタイルのみ */
-        .custom-rounded-button-c {
-            border: 2px solid var(--primary);
-            color: var(--primary);
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
         }
 
-        .custom-rounded-button-c:hover {
-            background-color: var(--primary);
+        h2 {
+            margin-top: 2em;
+            margin-bottom: 3em;
+        }
+
+        #business-card {
+            max-width: 90%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #fullscreen-overlay img {
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-group {
+            margin-top: 20px;
+        }
+
+        .uniform-btn {
+            display: inline-block;
+            width: 200px;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            line-height: 1.5em;
+            border: none;
+            background-color: #18448E;
+            color: white;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .uniform-btn:hover {
+            background-color: #2f5dfb;
+        }
+
+        .more-info {
+            margin-top: 40px;
+            font-size: 0.9em;
+        }
+
+        .more-info a {
+            color: #18448E;
+            text-decoration: none;
+        }
+
+        .more-info a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 
 <body>
-    <div class="band"></div>
-    <div class="container">
 
-        <h1>Business Card</h1>
+    <h2>
+        静岡大学の <ruby>市川<rt>いちかわ</rt></ruby> <ruby>雅也<rt>まさなり</rt></ruby> です
+    </h2>
 
-        <div style="text-align: center;">
-            <div style="height: 100px;"></div>
-            <!-- 初期表示の画像 -->
-            <img id="card" class="card" src="img/masanari_ichikawa_jp.jpg" alt="Masanari Ichikawa">
-            <div style="height: 100px;"></div>
-        </div>
+    <img id="business-card" src="img/ichikawa_masanari_jp.jpg" alt="名刺画像" onclick="openFullscreen()" />
 
-        <div class="button-container">
-            <!-- 画像切り替えボタン -->
-            <button class="button custom-rounded-button-l"
-                onclick="changeImage('img/masanari_ichikawa_jp.jpg', 'Japanese')">Japanese</button>
-            <button class="button custom-rounded-button-r"
-                onclick="changeImage('img/masanari_ichikawa_en.jpg', 'English')">English</button>
-        </div>
+    <div id="fullscreen-overlay" onclick="closeFullscreen()">
+        <img id="fullscreen-image" src="img/ichikawa_masanari_jp.jpg" alt="名刺拡大画像" />
+    </div>
 
-        <button id="downloadButton" class="button custom-rounded-button-c" onclick="downloadImage()">Download</button>
+    <div class="btn-group">
+        <button class="uniform-btn" onclick="switchLanguage('jp')">日本語版</button>
+        <button class="uniform-btn" onclick="switchLanguage('en')">English ver.</button>
+    </div>
 
-        <div style="height: 50px;"></div>
+    <div class="btn-group">
+        <button class="uniform-btn" onclick="downloadImage('jp')">日本語版ダウンロード</button>
+        <button class="uniform-btn" onclick="downloadImage('en')">Download English ver.</button>
+    </div>
 
-        <p style="text-align: center;">For more information <span style="color: var(--primary);">></span>
-            <a href="index.html" style="text-decoration: underline;">https://masanarius.github.io</a>
-        </p>
-
+    <div class="more-info">
+        More Info: <a href="https://masanarius.github.io" target="_blank">https://masanarius.github.io</a>
     </div>
 
     <script>
-        function changeImage(imageName, version) {
-            document.getElementById('card').src = imageName;
-            const downloadButton = document.getElementById("downloadButton");
+        const img = document.getElementById('business-card');
+        const fullscreenOverlay = document.getElementById('fullscreen-overlay');
+        const fullscreenImage = document.getElementById('fullscreen-image');
 
-            // ボタンのテキストを更新
-            if (version === "Japanese") {
-                downloadButton.textContent = "Download Japanese ver.";
-            } else if (version === "English") {
-                downloadButton.textContent = "Download English ver.";
-            }
+        let currentLang = 'jp';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            const src = `img/ichikawa_masanari_${lang}.jpg`;
+            img.src = src;
+            fullscreenImage.src = src;
         }
 
-        function downloadImage() {
-            const image = document.getElementById("card").src;
-            const link = document.createElement("a");
-            link.href = image;
-            link.download = "Masanari_Ichikawa.jpg";
-            link.click();
+        function openFullscreen() {
+            fullscreenOverlay.style.display = 'flex';
+        }
+
+        function closeFullscreen() {
+            fullscreenOverlay.style.display = 'none';
+        }
+
+        function downloadImage(lang) {
+            const imageUrl = `img/ichikawa_masanari_${lang}.jpg`;
+            const fileName = `ichikawa_masanari_${lang}.jpg`;
+
+            fetch(imageUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error('画像の取得に失敗しました');
+                    return response.blob();
+                })
+                .then(blob => {
+                    const blobUrl = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = blobUrl;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(blobUrl);
+                })
+                .catch(error => {
+                    alert("ダウンロードに失敗しました");
+                    console.error(error);
+                });
         }
     </script>
 
