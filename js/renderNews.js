@@ -25,6 +25,7 @@ async function loadNews() {
         const table = document.createElement("table");
         table.className = "w-full border-collapse";
 
+        // ヘッダー行をスキップして処理
         lines.slice(1).forEach(line => {
             const [start, end, , , event_ja, event_en] = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
 
@@ -33,6 +34,16 @@ async function loadNews() {
                 row.className = "border-b";
 
                 const dateRangeHTML = formatDateDot(start, end);
+
+                const clean = s => s.trim().replace(/^"|"$/g, "").replace(/""/g, '"');
+
+                // HTML内の <a> タグに Tailwind の class を追加
+                const addLinkClass = (html) =>
+                    html.replace(/<a(?![^>]*class=)/g, '<a class="text-blue-500"')  // classなしに付ける
+                        .replace(/<a class="([^"]*)"/g, '<a class="$1 text-blue-500"'); // 既存classに追加
+
+                let jaText = addLinkClass(clean(event_ja));
+                let enText = addLinkClass(clean(event_en));
 
                 const dateCellJa = document.createElement("td");
                 dateCellJa.className = "text-sm text-gray-600 leading-loose px-2 py-6 pr-4 align-top";
@@ -47,12 +58,12 @@ async function loadNews() {
                 const eventCellJa = document.createElement("td");
                 eventCellJa.className = "text-sm py-2";
                 eventCellJa.setAttribute("data-lang", "ja");
-                eventCellJa.textContent = event_ja.trim().replace(/^"|"$/g, "").replace(/""/g, '"');
+                eventCellJa.innerHTML = jaText;
 
                 const eventCellEn = document.createElement("td");
                 eventCellEn.className = "text-sm py-2 hidden";
                 eventCellEn.setAttribute("data-lang", "en");
-                eventCellEn.textContent = event_en.trim().replace(/^"|"$/g, "").replace(/""/g, '"');
+                eventCellEn.innerHTML = enText;
 
                 row.appendChild(dateCellJa);
                 row.appendChild(dateCellEn);
