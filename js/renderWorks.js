@@ -173,7 +173,7 @@ function renderCards(data, containerId) {
     const button = document.createElement('button');
     button.id = buttonId;
     button.className = `mt-2 text-sm font-semibold text-${color}-700 bg-${color}-100 hover:bg-${color}-200 px-4 py-1 rounded transition`;
-    button.innerHTML = 'Show more <span class="ml-1">▼</span>';
+    button.innerHTML = 'Show All <span class="ml-1">▼</span>';
 
     let visibleCount = 3;
     function renderSection(showAll = false) {
