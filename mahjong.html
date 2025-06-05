@@ -20,7 +20,7 @@
             left: 0;
             right: 0;
             height: 20em;
-            background: #fee;
+            background: #efe;
             border-bottom: 1px solid #ccc;
             padding: 1em;
             z-index: 1000;
@@ -72,6 +72,7 @@
         #honbaCounter button,
         .yakuButtons button,
         #doraButton,
+        #localButton,
         #yakuhaiButton {
             margin: 0.3em;
             padding: 0.4em 0.6em;
@@ -92,6 +93,7 @@
         }
 
         #yakuhaiButton .label-wrapper,
+        #localButton .label-wrapper,
         #doraButton .label-wrapper {
             display: flex;
             align-items: baseline;
@@ -157,16 +159,16 @@
                     <span id="yakuhaiCount">0</span>
                 </div>
             </button>
+            <button data-name="槍槓"><ruby>槍槓<rt>チャンカン</rt></ruby></button>
+            <button data-name="嶺上開花"><ruby>嶺上開花<rt>リンシャンカイホウ</rt></ruby></button>
+            <button data-name="海底撈月"><ruby>海底撈月<rt>ハイテイラオユエ</rt></ruby></button>
+            <button data-name="河底撈魚"><ruby>河底撈魚<rt>ホウテイラオユイ</rt></ruby></button>
             <button id="doraButton" data-name="ドラ">
                 <div class="label-wrapper">
                     <ruby>ドラ<rt>　　</rt></ruby>
                     <span id="doraCount">0</span>
                 </div>
             </button>
-            <button data-name="槍槓"><ruby>槍槓<rt>チャンカン</rt></ruby></button>
-            <button data-name="嶺上開花"><ruby>嶺上開花<rt>リンシャンカイホウ</rt></ruby></button>
-            <button data-name="海底撈月"><ruby>海底撈月<rt>ハイテイラオユエ</rt></ruby></button>
-            <button data-name="河底撈魚"><ruby>河底撈魚<rt>ホウテイラオユイ</rt></ruby></button>
         </div>
 
         <h4>2翻役</h4>
@@ -179,7 +181,7 @@
             <button data-name="三色同順"><ruby>三色同順<rt>サンショクドウジュン</rt></ruby></button>
             <button data-name="混老頭"><ruby>混老頭<rt>ホンロウトウ</rt></ruby></button>
             <button data-name="一気通貫"><ruby>一気通貫<rt>イッキツウカン</rt></ruby></button>
-            <button data-name="全帯么九"><ruby>全帯么九<rt>チャンタ</rt></ruby></button>
+            <button data-name="混全帯"><ruby>混全帯<rt>チャンタ</rt></ruby></button>
             <button data-name="小三元"><ruby>小三元<rt>ショウサンゲン</rt></ruby></button>
             <button data-name="三槓子"><ruby>三槓子<rt>サンカンツ</rt></ruby></button>
         </div>
@@ -187,9 +189,8 @@
         <h4>3・5・6翻役</h4>
         <div class="yakuButtons">
             <button data-name="混一色"><ruby>混一色<rt>ホンイーソー</rt></ruby></button>
-            <button data-name="純全帯么九"><ruby>純全帯么九<rt>ジュンチャン</rt></ruby></button>
+            <button data-name="純全帯"><ruby>純全帯<rt>ジュンチャン</rt></ruby></button>
             <button data-name="二盃口"><ruby>二盃口<rt>リャンペイコー</rt></ruby></button>
-            <button data-name="流し満貫"><ruby>流し満貫<rt>ナガシマンガン</rt></ruby></button>
             <button data-name="清一色"><ruby>清一色<rt>チンイーソー</rt></ruby></button>
         </div>
 
@@ -215,6 +216,18 @@
             <button data-name="大四喜"><ruby>大四喜<rt>ダイスーシー</rt></ruby></button>
             <button data-name="純正九蓮宝燈"><ruby>純正九蓮宝燈<rt>ジュンセイチューレンポートウ</rt></ruby></button>
             <button data-name="国士無双十三面待ち"><ruby>国士無双十三面待ち<rt>コクシムソウジュウサンメンマチ</rt></ruby></button>
+        </div>
+
+        <h4>ローカル役</h4>
+        <div class="yakuButtons">
+            <button data-name="流し満貫"><ruby>流し満貫<rt>ナガシマンガン</rt></ruby></button>
+            <button id="localButton" data-name="ローカル">
+                <div class="label-wrapper">
+                    <ruby>その他<rt>　</rt></ruby>
+                    <span id="localCount">0</span>
+                    翻
+                </div>
+            </button>
         </div>
 
 

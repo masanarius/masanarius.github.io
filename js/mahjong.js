@@ -127,7 +127,8 @@ function updateAdditiveButton(name, buttonId, color) {
     const rgb = count === 0 ? '#eee' :
         color === "red" ? `rgba(255, 0, 0, ${intensity})` :
             color === "blue" ? `rgba(0, 0, 255, ${intensity})` :
-                `rgba(0, 0, 0, ${intensity})`;
+                color === "green" ? `rgba(0, 255, 0, ${intensity})` :
+                    `rgba(0, 0, 0, ${intensity})`;
     button.style.backgroundColor = rgb;
 }
 
@@ -181,10 +182,6 @@ function showScores() {
         const li = document.createElement("li");
         li.textContent = label;
         resultList.appendChild(li);
-
-        if (fu === Object.keys(entries)[0]) {
-            rankLabelEl.textContent = `${rank}`;
-        }
     }
 }
 
@@ -219,6 +216,7 @@ function resetAll() {
     document.querySelectorAll(".yakuButtons button").forEach(btn => btn.classList.remove("active"));
     updateAdditiveButton("ドラ", "doraButton", "red");
     updateAdditiveButton("役牌", "yakuhaiButton", "blue");
+    updateAdditiveButton("ローカル", "localButton", "yellow");
     updateTotalHan();
     window.scrollTo(0, 0);
 }
@@ -229,8 +227,8 @@ function getHanPair(name) {
         "平和": [1, 0], "一盃口": [1, 0], "槍槓": [1, 1], "嶺上開花": [1, 1],
         "海底撈月": [1, 1], "河底撈魚": [1, 1], "ダブル立直": [2, 2],
         "七対子": [2, 2], "対々和": [2, 2], "三暗刻": [2, 2], "三色同刻": [2, 2],
-        "三色同順": [2, 1], "混老頭": [2, 2], "一気通貫": [2, 1], "全帯么九": [2, 1],
-        "小三元": [2, 2], "三槓子": [2, 2], "混一色": [3, 2], "純全帯么九": [3, 2],
+        "三色同順": [2, 1], "混老頭": [2, 2], "一気通貫": [2, 1], "混全帯": [2, 1],
+        "小三元": [2, 2], "三槓子": [2, 2], "混一色": [3, 2], "純全帯": [3, 2],
         "二盃口": [3, 0], "流し満貫": [5, 5], "清一色": [6, 5],
         "天和": [13, 13], "地和": [13, 13], "人和": [13, 13], "緑一色": [13, 13],
         "大三元": [13, 13], "小四喜": [13, 13], "字一色": [13, 13], "国士無双": [13, 13],
@@ -272,6 +270,8 @@ window.addEventListener("DOMContentLoaded", () => {
             btn.addEventListener("click", () => addHan("役牌", 1, "yakuhaiButton", "blue"));
         } else if (btn.id === "doraButton") {
             btn.addEventListener("click", () => addHan("ドラ", 1, "doraButton", "red"));
+        } else if (btn.id === "localButton") {
+            btn.addEventListener("click", () => addHan("ローカル", 1, "localButton", "green"));
         } else {
             const hanPair = getHanPair(name);
             if (hanPair) {
