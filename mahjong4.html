@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>4人麻雀点数計算機</title>
+    <style>
+        html {
+            font-size: 3vw;
+        }
+
+        body {
+            font-family: sans-serif;
+        }
+
+        #resultContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20em;
+            background: #efe;
+            border-bottom: 1px solid #ccc;
+            padding: 1em;
+            z-index: 1000;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #resetButton {
+            position: absolute;
+            bottom: 1em;
+            right: 1em;
+        }
+
+        #inputContainer {
+            margin-top: 21em;
+            padding: 1em;
+        }
+
+        .rowContainer {
+            display: flex;
+            gap: 1em;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .fieldBlock {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3em;
+            align-items: center;
+            text-align: center;
+        }
+
+        #winnerToggle button,
+        #isOpenHandToggle button,
+        #honbaCounter button {
+            width: 4em;
+        }
+
+        button {
+            font-size: 3vw;
+            color: black;
+            touch-action: manipulation;
+        }
+
+        #winnerToggle button,
+        #isOpenHandToggle button,
+        #honbaCounter button,
+        .yakuButtons button,
+        #doraButton,
+        #localButton,
+        #yakuhaiButton {
+            margin: 0.3em;
+            padding: 0.4em 0.6em;
+            border: 1px solid #888;
+            background: #eee;
+            cursor: pointer;
+            line-height: 1.2;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #winnerToggle button.active,
+        #isOpenHandToggle button.active,
+        .yakuButtons button.active {
+            background: #4CAF50;
+            color: white;
+        }
+
+        #yakuhaiButton .label-wrapper,
+        #localButton .label-wrapper,
+        #doraButton .label-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 0.2em;
+        }
+
+        #resultList {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="resultContainer">
+        <h1><span id="totalHan">0</span>翻 <span id="rankLabel"></span></h1>
+        <input type="hidden" id="han" value="0">
+        <ul id="resultList"></ul>
+        <button id="resetButton">リセット</button>
+    </div>
+
+    <div id="inputContainer">
+        <div class="rowContainer">
+            <div class="fieldBlock">
+                <label>和了家</label>
+                <div id="winnerToggle">
+                    <button type="button" data-value="parent">親</button>
+                    <button type="button" data-value="child">子</button>
+                </div>
+                <input type="hidden" id="winner" value="parent">
+            </div>
+            <div class="fieldBlock">
+                <label>副露</label>
+                <div id="isOpenHandToggle">
+                    <button type="button" data-value="false">なし</button>
+                    <button type="button" data-value="true">あり</button>
+                </div>
+                <input type="hidden" id="isOpenHand" value="false">
+            </div>
+            <div class="fieldBlock">
+                <label><span id="honbaValue">0</span> 本場</label>
+                <div id="honbaCounter">
+                    <button type="button" data-delta="-1">−</button>
+                    <button type="button" data-delta="1">＋</button>
+                </div>
+                <input type="hidden" id="honba" value="0">
+            </div>
+        </div>
+        <br>
+        <hr>
+        <h4>1翻役</h4>
+        <div class="yakuButtons">
+            <button data-name="門前摸和"><ruby>門前摸和<rt>メンゼンツモ</rt></ruby></button>
+            <button data-name="立直"><ruby>立直<rt>リーチ</rt></ruby></button>
+            <button data-name="一発"><ruby>一発<rt>イッパツ</rt></ruby></button>
+            <button data-name="断幺九"><ruby>断幺九<rt>タンヤオ</rt></ruby></button>
+            <button data-name="平和"><ruby>平和<rt>ピンフ</rt></ruby></button>
+            <button data-name="一盃口"><ruby>一盃口<rt>イーペイコー</rt></ruby></button>
+            <button id="yakuhaiButton" data-name="役牌">
+                <div class="label-wrapper">
+                    <ruby>役牌<rt>ヤクハイ</rt></ruby>
+                    <span id="yakuhaiCount">0</span>
+                </div>
+            </button>
+            <button data-name="槍槓"><ruby>槍槓<rt>チャンカン</rt></ruby></button>
+            <button data-name="嶺上開花"><ruby>嶺上開花<rt>リンシャンカイホウ</rt></ruby></button>
+            <button data-name="海底撈月"><ruby>海底撈月<rt>ハイテイラオユエ</rt></ruby></button>
+            <button data-name="河底撈魚"><ruby>河底撈魚<rt>ホウテイラオユイ</rt></ruby></button>
+            <button id="doraButton" data-name="ドラ">
+                <div class="label-wrapper">
+                    <ruby>ドラ<rt>　　</rt></ruby>
+                    <span id="doraCount">0</span>
+                </div>
+            </button>
+        </div>
+
+        <h4>2翻役</h4>
+        <div class="yakuButtons">
+            <button data-name="ダブル立直"><ruby>ダブル立直<rt>リーチ</rt></ruby></button>
+            <button data-name="七対子"><ruby>七対子<rt>チートイツ</rt></ruby></button>
+            <button data-name="対々和"><ruby>対々和<rt>トイトイホー</rt></ruby></button>
+            <button data-name="三暗刻"><ruby>三暗刻<rt>サンアンコウ</rt></ruby></button>
+            <button data-name="三色同刻"><ruby>三色同刻<rt>サンショクドウコウ</rt></ruby></button>
+            <button data-name="三色同順"><ruby>三色同順<rt>サンショクドウジュン</rt></ruby></button>
+            <button data-name="混老頭"><ruby>混老頭<rt>ホンロウトウ</rt></ruby></button>
+            <button data-name="一気通貫"><ruby>一気通貫<rt>イッキツウカン</rt></ruby></button>
+            <button data-name="混全帯"><ruby>混全帯<rt>チャンタ</rt></ruby></button>
+            <button data-name="小三元"><ruby>小三元<rt>ショウサンゲン</rt></ruby></button>
+            <button data-name="三槓子"><ruby>三槓子<rt>サンカンツ</rt></ruby></button>
+        </div>
+
+        <h4>3・5・6翻役</h4>
+        <div class="yakuButtons">
+            <button data-name="混一色"><ruby>混一色<rt>ホンイーソー</rt></ruby></button>
+            <button data-name="純全帯"><ruby>純全帯<rt>ジュンチャン</rt></ruby></button>
+            <button data-name="二盃口"><ruby>二盃口<rt>リャンペイコー</rt></ruby></button>
+            <button data-name="清一色"><ruby>清一色<rt>チンイーソー</rt></ruby></button>
+        </div>
+
+        <h4>役満</h4>
+        <div class="yakuButtons">
+            <button data-name="天和"><ruby>天和<rt>テンホー</rt></ruby></button>
+            <button data-name="地和"><ruby>地和<rt>チーホー</rt></ruby></button>
+            <button data-name="人和"><ruby>人和<rt>レンホー</rt></ruby></button>
+            <button data-name="緑一色"><ruby>緑一色<rt>リューイーソー</rt></ruby></button>
+            <button data-name="大三元"><ruby>大三元<rt>ダイサンゲン</rt></ruby></button>
+            <button data-name="小四喜"><ruby>小四喜<rt>ショウスーシー</rt></ruby></button>
+            <button data-name="字一色"><ruby>字一色<rt>ツーイーソー</rt></ruby></button>
+            <button data-name="国士無双"><ruby>国士無双<rt>コクシムソウ</rt></ruby></button>
+            <button data-name="九蓮宝燈"><ruby>九蓮宝燈<rt>チューレンポートウ</rt></ruby></button>
+            <button data-name="四暗刻"><ruby>四暗刻<rt>スーアンコウ</rt></ruby></button>
+            <button data-name="清老頭"><ruby>清老頭<rt>チンロウトウ</rt></ruby></button>
+            <button data-name="四槓子"><ruby>四槓子<rt>スーカンツ</rt></ruby></button>
+        </div>
+
+        <h4>ダブル役満</h4>
+        <div class="yakuButtons">
+            <button data-name="四暗刻単騎"><ruby>四暗刻単騎<rt>スーアンコウタンキ</rt></ruby></button>
+            <button data-name="大四喜"><ruby>大四喜<rt>ダイスーシー</rt></ruby></button>
+            <button data-name="純正九蓮宝燈"><ruby>純正九蓮宝燈<rt>ジュンセイチューレンポートウ</rt></ruby></button>
+            <button data-name="国士無双十三面待ち"><ruby>国士無双十三面待ち<rt>コクシムソウジュウサンメンマチ</rt></ruby></button>
+        </div>
+
+        <h4>ローカル役</h4>
+        <div class="yakuButtons">
+            <button data-name="流し満貫"><ruby>流し満貫<rt>ナガシマンガン</rt></ruby></button>
+            <button id="localButton" data-name="ローカル">
+                <div class="label-wrapper">
+                    <ruby>その他<rt>　</rt></ruby>
+                    <span id="localCount">0</span>
+                    翻
+                </div>
+            </button>
+        </div>
+
+        <br>
+        <hr>
+
+        <div style="text-align: center; margin: 2em 0;">
+            <button onclick="location.href='https://masanarius.github.io/mahjong3.html'"
+                style="font-size: 3vw; padding: 0.6em 1em; background: #fff; border: 1px solid #888; cursor: pointer;">
+                3人麻雀
+            </button>
+            <button onclick="location.href='https://masanarius.github.io/mahjong4.html'"
+                style="font-size: 3vw; padding: 0.6em 1em; background: #fff; border: 1px solid #888; cursor: pointer;">
+                4人麻雀
+            </button>
+        </div>
+
+
+
+    </div>
+
+    <script src="js/mahjong4.js"></script>
+</body>
+
+</html>
