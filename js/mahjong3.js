@@ -3,47 +3,25 @@
 const scoreTable = {
 
     1: {
-        30: { parent: { ron: 1500, tsumo: 800 }, child: { ron: 1000, tsumo: [500, 700] }, rank: "" },
-        40: { parent: { ron: 2000, tsumo: 1000 }, child: { ron: 1300, tsumo: [600, 900] }, rank: "" },
-        50: { parent: { ron: 2400, tsumo: 1200 }, child: { ron: 1600, tsumo: [600, 1000] }, rank: "" },
-        60: { parent: { ron: 2900, tsumo: 1500 }, child: { ron: 2000, tsumo: [800, 1300] }, rank: "" },
-        70: { parent: { ron: 3400, tsumo: 1700 }, child: { ron: 2300, tsumo: [900, 1500] }, rank: "" }
+        all: { parent: { ron: 2000, tsumo: 1000 }, child: { ron: 1000, tsumo: [1000, 1000] }, rank: "" }
     },
     2: {
-        20: { parent: { ron: 2000, tsumo: 1000 }, child: { ron: 1300, tsumo: [500, 900] }, rank: "平和" },
-        25: { parent: { ron: 2400, tsumo: 1200 }, child: { ron: 1600, tsumo: [600, 1000] }, rank: "七対" },
-        30: { parent: { ron: 2900, tsumo: 1500 }, child: { ron: 2000, tsumo: [800, 1300] }, rank: "" },
-        40: { parent: { ron: 3900, tsumo: 2000 }, child: { ron: 2600, tsumo: [1100, 1700] }, rank: "" },
-        50: { parent: { ron: 4800, tsumo: 2400 }, child: { ron: 3200, tsumo: [1200, 2000] }, rank: "" },
-        60: { parent: { ron: 5800, tsumo: 2900 }, child: { ron: 3900, tsumo: [1500, 2500] }, rank: "" },
-        70: { parent: { ron: 6800, tsumo: 3400 }, child: { ron: 4500, tsumo: [1800, 2900] }, rank: "" }
+        all: { parent: { ron: 3000, tsumo: 2000 }, child: { ron: 2000, tsumo: [1000, 1000] }, rank: "" }
     },
     3: {
-        20: { parent: { ron: 3900, tsumo: 2000 }, child: { ron: 2600, tsumo: [1100, 1700] }, rank: "平和" },
-        25: { parent: { ron: 4800, tsumo: 2400 }, child: { ron: 3200, tsumo: [1200, 2000] }, rank: "七対" },
-        30: { parent: { ron: 5800, tsumo: 2900 }, child: { ron: 3900, tsumo: [1500, 2500] }, rank: "" },
-        40: { parent: { ron: 7700, tsumo: 3900 }, child: { ron: 5200, tsumo: [2000, 3300] }, rank: "" },
-        50: { parent: { ron: 9600, tsumo: 4800 }, child: { ron: 6400, tsumo: [2400, 4000] }, rank: "" },
-        60: { parent: { ron: 12000, tsumo: 6000 }, child: { ron: 8000, tsumo: [3000, 5000] }, rank: "満貫" },
-        70: { parent: { ron: 12000, tsumo: 6000 }, child: { ron: 8000, tsumo: [3000, 5000] }, rank: "満貫" }
+        all: { parent: { ron: 6000, tsumo: 3000 }, child: { ron: 4000, tsumo: [1000, 3000] }, rank: "" }
     },
     4: {
-        20: { parent: { ron: 7700, tsumo: 3900 }, child: { ron: 5200, tsumo: [2000, 3300] }, rank: "平和" },
-        25: { parent: { ron: 9600, tsumo: 4800 }, child: { ron: 6400, tsumo: [2400, 4000] }, rank: "七対" },
-        30: { parent: { ron: 12000, tsumo: 6000 }, child: { ron: 8000, tsumo: [3000, 5000] }, rank: "満貫" },
-        40: { parent: { ron: 12000, tsumo: 6000 }, child: { ron: 8000, tsumo: [3000, 5000] }, rank: "満貫" },
-        50: { parent: { ron: 12000, tsumo: 6000 }, child: { ron: 8000, tsumo: [3000, 5000] }, rank: "満貫" },
-        60: { parent: { ron: 12000, tsumo: 6000 }, child: { ron: 8000, tsumo: [3000, 5000] }, rank: "満貫" },
-        70: { parent: { ron: 12000, tsumo: 6000 }, child: { ron: 8000, tsumo: [3000, 5000] }, rank: "満貫" }
+        all: { parent: { ron: 12000, tsumo: 6000 }, child: { ron: 8000, tsumo: [3000, 5000] }, rank: "満貫" }
     },
     5: {
         all: { parent: { ron: 12000, tsumo: 6000 }, child: { ron: 8000, tsumo: [3000, 5000] }, rank: "満貫" }
     },
     6: {
-        all: { parent: { ron: 18000, tsumo: 9000 }, child: { ron: 12000, tsumo: [4500, 7500] }, rank: "跳満" }
+        all: { parent: { ron: 18000, tsumo: 9000 }, child: { ron: 12000, tsumo: [4000, 8000] }, rank: "跳満" }
     },
     7: {
-        all: { parent: { ron: 18000, tsumo: 9000 }, child: { ron: 12000, tsumo: [4500, 7500] }, rank: "跳満" }
+        all: { parent: { ron: 18000, tsumo: 9000 }, child: { ron: 12000, tsumo: [4000, 8000] }, rank: "跳満" }
     },
     8: {
         all: { parent: { ron: 24000, tsumo: 12000 }, child: { ron: 16000, tsumo: [6000, 10000] }, rank: "倍満" }
@@ -55,10 +33,10 @@ const scoreTable = {
         all: { parent: { ron: 24000, tsumo: 12000 }, child: { ron: 16000, tsumo: [6000, 10000] }, rank: "倍満" }
     },
     11: {
-        all: { parent: { ron: 36000, tsumo: 18000 }, child: { ron: 24000, tsumo: [9000, 15000] }, rank: "三倍満" }
+        all: { parent: { ron: 36000, tsumo: 18000 }, child: { ron: 24000, tsumo: [8000, 16000] }, rank: "三倍満" }
     },
     12: {
-        all: { parent: { ron: 36000, tsumo: 18000 }, child: { ron: 24000, tsumo: [9000, 15000] }, rank: "三倍満" }
+        all: { parent: { ron: 36000, tsumo: 18000 }, child: { ron: 24000, tsumo: [8000, 16000] }, rank: "三倍満" }
     },
     13: {
         all: { parent: { ron: 48000, tsumo: 24000 }, child: { ron: 32000, tsumo: [12000, 20000] }, rank: "役満" }
@@ -158,7 +136,7 @@ function showScores() {
 
     if (entries.all) {
         const d = entries.all[winner];
-        const rank = entries.all.rank || "-";
+        const rank = entries.all.rank;
         const ron = d.ron + 300 * honba;
         const tsumo = Array.isArray(d.tsumo)
             ? `${d.tsumo[0] + 100 * honba} / ${d.tsumo[1] + 100 * honba}`
