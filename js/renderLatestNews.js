@@ -22,12 +22,12 @@ async function renderLatestNews() {
 
             // 日付（共通フォーマット）
             const dateCellJa = document.createElement("td");
-            dateCellJa.className = "text-sm text-gray-600 leading-loose px-2 pr-4 w-[8rem] whitespace-nowrap";
+            dateCellJa.className = "text-sm text-gray-600 leading-loose px-2 pr-4 whitespace-nowrap";
             dateCellJa.setAttribute("data-lang", "ja");
             dateCellJa.textContent = formattedDate;
 
             const dateCellEn = document.createElement("td");
-            dateCellEn.className = "text-sm text-gray-600 leading-loose px-2 pr-4 w-[8rem] whitespace-nowrap hidden";
+            dateCellEn.className = "text-sm text-gray-600 leading-loose px-2 pr-4 whitespace-nowrap hidden";
             dateCellEn.setAttribute("data-lang", "en");
             dateCellEn.textContent = formattedDate;
 
