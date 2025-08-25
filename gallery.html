@@ -4,78 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery | Masanari ICHIKAWA</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="img/favicon.png">
-
-    <style>
-        /* ダウンロードボタン用スタイルのみ */
-        .custom-rounded-button-l,
-        .custom-rounded-button-r {
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .custom-rounded-button-l:hover,
-        .custom-rounded-button-r:hover {
-            background-color: var(--primary);
-        }
-    </style>
-</head>
-
-<body>
-    <div class="band"></div>
-    <div class="container">
-
-        <h1>Gallery</h1>
-
-        <div style="text-align: center;">
-            <div style="height: 10px;"></div>
-            <!-- 初期表示の画像 -->
-            <img id="card" class="card" src="poster/jcss2024-P3-37.jpg">
-            <div style="height: 10px;"></div>
-        </div>
-
-        <div style="height: 50px;"></div>
-
-        <button class="button custom-rounded-button-c" onclick="window.location.href='poster/jcss2024-P3-37.jpg';">
-            View Larger
-        </button>
-
-
-
-        <div class="button-container">
-            <!-- 画像切り替えボタン -->
-            <button class="button custom-rounded-button-l" onclick="downloadFile('poster/jcss2024-P3-37.jpg')">Download
-                JPG</button>
-            <button class="button custom-rounded-button-r" onclick="downloadFile('poster/jcss2024-P3-37.pdf')">Download
-                PDF</button>
-        </div>
-
-
-
-        <div style="height: 50px;"></div>
-
-        <p style="text-align: center;">Author info <span style="color: var(--primary);">></span>
-            <a href="index.html" style="text-decoration: underline;">https://masanarius.github.io</a>
-        </p>
-
-
-
-    </div>
-
+    <title>Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         function downloadFile(url) {
             const link = document.createElement("a");
             link.href = url;
             link.download = url.split('/').pop(); // ファイル名はURLから取得
+            document.body.appendChild(link); // Safari対応のため一時的に追加
             link.click();
+            document.body.removeChild(link);
         }
     </script>
+</head>
 
+<body class="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+    <div class="max-w-5xl w-full">
+        <h1 class="text-4xl font-bold text-center mb-8">Gallery</h1>
 
+        <div class="flex flex-col items-center space-y-6">
+            <img src="poster/comdoc2025.jpg" alt="Comdoc 2025 Poster" class="shadow-xl max-h-[80vh] w-auto">
 
+            <!-- View Large（PDFを新規タブで表示） -->
+            <button onclick="window.open('poster/comdoc2025.pdf', '_blank')"
+                class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition">
+                View Large
+            </button>
 
+            <!-- ダウンロードボタン群 -->
+            <div class="flex gap-3">
+                <button onclick="downloadFile('poster/comdoc2025.pdf')"
+                    class="px-5 py-2 rounded-lg font-semibold shadow bg-white text-gray-800 border border-gray-300 hover:bg-gray-50 transition">
+                    Download PDF
+                </button>
+                <button onclick="downloadFile('poster/comdoc2025.jpg')"
+                    class="px-5 py-2 rounded-lg font-semibold shadow bg-white text-gray-800 border border-gray-300 hover:bg-gray-50 transition">
+                    Download JPG
+                </button>
+            </div>
+
+            <!-- Author Info ボタン -->
+            <button onclick="window.location.href='https://masanarius.github.io'"
+                class="px-6 py-2 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition">
+                Author Info
+            </button>
+        </div>
+    </div>
 </body>
 
 </html>

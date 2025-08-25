@@ -3,164 +3,53 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description"
-        content="市川雅也(いちかわまさなり)．静岡大学創造科学技術大学院に在籍している博士学生です．人の対話構造に調和するオンライン対話システムの研究と開発をしています．情報科学専攻．認知的コミュニケーション研究室所属．">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research | Masanari ICHIKAWA</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="img/favicon.png">
-
-    <style>
-        /* ベーススタイル */
-        .item {
-            display: flex;
-            align-items: flex-start;
-            gap: 50px;
-            margin-bottom: 2rem;
+    <title>Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function downloadFile(url) {
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = url.split('/').pop(); // ファイル名はURLから取得
+            document.body.appendChild(link); // Safari対応のため一時的に追加
+            link.click();
+            document.body.removeChild(link);
         }
-
-        .item img {
-            max-width: 100%;
-            /* 画像をコンテナ幅に収める */
-            height: auto;
-            /* アスペクト比を維持 */
-            order: 0;
-        }
-
-        .text-container {
-            display: flex;
-            flex-direction: column;
-            order: 1;
-        }
-
-        .container {
-            width: 80%;
-        }
-
-        .flex-container img {
-            align-self: flex-start;
-            /* 画像を明示的に上揃え */
-            width: 50%;
-            max-width: 400px;
-
-            height: auto;
-            display: block;
-            border-radius: 0;
-            /* 隙間を防止 */
-            margin: auto;
-            /* 不要な余白をリセット */
-
-        }
-
-        h3 {
-            margin-top: 0;
-            margin-bottom: 0.5rem;
-            color: var(--white);
-            text-align: left;
-            background-color: var(--gray-light);
-            padding: 2px 1rem;
-            display: block;
-            /* 行全体を占有する */
-        }
-
-        p {
-            line-height: 1.8rem;
-        }
-
-        /* 表示幅が狭いときは縦並びにする */
-        @media (max-width: 1000px) {
-            .container {
-                width: 90%;
-            }
-
-            .flex-container img {
-                max-width: 600px;
-                /* 最大幅を600pxに制限 */
-                width: 100%;
-                /* 幅を親要素に合わせる */
-                height: auto;
-                /* 高さを自動調整 */
-
-            }
-
-            .item {
-                flex-direction: column;
-                /* コンテンツを縦に並べる */
-                align-items: center;
-                /* 中央揃えにする場合 */
-            }
-
-            /* 順序変更の追加スタイル */
-            .item img {
-                margin-bottom: 3rem;
-                order: 1;
-                /* 画像を後に表示 */
-            }
-
-            .text-container {
-                order: 0;
-                /* テキストを先に表示 */
-            }
-
-            h3 {
-                margin-top: 0;
-                margin-bottom: 0.5rem;
-                color: var(--gray-light);
-                text-align: left;
-                background-color: var(--white);
-                padding: 2px 0rem;
-                display: block;
-
-            }
-
-            p {
-                line-height: 2rem;
-            }
-        }
-    </style>
-
-
+    </script>
 </head>
 
-<body>
-    <div class="band"></div>
-    <div class="container">
-        <header>
-            <nav>
-                <ul id="menu" class="menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="research.html">Research</a></li>
-                    <li><a href="publication.html">Publication</a></li>
-                    <li><a href="news.html">News</a></li>
-                </ul>
-                <div class="hamburger" id="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <button id="lang-switch" class="lang-btn">EN</button>
-            </nav>
-        </header>
+<body class="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+    <div class="max-w-5xl w-full">
+        <h1 class="text-4xl font-bold text-center mb-8">Gallery</h1>
 
-        <h1>Research</h1>
+        <div class="flex flex-col items-center space-y-6">
+            <img src="poster/comdoc2025.jpg" alt="Comdoc 2025 Poster" class="shadow-xl max-h-[80vh] w-auto">
 
-        <h2 data-key="research.dialog"></h2>
-        <div class="flex-container">
-            <div id="dialog-container"></div>
+            <!-- View Large（PDFを新規タブで表示） -->
+            <button onclick="window.open('poster/comdoc2025.pdf', '_blank')"
+                class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition">
+                View Large
+            </button>
+
+            <!-- ダウンロードボタン群 -->
+            <div class="flex gap-3">
+                <button onclick="downloadFile('poster/comdoc2025.pdf')"
+                    class="px-5 py-2 rounded-lg font-semibold shadow bg-white text-gray-800 border border-gray-300 hover:bg-gray-50 transition">
+                    Download PDF
+                </button>
+                <button onclick="downloadFile('poster/comdoc2025.jpg')"
+                    class="px-5 py-2 rounded-lg font-semibold shadow bg-white text-gray-800 border border-gray-300 hover:bg-gray-50 transition">
+                    Download JPG
+                </button>
+            </div>
+
+            <!-- Author Info ボタン -->
+            <button onclick="window.location.href='https://masanarius.github.io'"
+                class="px-6 py-2 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition">
+                Author Info
+            </button>
         </div>
-        <button class="button" data-key="research.show-more-dialog"></button>
-
     </div>
-    <a class="pagetop" href="#">
-        <div class="pagetop_arrow"></div>
-    </a>
-    <div class="band">&copy; 2024 Masanari Ichikawa. All rights reserved.</div>
-    <!-- JavaScriptの読み込み -->
-    <script src="js/menu.js"></script>
-    <script src="js/general.js"></script>
-    <script src="js/research_dialog.js"></script>
-
 </body>
 
 </html>
