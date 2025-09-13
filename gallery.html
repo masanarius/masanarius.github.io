@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
+    <title>Poster Download</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         function downloadFile(url) {
@@ -23,31 +23,35 @@
         <h1 class="text-4xl font-bold text-center mb-8">Gallery</h1>
 
         <div class="flex flex-col items-center space-y-6">
-            <img src="poster/comdoc2025.jpg" alt="Comdoc 2025 Poster" class="shadow-xl max-h-[80vh] w-auto">
+            <img src="poster/jcss2025-P3-57.jpg" alt="Poster" class="shadow-xl max-h-[80vh] w-auto">
 
             <!-- View Large（PDFを新規タブで表示） -->
-            <button onclick="window.open('poster/comdoc2025.pdf', '_blank')"
+            <button onclick="window.open('poster/jcss2025-P3-57.pdf', '_blank')"
                 class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition">
-                View Large
+                View Larger
             </button>
 
             <!-- ダウンロードボタン群 -->
             <div class="flex gap-3">
-                <button onclick="downloadFile('poster/comdoc2025.pdf')"
+                <button onclick="downloadFile('poster/jcss2025-P3-57.pdf')"
                     class="px-5 py-2 rounded-lg font-semibold shadow bg-white text-gray-800 border border-gray-300 hover:bg-gray-50 transition">
                     Download PDF
                 </button>
-                <button onclick="downloadFile('poster/comdoc2025.jpg')"
+                <button onclick="downloadFile('poster/jcss2025-P3-57.jpg')"
                     class="px-5 py-2 rounded-lg font-semibold shadow bg-white text-gray-800 border border-gray-300 hover:bg-gray-50 transition">
                     Download JPG
                 </button>
             </div>
 
-            <!-- Author Info ボタン -->
+
             <button onclick="window.location.href='https://masanarius.github.io'"
                 class="px-6 py-2 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition">
-                Author Info
+                Author's Website
             </button>
+
+
+            <!-- Author Info ボタン -->
+
         </div>
     </div>
 </body>
