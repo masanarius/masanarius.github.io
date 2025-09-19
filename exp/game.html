@@ -255,6 +255,32 @@
     <script>
         const UI_SHOW = { title: false, idSelect: true, score: false, high: false, trial: true, reset: false, refresh: true, help: true, points: false, popup: true };
 
+        // ▼ 追加：UI要素参照
+        const titleEl = document.getElementById('title');
+        const idBlock = document.getElementById('idBlock');
+        const helperText = document.getElementById('helperText');
+
+        // ▼ 追加：表示/非表示トグル関数
+        function showOrHide(el, on) {
+            if (!el) return;
+            el.classList.toggle('hidden', !on);
+        }
+
+        // ▼ 追加：UI_SHOWをDOMに反映
+        function applyUIVisibility() {
+            showOrHide(titleEl, UI_SHOW.title);
+            showOrHide(idBlock, UI_SHOW.idSelect);
+            showOrHide(scoreEl, UI_SHOW.score);
+            showOrHide(highEl, UI_SHOW.high);
+            showOrHide(trialEl, UI_SHOW.trial);
+            showOrHide(resetBtn, UI_SHOW.reset);
+            showOrHide(refreshBtn, UI_SHOW.refresh); // ← 「リフレッシュ」ボタン
+            showOrHide(helperText, UI_SHOW.help);
+        }
+
+        // ▼ 追加：呼び出し
+        applyUIVisibility();
+
         const FORM_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf8kEtfUI_MKUcUMwL1cyPUn5E4HZUh3eJNOpXpIxaxGTxNxw/formResponse";
         const ENTRY_ID_SUBJECT = "entry.760446940";
         const ENTRY_ID_LOG = "entry.801929558";
