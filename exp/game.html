@@ -95,11 +95,12 @@
             border: 1px solid rgba(148, 163, 184, .2)
         }
 
+        /* 常に1行3列（狭い端末は横スクロール） */
         .grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 14px;
-            overflow-x: auto
+            overflow-x: auto;
         }
 
         .card {
@@ -235,7 +236,7 @@
 
         <footer>
             <div id="helperText">
-                画像を押すと得点が入ります。試行回数が上限に達すると終了します。制限試行回数内でより多くの得点を獲得してください。（ver.12）
+                画像を押すと得点が入ります。試行回数が上限に達すると終了します。制限試行回数内でより多くの得点を獲得してください。（ver.13）
             </div>
             <button class="btn" id="shuffleBtn" disabled>シャッフル</button>
         </footer>
@@ -250,39 +251,57 @@
     </template>
 
     <script>
-        const UI_SHOW = { title: false, idSelect: true, score: false, high: false, trial: true, reset: false, shuffle: false, help: true, points: false, popup: true };
+        /* ===== UI表示フラグ ===== */
+        const UI_SHOW = {
+            title: false, idSelect: true, score: false, high: false, trial: true, reset: false,
+            shuffle: false, help: true, points: false, popup: true
+        };
 
+        /* ===== Googleフォーム ===== */
         const FORM_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf8kEtfUI_MKUcUMwL1cyPUn5E4HZUh3eJNOpXpIxaxGTxNxw/formResponse";
         const ENTRY_ID_SUBJECT = "entry.760446940";
         const ENTRY_ID_LOG = "entry.801929558";
 
+        /* ===== 位置ボーナス（編集OK） ===== */
         const POSITION_SCORE = { left: 2, center: 4, right: 6 };
 
+        /* ===== ID Select ===== */
         const idSelect = document.getElementById('idSelect');
         for (let i = 1; i <= 20; i++) { const o = document.createElement('option'); o.value = i; o.textContent = i; idSelect.appendChild(o); }
         let subjectId = null;
         idSelect.addEventListener('change', () => { if (idSelect.value) { idSelect.disabled = true; subjectId = idSelect.value; } });
 
+        /* ===== ゲーム設定 ===== */
         const COLORS = ['yel', 'grn', 'blu', 'pnk'];
         const PATTERNS = ['str', 'dot', 'box', 'hrb'];
         const SHAPES = ['cir', 'tri', 'sqr', 'hex'];
         const EXCLUDE = { colors: ['pnk'], patterns: ['hrb'], shapes: ['hex'] };
-        const SCORE_BY = { file: {}, color: { yel: 1, grn: 2, blu: 3, pnk: 4 }, pattern: { str: 3, dot: 4, box: 5, hrb: 6 }, shape: { cir: 2, tri: 3, sqr: 4, hex: 5 } };
+        const SCORE_BY = {
+            file: {},
+            color: { yel: 1, grn: 2, blu: 3, pnk: 4 },
+            pattern: { str: 3, dot: 4, box: 5, hrb: 6 },
+            shape: { cir: 2, tri: 3, sqr: 4, hex: 5 }
+        };
         const BASE_SCORE = 0, DEFAULT_SCORE = 1;
 
         function buildFiles() {
-            const files = []; const exC = new Set(EXCLUDE.colors), exP = new Set(EXCLUDE.patterns), exS = new Set(EXCLUDE.shapes);
+            const files = [];
+            const exC = new Set(EXCLUDE.colors), exP = new Set(EXCLUDE.patterns), exS = new Set(EXCLUDE.shapes);
             for (const c of COLORS) {
                 if (exC.has(c)) continue;
                 for (const p of PATTERNS) {
                     if (exP.has(p)) continue;
-                    for (const s of SHAPES) { if (exS.has(s)) continue; files.push(`${c}_${p}_${s}.png`); }
+                    for (const s of SHAPES) {
+                        if (exS.has(s)) continue;
+                        files.push(`${c}_${p}_${s}.png`);
+                    }
                 }
             }
             return files;
         }
         let FILES = buildFiles();
 
+        /* ===== DOM ===== */
         const IMG_PATH_PREFIX = 'images/';
         const grid = document.getElementById('grid');
         const scoreEl = document.getElementById('score');
@@ -307,72 +326,181 @@
         }
         applyUIVisibility();
 
+        /* ===== 状態 ===== */
         let score = 0;
         let high = Number(localStorage.getItem('imggame_high') || 0);
         let trial = 0;
         let trialLimit = 20;
         let logs = [];
-        const currentKeys = new Set();
+
+        // 直前に表示していたキー集合（重複回避用）
+        let lastKeys = new Set();
 
         updateScore(0); updateTrialUI();
 
-        if (FILES.length === 0) { grid.innerHTML = '<div class="points" style="margin:8px auto">候補がありません</div>'; }
-        else { for (let i = 0; i < Math.min(3, FILES.length); i++) addCard(); }
+        /* ===== 重複なしバッチ抽選 ===== */
+        // k枚ぶんを重複なしでまとめて抽選。avoid のキーは可能な限り避ける（不足時は許容）。
+        function pickUniqueBatch(k, avoid = new Set()) {
+            const shuffleInPlace = arr => {
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+            };
+
+            const primaryPool = FILES.filter(x => !avoid.has(x));
+            const result = [];
+
+            const p = primaryPool.slice();
+            shuffleInPlace(p);
+            while (result.length < k && p.length) result.push(p.pop());
+
+            if (result.length < k) {
+                const fallback = FILES.filter(x => !result.includes(x));
+                shuffleInPlace(fallback);
+                while (result.length < k && fallback.length) result.push(fallback.pop());
+            }
+            return result;
+        }
+
+        /* ===== 初期表示：3枚を一括決定して描画 ===== */
+        if (FILES.length === 0) {
+            grid.innerHTML = '<div class="points" style="margin:8px auto">候補がありません</div>';
+        } else {
+            const firstKeys = pickUniqueBatch(Math.min(3, FILES.length));
+            firstKeys.forEach(key => grid.appendChild(createCard(key)));
+            lastKeys = new Set(firstKeys);
+        }
 
         resetBtn?.addEventListener('click', () => { score = 0; updateScore(0); });
+        shuffleBtn.addEventListener('click', () => {
+            if (trial >= trialLimit || !subjectId) return;
+            refreshAllCards();
+            logs.push({ t: timestamp(), action: "shuffle", score, trial });
+        });
 
-        function addCard() { const key = pickUniqueKey(); if (!key) return; const node = createCard(key); grid.appendChild(node); }
+        /* ===== 3枚まとめてリフレッシュ（重複なし） ===== */
         function refreshAllCards() {
-            [...grid.children].forEach(c => { if (currentKeys.has(c.dataset.key)) currentKeys.delete(c.dataset.key); });
-            [...grid.children].forEach(c => { const nk = pickUniqueKey(); if (nk) hydrateCard(c, nk); });
+            const n = grid.children.length; // 3枚のはず
+            const newKeys = pickUniqueBatch(n, lastKeys);
+            [...grid.children].forEach((card, i) => hydrateCard(card, newKeys[i]));
+            lastKeys = new Set(newKeys);
         }
-        function createCard(key) { const tmpl = document.getElementById('cardTmpl'); const frag = tmpl.content.cloneNode(true); const article = frag.querySelector('.card'); hydrateCard(article, key); return article; }
+
+        /* ===== カード生成/反映 ===== */
+        function createCard(key) {
+            const tmpl = document.getElementById('cardTmpl');
+            const frag = tmpl.content.cloneNode(true);
+            const article = frag.querySelector('.card');
+            hydrateCard(article, key);
+            return article;
+        }
 
         function hydrateCard(article, key) {
-            const a = article.querySelector('.thumb'); const img = article.querySelector('img'); const clicker = article.querySelector('.clicker'); const plus = article.querySelector('.points'); const pop = article.querySelector('.pop');
-            const url = IMG_PATH_PREFIX + key; a.href = url; img.src = url; img.alt = `画像: ${key}`;
+            const a = article.querySelector('.thumb');
+            const img = article.querySelector('img');
+            const clicker = article.querySelector('.clicker');
+            const plus = article.querySelector('.points');
+            const pop = article.querySelector('.pop');
+
+            const url = IMG_PATH_PREFIX + key;
+            a.href = url; img.src = url; img.alt = `画像: ${key}`;
+
             const base = getScoreForKey(key);
-            article.dataset.key = key; article.dataset.value = base;
-            plus.textContent = `+${base}`; pop.textContent = `+${base}`;
-            plus.style.display = UI_SHOW.points ? '' : 'none'; pop.style.display = UI_SHOW.popup ? '' : 'none';
+            article.dataset.key = key;
+            article.dataset.value = base;
+            plus.textContent = `+${base}`;
+            pop.textContent = `+${base}`;
+            plus.style.display = UI_SHOW.points ? '' : 'none';
+            pop.style.display = UI_SHOW.popup ? '' : 'none';
 
             clicker.onclick = () => {
                 if (trial >= trialLimit || !subjectId || article.dataset.lock === '1') return;
                 article.dataset.lock = '1';
-                const pos = getCardPosition(article);
+
+                const pos = getCardPosition(article);              // left / center / right
                 const bonus = Number(POSITION_SCORE[pos] || 0);
                 const baseVal = Number(article.dataset.value || 1);
                 const final = baseVal + bonus;
+
                 if (UI_SHOW.popup) pop.textContent = `+${final}`;
 
                 updateScore(final);
                 trial++; updateTrialUI();
                 if (trial >= 5) shuffleBtn.disabled = false;
+
                 logs.push({ t: timestamp(), key, pos, base: baseVal, value: final, score, trial });
 
                 article.classList.remove('popshow'); void article.offsetWidth;
                 if (UI_SHOW.popup) article.classList.add('popshow');
 
                 const after = () => {
-                    article.dataset.lock = ''; if (UI_SHOW.popup) pop.textContent = `+${baseVal}`;
-                    if (trial >= trialLimit) sendLog(); refreshAllCards();
+                    article.dataset.lock = '';
+                    if (UI_SHOW.popup) pop.textContent = `+${baseVal}`;
+                    if (trial >= trialLimit) sendLog();
+                    refreshAllCards();
                 };
                 if (!UI_SHOW.popup) { after(); return; }
                 pop.addEventListener('animationend', after, { once: true });
             };
-            currentKeys.add(key);
         }
 
-        function getCardPosition(article) { const arr = Array.from(grid.children); const idx = arr.indexOf(article); if (idx === 0) return 'left'; if (idx === 1) return 'center'; return 'right'; }
-        function pickUniqueKey() { const pool = FILES.filter(k => !currentKeys.has(k)); return pool.length ? pool[Math.floor(Math.random() * pool.length)] : FILES[Math.floor(Math.random() * FILES.length)]; }
-        function getScoreForKey(key) { if (SCORE_BY.file && Object.prototype.hasOwnProperty.call(SCORE_BY.file, key)) return SCORE_BY.file[key]; const [c, p, s] = key.replace('.png', '').split('_'); let v = BASE_SCORE; if (SCORE_BY.color[c] != null) v += Number(SCORE_BY.color[c]); if (SCORE_BY.pattern[p] != null) v += Number(SCORE_BY.pattern[p]); if (SCORE_BY.shape[s] != null) v += Number(SCORE_BY.shape[s]); if (v === BASE_SCORE) return DEFAULT_SCORE; return v; }
-        function updateScore(delta) { score += delta; if (score > high) { high = score; localStorage.setItem('imggame_high', String(high)); } scoreEl && (scoreEl.innerHTML = `<span class="label">Score：</span>${score}`); highEl && (highEl.innerHTML = `<span class="label">High：</span>${high}`); }
-        function updateTrialUI() { trialEl && (trialEl.innerHTML = `<span class="label">Trial：</span>${trial}/${trialLimit}`); }
-        function timestamp() { const d = new Date(); const pad = (n, l = 2) => String(n).padStart(l, '0'); return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds()) + pad(Math.floor(d.getMilliseconds() / 10), 2); }
+        /* ===== ユーティリティ ===== */
+        function getCardPosition(article) {
+            const arr = Array.from(grid.children);
+            const idx = arr.indexOf(article); // 0,1,2
+            if (idx === 0) return 'left';
+            if (idx === 1) return 'center';
+            return 'right';
+        }
+
+        function getScoreForKey(key) {
+            if (SCORE_BY.file && Object.prototype.hasOwnProperty.call(SCORE_BY.file, key)) return SCORE_BY.file[key];
+            const [c, p, s] = key.replace('.png', '').split('_');
+            let v = BASE_SCORE;
+            if (SCORE_BY.color[c] != null) v += Number(SCORE_BY.color[c]);
+            if (SCORE_BY.pattern[p] != null) v += Number(SCORE_BY.pattern[p]);
+            if (SCORE_BY.shape[s] != null) v += Number(SCORE_BY.shape[s]);
+            if (v === BASE_SCORE) return DEFAULT_SCORE;
+            return v;
+        }
+
+        function updateScore(delta) {
+            score += delta;
+            if (score > high) { high = score; localStorage.setItem('imggame_high', String(high)); }
+            scoreEl && (scoreEl.innerHTML = `<span class="label">Score：</span>${score}`);
+            highEl && (highEl.innerHTML = `<span class="label">High：</span>${high}`);
+        }
+
+        function updateTrialUI() {
+            trialEl && (trialEl.innerHTML = `<span class="label">Trial：</span>${trial}/${trialLimit}`);
+        }
+
+        // YYYYMMDDhhmmssxx
+        function timestamp() {
+            const d = new Date(); const pad = (n, l = 2) => String(n).padStart(l, '0');
+            return d.getFullYear()
+                + pad(d.getMonth() + 1) + pad(d.getDate())
+                + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds())
+                + pad(Math.floor(d.getMilliseconds() / 10), 2);
+        }
+
         function sendLog() {
-            if (!subjectId) return; const payload = new FormData(); payload.append(ENTRY_ID_SUBJECT, subjectId); payload.append(ENTRY_ID_LOG, JSON.stringify(logs));
-            if (navigator.sendBeacon) { const ok = navigator.sendBeacon(FORM_URL, payload); if (ok) { alert("送信リクエストを送信しました"); return; } }
-            fetch(FORM_URL, { method: "POST", body: payload, mode: "no-cors", keepalive: true }).then(() => { alert("送信リクエストを送信しました"); }).catch(err => { try { const key = `imggame_backup_${Date.now()}`; localStorage.setItem(key, JSON.stringify({ subjectId, logs, formUrl: FORM_URL })); } catch (_) { } alert("ネットワークエラー：端末に保存しました"); });
+            if (!subjectId) return;
+            const payload = new FormData();
+            payload.append(ENTRY_ID_SUBJECT, subjectId);
+            payload.append(ENTRY_ID_LOG, JSON.stringify(logs));
+
+            if (navigator.sendBeacon) {
+                const ok = navigator.sendBeacon(FORM_URL, payload);
+                if (ok) { alert("送信リクエストを送信しました（応答検証はできませんが通常は成功します）"); return; }
+            }
+            fetch(FORM_URL, { method: "POST", body: payload, mode: "no-cors", keepalive: true })
+                .then(() => { alert("送信リクエストを送信しました（応答検証はできませんが通常は成功します）"); })
+                .catch(err => {
+                    try { const key = `imggame_backup_${Date.now()}`; localStorage.setItem(key, JSON.stringify({ subjectId, logs, formUrl: FORM_URL })); } catch (_) { }
+                    alert("ネットワークエラー：データは端末に保存しました。後で再送してください。");
+                });
         }
     </script>
 </body>
