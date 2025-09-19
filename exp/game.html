@@ -195,54 +195,6 @@
                 opacity: 0;
                 transform: translate(-50%, -50%) scale(.65);
             }
-
-
-            20% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.18);
-            }
-
-            55% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.06);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(.65);
-            }
-
-
-            20% {
-                opacity: 1;
-                scale: 1.18
-            }
-
-            55% {
-                opacity: 1;
-                scale: 1.06
-            }
-
-            100% {
-                opacity: 0;
-                scale: .65
-            }
-
-
-            20% {
-                opacity: 1;
-                scale: 1.02
-            }
-
-            55% {
-                opacity: 1;
-                scale: 1
-            }
-
-            100% {
-                opacity: 0;
-                scale: .6
-            }
         }
 
         footer {
@@ -254,6 +206,11 @@
             justify-content: space-between;
             gap: 12px
         }
+
+        #idSelect {
+            padding: 6px;
+            border-radius: 6px;
+        }
     </style>
 </head>
 
@@ -261,18 +218,17 @@
     <div class="wrap">
         <header>
             <h1>ランダム画像クリックゲーム</h1>
+            <div>
+                <label for="idSelect">被験者ID: </label>
+                <select id="idSelect">
+                    <option value="">選択してください</option>
+                </select>
+            </div>
             <div class="scoreboard" aria-live="polite">
                 <div class="score" id="score"><span class="label">Score：</span>0</div>
                 <div class="score" id="high"><span class="label">High：</span>0</div>
                 <div class="score" id="life"><span class="label">Life：</span>20</div>
-                <button class="btn secondary" id="resetBtn" title="スコアを0にしてやり直し">リセット</button>
-            </div>
-            <div class="scoreboard" style="gap:10px">
-                <label for="subjectSelect" class="score"><span class="label">被験者ID：</span></label>
-                <select id="subjectSelect"
-                    style="padding:6px 8px;border-radius:8px;border:1px solid rgba(148,163,184,.25);background:#0b1326;color:var(--text)"></select>
-                <button class="btn secondary" id="subjectSetBtn" title="被験者IDを確定（リロードまで変更不可）">確定</button>
-                <button class="btn secondary" id="exportBtn" title="CSVを書き出し">CSV書き出し</button>
+                <button class="btn secondary" id="resetBtn">リセット</button>
             </div>
         </header>
 
@@ -280,7 +236,7 @@
 
         <footer>
             <div>画像を押すと得点が入ります．クリックごとに3枚入れ替わり，Life が0で終了します．</div>
-            <button class="btn" id="shuffleBtn" title="3枚すべて入れ替え">シャッフル</button>
+            <button class="btn" id="shuffleBtn">シャッフル</button>
         </footer>
     </div>
 
@@ -297,39 +253,38 @@
     </template>
 
     <script>
-        // ---- マスター集合 ----
+        // ▼ GoogleフォームURL（formResponse）
+        const FORM_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf8kEtfUI_MKUcUMwL1cyPUn5E4HZUh3eJNOpXpIxaxGTxNxw/formResponse";
+        const ENTRY_ID_SUBJECT = "entry.760446940"; // ←被験者IDの項目
+        const ENTRY_ID_LOG = "entry.801929558";     // ←ログデータの項目
+
+        // ▼ 被験者IDセレクト生成
+        const idSelect = document.getElementById('idSelect');
+        for (let i = 1; i <= 20; i++) {
+            const opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = i;
+            idSelect.appendChild(opt);
+        }
+        idSelect.addEventListener('change', () => {
+            if (idSelect.value) {
+                idSelect.disabled = true; // 一度選んだら変更不可
+                subjectId = idSelect.value;
+            }
+        });
+
+        let subjectId = null;
+        let logs = [];
+
+        // ---- ゲーム設定 ----
         const COLORS = ['yel', 'grn', 'blu', 'pnk'];
         const PATTERNS = ['str', 'dot', 'box', 'hrb'];
         const SHAPES = ['cir', 'tri', 'sqr', 'hex'];
-
-        // 除外（必要なら編集）
         const EXCLUDE = { colors: ['pnk'], patterns: ['hrb'], shapes: ['hex'] };
-
-        // ---- 表示/非表示のUI設定 ----
-        const UI_SHOW = {
-            score: true,
-            high: true,
-            life: true,
-            reset: true,
-            shuffle: true,
-            points: true,
-            popup: true
-        };
-
-        // ---- スコア設定（ここを編集）----
-        // 優先順位：file > color/pattern/shape の合算 > DEFAULT_SCORE
-        const SCORE_BY = {
-            file: {
-                // 'yel_str_cir.png': 10,
-            },
-            color: { yel: 0, grn: 0, blu: 0, pnk: 0 },
-            pattern: { str: 0, dot: 0, box: 0, hrb: 0 },
-            shape: { cir: 5, tri: 10, sqr: 15, hex: 20 }
-        };
+        const SCORE_BY = { file: {}, color: { yel: 0, grn: 0, blu: 0, pnk: 0 }, pattern: { str: 0, dot: 0, box: 0, hrb: 0 }, shape: { cir: 5, tri: 10, sqr: 15, hex: 20 } };
         const BASE_SCORE = 0;
         const DEFAULT_SCORE = 1;
 
-        // 候補一覧を構築
         function buildFiles() {
             const files = [];
             const exC = new Set(EXCLUDE.colors);
@@ -356,73 +311,28 @@
         const lifeEl = document.getElementById('life');
         const resetBtn = document.getElementById('resetBtn');
         const shuffleBtn = document.getElementById('shuffleBtn');
-        const subjectSelect = document.getElementById('subjectSelect');
-        const subjectSetBtn = document.getElementById('subjectSetBtn');
-        const exportBtn = document.getElementById('exportBtn');
 
-        // UI 表示反映
-        applyUIVisibility();
-        function applyUIVisibility() {
-            document.getElementById('score').style.display = UI_SHOW.score ? '' : 'none';
-            document.getElementById('high').style.display = UI_SHOW.high ? '' : 'none';
-            document.getElementById('life').style.display = UI_SHOW.life ? '' : 'none';
-            if (resetBtn) resetBtn.style.display = UI_SHOW.reset ? '' : 'none';
-            if (shuffleBtn) shuffleBtn.style.display = UI_SHOW.shuffle ? '' : 'none';
-        }
-
-        // 状態
         let score = 0;
         let high = Number(localStorage.getItem('imggame_high') || 0);
         let life = 20;
-
-        // 実験用状態
-        let subjectId = null;        // 1–20
-        let subjectLocked = false;   // 確定後は変更不可（リロードで解除）
-        let trial = 0;               // クリック回数
-        const logs = [];             // ログ蓄積（メモリ）
+        const currentKeys = new Set();
 
         updateScore(0);
         updateLifeUI();
 
-        // 被験者IDセレクトを1–20で初期化
-        (function initSubjectSelect() {
-            subjectSelect.innerHTML = '<option value="" selected disabled>選択</option>' + Array.from({ length: 20 }, (_, i) => `<option value="${i + 1}">${i + 1}</option>`).join('');
-        })();
-
-        const currentKeys = new Set();
-
         if (FILES.length === 0) {
-            grid.innerHTML = '<div class="points" style="margin:8px auto">候補がありません（除外設定を見直してください）</div>';
+            grid.innerHTML = '<div class="points" style="margin:8px auto">候補がありません</div>';
         } else {
             for (let i = 0; i < Math.min(3, FILES.length); i++) addCard();
         }
 
         resetBtn.addEventListener('click', () => {
-            // スコアのみリセット．Life は維持
             score = 0;
             updateScore(0);
-            logEvent('reset', {});
         });
         shuffleBtn.addEventListener('click', () => {
-            // シャッフルは Life 消費なし
             refreshAllCards();
-            logEvent('shuffle', {});
         });
-
-        // 被験者ID確定：一度だけ，確定後は変更不可
-        subjectSetBtn.addEventListener('click', () => {
-            if (subjectLocked) return;
-            const v = subjectSelect.value;
-            if (!v) { alert('被験者IDを選んでください．'); return; }
-            subjectId = Number(v);
-            subjectLocked = true;
-            subjectSelect.disabled = true;
-            subjectSetBtn.disabled = true;
-            logEvent('subject_set', { subjectId });
-        });
-
-        // CSV出力
-        exportBtn.addEventListener('click', exportLogsCSV);
 
         function addCard() {
             const key = pickUniqueKey();
@@ -431,16 +341,7 @@
             grid.appendChild(node);
         }
 
-        function replaceCard(card) {
-            const oldKey = card.dataset.key;
-            if (currentKeys.has(oldKey)) currentKeys.delete(oldKey);
-            const newKey = pickUniqueKey();
-            if (!newKey) return;
-            hydrateCard(card, newKey);
-        }
-
         function refreshAllCards() {
-            // 現在表示を未使用化してから3枚すべて入れ替え
             [...grid.children].forEach(card => {
                 const k = card.dataset.key;
                 if (currentKeys.has(k)) currentKeys.delete(k);
@@ -468,7 +369,7 @@
 
             const url = IMG_PATH_PREFIX + key;
             a.href = url;
-            img.src = url; img.decoding = 'async';
+            img.src = url;
             img.alt = `画像: ${key}`;
 
             const value = getScoreForKey(key);
@@ -476,35 +377,27 @@
             article.dataset.value = value;
             plus.textContent = `+${value}`;
             pop.textContent = `+${value}`;
-            // カード内UIの表示切替
-            if (plus) plus.style.display = UI_SHOW.points ? '' : 'none';
-            if (pop) pop.style.display = UI_SHOW.popup ? '' : 'none';
 
             clicker.onclick = () => {
-                if (!subjectLocked) { alert('被験者IDを先に確定してください．'); return; }
-                if (life <= 0 || article.dataset.lock === '1') return; // ライフ無し or アニメ中
-                article.dataset.lock = '1';
-
+                if (life <= 0 || !subjectId) return;
                 const v = Number(article.dataset.value || 1);
-                score += v;
-                if (score > high) { high = score; localStorage.setItem('imggame_high', String(high)); }
-                scoreEl.innerHTML = `<span class=\"label\">Score：</span>${score}`;
-                highEl.innerHTML = `<span class=\"label\">High：</span>${high}`;
-
+                updateScore(v);
                 life = Math.max(0, life - 1);
                 updateLifeUI();
 
-                trial += 1;
-                logEvent('click', { key, value: v, total: score, life });
+                logs.push({ t: Date.now(), key, value: v, score });
 
                 article.classList.remove('popshow');
                 void article.offsetWidth;
                 article.classList.add('popshow');
 
-                const finish = () => { article.dataset.lock = ''; refreshAllCards(); };
-                if (UI_SHOW.popup && pop) {
-                    pop.addEventListener('animationend', finish, { once: true });
-                } else { finish(); }
+                if (life === 0) {
+                    sendLog();
+                }
+
+                pop.addEventListener('animationend', () => {
+                    refreshAllCards();
+                }, { once: true });
             };
 
             currentKeys.add(key);
@@ -512,30 +405,21 @@
 
         function pickUniqueKey() {
             const pool = FILES.filter(k => !currentKeys.has(k));
-            const key = pool.length
+            return pool.length
                 ? pool[Math.floor(Math.random() * pool.length)]
                 : FILES[Math.floor(Math.random() * FILES.length)];
-            return key;
         }
 
         function getScoreForKey(key) {
-            // 1) ファイル個別の設定があれば最優先
             if (SCORE_BY.file && Object.prototype.hasOwnProperty.call(SCORE_BY.file, key)) {
                 return SCORE_BY.file[key];
             }
-            // 2) 色・模様・形の重みを合算
             const [c, p, s] = key.replace('.png', '').split('_');
             let v = BASE_SCORE;
-            if (SCORE_BY.color && SCORE_BY.color[c] != null) v += Number(SCORE_BY.color[c]);
-            if (SCORE_BY.pattern && SCORE_BY.pattern[p] != null) v += Number(SCORE_BY.pattern[p]);
-            if (SCORE_BY.shape && SCORE_BY.shape[s] != null) v += Number(SCORE_BY.shape[s]);
-            // いずれも未指定なら既定値
-            if (v === BASE_SCORE
-                && (!SCORE_BY.color || SCORE_BY.color[c] == null)
-                && (!SCORE_BY.pattern || SCORE_BY.pattern[p] == null)
-                && (!SCORE_BY.shape || SCORE_BY.shape[s] == null)) {
-                return DEFAULT_SCORE;
-            }
+            if (SCORE_BY.color[c] != null) v += Number(SCORE_BY.color[c]);
+            if (SCORE_BY.pattern[p] != null) v += Number(SCORE_BY.pattern[p]);
+            if (SCORE_BY.shape[s] != null) v += Number(SCORE_BY.shape[s]);
+            if (v === BASE_SCORE) return DEFAULT_SCORE;
             return v;
         }
 
@@ -550,38 +434,18 @@
         }
 
         function updateLifeUI() {
-            lifeEl.innerHTML = `<span class=\"label\">Life：</span>${life}`;
+            lifeEl.innerHTML = `<span class="label">Life：</span>${life}`;
         }
 
-        // --- ログ機能 ---
-        function logEvent(type, payload) {
-            const row = {
-                time: new Date().toISOString(),
-                type,
-                subject: subjectId,
-                trial,
-                ...payload
-            };
-            logs.push(row);
-        }
-
-        function exportLogsCSV() {
-            const header = ['time', 'type', 'subject', 'trial', 'key', 'value', 'total', 'life'];
-            const lines = [header.join(',')];
-            for (const r of logs) {
-                lines.push(header.map(h => (r[h] ?? '')).join(','));
-            }
-            const csv = lines.join('\n');
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const ts = new Date().toISOString().replace(/[:T]/g, '-').replace(/\..+/, '');
-            const fname = `subject-${subjectId ?? 'NA'}_${ts}.csv`;
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = fname; // ダウンロード後に /logs フォルダへコミットしてください
-            document.body.appendChild(a);
-            a.click();
-            setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-            a.remove();
+        // ---- Googleフォーム送信 ----
+        function sendLog() {
+            if (!subjectId) return;
+            const formData = new FormData();
+            formData.append(ENTRY_ID_SUBJECT, subjectId);
+            formData.append(ENTRY_ID_LOG, JSON.stringify(logs));
+            fetch(FORM_URL, { method: "POST", body: formData })
+                .then(() => alert("データ送信完了"))
+                .catch(err => alert("送信失敗: " + err));
         }
     </script>
 </body>
