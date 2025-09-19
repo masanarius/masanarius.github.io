@@ -218,7 +218,7 @@
         <header>
             <h1 id="title">ランダム画像クリックゲーム</h1>
             <div id="idBlock">
-                <label for="idSelect">Participant ID: </label>
+                <label for="idSelect">Your ID: </label>
                 <select id="idSelect">
                     <option value="">Select your ID</option>
                 </select>
@@ -227,7 +227,7 @@
                 <div class="score" id="score"><span class="label">Score：</span>0</div>
                 <div class="score" id="high"><span class="label">High：</span>0</div>
                 <div class="score" id="trial"><span class="label">Trial：</span>0/20</div>
-                <button class="btn secondary" id="resetBtn">リセット</button>
+                <button class="btn secondary" id="resetBtn">Reset</button>
             </div>
         </header>
 
@@ -235,10 +235,12 @@
 
         <footer>
             <div id="helperText">
-                画像を押すと得点が入ります．<br>
-                制限試行回数内でより多くの得点を獲得してください．<br>
-                Refreshボタンは試行回数を消費することなく3枚の画像を再抽選します．
-                （ver.18）
+                <ul>
+                    <li>画像を押すと得点が入ります．</li>
+                    <li>制限試行回数内でより多くの得点を獲得してください．</li>
+                    <li>Refreshボタンは試行回数を消費することなく3枚の画像を再抽選します．</li>
+                </ul>
+                ver.19
             </div>
             <button class="btn" id="refreshBtn">Refresh</button>
         </footer>
