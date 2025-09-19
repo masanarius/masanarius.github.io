@@ -202,6 +202,21 @@
             gap: 12px
         }
 
+        #helperText ul {
+            margin: 0;
+            /* 上下左右の余白をリセット */
+            padding-left: 18px;
+            /* デフォルトより少し小さめ */
+            list-style-position: outside;
+            /* ●を外側に出す（自然な箇条書き） */
+        }
+
+        #helperText li {
+            margin: 2px 0;
+            /* 項目間の縦間隔を少し詰める */
+        }
+
+
         #idSelect {
             padding: 6px;
             border-radius: 6px
@@ -240,7 +255,7 @@
                     <li>制限試行回数内でより多くの得点を獲得してください．</li>
                     <li>Refreshボタンは試行回数を消費することなく3枚の画像を再抽選します．</li>
                 </ul>
-                ver.19
+                ver.20
             </div>
             <button class="btn" id="refreshBtn">Refresh</button>
         </footer>
