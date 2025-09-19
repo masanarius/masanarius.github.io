@@ -95,13 +95,12 @@
             border: 1px solid rgba(148, 163, 184, .2)
         }
 
-        /* ーーー ここが重要：常に1行3列 ーーー */
+        /* 常に1行3列を維持（狭い端末は横スクロール） */
         .grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 14px;
-            overflow-x: auto;
-            /* 端末が極端に狭い時は横スクロールで1行維持 */
+            overflow-x: auto
         }
 
         .card {
@@ -210,7 +209,7 @@
         }
 
         .hidden {
-            display: none !important;
+            display: none !important
         }
     </style>
 </head>
@@ -238,7 +237,7 @@
         <footer>
             <div id="helperText">
                 画像を押すと得点が入ります。クリックごとに3枚入れ替わり，Life が0で終了します。
-                シャッフルはLifeを消費せず3枚を入れ替えます。シャッフルは5施行目以降から使えます。（ver.9）
+                シャッフルはLifeを消費せず3枚を入れ替えます。シャッフルは5施行目以降から使えます。（ver.11）
             </div>
             <button class="btn" id="shuffleBtn" disabled>シャッフル</button>
         </footer>
@@ -264,19 +263,28 @@
         const ENTRY_ID_SUBJECT = "entry.760446940";
         const ENTRY_ID_LOG = "entry.801929558";
 
+        /* ===== 位置ボーナス（編集OK） =====
+           例）中央を+2点にするなら center: 2
+        */
+        const POSITION_SCORE = {
+            left: 4,
+            center: 5,
+            right: 6,
+        };
+        // ※もし乗算で傾斜させたい場合は、クリック時に final = Math.round(base * POSITION_MULT[pos]) のように変更してください。
+
         /* ===== ID Select ===== */
         const idSelect = document.getElementById('idSelect');
         for (let i = 1; i <= 20; i++) { const o = document.createElement('option'); o.value = i; o.textContent = i; idSelect.appendChild(o); }
-        idSelect.addEventListener('change', () => { if (idSelect.value) { idSelect.disabled = true; subjectId = idSelect.value; } });
         let subjectId = null;
-        let logs = [];
+        idSelect.addEventListener('change', () => { if (idSelect.value) { idSelect.disabled = true; subjectId = idSelect.value; } });
 
         /* ===== ゲーム設定 ===== */
         const COLORS = ['yel', 'grn', 'blu', 'pnk'];
         const PATTERNS = ['str', 'dot', 'box', 'hrb'];
         const SHAPES = ['cir', 'tri', 'sqr', 'hex'];
         const EXCLUDE = { colors: ['pnk'], patterns: ['hrb'], shapes: ['hex'] };
-        const SCORE_BY = { file: {}, color: { yel: 0, grn: 0, blu: 0, pnk: 0 }, pattern: { str: 0, dot: 0, box: 0, hrb: 0 }, shape: { cir: 5, tri: 10, sqr: 15, hex: 20 } };
+        const SCORE_BY = { file: {}, color: { yel: 1, grn: 2, blu: 3, pnk: 4 }, pattern: { str: 3, dot: 4, box: 5, hrb: 6 }, shape: { cir: 2, tri: 3, sqr: 4, hex: 5 } };
         const BASE_SCORE = 0, DEFAULT_SCORE = 1;
 
         function buildFiles() {
@@ -287,7 +295,8 @@
                     if (exP.has(p)) continue;
                     for (const s of SHAPES) { if (exS.has(s)) continue; files.push(`${c}_${p}_${s}.png`); }
                 }
-            } return files;
+            }
+            return files;
         }
         let FILES = buildFiles();
 
@@ -315,18 +324,19 @@
         }
         applyUIVisibility();
 
+        /* ===== 状態 ===== */
         let score = 0;
         let high = Number(localStorage.getItem('imggame_high') || 0);
         let life = 20;
         let trials = 0;
         const currentKeys = new Set();
+        let logs = [];
 
         updateScore(0); updateLifeUI();
 
         if (FILES.length === 0) {
             grid.innerHTML = '<div class="points" style="margin:8px auto">候補がありません</div>';
         } else {
-            // ★ 3枚生成（1行3列）
             for (let i = 0; i < Math.min(3, FILES.length); i++) addCard();
         }
 
@@ -343,12 +353,8 @@
         }
 
         function refreshAllCards() {
-            [...grid.children].forEach(card => {
-                const k = card.dataset.key; if (currentKeys.has(k)) currentKeys.delete(k);
-            });
-            [...grid.children].forEach(card => {
-                const nk = pickUniqueKey(); if (nk) hydrateCard(card, nk);
-            });
+            [...grid.children].forEach(card => { const k = card.dataset.key; if (currentKeys.has(k)) currentKeys.delete(k); });
+            [...grid.children].forEach(card => { const nk = pickUniqueKey(); if (nk) hydrateCard(card, nk); });
         }
 
         function createCard(key) {
@@ -369,12 +375,11 @@
             const url = IMG_PATH_PREFIX + key;
             a.href = url; img.src = url; img.alt = `画像: ${key}`;
 
-            const value = getScoreForKey(key);
+            const base = getScoreForKey(key);
             article.dataset.key = key;
-            article.dataset.value = value;
-            plus.textContent = `+${value}`;
-            pop.textContent = `+${value}`;
-
+            article.dataset.value = base;
+            plus.textContent = `+${base}`;
+            pop.textContent = `+${base}`;
             plus.style.display = UI_SHOW.points ? '' : 'none';
             pop.style.display = UI_SHOW.popup ? '' : 'none';
 
@@ -382,31 +387,48 @@
                 if (life <= 0 || !subjectId || article.dataset.lock === '1') return;
                 article.dataset.lock = '1';
 
-                const v = Number(article.dataset.value || 1);
-                updateScore(v);
+                const pos = getCardPosition(article);                 // left / center / right
+                const bonus = Number(POSITION_SCORE[pos] || 0);
+                const baseVal = Number(article.dataset.value || 1);
+                const final = baseVal + bonus;                        // 最終得点 = 基礎点 + 位置ボーナス
+
+                // 表示は最終得点に差し替え
+                if (UI_SHOW.popup) pop.textContent = `+${final}`;
+
+                updateScore(final);
                 life = Math.max(0, life - 1);
                 updateLifeUI();
 
                 trials++;
                 if (trials >= 5) shuffleBtn.disabled = false;
 
-                logs.push({ t: timestamp(), key, value: v, score });
+                // ログ：位置を記録（pos）、base と最終 value の両方を保存
+                logs.push({ t: timestamp(), key, pos, base: baseVal, value: final, score });
 
-                article.classList.remove('popshow');
-                void article.offsetWidth;
+                article.classList.remove('popshow'); void article.offsetWidth;
                 if (UI_SHOW.popup) article.classList.add('popshow');
 
-                if (!UI_SHOW.popup) {
-                    article.dataset.lock = ''; if (life === 0) sendLog(); refreshAllCards(); return;
-                }
-                pop.addEventListener('animationend', () => {
+                const after = () => {
                     article.dataset.lock = '';
+                    // 次回のアニメ用にポップ表示を基礎点へ戻す（任意）
+                    if (UI_SHOW.popup) pop.textContent = `+${baseVal}`;
                     if (life === 0) sendLog();
                     refreshAllCards();
-                }, { once: true });
+                };
+
+                if (!UI_SHOW.popup) { after(); return; }
+                pop.addEventListener('animationend', after, { once: true });
             };
 
             currentKeys.add(key);
+        }
+
+        function getCardPosition(article) {
+            const arr = Array.from(grid.children);
+            const idx = arr.indexOf(article); // 0,1,2
+            if (idx === 0) return 'left';
+            if (idx === 1) return 'center';
+            return 'right';
         }
 
         function pickUniqueKey() {
@@ -437,49 +459,32 @@
             lifeEl && (lifeEl.innerHTML = `<span class="label">Life：</span>${life}`);
         }
 
-        // 時刻：YYYYMMDDhhmmssxx
+        // YYYYMMDDhhmmssxx
         function timestamp() {
             const d = new Date(); const pad = (n, l = 2) => String(n).padStart(l, '0');
-            return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds()) + pad(Math.floor(d.getMilliseconds() / 10), 2);
+            return d.getFullYear()
+                + pad(d.getMonth() + 1) + pad(d.getDate())
+                + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds())
+                + pad(Math.floor(d.getMilliseconds() / 10), 2);
         }
 
         function sendLog() {
             if (!subjectId) return;
-
             const payload = new FormData();
             payload.append(ENTRY_ID_SUBJECT, subjectId);
             payload.append(ENTRY_ID_LOG, JSON.stringify(logs));
 
-            // 1) sendBeacon を試す（ページ遷移中やモバイルでも強い）
             if (navigator.sendBeacon) {
                 const ok = navigator.sendBeacon(FORM_URL, payload);
-                if (ok) {
-                    alert("送信リクエストを送信しました（応答検証はできませんが通常は成功します）");
-                    return;
-                }
+                if (ok) { alert("送信リクエストを送信しました（応答検証はできませんが通常は成功します）"); return; }
             }
-
-            // 2) fetch フォールバック（no-cors でCORS検証を避ける。keepaliveで離脱時も送れる）
-            fetch(FORM_URL, {
-                method: "POST",
-                body: payload,
-                mode: "no-cors",
-                keepalive: true,
-            })
-                .then(() => {
-                    // no-cors では status を読めない＝成功判定できないので「送信リクエスト完了」と案内
-                    alert("送信リクエストを送信しました（応答検証はできませんが通常は成功します）");
-                })
+            fetch(FORM_URL, { method: "POST", body: payload, mode: "no-cors", keepalive: true })
+                .then(() => { alert("送信リクエストを送信しました（応答検証はできませんが通常は成功します）"); })
                 .catch(err => {
-                    // 3) 例外時は端末に退避（あとで再送できるように）
-                    try {
-                        const key = `imggame_backup_${Date.now()}`;
-                        localStorage.setItem(key, JSON.stringify({ subjectId, logs, formUrl: FORM_URL }));
-                    } catch (_) { }
+                    try { const key = `imggame_backup_${Date.now()}`; localStorage.setItem(key, JSON.stringify({ subjectId, logs, formUrl: FORM_URL })); } catch (_) { }
                     alert("ネットワークエラー：データは端末に保存しました。後で再送してください。");
                 });
         }
-
     </script>
 </body>
 
