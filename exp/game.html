@@ -255,7 +255,7 @@
                     <li>制限試行回数内でより多くの得点を獲得してください．</li>
                     <li>Refreshボタンは試行回数を消費することなく3枚の画像を再抽選します．</li>
                 </ul>
-                ver.20
+                ver.21
             </div>
             <button class="btn" id="refreshBtn">Refresh</button>
         </footer>
@@ -433,8 +433,8 @@
         function timestamp() { const d = new Date(); const pad = (n, l = 2) => String(n).padStart(l, '0'); return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds()) + pad(Math.floor(d.getMilliseconds() / 10), 2); }
         function sendLog() {
             if (!subjectId) return; const payload = new FormData(); payload.append(ENTRY_ID_SUBJECT, subjectId); payload.append(ENTRY_ID_LOG, JSON.stringify(logs));
-            if (navigator.sendBeacon) { const ok = navigator.sendBeacon(FORM_URL, payload); if (ok) { alert("送信リクエストを送信しました"); return; } }
-            fetch(FORM_URL, { method: "POST", body: payload, mode: "no-cors", keepalive: true }).then(() => { alert("送信リクエストを送信しました"); }).catch(err => { try { const key = `imggame_backup_${Date.now()}`; localStorage.setItem(key, JSON.stringify({ subjectId, logs, formUrl: FORM_URL })); } catch (_) { } alert("ネットワークエラー：端末に保存しました"); });
+            if (navigator.sendBeacon) { const ok = navigator.sendBeacon(FORM_URL, payload); if (ok) { alert("ありがとうございました．結果を実験者に送信しました．"); return; } }
+            fetch(FORM_URL, { method: "POST", body: payload, mode: "no-cors", keepalive: true }).then(() => { alert("ありがとうございました．結果を実験者に送信しました．"); }).catch(err => { try { const key = `imggame_backup_${Date.now()}`; localStorage.setItem(key, JSON.stringify({ subjectId, logs, formUrl: FORM_URL })); } catch (_) { } alert("ネットワークエラー：端末に保存しました"); });
         }
     </script>
 </body>
