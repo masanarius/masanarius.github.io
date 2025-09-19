@@ -95,11 +95,17 @@
             border: 1px solid rgba(148, 163, 184, .2)
         }
 
+        /* 2列固定（小さな画面でも2列のまま） */
         .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px
+            grid-template-columns: repeat(2, 1fr);
         }
+
+        @media (max-width:860px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
 
         @media (max-width:860px) {
             .grid {
@@ -168,7 +174,7 @@
             letter-spacing: .02em;
             box-shadow: 0 18px 60px rgba(34, 197, 94, .45);
             opacity: 0;
-            pointer-events: none;
+            pointer-events: none
         }
 
         .card.popshow .pop {
@@ -239,90 +245,58 @@
         <main class="grid" id="grid" aria-label="画像の選択肢"></main>
 
         <footer>
-            <div id="helperText">画像を押すと得点が入ります．クリックごとに3枚入れ替わり，Life
-                が0で終了します．シャッフルはLifeを消費せず3枚を入れ替えます．シャッフルは5施行目以降から使うことができます．
-                （ver.6）</div>
+            <div id="helperText">
+                画像を押すと得点が入ります。クリックごとに<strong>4枚</strong>入れ替わり，Life が0で終了します。
+                シャッフルはLifeを消費せず<strong>4枚</strong>を入れ替えます。シャッフルは5施行目以降から使えます。（ver.7）
+            </div>
             <button class="btn" id="shuffleBtn" disabled>シャッフル</button>
         </footer>
     </div>
 
     <template id="cardTmpl">
         <article class="card">
-            <a class="thumb" target="_blank" rel="noreferrer noopener">
-                <img alt="ランダム画像" loading="lazy" />
-            </a>
-            <button class="clicker" type="button">
-                <span class="points" aria-hidden="true">+0</span>
-            </button>
+            <a class="thumb" target="_blank" rel="noreferrer noopener"><img alt="ランダム画像" loading="lazy" /></a>
+            <button class="clicker" type="button"><span class="points" aria-hidden="true">+0</span></button>
             <div class="pop" aria-hidden="true">+0</div>
         </article>
     </template>
 
     <script>
-        /* =========================
-           表示/非表示のUI設定（ここだけ変えればOK）
-           ========================= */
+        /* ===== UI表示フラグ ===== */
         const UI_SHOW = {
-            title: true,      // タイトル(h1)
-            idSelect: true,   // 被験者ID選択ブロック
-            score: false,      // Score ボックス
-            high: false,       // High ボックス
-            life: true,       // Life ボックス
-            reset: false,      // リセットボタン
-            shuffle: true,    // シャッフルボタン（※解禁ロジックは別）
-            help: true,       // フッターの説明テキスト
-            points: true,     // カード右下の +ポイント表示
-            popup: true       // 中央のポップ
+            title: true, idSelect: true, score: false, high: false, life: true, reset: false,
+            shuffle: true, help: true, points: true, popup: true
         };
 
-        // ▼ GoogleフォームURL（formResponse）
+        /* ===== Googleフォーム ===== */
         const FORM_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf8kEtfUI_MKUcUMwL1cyPUn5E4HZUh3eJNOpXpIxaxGTxNxw/formResponse";
-        const ENTRY_ID_SUBJECT = "entry.760446940"; // ←被験者IDの項目
-        const ENTRY_ID_LOG = "entry.801929558";     // ←ログデータの項目
+        const ENTRY_ID_SUBJECT = "entry.760446940";
+        const ENTRY_ID_LOG = "entry.801929558";
 
-        // ▼ 被験者IDセレクト生成
+        /* ===== ID Select ===== */
         const idSelect = document.getElementById('idSelect');
-        for (let i = 1; i <= 20; i++) {
-            const opt = document.createElement('option');
-            opt.value = i;
-            opt.textContent = i;
-            idSelect.appendChild(opt);
-        }
-        idSelect.addEventListener('change', () => {
-            if (idSelect.value) {
-                idSelect.disabled = true; // 一度選んだら変更不可
-                subjectId = idSelect.value;
-            }
-        });
-
+        for (let i = 1; i <= 20; i++) { const o = document.createElement('option'); o.value = i; o.textContent = i; idSelect.appendChild(o); }
+        idSelect.addEventListener('change', () => { if (idSelect.value) { idSelect.disabled = true; subjectId = idSelect.value; } });
         let subjectId = null;
         let logs = [];
 
-        // ---- ゲーム設定 ----
+        /* ===== ゲーム設定 ===== */
         const COLORS = ['yel', 'grn', 'blu', 'pnk'];
         const PATTERNS = ['str', 'dot', 'box', 'hrb'];
         const SHAPES = ['cir', 'tri', 'sqr', 'hex'];
         const EXCLUDE = { colors: ['pnk'], patterns: ['hrb'], shapes: ['hex'] };
         const SCORE_BY = { file: {}, color: { yel: 0, grn: 0, blu: 0, pnk: 0 }, pattern: { str: 0, dot: 0, box: 0, hrb: 0 }, shape: { cir: 5, tri: 10, sqr: 15, hex: 20 } };
-        const BASE_SCORE = 0;
-        const DEFAULT_SCORE = 1;
+        const BASE_SCORE = 0, DEFAULT_SCORE = 1;
 
         function buildFiles() {
-            const files = [];
-            const exC = new Set(EXCLUDE.colors);
-            const exP = new Set(EXCLUDE.patterns);
-            const exS = new Set(EXCLUDE.shapes);
+            const files = []; const exC = new Set(EXCLUDE.colors), exP = new Set(EXCLUDE.patterns), exS = new Set(EXCLUDE.shapes);
             for (const c of COLORS) {
                 if (exC.has(c)) continue;
                 for (const p of PATTERNS) {
                     if (exP.has(p)) continue;
-                    for (const s of SHAPES) {
-                        if (exS.has(s)) continue;
-                        files.push(`${c}_${p}_${s}.png`);
-                    }
+                    for (const s of SHAPES) { if (exS.has(s)) continue; files.push(`${c}_${p}_${s}.png`); }
                 }
-            }
-            return files;
+            } return files;
         }
         let FILES = buildFiles();
 
@@ -337,8 +311,6 @@
         const helperText = document.getElementById('helperText');
         const titleEl = document.getElementById('title');
 
-        // UI 表示反映（まずDOM取得後に呼ぶ）
-        applyUIVisibility();
         function showOrHide(el, on) { if (!el) return; el.classList.toggle('hidden', !on); }
         function applyUIVisibility() {
             showOrHide(titleEl, UI_SHOW.title);
@@ -350,27 +322,24 @@
             showOrHide(shuffleBtn, UI_SHOW.shuffle);
             showOrHide(helperText, UI_SHOW.help);
         }
+        applyUIVisibility();
 
         let score = 0;
         let high = Number(localStorage.getItem('imggame_high') || 0);
         let life = 20;
-        let trials = 0; // 施行回数
+        let trials = 0;
         const currentKeys = new Set();
 
-        updateScore(0);
-        updateLifeUI();
+        updateScore(0); updateLifeUI();
 
         if (FILES.length === 0) {
             grid.innerHTML = '<div class="points" style="margin:8px auto">候補がありません</div>';
         } else {
-            for (let i = 0; i < Math.min(3, FILES.length); i++) addCard();
+            // ← ここを4枚に
+            for (let i = 0; i < Math.min(4, FILES.length); i++) addCard();
         }
 
-        resetBtn.addEventListener('click', () => {
-            score = 0;
-            updateScore(0);
-        });
-
+        resetBtn?.addEventListener('click', () => { score = 0; updateScore(0); });
         shuffleBtn.addEventListener('click', () => {
             if (life <= 0 || !subjectId) return;
             refreshAllCards();
@@ -378,20 +347,16 @@
         });
 
         function addCard() {
-            const key = pickUniqueKey();
-            if (!key) return;
-            const node = createCard(key);
-            grid.appendChild(node);
+            const key = pickUniqueKey(); if (!key) return;
+            const node = createCard(key); grid.appendChild(node);
         }
 
         function refreshAllCards() {
             [...grid.children].forEach(card => {
-                const k = card.dataset.key;
-                if (currentKeys.has(k)) currentKeys.delete(k);
+                const k = card.dataset.key; if (currentKeys.has(k)) currentKeys.delete(k);
             });
             [...grid.children].forEach(card => {
-                const nk = pickUniqueKey();
-                if (nk) hydrateCard(card, nk);
+                const nk = pickUniqueKey(); if (nk) hydrateCard(card, nk);
             });
         }
 
@@ -411,9 +376,7 @@
             const pop = article.querySelector('.pop');
 
             const url = IMG_PATH_PREFIX + key;
-            a.href = url;
-            img.src = url;
-            img.alt = `画像: ${key}`;
+            a.href = url; img.src = url; img.alt = `画像: ${key}`;
 
             const value = getScoreForKey(key);
             article.dataset.key = key;
@@ -421,7 +384,6 @@
             plus.textContent = `+${value}`;
             pop.textContent = `+${value}`;
 
-            // カード内UIの表示切替
             plus.style.display = UI_SHOW.points ? '' : 'none';
             pop.style.display = UI_SHOW.popup ? '' : 'none';
 
@@ -435,7 +397,7 @@
                 updateLifeUI();
 
                 trials++;
-                if (trials >= 5) shuffleBtn.disabled = false; // 5施行目以降 = 6回目のクリックから解禁
+                if (trials >= 5) shuffleBtn.disabled = false;
 
                 logs.push({ t: timestamp(), key, value: v, score });
 
@@ -444,14 +406,8 @@
                 if (UI_SHOW.popup) article.classList.add('popshow');
 
                 if (!UI_SHOW.popup) {
-                    // ポップを使わないなら即入れ替え
-                    article.dataset.lock = '';
-                    if (life === 0) sendLog();
-                    refreshAllCards();
-                    return;
+                    article.dataset.lock = ''; if (life === 0) sendLog(); refreshAllCards(); return;
                 }
-
-                // ポップを使う場合はアニメ終了後に入れ替え
                 pop.addEventListener('animationend', () => {
                     article.dataset.lock = '';
                     if (life === 0) sendLog();
@@ -464,15 +420,12 @@
 
         function pickUniqueKey() {
             const pool = FILES.filter(k => !currentKeys.has(k));
-            return pool.length
-                ? pool[Math.floor(Math.random() * pool.length)]
+            return pool.length ? pool[Math.floor(Math.random() * pool.length)]
                 : FILES[Math.floor(Math.random() * FILES.length)];
         }
 
         function getScoreForKey(key) {
-            if (SCORE_BY.file && Object.prototype.hasOwnProperty.call(SCORE_BY.file, key)) {
-                return SCORE_BY.file[key];
-            }
+            if (SCORE_BY.file && Object.prototype.hasOwnProperty.call(SCORE_BY.file, key)) return SCORE_BY.file[key];
             const [c, p, s] = key.replace('.png', '').split('_');
             let v = BASE_SCORE;
             if (SCORE_BY.color[c] != null) v += Number(SCORE_BY.color[c]);
@@ -484,34 +437,21 @@
 
         function updateScore(delta) {
             score += delta;
-            if (score > high) {
-                high = score;
-                localStorage.setItem('imggame_high', String(high));
-            }
-            if (scoreEl) scoreEl.innerHTML = `<span class="label">Score：</span>${score}`;
-            if (highEl) highEl.innerHTML = `<span class="label">High：</span>${high}`;
+            if (score > high) { high = score; localStorage.setItem('imggame_high', String(high)); }
+            scoreEl && (scoreEl.innerHTML = `<span class="label">Score：</span>${score}`);
+            highEl && (highEl.innerHTML = `<span class="label">High：</span>${high}`);
         }
 
         function updateLifeUI() {
-            if (lifeEl) lifeEl.innerHTML = `<span class="label">Life：</span>${life}`;
+            lifeEl && (lifeEl.innerHTML = `<span class="label">Life：</span>${life}`);
         }
 
-        // ---- 時刻フォーマット：YYYYMMDDhhmmssxx（xx=1/100秒）
+        // 時刻：YYYYMMDDhhmmssxx
         function timestamp() {
-            const d = new Date();
-            const pad = (n, l = 2) => String(n).padStart(l, '0');
-            return (
-                d.getFullYear() +
-                pad(d.getMonth() + 1) +
-                pad(d.getDate()) +
-                pad(d.getHours()) +
-                pad(d.getMinutes()) +
-                pad(d.getSeconds()) +
-                pad(Math.floor(d.getMilliseconds() / 10), 2)
-            );
+            const d = new Date(); const pad = (n, l = 2) => String(n).padStart(l, '0');
+            return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds()) + pad(Math.floor(d.getMilliseconds() / 10), 2);
         }
 
-        // ---- Googleフォーム送信 ----
         function sendLog() {
             if (!subjectId) return;
             const formData = new FormData();
