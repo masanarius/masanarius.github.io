@@ -95,22 +95,13 @@
             border: 1px solid rgba(148, 163, 184, .2)
         }
 
-        /* 2列固定（小さな画面でも2列のまま） */
+        /* ーーー ここが重要：常に1行3列 ーーー */
         .grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        @media (max-width:860px) {
-            .grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-
-        @media (max-width:860px) {
-            .grid {
-                grid-template-columns: 1fr
-            }
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            overflow-x: auto;
+            /* 端末が極端に狭い時は横スクロールで1行維持 */
         }
 
         .card {
@@ -246,8 +237,8 @@
 
         <footer>
             <div id="helperText">
-                画像を押すと得点が入ります。クリックごとに<strong>4枚</strong>入れ替わり，Life が0で終了します。
-                シャッフルはLifeを消費せず<strong>4枚</strong>を入れ替えます。シャッフルは5施行目以降から使えます。（ver.7）
+                画像を押すと得点が入ります。クリックごとに<strong>3枚</strong>入れ替わり，Life が0で終了します。
+                シャッフルはLifeを消費せず<strong>3枚</strong>を入れ替えます。シャッフルは5施行目以降から使えます。（ver.8）
             </div>
             <button class="btn" id="shuffleBtn" disabled>シャッフル</button>
         </footer>
@@ -335,8 +326,8 @@
         if (FILES.length === 0) {
             grid.innerHTML = '<div class="points" style="margin:8px auto">候補がありません</div>';
         } else {
-            // ← ここを4枚に
-            for (let i = 0; i < Math.min(4, FILES.length); i++) addCard();
+            // ★ 3枚生成（1行3列）
+            for (let i = 0; i < Math.min(3, FILES.length); i++) addCard();
         }
 
         resetBtn?.addEventListener('click', () => { score = 0; updateScore(0); });
