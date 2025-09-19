@@ -218,9 +218,9 @@
         <header>
             <h1 id="title">ランダム画像クリックゲーム</h1>
             <div id="idBlock">
-                <label for="idSelect">参加者ID: </label>
+                <label for="idSelect">Participant ID: </label>
                 <select id="idSelect">
-                    <option value="">選択してください</option>
+                    <option value="">Select your ID</option>
                 </select>
             </div>
             <div class="scoreboard" aria-live="polite">
@@ -238,9 +238,9 @@
                 画像を押すと得点が入ります．<br>
                 制限試行回数内でより多くの得点を獲得してください．<br>
                 Refreshボタンは試行回数を消費することなく3枚の画像を再抽選します．
-                （ver.17）
+                （ver.18）
             </div>
-            <button class="btn" id="refreshBtn" disabled>Refresh</button>
+            <button class="btn" id="refreshBtn">Refresh</button>
         </footer>
     </div>
 
@@ -395,7 +395,6 @@
                 if (UI_SHOW.popup) pop.textContent = `+${final}`;
                 updateScore(final);
                 trial++; updateTrialUI();
-                if (trial >= 0) refreshBtn.disabled = false; // リフレッシュボタンの起動条件
                 const currentCards = Array.from(grid.children).map(c => c.dataset.key);
                 logs.push({ t: timestamp(), event: "click", key, pos, base: baseVal, value: final, score, trial, shown: currentCards });
 
