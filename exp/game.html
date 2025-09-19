@@ -241,7 +241,7 @@
         <footer>
             <div id="helperText">画像を押すと得点が入ります．クリックごとに3枚入れ替わり，Life
                 が0で終了します．シャッフルはLifeを消費せず3枚を入れ替えます．シャッフルは5施行目以降から使うことができます．
-                （ver.5）</div>
+                （ver.6）</div>
             <button class="btn" id="shuffleBtn" disabled>シャッフル</button>
         </footer>
     </div>
@@ -265,10 +265,10 @@
         const UI_SHOW = {
             title: true,      // タイトル(h1)
             idSelect: true,   // 被験者ID選択ブロック
-            score: true,      // Score ボックス
-            high: true,       // High ボックス
+            score: false,      // Score ボックス
+            high: false,       // High ボックス
             life: true,       // Life ボックス
-            reset: true,      // リセットボタン
+            reset: false,      // リセットボタン
             shuffle: true,    // シャッフルボタン（※解禁ロジックは別）
             help: true,       // フッターの説明テキスト
             points: true,     // カード右下の +ポイント表示
