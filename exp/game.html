@@ -237,8 +237,8 @@
 
         <footer>
             <div id="helperText">
-                画像を押すと得点が入ります。クリックごとに<strong>3枚</strong>入れ替わり，Life が0で終了します。
-                シャッフルはLifeを消費せず<strong>3枚</strong>を入れ替えます。シャッフルは5施行目以降から使えます。（ver.8）
+                画像を押すと得点が入ります。クリックごとに3枚入れ替わり，Life が0で終了します。
+                シャッフルはLifeを消費せず3枚を入れ替えます。シャッフルは5施行目以降から使えます。（ver.9）
             </div>
             <button class="btn" id="shuffleBtn" disabled>シャッフル</button>
         </footer>
@@ -255,7 +255,7 @@
     <script>
         /* ===== UI表示フラグ ===== */
         const UI_SHOW = {
-            title: true, idSelect: true, score: false, high: false, life: true, reset: false,
+            title: false, idSelect: true, score: false, high: false, life: true, reset: false,
             shuffle: true, help: true, points: true, popup: true
         };
 
@@ -445,13 +445,41 @@
 
         function sendLog() {
             if (!subjectId) return;
-            const formData = new FormData();
-            formData.append(ENTRY_ID_SUBJECT, subjectId);
-            formData.append(ENTRY_ID_LOG, JSON.stringify(logs));
-            fetch(FORM_URL, { method: "POST", body: formData })
-                .then(() => alert("データ送信完了"))
-                .catch(err => alert("送信失敗: " + err));
+
+            const payload = new FormData();
+            payload.append(ENTRY_ID_SUBJECT, subjectId);
+            payload.append(ENTRY_ID_LOG, JSON.stringify(logs));
+
+            // 1) sendBeacon を試す（ページ遷移中やモバイルでも強い）
+            if (navigator.sendBeacon) {
+                const ok = navigator.sendBeacon(FORM_URL, payload);
+                if (ok) {
+                    alert("送信リクエストを送信しました（応答検証はできませんが通常は成功します）");
+                    return;
+                }
+            }
+
+            // 2) fetch フォールバック（no-cors でCORS検証を避ける。keepaliveで離脱時も送れる）
+            fetch(FORM_URL, {
+                method: "POST",
+                body: payload,
+                mode: "no-cors",
+                keepalive: true,
+            })
+                .then(() => {
+                    // no-cors では status を読めない＝成功判定できないので「送信リクエスト完了」と案内
+                    alert("送信リクエストを送信しました（応答検証はできませんが通常は成功します）");
+                })
+                .catch(err => {
+                    // 3) 例外時は端末に退避（あとで再送できるように）
+                    try {
+                        const key = `imggame_backup_${Date.now()}`;
+                        localStorage.setItem(key, JSON.stringify({ subjectId, logs, formUrl: FORM_URL }));
+                    } catch (_) { }
+                    alert("ネットワークエラー：データは端末に保存しました。後で再送してください。");
+                });
         }
+
     </script>
 </body>
 
