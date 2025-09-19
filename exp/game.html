@@ -95,7 +95,6 @@
             border: 1px solid rgba(148, 163, 184, .2)
         }
 
-        /* 常に1行3列（狭い端末は横スクロール） */
         .grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -236,9 +235,12 @@
 
         <footer>
             <div id="helperText">
-                画像を押すと得点が入ります。試行回数が上限に達すると終了します。制限試行回数内でより多くの得点を獲得してください。（ver.14）
+                画像を押すと得点が入ります．
+                制限試行回数内でより多くの得点を獲得してください．
+                リフレッシュボタンは試行回数を消費することなく3枚の画像を再抽選します．
+                リフレッシュボタンは5施行目以降に使えます．（ver.15）
             </div>
-            <button class="btn" id="shuffleBtn" disabled>シャッフル</button>
+            <button class="btn" id="refreshBtn" disabled>リフレッシュ</button>
         </footer>
     </div>
 
@@ -251,7 +253,7 @@
     </template>
 
     <script>
-        const UI_SHOW = { title: false, idSelect: true, score: false, high: false, trial: true, reset: false, shuffle: false, help: true, points: false, popup: true };
+        const UI_SHOW = { title: false, idSelect: true, score: false, high: false, trial: true, reset: false, refresh: true, help: true, points: false, popup: true };
 
         const FORM_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf8kEtfUI_MKUcUMwL1cyPUn5E4HZUh3eJNOpXpIxaxGTxNxw/formResponse";
         const ENTRY_ID_SUBJECT = "entry.760446940";
@@ -290,7 +292,7 @@
         const highEl = document.getElementById('high');
         const trialEl = document.getElementById('trial');
         const resetBtn = document.getElementById('resetBtn');
-        const shuffleBtn = document.getElementById('shuffleBtn');
+        const refreshBtn = document.getElementById('refreshBtn');
 
         let score = 0;
         let high = Number(localStorage.getItem('imggame_high') || 0);
@@ -325,10 +327,10 @@
         }
 
         resetBtn?.addEventListener('click', () => { score = 0; updateScore(0); });
-        shuffleBtn.addEventListener('click', () => {
+        refreshBtn.addEventListener('click', () => {
             if (trial >= trialLimit || !subjectId) return;
             refreshAllCards();
-            logs.push({ t: timestamp(), event: "shuffle", score, trial });
+            logs.push({ t: timestamp(), event: "refresh", score, trial });
         });
 
         function refreshAllCards() {
@@ -365,7 +367,7 @@
                 if (UI_SHOW.popup) pop.textContent = `+${final}`;
                 updateScore(final);
                 trial++; updateTrialUI();
-                if (trial >= 5) shuffleBtn.disabled = false;
+                if (trial >= 5) refreshBtn.disabled = false;
                 const currentCards = Array.from(grid.children).map(c => c.dataset.key);
                 logs.push({ t: timestamp(), event: "click", key, pos, base: baseVal, value: final, score, trial, shown: currentCards });
 
