@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ランダム画像クリックゲーム</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --panel: #111827;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --win: #22c55e
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, #0b1220, #0f172a);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "YuGothic", Meiryo, sans-serif;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .wrap {
+            width: min(1100px, 92vw);
+            padding: 20px 20px 28px;
+            background: rgba(17, 24, 39, .7);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(148, 163, 184, .15);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .35)
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px
+        }
+
+        h1 {
+            font-size: 20px;
+            margin: 0;
+            letter-spacing: .03em
+        }
+
+        .scoreboard {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 600
+        }
+
+        .score {
+            font-variant-numeric: tabular-nums
+        }
+
+        .score .label {
+            color: var(--muted);
+            font-weight: 500;
+            margin-right: 4px
+        }
+
+        .btn {
+            appearance: none;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-weight: 700;
+            color: #0b1220;
+            background: var(--accent);
+            cursor: pointer;
+            transition: transform .05s ease, opacity .15s ease;
+            box-shadow: 0 6px 20px rgba(56, 189, 248, .35)
+        }
+
+        .btn:hover {
+            transform: translateY(-1px)
+        }
+
+        .btn.secondary {
+            background: #1f2937;
+            color: var(--text);
+            box-shadow: none;
+            border: 1px solid rgba(148, 163, 184, .2)
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px
+        }
+
+        @media (max-width:860px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #0b1326;
+            border: 1px solid rgba(148, 163, 184, .15);
+            isolation: isolate
+        }
+
+        .thumb {
+            position: relative;
+            display: block;
+            line-height: 0
+        }
+
+        .thumb img {
+            display: block;
+            width: 100%;
+            height: 240px;
+            object-fit: contain;
+            background: #000
+        }
+
+        .clicker {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: end;
+            justify-content: flex-end;
+            padding: 12px;
+            border: none;
+            color: var(--text);
+            font-weight: 700;
+            cursor: pointer;
+            background: none
+        }
+
+        .clicker:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: -4px
+        }
+
+        .points {
+            font-variant-numeric: tabular-nums
+        }
+
+        .pop {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(.7);
+            padding: 14px 22px;
+            border-radius: 999px;
+            background: rgba(34, 197, 94, .98);
+            color: #00220c;
+            font-weight: 900;
+            font-size: clamp(24px, 6vw, 68px);
+            line-height: 1;
+            letter-spacing: .02em;
+            box-shadow: 0 18px 60px rgba(34, 197, 94, .45);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .card.popshow .pop {
+            animation: pop .8s cubic-bezier(.2, .7, .2, 1)
+        }
+
+        @keyframes pop {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(.6);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.18);
+            }
+
+            55% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.06);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(.65);
+            }
+
+
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.18);
+            }
+
+            55% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.06);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(.65);
+            }
+
+
+            20% {
+                opacity: 1;
+                scale: 1.18
+            }
+
+            55% {
+                opacity: 1;
+                scale: 1.06
+            }
+
+            100% {
+                opacity: 0;
+                scale: .65
+            }
+
+
+            20% {
+                opacity: 1;
+                scale: 1.02
+            }
+
+            55% {
+                opacity: 1;
+                scale: 1
+            }
+
+            100% {
+                opacity: 0;
+                scale: .6
+            }
+        }
+
+        footer {
+            margin-top: 16px;
+            color: var(--muted);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <h1>ランダム画像クリックゲーム</h1>
+            <div class="scoreboard" aria-live="polite">
+                <div class="score" id="score"><span class="label">Score：</span>0</div>
+                <div class="score" id="high"><span class="label">High：</span>0</div>
+                <div class="score" id="life"><span class="label">Life：</span>20</div>
+                <button class="btn secondary" id="resetBtn" title="スコアを0にしてやり直し">リセット</button>
+            </div>
+            <div class="scoreboard" style="gap:10px">
+                <label for="subjectSelect" class="score"><span class="label">被験者ID：</span></label>
+                <select id="subjectSelect"
+                    style="padding:6px 8px;border-radius:8px;border:1px solid rgba(148,163,184,.25);background:#0b1326;color:var(--text)"></select>
+                <button class="btn secondary" id="subjectSetBtn" title="被験者IDを確定（リロードまで変更不可）">確定</button>
+                <button class="btn secondary" id="exportBtn" title="CSVを書き出し">CSV書き出し</button>
+            </div>
+        </header>
+
+        <main class="grid" id="grid" aria-label="画像の選択肢"></main>
+
+        <footer>
+            <div>画像を押すと得点が入ります．クリックごとに3枚入れ替わり，Life が0で終了します．</div>
+            <button class="btn" id="shuffleBtn" title="3枚すべて入れ替え">シャッフル</button>
+        </footer>
+    </div>
+
+    <template id="cardTmpl">
+        <article class="card">
+            <a class="thumb" target="_blank" rel="noreferrer noopener">
+                <img alt="ランダム画像" loading="lazy" />
+            </a>
+            <button class="clicker" type="button">
+                <span class="points" aria-hidden="true">+0</span>
+            </button>
+            <div class="pop" aria-hidden="true">+0</div>
+        </article>
+    </template>
+
+    <script>
+        // ---- マスター集合 ----
+        const COLORS = ['yel', 'grn', 'blu', 'pnk'];
+        const PATTERNS = ['str', 'dot', 'box', 'hrb'];
+        const SHAPES = ['cir', 'tri', 'sqr', 'hex'];
+
+        // 除外（必要なら編集）
+        const EXCLUDE = { colors: ['pnk'], patterns: ['hrb'], shapes: ['hex'] };
+
+        // ---- 表示/非表示のUI設定 ----
+        const UI_SHOW = {
+            score: true,
+            high: true,
+            life: true,
+            reset: true,
+            shuffle: true,
+            points: true,
+            popup: true
+        };
+
+        // ---- スコア設定（ここを編集）----
+        // 優先順位：file > color/pattern/shape の合算 > DEFAULT_SCORE
+        const SCORE_BY = {
+            file: {
+                // 'yel_str_cir.png': 10,
+            },
+            color: { yel: 0, grn: 0, blu: 0, pnk: 0 },
+            pattern: { str: 0, dot: 0, box: 0, hrb: 0 },
+            shape: { cir: 5, tri: 10, sqr: 15, hex: 20 }
+        };
+        const BASE_SCORE = 0;
+        const DEFAULT_SCORE = 1;
+
+        // 候補一覧を構築
+        function buildFiles() {
+            const files = [];
+            const exC = new Set(EXCLUDE.colors);
+            const exP = new Set(EXCLUDE.patterns);
+            const exS = new Set(EXCLUDE.shapes);
+            for (const c of COLORS) {
+                if (exC.has(c)) continue;
+                for (const p of PATTERNS) {
+                    if (exP.has(p)) continue;
+                    for (const s of SHAPES) {
+                        if (exS.has(s)) continue;
+                        files.push(`${c}_${p}_${s}.png`);
+                    }
+                }
+            }
+            return files;
+        }
+        let FILES = buildFiles();
+
+        const IMG_PATH_PREFIX = 'images/';
+        const grid = document.getElementById('grid');
+        const scoreEl = document.getElementById('score');
+        const highEl = document.getElementById('high');
+        const lifeEl = document.getElementById('life');
+        const resetBtn = document.getElementById('resetBtn');
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        const subjectSelect = document.getElementById('subjectSelect');
+        const subjectSetBtn = document.getElementById('subjectSetBtn');
+        const exportBtn = document.getElementById('exportBtn');
+
+        // UI 表示反映
+        applyUIVisibility();
+        function applyUIVisibility() {
+            document.getElementById('score').style.display = UI_SHOW.score ? '' : 'none';
+            document.getElementById('high').style.display = UI_SHOW.high ? '' : 'none';
+            document.getElementById('life').style.display = UI_SHOW.life ? '' : 'none';
+            if (resetBtn) resetBtn.style.display = UI_SHOW.reset ? '' : 'none';
+            if (shuffleBtn) shuffleBtn.style.display = UI_SHOW.shuffle ? '' : 'none';
+        }
+
+        // 状態
+        let score = 0;
+        let high = Number(localStorage.getItem('imggame_high') || 0);
+        let life = 20;
+
+        // 実験用状態
+        let subjectId = null;        // 1–20
+        let subjectLocked = false;   // 確定後は変更不可（リロードで解除）
+        let trial = 0;               // クリック回数
+        const logs = [];             // ログ蓄積（メモリ）
+
+        updateScore(0);
+        updateLifeUI();
+
+        // 被験者IDセレクトを1–20で初期化
+        (function initSubjectSelect() {
+            subjectSelect.innerHTML = '<option value="" selected disabled>選択</option>' + Array.from({ length: 20 }, (_, i) => `<option value="${i + 1}">${i + 1}</option>`).join('');
+        })();
+
+        const currentKeys = new Set();
+
+        if (FILES.length === 0) {
+            grid.innerHTML = '<div class="points" style="margin:8px auto">候補がありません（除外設定を見直してください）</div>';
+        } else {
+            for (let i = 0; i < Math.min(3, FILES.length); i++) addCard();
+        }
+
+        resetBtn.addEventListener('click', () => {
+            // スコアのみリセット．Life は維持
+            score = 0;
+            updateScore(0);
+            logEvent('reset', {});
+        });
+        shuffleBtn.addEventListener('click', () => {
+            // シャッフルは Life 消費なし
+            refreshAllCards();
+            logEvent('shuffle', {});
+        });
+
+        // 被験者ID確定：一度だけ，確定後は変更不可
+        subjectSetBtn.addEventListener('click', () => {
+            if (subjectLocked) return;
+            const v = subjectSelect.value;
+            if (!v) { alert('被験者IDを選んでください．'); return; }
+            subjectId = Number(v);
+            subjectLocked = true;
+            subjectSelect.disabled = true;
+            subjectSetBtn.disabled = true;
+            logEvent('subject_set', { subjectId });
+        });
+
+        // CSV出力
+        exportBtn.addEventListener('click', exportLogsCSV);
+
+        function addCard() {
+            const key = pickUniqueKey();
+            if (!key) return;
+            const node = createCard(key);
+            grid.appendChild(node);
+        }
+
+        function replaceCard(card) {
+            const oldKey = card.dataset.key;
+            if (currentKeys.has(oldKey)) currentKeys.delete(oldKey);
+            const newKey = pickUniqueKey();
+            if (!newKey) return;
+            hydrateCard(card, newKey);
+        }
+
+        function refreshAllCards() {
+            // 現在表示を未使用化してから3枚すべて入れ替え
+            [...grid.children].forEach(card => {
+                const k = card.dataset.key;
+                if (currentKeys.has(k)) currentKeys.delete(k);
+            });
+            [...grid.children].forEach(card => {
+                const nk = pickUniqueKey();
+                if (nk) hydrateCard(card, nk);
+            });
+        }
+
+        function createCard(key) {
+            const tmpl = document.getElementById('cardTmpl');
+            const frag = tmpl.content.cloneNode(true);
+            const article = frag.querySelector('.card');
+            hydrateCard(article, key);
+            return article;
+        }
+
+        function hydrateCard(article, key) {
+            const a = article.querySelector('.thumb');
+            const img = article.querySelector('img');
+            const clicker = article.querySelector('.clicker');
+            const plus = article.querySelector('.points');
+            const pop = article.querySelector('.pop');
+
+            const url = IMG_PATH_PREFIX + key;
+            a.href = url;
+            img.src = url; img.decoding = 'async';
+            img.alt = `画像: ${key}`;
+
+            const value = getScoreForKey(key);
+            article.dataset.key = key;
+            article.dataset.value = value;
+            plus.textContent = `+${value}`;
+            pop.textContent = `+${value}`;
+            // カード内UIの表示切替
+            if (plus) plus.style.display = UI_SHOW.points ? '' : 'none';
+            if (pop) pop.style.display = UI_SHOW.popup ? '' : 'none';
+
+            clicker.onclick = () => {
+                if (!subjectLocked) { alert('被験者IDを先に確定してください．'); return; }
+                if (life <= 0 || article.dataset.lock === '1') return; // ライフ無し or アニメ中
+                article.dataset.lock = '1';
+
+                const v = Number(article.dataset.value || 1);
+                score += v;
+                if (score > high) { high = score; localStorage.setItem('imggame_high', String(high)); }
+                scoreEl.innerHTML = `<span class=\"label\">Score：</span>${score}`;
+                highEl.innerHTML = `<span class=\"label\">High：</span>${high}`;
+
+                life = Math.max(0, life - 1);
+                updateLifeUI();
+
+                trial += 1;
+                logEvent('click', { key, value: v, total: score, life });
+
+                article.classList.remove('popshow');
+                void article.offsetWidth;
+                article.classList.add('popshow');
+
+                const finish = () => { article.dataset.lock = ''; refreshAllCards(); };
+                if (UI_SHOW.popup && pop) {
+                    pop.addEventListener('animationend', finish, { once: true });
+                } else { finish(); }
+            };
+
+            currentKeys.add(key);
+        }
+
+        function pickUniqueKey() {
+            const pool = FILES.filter(k => !currentKeys.has(k));
+            const key = pool.length
+                ? pool[Math.floor(Math.random() * pool.length)]
+                : FILES[Math.floor(Math.random() * FILES.length)];
+            return key;
+        }
+
+        function getScoreForKey(key) {
+            // 1) ファイル個別の設定があれば最優先
+            if (SCORE_BY.file && Object.prototype.hasOwnProperty.call(SCORE_BY.file, key)) {
+                return SCORE_BY.file[key];
+            }
+            // 2) 色・模様・形の重みを合算
+            const [c, p, s] = key.replace('.png', '').split('_');
+            let v = BASE_SCORE;
+            if (SCORE_BY.color && SCORE_BY.color[c] != null) v += Number(SCORE_BY.color[c]);
+            if (SCORE_BY.pattern && SCORE_BY.pattern[p] != null) v += Number(SCORE_BY.pattern[p]);
+            if (SCORE_BY.shape && SCORE_BY.shape[s] != null) v += Number(SCORE_BY.shape[s]);
+            // いずれも未指定なら既定値
+            if (v === BASE_SCORE
+                && (!SCORE_BY.color || SCORE_BY.color[c] == null)
+                && (!SCORE_BY.pattern || SCORE_BY.pattern[p] == null)
+                && (!SCORE_BY.shape || SCORE_BY.shape[s] == null)) {
+                return DEFAULT_SCORE;
+            }
+            return v;
+        }
+
+        function updateScore(delta) {
+            score += delta;
+            if (score > high) {
+                high = score;
+                localStorage.setItem('imggame_high', String(high));
+            }
+            scoreEl.innerHTML = `<span class="label">Score：</span>${score}`;
+            highEl.innerHTML = `<span class="label">High：</span>${high}`;
+        }
+
+        function updateLifeUI() {
+            lifeEl.innerHTML = `<span class=\"label\">Life：</span>${life}`;
+        }
+
+        // --- ログ機能 ---
+        function logEvent(type, payload) {
+            const row = {
+                time: new Date().toISOString(),
+                type,
+                subject: subjectId,
+                trial,
+                ...payload
+            };
+            logs.push(row);
+        }
+
+        function exportLogsCSV() {
+            const header = ['time', 'type', 'subject', 'trial', 'key', 'value', 'total', 'life'];
+            const lines = [header.join(',')];
+            for (const r of logs) {
+                lines.push(header.map(h => (r[h] ?? '')).join(','));
+            }
+            const csv = lines.join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const ts = new Date().toISOString().replace(/[:T]/g, '-').replace(/\..+/, '');
+            const fname = `subject-${subjectId ?? 'NA'}_${ts}.csv`;
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = fname; // ダウンロード後に /logs フォルダへコミットしてください
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+            a.remove();
+        }
+    </script>
+</body>
+
+</html>
