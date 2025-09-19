@@ -6,7 +6,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ランダム画像クリックゲーム</title>
     <style>
-        /* --- 省略（前回のCSSと同じ） --- */
+        :root {
+            --bg: #0f172a;
+            --panel: #111827;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --win: #22c55e
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, #0b1220, #0f172a);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "YuGothic", Meiryo, sans-serif;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .wrap {
+            width: min(1100px, 92vw);
+            padding: 20px 20px 28px;
+            background: rgba(17, 24, 39, .7);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(148, 163, 184, .15);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .35)
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px
+        }
+
+        h1 {
+            font-size: 20px;
+            margin: 0;
+            letter-spacing: .03em
+        }
+
+        .scoreboard {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 600
+        }
+
+        .score {
+            font-variant-numeric: tabular-nums
+        }
+
+        .score .label {
+            color: var(--muted);
+            font-weight: 500;
+            margin-right: 4px
+        }
+
+        .btn {
+            appearance: none;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-weight: 700;
+            color: #0b1220;
+            background: var(--accent);
+            cursor: pointer;
+            transition: transform .05s ease, opacity .15s ease;
+            box-shadow: 0 6px 20px rgba(56, 189, 248, .35)
+        }
+
+        .btn:hover {
+            transform: translateY(-1px)
+        }
+
+        .btn.secondary {
+            background: #1f2937;
+            color: var(--text);
+            box-shadow: none;
+            border: 1px solid rgba(148, 163, 184, .2)
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px
+        }
+
+        @media (max-width:860px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #0b1326;
+            border: 1px solid rgba(148, 163, 184, .15);
+            isolation: isolate
+        }
+
+        .thumb {
+            position: relative;
+            display: block;
+            line-height: 0
+        }
+
+        .thumb img {
+            display: block;
+            width: 100%;
+            height: 240px;
+            object-fit: contain;
+            background: #000
+        }
+
+        .clicker {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: end;
+            justify-content: flex-end;
+            padding: 12px;
+            border: none;
+            color: var(--text);
+            font-weight: 700;
+            cursor: pointer;
+            background: none
+        }
+
+        .clicker:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: -4px
+        }
+
+        .points {
+            font-variant-numeric: tabular-nums
+        }
+
+        .pop {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(.7);
+            padding: 14px 22px;
+            border-radius: 999px;
+            background: rgba(34, 197, 94, .98);
+            color: #00220c;
+            font-weight: 900;
+            font-size: clamp(24px, 6vw, 68px);
+            line-height: 1;
+            letter-spacing: .02em;
+            box-shadow: 0 18px 60px rgba(34, 197, 94, .45);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .card.popshow .pop {
+            animation: pop .8s cubic-bezier(.2, .7, .2, 1)
+        }
+
+        @keyframes pop {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(.6);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.18);
+            }
+
+            55% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.06);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(.65);
+            }
+        }
+
+        footer {
+            margin-top: 16px;
+            color: var(--muted);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
         #idSelect {
             padding: 6px;
             border-radius: 6px;
