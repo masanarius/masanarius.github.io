@@ -278,8 +278,7 @@
             showOrHide(helperText, UI_SHOW.help);
         }
 
-        // ▼ 追加：呼び出し
-        applyUIVisibility();
+
 
         const FORM_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf8kEtfUI_MKUcUMwL1cyPUn5E4HZUh3eJNOpXpIxaxGTxNxw/formResponse";
         const ENTRY_ID_SUBJECT = "entry.760446940";
@@ -319,6 +318,9 @@
         const trialEl = document.getElementById('trial');
         const resetBtn = document.getElementById('resetBtn');
         const refreshBtn = document.getElementById('refreshBtn');
+
+        // ▼ 追加：呼び出し
+        applyUIVisibility();
 
         let score = 0;
         let high = Number(localStorage.getItem('imggame_high') || 0);
