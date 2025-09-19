@@ -178,22 +178,22 @@
         @keyframes pop {
             0% {
                 opacity: 0;
-                transform: translate(-50%, -50%) scale(.6);
+                transform: translate(-50%, -50%) scale(.6)
             }
 
             20% {
                 opacity: 1;
-                transform: translate(-50%, -50%) scale(1.18);
+                transform: translate(-50%, -50%) scale(1.18)
             }
 
             55% {
                 opacity: 1;
-                transform: translate(-50%, -50%) scale(1.06);
+                transform: translate(-50%, -50%) scale(1.06)
             }
 
             100% {
                 opacity: 0;
-                transform: translate(-50%, -50%) scale(.65);
+                transform: translate(-50%, -50%) scale(.65)
             }
         }
 
@@ -209,7 +209,11 @@
 
         #idSelect {
             padding: 6px;
-            border-radius: 6px;
+            border-radius: 6px
+        }
+
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
@@ -217,9 +221,9 @@
 <body>
     <div class="wrap">
         <header>
-            <h1>ランダム画像クリックゲーム</h1>
-            <div>
-                <label for="idSelect">被験者ID: </label>
+            <h1 id="title">ランダム画像クリックゲーム</h1>
+            <div id="idBlock">
+                <label for="idSelect">参加者ID: </label>
                 <select id="idSelect">
                     <option value="">選択してください</option>
                 </select>
@@ -235,7 +239,9 @@
         <main class="grid" id="grid" aria-label="画像の選択肢"></main>
 
         <footer>
-            <div>画像を押すと得点が入ります．クリックごとに3枚入れ替わり，Life が0で終了します．</div>
+            <div id="helperText">画像を押すと得点が入ります．クリックごとに3枚入れ替わり，Life
+                が0で終了します．シャッフルはLifeを消費せず3枚を入れ替えます．シャッフルは5施行目以降から使うことができます．
+                （ver.5）</div>
             <button class="btn" id="shuffleBtn" disabled>シャッフル</button>
         </footer>
     </div>
@@ -253,10 +259,26 @@
     </template>
 
     <script>
-        // ▼ GoogleフォームURL
+        /* =========================
+           表示/非表示のUI設定（ここだけ変えればOK）
+           ========================= */
+        const UI_SHOW = {
+            title: true,      // タイトル(h1)
+            idSelect: true,   // 被験者ID選択ブロック
+            score: true,      // Score ボックス
+            high: true,       // High ボックス
+            life: true,       // Life ボックス
+            reset: true,      // リセットボタン
+            shuffle: true,    // シャッフルボタン（※解禁ロジックは別）
+            help: true,       // フッターの説明テキスト
+            points: true,     // カード右下の +ポイント表示
+            popup: true       // 中央のポップ
+        };
+
+        // ▼ GoogleフォームURL（formResponse）
         const FORM_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf8kEtfUI_MKUcUMwL1cyPUn5E4HZUh3eJNOpXpIxaxGTxNxw/formResponse";
-        const ENTRY_ID_SUBJECT = "entry.760446940";
-        const ENTRY_ID_LOG = "entry.801929558";
+        const ENTRY_ID_SUBJECT = "entry.760446940"; // ←被験者IDの項目
+        const ENTRY_ID_LOG = "entry.801929558";     // ←ログデータの項目
 
         // ▼ 被験者IDセレクト生成
         const idSelect = document.getElementById('idSelect');
@@ -268,7 +290,7 @@
         }
         idSelect.addEventListener('change', () => {
             if (idSelect.value) {
-                idSelect.disabled = true;
+                idSelect.disabled = true; // 一度選んだら変更不可
                 subjectId = idSelect.value;
             }
         });
@@ -311,6 +333,23 @@
         const lifeEl = document.getElementById('life');
         const resetBtn = document.getElementById('resetBtn');
         const shuffleBtn = document.getElementById('shuffleBtn');
+        const idBlock = document.getElementById('idBlock');
+        const helperText = document.getElementById('helperText');
+        const titleEl = document.getElementById('title');
+
+        // UI 表示反映（まずDOM取得後に呼ぶ）
+        applyUIVisibility();
+        function showOrHide(el, on) { if (!el) return; el.classList.toggle('hidden', !on); }
+        function applyUIVisibility() {
+            showOrHide(titleEl, UI_SHOW.title);
+            showOrHide(idBlock, UI_SHOW.idSelect);
+            showOrHide(scoreEl, UI_SHOW.score);
+            showOrHide(highEl, UI_SHOW.high);
+            showOrHide(lifeEl, UI_SHOW.life);
+            showOrHide(resetBtn, UI_SHOW.reset);
+            showOrHide(shuffleBtn, UI_SHOW.shuffle);
+            showOrHide(helperText, UI_SHOW.help);
+        }
 
         let score = 0;
         let high = Number(localStorage.getItem('imggame_high') || 0);
@@ -331,6 +370,7 @@
             score = 0;
             updateScore(0);
         });
+
         shuffleBtn.addEventListener('click', () => {
             if (life <= 0 || !subjectId) return;
             refreshAllCards();
@@ -381,27 +421,40 @@
             plus.textContent = `+${value}`;
             pop.textContent = `+${value}`;
 
+            // カード内UIの表示切替
+            plus.style.display = UI_SHOW.points ? '' : 'none';
+            pop.style.display = UI_SHOW.popup ? '' : 'none';
+
             clicker.onclick = () => {
-                if (life <= 0 || !subjectId) return;
+                if (life <= 0 || !subjectId || article.dataset.lock === '1') return;
+                article.dataset.lock = '1';
+
                 const v = Number(article.dataset.value || 1);
                 updateScore(v);
                 life = Math.max(0, life - 1);
                 updateLifeUI();
 
                 trials++;
-                if (trials >= 6) shuffleBtn.disabled = false; // 6施行目から解禁
+                if (trials >= 5) shuffleBtn.disabled = false; // 5施行目以降 = 6回目のクリックから解禁
 
                 logs.push({ t: timestamp(), key, value: v, score });
 
                 article.classList.remove('popshow');
                 void article.offsetWidth;
-                article.classList.add('popshow');
+                if (UI_SHOW.popup) article.classList.add('popshow');
 
-                if (life === 0) {
-                    sendLog();
+                if (!UI_SHOW.popup) {
+                    // ポップを使わないなら即入れ替え
+                    article.dataset.lock = '';
+                    if (life === 0) sendLog();
+                    refreshAllCards();
+                    return;
                 }
 
+                // ポップを使う場合はアニメ終了後に入れ替え
                 pop.addEventListener('animationend', () => {
+                    article.dataset.lock = '';
+                    if (life === 0) sendLog();
                     refreshAllCards();
                 }, { once: true });
             };
@@ -435,15 +488,15 @@
                 high = score;
                 localStorage.setItem('imggame_high', String(high));
             }
-            scoreEl.innerHTML = `<span class="label">Score：</span>${score}`;
-            highEl.innerHTML = `<span class="label">High：</span>${high}`;
+            if (scoreEl) scoreEl.innerHTML = `<span class="label">Score：</span>${score}`;
+            if (highEl) highEl.innerHTML = `<span class="label">High：</span>${high}`;
         }
 
         function updateLifeUI() {
-            lifeEl.innerHTML = `<span class="label">Life：</span>${life}`;
+            if (lifeEl) lifeEl.innerHTML = `<span class="label">Life：</span>${life}`;
         }
 
-        // ---- 時刻フォーマット ----
+        // ---- 時刻フォーマット：YYYYMMDDhhmmssxx（xx=1/100秒）
         function timestamp() {
             const d = new Date();
             const pad = (n, l = 2) => String(n).padStart(l, '0');
