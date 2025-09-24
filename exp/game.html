@@ -204,18 +204,13 @@
 
         #helperText ul {
             margin: 0;
-            /* 上下左右の余白をリセット */
             padding-left: 18px;
-            /* デフォルトより少し小さめ */
             list-style-position: outside;
-            /* ●を外側に出す（自然な箇条書き） */
         }
 
         #helperText li {
             margin: 2px 0;
-            /* 項目間の縦間隔を少し詰める */
         }
-
 
         #idSelect {
             padding: 6px;
@@ -255,7 +250,7 @@
                     <li>制限試行回数内でより多くの得点を獲得してください．</li>
                     <li>Refreshボタンは試行回数を消費することなく3枚の画像を再抽選します．</li>
                 </ul>
-                ver.21
+                ver.23
             </div>
             <button class="btn" id="refreshBtn">Refresh</button>
         </footer>
@@ -270,65 +265,13 @@
     </template>
 
     <script>
+        /* ========== 表示制御 ========== */
         const UI_SHOW = { title: false, idSelect: true, score: false, high: false, trial: true, reset: false, refresh: true, help: true, points: false, popup: true };
 
-        // ▼ 追加：UI要素参照
+        // DOM 参照（※この順で定義→反映）
         const titleEl = document.getElementById('title');
         const idBlock = document.getElementById('idBlock');
         const helperText = document.getElementById('helperText');
-
-        // ▼ 追加：表示/非表示トグル関数
-        function showOrHide(el, on) {
-            if (!el) return;
-            el.classList.toggle('hidden', !on);
-        }
-
-        // ▼ 追加：UI_SHOWをDOMに反映
-        function applyUIVisibility() {
-            showOrHide(titleEl, UI_SHOW.title);
-            showOrHide(idBlock, UI_SHOW.idSelect);
-            showOrHide(scoreEl, UI_SHOW.score);
-            showOrHide(highEl, UI_SHOW.high);
-            showOrHide(trialEl, UI_SHOW.trial);
-            showOrHide(resetBtn, UI_SHOW.reset);
-            showOrHide(refreshBtn, UI_SHOW.refresh); // ← 「リフレッシュ」ボタン
-            showOrHide(helperText, UI_SHOW.help);
-        }
-
-
-
-        const FORM_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf8kEtfUI_MKUcUMwL1cyPUn5E4HZUh3eJNOpXpIxaxGTxNxw/formResponse";
-        const ENTRY_ID_SUBJECT = "entry.760446940";
-        const ENTRY_ID_LOG = "entry.801929558";
-
-        const POSITION_SCORE = { left: 6, center: 4, right: 2 };
-
-        const idSelect = document.getElementById('idSelect');
-        for (let i = 1; i <= 20; i++) { const o = document.createElement('option'); o.value = i; o.textContent = i; idSelect.appendChild(o); }
-        let subjectId = null;
-        idSelect.addEventListener('change', () => { if (idSelect.value) { idSelect.disabled = true; subjectId = idSelect.value; } });
-
-        const COLORS = ['yel', 'grn', 'blu', 'pnk'];
-        const PATTERNS = ['str', 'dot', 'box', 'hrb'];
-        const SHAPES = ['cir', 'tri', 'sqr', 'hex'];
-        const EXCLUDE = { colors: ['pnk'], patterns: ['hrb'], shapes: ['hex'] };
-        const SCORE_BY = { file: {}, color: { yel: 1, grn: 2, blu: 3, pnk: 4 }, pattern: { str: 3, dot: 4, box: 5, hrb: 6 }, shape: { cir: 2, tri: 3, sqr: 4, hex: 5 } };
-        const BASE_SCORE = 0, DEFAULT_SCORE = 1;
-
-        function buildFiles() {
-            const files = []; const exC = new Set(EXCLUDE.colors), exP = new Set(EXCLUDE.patterns), exS = new Set(EXCLUDE.shapes);
-            for (const c of COLORS) {
-                if (exC.has(c)) continue;
-                for (const p of PATTERNS) {
-                    if (exP.has(p)) continue;
-                    for (const s of SHAPES) { if (exS.has(s)) continue; files.push(`${c}_${p}_${s}.png`); }
-                }
-            }
-            return files;
-        }
-        let FILES = buildFiles();
-
-        const IMG_PATH_PREFIX = 'images/';
         const grid = document.getElementById('grid');
         const scoreEl = document.getElementById('score');
         const highEl = document.getElementById('high');
@@ -336,9 +279,103 @@
         const resetBtn = document.getElementById('resetBtn');
         const refreshBtn = document.getElementById('refreshBtn');
 
-        // ▼ 追加：呼び出し
+        function showOrHide(el, on) { if (!el) return; el.classList.toggle('hidden', !on); }
+        function applyUIVisibility() {
+            showOrHide(titleEl, UI_SHOW.title);
+            showOrHide(idBlock, UI_SHOW.idSelect);
+            showOrHide(scoreEl, UI_SHOW.score);
+            showOrHide(highEl, UI_SHOW.high);
+            showOrHide(trialEl, UI_SHOW.trial);
+            showOrHide(resetBtn, UI_SHOW.reset);
+            showOrHide(refreshBtn, UI_SHOW.refresh);
+            showOrHide(helperText, UI_SHOW.help);
+        }
         applyUIVisibility();
 
+        /* ========== 送信関連 ========== */
+        const FORM_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf8kEtfUI_MKUcUMwL1cyPUn5E4HZUh3eJNOpXpIxaxGTxNxw/formResponse";
+        const ENTRY_ID_SUBJECT = "entry.760446940";
+        const ENTRY_ID_LOG = "entry.801929558";
+
+        /* ========== スコア設定 ========== */
+        const POSITION_SCORE = { left: 6, center: 4, right: 2 };
+        // Refresh の加点（負値を入れれば減点）。試行は増えない
+        const REFRESH_SCORE = 0;
+
+        /* ========== ID / プール ========== */
+        const idSelect = document.getElementById('idSelect');
+        for (let i = 1; i <= 20; i++) { const o = document.createElement('option'); o.value = i; o.textContent = i; idSelect.appendChild(o); }
+        let subjectId = null;
+
+        // マスター集合
+        const COLORS = ['yel', 'grn', 'blu', 'pnk'];
+        const PATTERNS = ['str', 'dot', 'box', 'hrb'];
+        const SHAPES = ['cir', 'tri', 'sqr', 'hex'];
+
+        // 参加者IDごとの「出現させる要素」ホワイトリスト
+        // 未指定・空配列は「全て可」と解釈します
+        const INCLUDE_BY_SUBJECT = {
+            // 1–4: 六角形なし（cir/tri/sqr）、hrbなし
+            // 奇数: 緑なし 偶数: 青なし
+            "1": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
+            "2": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
+            "3": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
+            "4": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
+
+            // 5–8: 円なし（tri/sqr/hex）、hrbなし
+            "5": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "box"], shapes: ["tri", "sqr", "hex"] },
+            "6": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "box"], shapes: ["tri", "sqr", "hex"] },
+            "7": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "box"], shapes: ["tri", "sqr", "hex"] },
+            "8": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "box"], shapes: ["tri", "sqr", "hex"] },
+
+            // 9–16: (n-8) の条件 + boxなし、ただし hrb は有効
+            "9": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["cir", "tri", "sqr"] },
+            "10": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["cir", "tri", "sqr"] },
+            "11": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["cir", "tri", "sqr"] },
+            "12": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["cir", "tri", "sqr"] },
+            "13": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["tri", "sqr", "hex"] },
+            "14": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["tri", "sqr", "hex"] },
+            "15": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["tri", "sqr", "hex"] },
+            "16": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["tri", "sqr", "hex"] },
+
+            // 17–20: 1–4 と同じ
+            "17": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
+            "18": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
+            "19": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
+            "20": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
+
+            "default": { colors: [], patterns: [], shapes: [] }
+        };
+
+
+        // スコア辞書（必要なら変更）
+        const SCORE_BY = {
+            file: {},
+            color: { yel: 1, grn: 2, blu: 3, pnk: 4 },
+            pattern: { str: 3, dot: 4, box: 5, hrb: 6 },
+            shape: { cir: 2, tri: 3, sqr: 4, hex: 5 }
+        };
+        const BASE_SCORE = 0, DEFAULT_SCORE = 1;
+
+        // 現在の選択に応じたファイルプールをビルド（ホワイトリスト方式）
+        function buildFilesFromInclude(inc) {
+            const allowC = (inc?.colors?.length ? inc.colors : COLORS);
+            const allowP = (inc?.patterns?.length ? inc.patterns : PATTERNS);
+            const allowS = (inc?.shapes?.length ? inc.shapes : SHAPES);
+
+            const files = [];
+            for (const c of allowC) for (const p of allowP) for (const s of allowS) {
+                files.push(`${c}_${p}_${s}.png`);
+            }
+            return files;
+        }
+
+        // 初期は default 設定
+        let CURRENT_INCLUDE = INCLUDE_BY_SUBJECT["default"];
+        let FILES = buildFilesFromInclude(CURRENT_INCLUDE);
+
+        /* ========== 状態 ========== */
+        const IMG_PATH_PREFIX = 'images/';
         let score = 0;
         let high = Number(localStorage.getItem('imggame_high') || 0);
         let trial = 0;
@@ -348,11 +385,43 @@
 
         updateScore(0); updateTrialUI();
 
+        /* ========== 共通ユーティリティ ========== */
+        function timestamp() {
+            const d = new Date(); const pad = (n, l = 2) => String(n).padStart(l, '0');
+            return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds()) + pad(Math.floor(d.getMilliseconds() / 10), 2);
+        }
+        function updateScore(delta) {
+            score += delta;
+            if (score > high) { high = score; localStorage.setItem('imggame_high', String(high)); }
+            scoreEl.innerHTML = `<span class="label">Score：</span>${score}`;
+            highEl.innerHTML = `<span class="label">High：</span>${high}`;
+        }
+        function updateTrialUI() { trialEl.innerHTML = `<span class="label">Trial：</span>${trial}/${trialLimit}`; }
+
+        function getScoreForKey(key) {
+            if (SCORE_BY.file && Object.prototype.hasOwnProperty.call(SCORE_BY.file, key)) return SCORE_BY.file[key];
+            const [c, p, s] = key.replace('.png', '').split('_');
+            let v = BASE_SCORE;
+            if (SCORE_BY.color[c] != null) v += Number(SCORE_BY.color[c]);
+            if (SCORE_BY.pattern[p] != null) v += Number(SCORE_BY.pattern[p]);
+            if (SCORE_BY.shape[s] != null) v += Number(SCORE_BY.shape[s]);
+            return v === BASE_SCORE ? DEFAULT_SCORE : v;
+        }
+
+        function getCardPosition(article) {
+            const arr = Array.from(grid.children);
+            const idx = arr.indexOf(article);
+            if (idx === 0) return 'left';
+            if (idx === 1) return 'center';
+            return 'right';
+        }
+
+        // k枚を重複なしで抽選。前回キーは可能な限り避ける
         function pickUniqueBatch(k, avoid = new Set()) {
             const shuffleInPlace = arr => { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[arr[i], arr[j]] = [arr[j], arr[i]]; } };
-            const primaryPool = FILES.filter(x => !avoid.has(x));
+            const primary = FILES.filter(x => !avoid.has(x));
             const result = [];
-            const p = primaryPool.slice(); shuffleInPlace(p);
+            const p = primary.slice(); shuffleInPlace(p);
             while (result.length < k && p.length) result.push(p.pop());
             if (result.length < k) {
                 const fallback = FILES.filter(x => !result.includes(x));
@@ -360,30 +429,6 @@
                 while (result.length < k && fallback.length) result.push(fallback.pop());
             }
             return result;
-        }
-
-        if (FILES.length === 0) {
-            grid.innerHTML = '<div class="points" style="margin:8px auto">候補がありません</div>';
-        } else {
-            const firstKeys = pickUniqueBatch(Math.min(3, FILES.length));
-            firstKeys.forEach(key => grid.appendChild(createCard(key)));
-            lastKeys = new Set(firstKeys);
-            logs.push({ t: timestamp(), event: "show", cards: firstKeys, trial });
-        }
-
-        resetBtn?.addEventListener('click', () => { score = 0; updateScore(0); });
-        refreshBtn.addEventListener('click', () => {
-            if (trial >= trialLimit || !subjectId) return;
-            refreshAllCards();
-            logs.push({ t: timestamp(), event: "refresh", score, trial });
-        });
-
-        function refreshAllCards() {
-            const n = grid.children.length;
-            const newKeys = pickUniqueBatch(n, lastKeys);
-            [...grid.children].forEach((card, i) => hydrateCard(card, newKeys[i]));
-            lastKeys = new Set(newKeys);
-            logs.push({ t: timestamp(), event: "show", cards: newKeys, trial });
         }
 
         function createCard(key) {
@@ -395,46 +440,134 @@
         }
 
         function hydrateCard(article, key) {
-            const a = article.querySelector('.thumb'); const img = article.querySelector('img'); const clicker = article.querySelector('.clicker'); const plus = article.querySelector('.points'); const pop = article.querySelector('.pop');
-            const url = IMG_PATH_PREFIX + key; a.href = url; img.src = url; img.alt = `画像: ${key}`;
+            const a = article.querySelector('.thumb');
+            const img = article.querySelector('img');
+            const clicker = article.querySelector('.clicker');
+            const plus = article.querySelector('.points');
+            const pop = article.querySelector('.pop');
+
+            const url = IMG_PATH_PREFIX + key;
+            a.href = url; img.src = url; img.alt = `画像: ${key}`;
+
             const base = getScoreForKey(key);
-            article.dataset.key = key; article.dataset.value = base;
-            plus.textContent = `+${base}`; pop.textContent = `+${base}`;
-            plus.style.display = UI_SHOW.points ? '' : 'none'; pop.style.display = UI_SHOW.popup ? '' : 'none';
+            article.dataset.key = key;
+            article.dataset.value = base;
+            plus.textContent = `+${base}`;
+            pop.textContent = `+${base}`;
+            plus.style.display = UI_SHOW.points ? '' : 'none';
+            pop.style.display = UI_SHOW.popup ? '' : 'none';
 
             clicker.onclick = () => {
                 if (trial >= trialLimit || !subjectId || article.dataset.lock === '1') return;
                 article.dataset.lock = '1';
+
                 const pos = getCardPosition(article);
                 const bonus = Number(POSITION_SCORE[pos] || 0);
                 const baseVal = Number(article.dataset.value || 1);
                 const final = baseVal + bonus;
+
                 if (UI_SHOW.popup) pop.textContent = `+${final}`;
+
                 updateScore(final);
                 trial++; updateTrialUI();
+
                 const currentCards = Array.from(grid.children).map(c => c.dataset.key);
                 logs.push({ t: timestamp(), event: "click", key, pos, base: baseVal, value: final, score, trial, shown: currentCards });
 
                 article.classList.remove('popshow'); void article.offsetWidth;
                 if (UI_SHOW.popup) article.classList.add('popshow');
+
                 const after = () => {
-                    article.dataset.lock = ''; if (UI_SHOW.popup) pop.textContent = `+${baseVal}`;
-                    if (trial >= trialLimit) sendLog(); refreshAllCards();
+                    article.dataset.lock = '';
+                    if (UI_SHOW.popup) pop.textContent = `+${baseVal}`;
+                    if (trial >= trialLimit) sendLog();
+                    refreshAllCards();
                 };
                 if (!UI_SHOW.popup) { after(); return; }
                 pop.addEventListener('animationend', after, { once: true });
             };
         }
 
-        function getCardPosition(article) { const arr = Array.from(grid.children); const idx = arr.indexOf(article); if (idx === 0) return 'left'; if (idx === 1) return 'center'; return 'right'; }
-        function getScoreForKey(key) { if (SCORE_BY.file && Object.prototype.hasOwnProperty.call(SCORE_BY.file, key)) return SCORE_BY.file[key]; const [c, p, s] = key.replace('.png', '').split('_'); let v = BASE_SCORE; if (SCORE_BY.color[c] != null) v += Number(SCORE_BY.color[c]); if (SCORE_BY.pattern[p] != null) v += Number(SCORE_BY.pattern[p]); if (SCORE_BY.shape[s] != null) v += Number(SCORE_BY.shape[s]); if (v === BASE_SCORE) return DEFAULT_SCORE; return v; }
-        function updateScore(delta) { score += delta; if (score > high) { high = score; localStorage.setItem('imggame_high', String(high)); } scoreEl && (scoreEl.innerHTML = `<span class="label">Score：</span>${score}`); highEl && (highEl.innerHTML = `<span class="label">High：</span>${high}`); }
-        function updateTrialUI() { trialEl && (trialEl.innerHTML = `<span class="label">Trial：</span>${trial}/${trialLimit}`); }
-        function timestamp() { const d = new Date(); const pad = (n, l = 2) => String(n).padStart(l, '0'); return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds()) + pad(Math.floor(d.getMilliseconds() / 10), 2); }
+        function refreshAllCards() {
+            const n = grid.children.length || 3;
+            const newKeys = pickUniqueBatch(n, lastKeys);
+            grid.innerHTML = ''; // 並べ替えではなく完全差し替え
+            newKeys.forEach(k => grid.appendChild(createCard(k)));
+            lastKeys = new Set(newKeys);
+            logs.push({ t: timestamp(), event: "show", cards: newKeys, trial });
+        }
+
+        /* ========== 初期描画 ========== */
+        if (FILES.length === 0) {
+            grid.innerHTML = '<div class="points" style="margin:8px auto">候補がありません</div>';
+        } else {
+            const first = pickUniqueBatch(Math.min(3, FILES.length));
+            first.forEach(k => grid.appendChild(createCard(k)));
+            lastKeys = new Set(first);
+            logs.push({ t: timestamp(), event: "show", cards: first, trial });
+        }
+
+        /* ========== イベント ========== */
+        resetBtn?.addEventListener('click', () => { score = 0; updateScore(0); });
+
+        // Refresh：スコア加算（負値OK）＆提示更新（試行は増やさない）
+        refreshBtn.addEventListener('click', () => {
+            if (!subjectId || trial >= trialLimit) return;
+            if (REFRESH_SCORE) {
+                updateScore(REFRESH_SCORE);
+                logs.push({ t: timestamp(), event: "refresh", delta: REFRESH_SCORE, score, trial });
+            } else {
+                logs.push({ t: timestamp(), event: "refresh", delta: 0, score, trial });
+            }
+            refreshAllCards();
+        });
+
+        // 参加者IDが選ばれたら、そのID用のホワイトリストでプールを再構築
+        idSelect.addEventListener('change', () => {
+            if (!idSelect.value) return;
+            idSelect.disabled = true;
+            subjectId = idSelect.value;
+
+            CURRENT_INCLUDE = INCLUDE_BY_SUBJECT[subjectId] || INCLUDE_BY_SUBJECT["default"];
+            FILES = buildFilesFromInclude(CURRENT_INCLUDE);
+
+            // リセットして、初期提示からやり直し
+            logs.push({ t: timestamp(), event: "subject_set", subjectId, include: CURRENT_INCLUDE });
+            score = 0; updateScore(0);
+            trial = 0; updateTrialUI();
+
+            if (FILES.length === 0) {
+                grid.innerHTML = '<div class="points" style="margin:8px auto">このIDの条件では画像プールが空です</div>';
+                lastKeys = new Set();
+            } else {
+                const first = pickUniqueBatch(Math.min(3, FILES.length));
+                grid.innerHTML = '';
+                first.forEach(k => grid.appendChild(createCard(k)));
+                lastKeys = new Set(first);
+                logs.push({ t: timestamp(), event: "show", cards: first, trial });
+            }
+        });
+
+        /* ========== 送信 ========== */
         function sendLog() {
-            if (!subjectId) return; const payload = new FormData(); payload.append(ENTRY_ID_SUBJECT, subjectId); payload.append(ENTRY_ID_LOG, JSON.stringify(logs));
-            if (navigator.sendBeacon) { const ok = navigator.sendBeacon(FORM_URL, payload); if (ok) { alert("ありがとうございました．結果を実験者に送信しました．"); return; } }
-            fetch(FORM_URL, { method: "POST", body: payload, mode: "no-cors", keepalive: true }).then(() => { alert("ありがとうございました．結果を実験者に送信しました．"); }).catch(err => { try { const key = `imggame_backup_${Date.now()}`; localStorage.setItem(key, JSON.stringify({ subjectId, logs, formUrl: FORM_URL })); } catch (_) { } alert("ネットワークエラー：端末に保存しました"); });
+            if (!subjectId) return;
+            const payload = new FormData();
+            payload.append(ENTRY_ID_SUBJECT, subjectId);
+            payload.append(ENTRY_ID_LOG, JSON.stringify(logs));
+
+            if (navigator.sendBeacon) {
+                const ok = navigator.sendBeacon(FORM_URL, payload);
+                if (ok) { alert("ありがとうございました．結果を実験者に送信しました．"); return; }
+            }
+            fetch(FORM_URL, { method: "POST", body: payload, mode: "no-cors", keepalive: true })
+                .then(() => { alert("ありがとうございました．結果を実験者に送信しました．"); })
+                .catch(() => {
+                    try {
+                        const key = `imggame_backup_${Date.now()}`;
+                        localStorage.setItem(key, JSON.stringify({ subjectId, logs, formUrl: FORM_URL }));
+                    } catch (_) { }
+                    alert("ネットワークエラー：端末に保存しました");
+                });
         }
     </script>
 </body>
