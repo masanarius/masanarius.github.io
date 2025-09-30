@@ -1,5 +1,18 @@
 "use strict";
 
+/* =========================================================
+   スコア設定（最優先で初期化：未定義エラー防止のため最上段）
+========================================================= */
+const BASE_SCORE = 0;
+const DEFAULT_SCORE = 1;
+const SCORE_BY = {
+    file: {}, // 例: "yel_str_pnt.png": 10
+    color: { yel: 1, grn: 2, blu: 3, pnk: 4 },
+    pattern: { str: 3, dot: 4, box: 5, hrb: 6 },
+    // cir（円）と pnt（五角形）を明示
+    shape: { cir: 2, pnt: 2, tri: 3, sqr: 4, hex: 5 }
+};
+
 /* ========== 表示制御 ========== */
 const UI_SHOW = { title: false, idSelect: true, score: false, high: false, trial: true, reset: false, refresh: true, help: true, points: false, popup: true };
 
@@ -93,7 +106,8 @@ let started = false;
 // マスター
 const COLORS = ['yel', 'grn', 'blu', 'pnk'];
 const PATTERNS = ['str', 'dot', 'box', 'hrb'];
-const SHAPES = ['pnt', 'tri', 'sqr', 'hex', 'cir']; // 'cir' も利用可（画像がある場合は SHAPES に追加）
+// cir（円）と pnt（五角形）を含む
+const SHAPES = ['pnt', 'tri', 'sqr', 'hex', 'cir'];
 
 /* ========== ブラックリスト ========== */
 const EXCLUDE_BY_SUBJECT = {
@@ -143,16 +157,6 @@ function buildFilesFromExclude(exc) {
     }
     return files;
 }
-
-/* ========== スコア辞書（pnt 追加） ========== */
-const SCORE_BY = {
-    file: {}, // 例: "yel_str_pnt.png": 10
-    color: { yel: 1, grn: 2, blu: 3, pnk: 4 },
-    pattern: { str: 3, dot: 4, box: 5, hrb: 6 },
-    shape: { cir: 2, pnt: 2, tri: 3, sqr: 4, hex: 5 } // pnt を明示
-};
-const BASE_SCORE = 0;
-const DEFAULT_SCORE = 1;
 
 // 初期（待機）
 let CURRENT_RULES = EXCLUDE_BY_SUBJECT["default"];
@@ -213,13 +217,16 @@ function updateScore(delta) {
 }
 function updateTrialUI() { trialEl.innerHTML = `<span class="label">Trial：</span>${trial}/${trialLimit}`; }
 
+// 安全ガード付き：SCORE_BY が改変・未定義でも落ちない
 function getScoreForKey(key) {
-    if (SCORE_BY.file && Object.prototype.hasOwnProperty.call(SCORE_BY.file, key)) return SCORE_BY.file[key];
+    const SB = (typeof SCORE_BY === 'object' && SCORE_BY) ? SCORE_BY
+        : { file: {}, color: {}, pattern: {}, shape: {} };
+    if (SB.file && Object.prototype.hasOwnProperty.call(SB.file, key)) return SB.file[key];
     const [c, p, s] = key.replace('.png', '').split('_');
     let v = BASE_SCORE;
-    if (SCORE_BY.color[c] != null) v += Number(SCORE_BY.color[c]);
-    if (SCORE_BY.pattern[p] != null) v += Number(SCORE_BY.pattern[p]);
-    if (SCORE_BY.shape[s] != null) v += Number(SCORE_BY.shape[s]);
+    if (SB.color[c] != null) v += Number(SB.color[c]);
+    if (SB.pattern[p] != null) v += Number(SB.pattern[p]);
+    if (SB.shape[s] != null) v += Number(SB.shape[s]);
     return v === BASE_SCORE ? DEFAULT_SCORE : v;
 }
 
