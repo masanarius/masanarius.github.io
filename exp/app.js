@@ -247,6 +247,19 @@ function triplet() {
         R: { key: key(R), imgPts: img(R), posPts: POSITION_SCORE.right },
     };
 }
+
+// 非selectイベント用：selected_* にイベント名を刻む
+function stampSelected(ev) {
+    return {
+        selected_img: ev,
+        selected_pos: ev,
+        selected_img_pts: ev,
+        selected_pos_pts: ev,
+    };
+}
+
+
+
 function recordShow() {
     const t = triplet();
     return {
@@ -258,11 +271,13 @@ function recordShow() {
         l_sum_pts: t.L.imgPts + t.L.posPts,
         c_sum_pts: t.C.imgPts + t.C.posPts,
         r_sum_pts: t.R.imgPts + t.R.posPts,
-        selected_img: "", selected_pos: "", selected_img_pts: "", selected_pos_pts: "",
+        ...stampSelected("show"),        // ★ ここで null 相当をイベント名に
         rand_pts: 0, delta_score: 0, total_score: score,
         rand_min: RAND.min, rand_max: RAND.max, rand_dist: RAND.dist,
     };
 }
+
+
 function recordSelect(selectedPos, randPts) {
     const t = triplet();
     const map = { left: t.L, center: t.C, right: t.R };
@@ -294,11 +309,12 @@ function recordRefresh() {
         l_sum_pts: t.L.imgPts + t.L.posPts,
         c_sum_pts: t.C.imgPts + t.C.posPts,
         r_sum_pts: t.R.imgPts + t.R.posPts,
-        selected_img: "", selected_pos: "", selected_img_pts: "", selected_pos_pts: "",
+        ...stampSelected("refresh"),     // ★ ここで null 相当をイベント名に
         rand_pts: 0, delta_score: REFRESH_SCORE, total_score: score,
         rand_min: RAND.min, rand_max: RAND.max, rand_dist: RAND.dist,
     };
 }
+
 
 /* ========== 送信キュー（URL エンコード；sendBeacon→fetch） ========== */
 const QUEUE_KEY = "imggame_queue_v2";
