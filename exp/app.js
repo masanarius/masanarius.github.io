@@ -6,12 +6,51 @@
 const BASE_SCORE = 0;
 const DEFAULT_SCORE = 1;
 const SCORE_BY = {
-    file: {}, // 例: "yel_str_pnt.png": 10
-    color: { yel: 1, grn: 2, blu: 3, pnk: 4 },
-    pattern: { str: 3, dot: 4, box: 5, hrb: 6 },
-    // cir（円）と pnt（五角形）を明示
-    shape: { cir: 2, pnt: 2, tri: 3, sqr: 4, hex: 5 }
+    file: {},
+    color: { grn: 1, blu: 2, yel: 3, pnk: 4 },
+    pattern: { str: 2, dot: 3, box: 4, chk: 4, hrb: 5 },
+    shape: { cir: 10, tri: 3, sqr: 4, pnt: 5, hex: 6 }
 };
+
+/* ========== スコア設定 ========== */
+const POSITION_SCORE = { left: 6, center: 4, right: 2 };
+const REFRESH_SCORE = 0;
+
+// マスター
+const COLORS = ['yel', 'grn', 'blu', 'pnk'];
+const PATTERNS = ['str', 'dot', 'box', 'hrb', 'chk'];
+const SHAPES = ['cir', 'tri', 'sqr', 'pnt', 'hex'];
+
+/* ========== ブラックリスト ========== */
+const EXCLUDE_BY_SUBJECT = {
+    "1": { colors: ['grn'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
+    "2": { colors: ['blu'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
+    "3": { colors: ['grn'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
+    "4": { colors: ['blu'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
+
+    "5": { colors: ['grn'], patterns: ['chk', 'hrb'], shapes: ['pnt', 'cir'] },
+    "6": { colors: ['blu'], patterns: ['chk', 'hrb'], shapes: ['pnt', 'cir'] },
+    "7": { colors: ['grn'], patterns: ['chk', 'hrb'], shapes: ['pnt', 'cir'] },
+    "8": { colors: ['blu'], patterns: ['chk', 'hrb'], shapes: ['pnt', 'cir'] },
+
+    "9": { colors: ['grn'], patterns: ['box', 'hrb'], shapes: ['hex', 'cir'] },
+    "10": { colors: ['blu'], patterns: ['box', 'hrb'], shapes: ['hex', 'cir'] },
+    "11": { colors: ['grn'], patterns: ['box', 'hrb'], shapes: ['hex', 'cir'] },
+    "12": { colors: ['blu'], patterns: ['box', 'hrb'], shapes: ['hex', 'cir'] },
+
+    "13": { colors: ['grn'], patterns: ['box', 'hrb'], shapes: ['pnt', 'cir'] },
+    "14": { colors: ['blu'], patterns: ['box', 'hrb'], shapes: ['pnt', 'cir'] },
+    "15": { colors: ['grn'], patterns: ['box', 'hrb'], shapes: ['pnt', 'cir'] },
+    "16": { colors: ['blu'], patterns: ['box', 'hrb'], shapes: ['pnt', 'cir'] },
+
+    "17": { colors: ['grn'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
+    "18": { colors: ['blu'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
+    "19": { colors: ['grn'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
+    "20": { colors: ['blu'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
+
+    "default": { colors: [], patterns: [], shapes: [] },
+};
+
 
 /* ========== 表示制御 ========== */
 const UI_SHOW = { title: false, idSelect: true, score: false, high: false, trial: true, reset: false, refresh: true, help: true, points: false, popup: true };
@@ -81,9 +120,7 @@ const E = {
     rand_dist: "entry.697536712",
 };
 
-/* ========== スコア設定 ========== */
-const POSITION_SCORE = { left: 6, center: 4, right: 2 };
-const REFRESH_SCORE = 0;
+
 
 /* ========== 乱数設定 ========== */
 const RAND = { enabled: false, min: 0, max: 0, dist: "uniform" };
@@ -103,41 +140,7 @@ let subjectId = null;
 let sessionId = null;
 let started = false;
 
-// マスター
-const COLORS = ['yel', 'grn', 'blu', 'pnk'];
-const PATTERNS = ['str', 'dot', 'box', 'hrb'];
-// cir（円）と pnt（五角形）を含む
-const SHAPES = ['pnt', 'tri', 'sqr', 'hex', 'cir'];
 
-/* ========== ブラックリスト ========== */
-const EXCLUDE_BY_SUBJECT = {
-    "1": { colors: ['grn'], patterns: ['hrb'], shapes: ['hex'] },
-    "2": { colors: ['blu'], patterns: ['hrb'], shapes: ['hex'] },
-    "3": { colors: ['grn'], patterns: ['hrb'], shapes: ['hex'] },
-    "4": { colors: ['blu'], patterns: ['hrb'], shapes: ['hex'] },
-
-    "5": { colors: ['grn'], patterns: ['hrb'], shapes: ['cir'] },
-    "6": { colors: ['blu'], patterns: ['hrb'], shapes: ['cir'] },
-    "7": { colors: ['grn'], patterns: ['hrb'], shapes: ['cir'] },
-    "8": { colors: ['blu'], patterns: ['hrb'], shapes: ['cir'] },
-
-    "9": { colors: ['grn'], patterns: ['box'], shapes: ['hex'] },
-    "10": { colors: ['blu'], patterns: ['box'], shapes: ['hex'] },
-    "11": { colors: ['grn'], patterns: ['box'], shapes: ['hex'] },
-    "12": { colors: ['blu'], patterns: ['box'], shapes: ['hex'] },
-
-    "13": { colors: ['grn'], patterns: ['box'], shapes: ['cir'] },
-    "14": { colors: ['blu'], patterns: ['box'], shapes: ['cir'] },
-    "15": { colors: ['grn'], patterns: ['box'], shapes: ['cir'] },
-    "16": { colors: ['blu'], patterns: ['box'], shapes: ['cir'] },
-
-    "17": { colors: ['grn'], patterns: ['hrb'], shapes: ['hex'] },
-    "18": { colors: ['blu'], patterns: ['hrb'], shapes: ['hex'] },
-    "19": { colors: ['grn'], patterns: ['hrb'], shapes: ['hex'] },
-    "20": { colors: ['blu'], patterns: ['hrb'], shapes: ['hex'] },
-
-    "default": { colors: [], patterns: [], shapes: [] },
-};
 
 function buildFilesFromExclude(exc) {
     const denyC = new Set(exc?.colors ?? []);
