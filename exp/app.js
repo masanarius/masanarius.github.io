@@ -13,7 +13,6 @@ const highEl = document.getElementById('high');
 const trialEl = document.getElementById('trial');
 const resetBtn = document.getElementById('resetBtn');
 const refreshBtn = document.getElementById('refreshBtn');
-
 // ★ 追加：Session ドロップダウン
 const sessionSelect = document.getElementById('sessionSelect');
 
@@ -31,6 +30,7 @@ function applyUIVisibility() {
 applyUIVisibility();
 
 /* ========== Google Forms ========== */
+// /formResponse を使うこと
 const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeyAJSCKsDMDDvbF4O7XJrV3kZxdJszUBMd2g0b-HwSTHO4tA/formResponse";
 const E = {
     time: "entry.1571500214",
@@ -86,7 +86,7 @@ function sampleRand() {
 const idSelect = document.getElementById('idSelect');
 // player_id ドロップダウン
 for (let i = 1; i <= 20; i++) { const o = document.createElement('option'); o.value = i; o.textContent = i; idSelect.appendChild(o); }
-// session_id ドロップダウン ★
+// session_id ドロップダウン
 for (let i = 1; i <= 20; i++) { const o = document.createElement('option'); o.value = i; o.textContent = i; sessionSelect.appendChild(o); }
 
 let subjectId = null;   // player_id
@@ -162,7 +162,7 @@ updateScore(0); updateTrialUI();
 
 // 待機表示
 function renderWaiting() {
-    grid.innerHTML = '<div class="points" style="margin:8px auto">被験者IDとセッションIDを選択してください．</div>';
+    grid.innerHTML = '<div class="points" style="margin:8px auto">Player ID と Session ID を選択してください．</div>';
 }
 
 // 両方選択済みか
@@ -188,7 +188,7 @@ function startGameIfReady() {
     grid.innerHTML = '';
     first.forEach(k => grid.appendChild(createCard(k)));
     lastKeys = new Set(first);
-    enqueueRecord(recordShow());
+    enqueueRecord(recordShow()); // 初回 show を送信
 }
 
 /* ========== 共通ユーティリティ ========== */
@@ -300,7 +300,7 @@ function recordRefresh() {
     };
 }
 
-/* ========== 送信キュー（sendBeacon→fetch フォールバック） ========== */
+/* ========== 送信キュー（URL エンコード；sendBeacon→fetch） ========== */
 const QUEUE_KEY = "imggame_queue_v2";
 let isFlushing = false;
 
@@ -311,19 +311,22 @@ function enqueueRecord(rec) {
     localStorage.setItem(QUEUE_KEY, JSON.stringify(q));
     flushQueue();
 }
-function buildFormData(rec) {
-    const fd = new FormData();
+
+// URL エンコードでボディ化（application/x-www-form-urlencoded）
+function buildBodyParams(rec) {
+    const p = new URLSearchParams();
     for (const k of Object.keys(E)) {
-        const entryId = E[k];
-        if (!entryId) continue;
-        const v = (rec[k] ?? "");
-        fd.append(entryId, String(v));
+        const entry = E[k];
+        if (!entry) continue;
+        p.append(entry, rec[k] ?? "");
     }
-    return fd;
+    return p;
 }
+
 function flushQueue() {
     if (isFlushing) return;
     isFlushing = true;
+
     const loop = () => {
         const raw = localStorage.getItem(QUEUE_KEY);
         if (!raw) { isFlushing = false; return; }
@@ -331,21 +334,38 @@ function flushQueue() {
         if (q.length === 0) { isFlushing = false; return; }
 
         const rec = q[0];
-        const fd = buildFormData(rec);
+        const params = buildBodyParams(rec);
+        const bodyString = params.toString();
+        const beaconBody = new Blob([bodyString], { type: "application/x-www-form-urlencoded;charset=UTF-8" });
 
-        const sent = (navigator.sendBeacon && navigator.sendBeacon(FORM_URL, fd)) === true;
+        let sent = false;
+        try {
+            sent = !!(navigator.sendBeacon && navigator.sendBeacon(FORM_URL, beaconBody));
+        } catch (_) { sent = false; }
+
         if (sent) {
             q.shift(); localStorage.setItem(QUEUE_KEY, JSON.stringify(q));
             setTimeout(loop, 0);
             return;
         }
-        fetch(FORM_URL, { method: "POST", body: fd, mode: "no-cors", keepalive: true })
+
+        fetch(FORM_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+            body: bodyString,
+            keepalive: true
+        })
             .then(() => {
                 q.shift(); localStorage.setItem(QUEUE_KEY, JSON.stringify(q));
                 setTimeout(loop, 0);
             })
-            .catch(() => { isFlushing = false; });
+            .catch(() => {
+                // ネットワーク不可→次回 online で再送
+                isFlushing = false;
+            });
     };
+
     loop();
 }
 window.addEventListener('online', flushQueue);
@@ -377,7 +397,7 @@ function hydrateCard(article, key) {
     pop.style.display = UI_SHOW.popup ? '' : 'none';
 
     clicker.onclick = () => {
-        if (trial >= trialLimit || !bothReady() || article.dataset.lock === '1') return; // ★ 両方必須
+        if (trial >= trialLimit || !bothReady() || article.dataset.lock === '1') return; // 両方必須
         article.dataset.lock = '1';
 
         const pos = getCardPosition(article);
@@ -419,7 +439,7 @@ function refreshAllCards() {
     grid.innerHTML = '';
     newKeys.forEach(k => grid.appendChild(createCard(k)));
     lastKeys = new Set(newKeys);
-    if (bothReady()) enqueueRecord(recordShow()); // ★ 両方必須
+    if (bothReady()) enqueueRecord(recordShow()); // 新しい show を送信
 }
 
 /* ========== 初期描画（開始しない） ========== */
@@ -429,10 +449,10 @@ renderWaiting();
 resetBtn?.addEventListener('click', () => { score = 0; updateScore(0); });
 
 refreshBtn.addEventListener('click', () => {
-    if (!bothReady() || trial >= trialLimit) return; // ★ 両方必須
+    if (!bothReady() || trial >= trialLimit) return;
     if (REFRESH_SCORE) updateScore(REFRESH_SCORE);
-    enqueueRecord(recordRefresh());
-    refreshAllCards();
+    enqueueRecord(recordRefresh()); // refresh 行
+    refreshAllCards();              // 続けて show 行
 });
 
 // player_id 選択
@@ -443,7 +463,7 @@ idSelect.addEventListener('change', () => {
     startGameIfReady();
 });
 
-// session_id 選択 ★
+// session_id 選択
 sessionSelect.addEventListener('change', () => {
     if (!sessionSelect.value) return;
     sessionSelect.disabled = true;       // 一度選ぶと固定
