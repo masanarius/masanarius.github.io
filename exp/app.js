@@ -7,9 +7,9 @@ const BASE_SCORE = 0;
 const DEFAULT_SCORE = 1;
 const SCORE_BY = {
     file: {},
-    color: { grn: 1, blu: 2, yel: 3, pnk: 4 },
-    pattern: { str: 2, dot: 3, box: 4, chk: 4, hrb: 5 },
-    shape: { cir: 10, tri: 3, sqr: 4, pnt: 5, hex: 6 }
+    color: { blu: 1, grn: 2, pnk: 3, yel: 4 },
+    pattern: { str: 3, box: 4, chk: 2, dot: 1, hrb: 10 },
+    shape: { cir: 10, tri: 3, sqr: 4, pnt: 1, hex: 2 }
 };
 
 /* ========== スコア設定 ========== */
@@ -28,20 +28,20 @@ const EXCLUDE_BY_SUBJECT = {
     "3": { colors: ['grn'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
     "4": { colors: ['blu'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
 
-    "5": { colors: ['grn'], patterns: ['chk', 'hrb'], shapes: ['pnt', 'cir'] },
-    "6": { colors: ['blu'], patterns: ['chk', 'hrb'], shapes: ['pnt', 'cir'] },
-    "7": { colors: ['grn'], patterns: ['chk', 'hrb'], shapes: ['pnt', 'cir'] },
-    "8": { colors: ['blu'], patterns: ['chk', 'hrb'], shapes: ['pnt', 'cir'] },
+    "5": { colors: ['grn'], patterns: ['chk', 'hrb'], shapes: ['tri', 'cir'] },
+    "6": { colors: ['blu'], patterns: ['chk', 'hrb'], shapes: ['tri', 'cir'] },
+    "7": { colors: ['grn'], patterns: ['chk', 'hrb'], shapes: ['tri', 'cir'] },
+    "8": { colors: ['blu'], patterns: ['chk', 'hrb'], shapes: ['tri', 'cir'] },
 
     "9": { colors: ['grn'], patterns: ['box', 'hrb'], shapes: ['hex', 'cir'] },
     "10": { colors: ['blu'], patterns: ['box', 'hrb'], shapes: ['hex', 'cir'] },
     "11": { colors: ['grn'], patterns: ['box', 'hrb'], shapes: ['hex', 'cir'] },
     "12": { colors: ['blu'], patterns: ['box', 'hrb'], shapes: ['hex', 'cir'] },
 
-    "13": { colors: ['grn'], patterns: ['box', 'hrb'], shapes: ['pnt', 'cir'] },
-    "14": { colors: ['blu'], patterns: ['box', 'hrb'], shapes: ['pnt', 'cir'] },
-    "15": { colors: ['grn'], patterns: ['box', 'hrb'], shapes: ['pnt', 'cir'] },
-    "16": { colors: ['blu'], patterns: ['box', 'hrb'], shapes: ['pnt', 'cir'] },
+    "13": { colors: ['grn'], patterns: ['box', 'hrb'], shapes: ['tri', 'cir'] },
+    "14": { colors: ['blu'], patterns: ['box', 'hrb'], shapes: ['tri', 'cir'] },
+    "15": { colors: ['grn'], patterns: ['box', 'hrb'], shapes: ['tri', 'cir'] },
+    "16": { colors: ['blu'], patterns: ['box', 'hrb'], shapes: ['tri', 'cir'] },
 
     "17": { colors: ['grn'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
     "18": { colors: ['blu'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
