@@ -93,7 +93,7 @@ let started = false;
 // マスター
 const COLORS = ['yel', 'grn', 'blu', 'pnk'];
 const PATTERNS = ['str', 'dot', 'box', 'hrb'];
-const SHAPES = ['pnt', 'tri', 'sqr', 'hex']; // 'cir' も利用可（コメント参照）
+const SHAPES = ['pnt', 'tri', 'sqr', 'hex']; // 'cir' も利用可（画像がある場合は SHAPES に追加）
 
 /* ========== ブラックリスト ========== */
 const EXCLUDE_BY_SUBJECT = {
@@ -143,6 +143,15 @@ function buildFilesFromExclude(exc) {
     }
     return files;
 }
+
+/* ========== スコア辞書（pnt 追加） ========== */
+const SCORE_BY = {
+    file: {}, // 例: "yel_str_pnt.png": 10
+    color: { yel: 1, grn: 2, blu: 3, pnk: 4 },
+    pattern: { str: 3, dot: 4, box: 5, hrb: 6 },
+    shape: { cir: 2, pnt: 2, tri: 3, sqr: 4, hex: 5 } // pnt を明示
+};
+const BASE_SCORE = 0, DEFAULT_SCORE = 1;
 
 // 初期（待機）
 let CURRENT_RULES = EXCLUDE_BY_SUBJECT["default"];
@@ -203,7 +212,6 @@ function updateScore(delta) {
 }
 function updateTrialUI() { trialEl.innerHTML = `<span class="label">Trial：</span>${trial}/${trialLimit}`; }
 
-// （SCORE_BY は既存のまま利用想定）
 function getScoreForKey(key) {
     if (SCORE_BY.file && Object.prototype.hasOwnProperty.call(SCORE_BY.file, key)) return SCORE_BY.file[key];
     const [c, p, s] = key.replace('.png', '').split('_');
