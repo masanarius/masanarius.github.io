@@ -30,7 +30,6 @@ function applyUIVisibility() {
 applyUIVisibility();
 
 /* ========== Google Forms ========== */
-// /formResponse を使うこと
 const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeyAJSCKsDMDDvbF4O7XJrV3kZxdJszUBMd2g0b-HwSTHO4tA/formResponse";
 const E = {
     time: "entry.1571500214",
@@ -70,8 +69,8 @@ const E = {
 };
 
 /* ========== スコア設定 ========== */
-const POSITION_SCORE = { left: 6, center: 4, right: 2 }; // 位置得点
-const REFRESH_SCORE = 0; // Refresh の加点（試行は増えない）
+const POSITION_SCORE = { left: 6, center: 4, right: 2 };
+const REFRESH_SCORE = 0;
 
 /* ========== 乱数設定 ========== */
 const RAND = { enabled: false, min: 0, max: 0, dist: "uniform" };
@@ -84,65 +83,48 @@ function sampleRand() {
 
 /* ========== ID / プール ========== */
 const idSelect = document.getElementById('idSelect');
-// player_id ドロップダウン
 for (let i = 1; i <= 20; i++) { const o = document.createElement('option'); o.value = i; o.textContent = i; idSelect.appendChild(o); }
-// session_id ドロップダウン
 for (let i = 1; i <= 20; i++) { const o = document.createElement('option'); o.value = i; o.textContent = i; sessionSelect.appendChild(o); }
 
-let subjectId = null;   // player_id
-let sessionId = null;   // session_id（ドロップダウン選択値）
-let started = false;    // ゲーム開始フラグ
+let subjectId = null;
+let sessionId = null;
+let started = false;
 
-// マスター集合
+// マスター
 const COLORS = ['yel', 'grn', 'blu', 'pnk'];
 const PATTERNS = ['str', 'dot', 'box', 'hrb'];
-const SHAPES = ['cir', 'tri', 'sqr', 'hex'];
+const SHAPES = ['pnt', 'tri', 'sqr', 'hex']; // 'cir' も利用可（コメント参照）
 
-/* ========== ★ ブラックリスト定義（非表示にする要素を列挙） ========== */
-/*
-  ホワイトリスト定義をブラックリストに変換：
-  - 1–4：hex と hrb を除外．奇数は grn を除外，偶数は blu を除外
-  - 5–8：cir と hrb を除外．奇数は grn を除外，偶数は blu を除外
-  - 9–12：(1–4 相当) + box を除外（hrb は許可）→ hex と box を除外．奇数は grn，偶数は blu
-  - 13–16：(5–8 相当) + box を除外（hrb は許可）→ cir と box を除外．奇数は grn，偶数は blu
-  - 17–20：1–4 と同じ
-*/
+/* ========== ブラックリスト ========== */
 const EXCLUDE_BY_SUBJECT = {
-    // 1–4
     "1": { colors: ['grn'], patterns: ['hrb'], shapes: ['hex'] },
     "2": { colors: ['blu'], patterns: ['hrb'], shapes: ['hex'] },
     "3": { colors: ['grn'], patterns: ['hrb'], shapes: ['hex'] },
     "4": { colors: ['blu'], patterns: ['hrb'], shapes: ['hex'] },
 
-    // 5–8
     "5": { colors: ['grn'], patterns: ['hrb'], shapes: ['cir'] },
     "6": { colors: ['blu'], patterns: ['hrb'], shapes: ['cir'] },
     "7": { colors: ['grn'], patterns: ['hrb'], shapes: ['cir'] },
     "8": { colors: ['blu'], patterns: ['hrb'], shapes: ['cir'] },
 
-    // 9–12（box を除外，hrb は許可）
     "9": { colors: ['grn'], patterns: ['box'], shapes: ['hex'] },
     "10": { colors: ['blu'], patterns: ['box'], shapes: ['hex'] },
     "11": { colors: ['grn'], patterns: ['box'], shapes: ['hex'] },
     "12": { colors: ['blu'], patterns: ['box'], shapes: ['hex'] },
 
-    // 13–16（cir と box を除外，hrb は許可）
     "13": { colors: ['grn'], patterns: ['box'], shapes: ['cir'] },
     "14": { colors: ['blu'], patterns: ['box'], shapes: ['cir'] },
     "15": { colors: ['grn'], patterns: ['box'], shapes: ['cir'] },
     "16": { colors: ['blu'], patterns: ['box'], shapes: ['cir'] },
 
-    // 17–20（1–4 と同じ）
     "17": { colors: ['grn'], patterns: ['hrb'], shapes: ['hex'] },
     "18": { colors: ['blu'], patterns: ['hrb'], shapes: ['hex'] },
     "19": { colors: ['grn'], patterns: ['hrb'], shapes: ['hex'] },
     "20": { colors: ['blu'], patterns: ['hrb'], shapes: ['hex'] },
 
-    // default：除外なし＝全て表示可
     "default": { colors: [], patterns: [], shapes: [] },
 };
 
-// ブラックリストを適用してプールを生成
 function buildFilesFromExclude(exc) {
     const denyC = new Set(exc?.colors ?? []);
     const denyP = new Set(exc?.patterns ?? []);
@@ -162,7 +144,7 @@ function buildFilesFromExclude(exc) {
     return files;
 }
 
-// 初期（まだ開始しない）
+// 初期（待機）
 let CURRENT_RULES = EXCLUDE_BY_SUBJECT["default"];
 let FILES = buildFilesFromExclude(CURRENT_RULES);
 
@@ -181,10 +163,9 @@ function renderWaiting() {
     grid.innerHTML = '<div class="points" style="margin:8px auto">Player ID と Session ID を選択してください．</div>';
 }
 
-// 両方選択済みか
 const bothReady = () => !!subjectId && !!sessionId;
 
-// 開始処理（重複起動防止）
+// 開始処理（★ show ログは送らない）
 function startGameIfReady() {
     if (started || !bothReady()) return;
     started = true;
@@ -204,7 +185,7 @@ function startGameIfReady() {
     grid.innerHTML = '';
     first.forEach(k => grid.appendChild(createCard(k)));
     lastKeys = new Set(first);
-    enqueueRecord(recordShow()); // 初回 show を送信
+    // enqueueRecord(recordShow()); // ← 送らない
 }
 
 /* ========== 共通ユーティリティ ========== */
@@ -222,6 +203,7 @@ function updateScore(delta) {
 }
 function updateTrialUI() { trialEl.innerHTML = `<span class="label">Trial：</span>${trial}/${trialLimit}`; }
 
+// （SCORE_BY は既存のまま利用想定）
 function getScoreForKey(key) {
     if (SCORE_BY.file && Object.prototype.hasOwnProperty.call(SCORE_BY.file, key)) return SCORE_BY.file[key];
     const [c, p, s] = key.replace('.png', '').split('_');
@@ -231,6 +213,7 @@ function getScoreForKey(key) {
     if (SCORE_BY.shape[s] != null) v += Number(SCORE_BY.shape[s]);
     return v === BASE_SCORE ? DEFAULT_SCORE : v;
 }
+
 function getCardPosition(article) {
     const arr = Array.from(grid.children);
     const idx = arr.indexOf(article);
@@ -238,6 +221,7 @@ function getCardPosition(article) {
     if (idx === 1) return 'center';
     return 'right';
 }
+
 function pickUniqueBatch(k, avoid = new Set()) {
     const shuffleInPlace = arr => { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[arr[i], arr[j]] = [arr[j], arr[i]]; } };
     const primary = FILES.filter(x => !avoid.has(x));
@@ -252,7 +236,7 @@ function pickUniqueBatch(k, avoid = new Set()) {
     return result;
 }
 
-/* ========== ログ（イベントごと送信） ========== */
+/* ========== ログ ========== */
 function triplet() {
     const [L, C, R] = Array.from(grid.children);
     const key = el => el?.dataset.key ?? "";
@@ -264,7 +248,7 @@ function triplet() {
     };
 }
 
-// 非selectイベント用：selected_* にイベント名を刻む
+// 非selectイベント用：selected_* にイベント名を刻む（show は今は送らないが保持）
 function stampSelected(ev) {
     return {
         selected_img: ev,
@@ -341,7 +325,6 @@ function enqueueRecord(rec) {
     flushQueue();
 }
 
-// URL エンコードでボディ化（application/x-www-form-urlencoded）
 function buildBodyParams(rec) {
     const p = new URLSearchParams();
     for (const k of Object.keys(E)) {
@@ -390,7 +373,6 @@ function flushQueue() {
                 setTimeout(loop, 0);
             })
             .catch(() => {
-                // ネットワーク不可→次回 online で再送
                 isFlushing = false;
             });
     };
@@ -426,7 +408,7 @@ function hydrateCard(article, key) {
     pop.style.display = UI_SHOW.popup ? '' : 'none';
 
     clicker.onclick = () => {
-        if (trial >= trialLimit || !bothReady() || article.dataset.lock === '1') return; // 両方必須
+        if (trial >= trialLimit || !bothReady() || article.dataset.lock === '1') return;
         article.dataset.lock = '1';
 
         const pos = getCardPosition(article);
@@ -461,14 +443,14 @@ function hydrateCard(article, key) {
     };
 }
 
-/* ========== 提示更新 ========== */
+/* ========== 提示更新（★ show ログは送らない） ========== */
 function refreshAllCards() {
     const n = grid.children.length || 3;
     const newKeys = pickUniqueBatch(n, lastKeys);
     grid.innerHTML = '';
     newKeys.forEach(k => grid.appendChild(createCard(k)));
     lastKeys = new Set(newKeys);
-    if (bothReady()) enqueueRecord(recordShow()); // 新しい show を送信
+    // enqueueRecord(recordShow()); // ← 送らない
 }
 
 /* ========== 初期描画（開始しない） ========== */
@@ -480,14 +462,14 @@ resetBtn?.addEventListener('click', () => { score = 0; updateScore(0); });
 refreshBtn.addEventListener('click', () => {
     if (!bothReady() || trial >= trialLimit) return;
     if (REFRESH_SCORE) updateScore(REFRESH_SCORE);
-    enqueueRecord(recordRefresh()); // refresh 行
-    refreshAllCards();              // 続けて show 行
+    enqueueRecord(recordRefresh()); // refresh を送信
+    refreshAllCards();              // show は送らない
 });
 
 // player_id 選択
 idSelect.addEventListener('change', () => {
     if (!idSelect.value) return;
-    idSelect.disabled = true;            // 一度選ぶと固定
+    idSelect.disabled = true;
     subjectId = idSelect.value;
     startGameIfReady();
 });
@@ -495,7 +477,7 @@ idSelect.addEventListener('change', () => {
 // session_id 選択
 sessionSelect.addEventListener('change', () => {
     if (!sessionSelect.value) return;
-    sessionSelect.disabled = true;       // 一度選ぶと固定
+    sessionSelect.disabled = true;
     sessionId = sessionSelect.value;
     startGameIfReady();
 });
