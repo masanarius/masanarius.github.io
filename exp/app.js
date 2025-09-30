@@ -93,7 +93,7 @@ let started = false;
 // マスター
 const COLORS = ['yel', 'grn', 'blu', 'pnk'];
 const PATTERNS = ['str', 'dot', 'box', 'hrb'];
-const SHAPES = ['pnt', 'tri', 'sqr', 'hex']; // 'cir' も利用可（画像がある場合は SHAPES に追加）
+const SHAPES = ['pnt', 'tri', 'sqr', 'hex', 'cir']; // 'cir' も利用可（画像がある場合は SHAPES に追加）
 
 /* ========== ブラックリスト ========== */
 const EXCLUDE_BY_SUBJECT = {
@@ -151,7 +151,8 @@ const SCORE_BY = {
     pattern: { str: 3, dot: 4, box: 5, hrb: 6 },
     shape: { cir: 2, pnt: 2, tri: 3, sqr: 4, hex: 5 } // pnt を明示
 };
-const BASE_SCORE = 0, DEFAULT_SCORE = 1;
+const BASE_SCORE = 0;
+const DEFAULT_SCORE = 1;
 
 // 初期（待機）
 let CURRENT_RULES = EXCLUDE_BY_SUBJECT["default"];
