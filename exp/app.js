@@ -13,7 +13,7 @@ const highEl = document.getElementById('high');
 const trialEl = document.getElementById('trial');
 const resetBtn = document.getElementById('resetBtn');
 const refreshBtn = document.getElementById('refreshBtn');
-// ★ 追加：Session ドロップダウン
+// Session ドロップダウン
 const sessionSelect = document.getElementById('sessionSelect');
 
 function showOrHide(el, on) { if (!el) return; el.classList.toggle('hidden', !on); }
@@ -93,62 +93,78 @@ let subjectId = null;   // player_id
 let sessionId = null;   // session_id（ドロップダウン選択値）
 let started = false;    // ゲーム開始フラグ
 
+// マスター集合
 const COLORS = ['yel', 'grn', 'blu', 'pnk'];
 const PATTERNS = ['str', 'dot', 'box', 'hrb'];
 const SHAPES = ['cir', 'tri', 'sqr', 'hex'];
 
-const INCLUDE_BY_SUBJECT = {
-    "1": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
-    "2": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
-    "3": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
-    "4": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
+/* ========== ★ ブラックリスト定義（非表示にする要素を列挙） ========== */
+/*
+  ホワイトリスト定義をブラックリストに変換：
+  - 1–4：hex と hrb を除外．奇数は grn を除外，偶数は blu を除外
+  - 5–8：cir と hrb を除外．奇数は grn を除外，偶数は blu を除外
+  - 9–12：(1–4 相当) + box を除外（hrb は許可）→ hex と box を除外．奇数は grn，偶数は blu
+  - 13–16：(5–8 相当) + box を除外（hrb は許可）→ cir と box を除外．奇数は grn，偶数は blu
+  - 17–20：1–4 と同じ
+*/
+const EXCLUDE_BY_SUBJECT = {
+    // 1–4
+    "1": { colors: ['grn'], patterns: ['hrb'], shapes: ['hex'] },
+    "2": { colors: ['blu'], patterns: ['hrb'], shapes: ['hex'] },
+    "3": { colors: ['grn'], patterns: ['hrb'], shapes: ['hex'] },
+    "4": { colors: ['blu'], patterns: ['hrb'], shapes: ['hex'] },
 
-    "5": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "box"], shapes: ["tri", "sqr", "hex"] },
-    "6": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "box"], shapes: ["tri", "sqr", "hex"] },
-    "7": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "box"], shapes: ["tri", "sqr", "hex"] },
-    "8": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "box"], shapes: ["tri", "sqr", "hex"] },
+    // 5–8
+    "5": { colors: ['grn'], patterns: ['hrb'], shapes: ['cir'] },
+    "6": { colors: ['blu'], patterns: ['hrb'], shapes: ['cir'] },
+    "7": { colors: ['grn'], patterns: ['hrb'], shapes: ['cir'] },
+    "8": { colors: ['blu'], patterns: ['hrb'], shapes: ['cir'] },
 
-    "9": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["cir", "tri", "sqr"] },
-    "10": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["cir", "tri", "sqr"] },
-    "11": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["cir", "tri", "sqr"] },
-    "12": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["cir", "tri", "sqr"] },
-    "13": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["tri", "sqr", "hex"] },
-    "14": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["tri", "sqr", "hex"] },
-    "15": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["tri", "sqr", "hex"] },
-    "16": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "hrb"], shapes: ["tri", "sqr", "hex"] },
+    // 9–12（box を除外，hrb は許可）
+    "9": { colors: ['grn'], patterns: ['box'], shapes: ['hex'] },
+    "10": { colors: ['blu'], patterns: ['box'], shapes: ['hex'] },
+    "11": { colors: ['grn'], patterns: ['box'], shapes: ['hex'] },
+    "12": { colors: ['blu'], patterns: ['box'], shapes: ['hex'] },
 
-    "17": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
-    "18": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
-    "19": { colors: ["yel", "blu", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
-    "20": { colors: ["yel", "grn", "pnk"], patterns: ["str", "dot", "box"], shapes: ["cir", "tri", "sqr"] },
+    // 13–16（cir と box を除外，hrb は許可）
+    "13": { colors: ['grn'], patterns: ['box'], shapes: ['cir'] },
+    "14": { colors: ['blu'], patterns: ['box'], shapes: ['cir'] },
+    "15": { colors: ['grn'], patterns: ['box'], shapes: ['cir'] },
+    "16": { colors: ['blu'], patterns: ['box'], shapes: ['cir'] },
 
-    "default": { colors: [], patterns: [], shapes: [] }
+    // 17–20（1–4 と同じ）
+    "17": { colors: ['grn'], patterns: ['hrb'], shapes: ['hex'] },
+    "18": { colors: ['blu'], patterns: ['hrb'], shapes: ['hex'] },
+    "19": { colors: ['grn'], patterns: ['hrb'], shapes: ['hex'] },
+    "20": { colors: ['blu'], patterns: ['hrb'], shapes: ['hex'] },
+
+    // default：除外なし＝全て表示可
+    "default": { colors: [], patterns: [], shapes: [] },
 };
 
-// スコア辞書
-const SCORE_BY = {
-    file: {},
-    color: { yel: 1, grn: 2, blu: 3, pnk: 4 },
-    pattern: { str: 3, dot: 4, box: 5, hrb: 6 },
-    shape: { cir: 2, tri: 3, sqr: 4, hex: 5 }
-};
-const BASE_SCORE = 0, DEFAULT_SCORE = 1;
+// ブラックリストを適用してプールを生成
+function buildFilesFromExclude(exc) {
+    const denyC = new Set(exc?.colors ?? []);
+    const denyP = new Set(exc?.patterns ?? []);
+    const denyS = new Set(exc?.shapes ?? []);
 
-// プール
-function buildFilesFromInclude(inc) {
-    const allowC = (inc?.colors?.length ? inc.colors : COLORS);
-    const allowP = (inc?.patterns?.length ? inc.patterns : PATTERNS);
-    const allowS = (inc?.shapes?.length ? inc.shapes : SHAPES);
     const files = [];
-    for (const c of allowC) for (const p of allowP) for (const s of allowS) {
-        files.push(`${c}_${p}_${s}.png`);
+    for (const c of COLORS) {
+        if (denyC.has(c)) continue;
+        for (const p of PATTERNS) {
+            if (denyP.has(p)) continue;
+            for (const s of SHAPES) {
+                if (denyS.has(s)) continue;
+                files.push(`${c}_${p}_${s}.png`);
+            }
+        }
     }
     return files;
 }
 
 // 初期（まだ開始しない）
-let CURRENT_INCLUDE = INCLUDE_BY_SUBJECT["default"];
-let FILES = buildFilesFromInclude(CURRENT_INCLUDE);
+let CURRENT_RULES = EXCLUDE_BY_SUBJECT["default"];
+let FILES = buildFilesFromExclude(CURRENT_RULES);
 
 /* ========== 状態 ========== */
 const IMG_PATH_PREFIX = 'images/';
@@ -173,8 +189,8 @@ function startGameIfReady() {
     if (started || !bothReady()) return;
     started = true;
 
-    CURRENT_INCLUDE = INCLUDE_BY_SUBJECT[subjectId] || INCLUDE_BY_SUBJECT["default"];
-    FILES = buildFilesFromInclude(CURRENT_INCLUDE);
+    CURRENT_RULES = EXCLUDE_BY_SUBJECT[subjectId] || EXCLUDE_BY_SUBJECT["default"];
+    FILES = buildFilesFromExclude(CURRENT_RULES);
 
     score = 0; updateScore(0);
     trial = 0; updateTrialUI();
@@ -258,8 +274,6 @@ function stampSelected(ev) {
     };
 }
 
-
-
 function recordShow() {
     const t = triplet();
     return {
@@ -271,12 +285,11 @@ function recordShow() {
         l_sum_pts: t.L.imgPts + t.L.posPts,
         c_sum_pts: t.C.imgPts + t.C.posPts,
         r_sum_pts: t.R.imgPts + t.R.posPts,
-        ...stampSelected("show"),        // ★ ここで null 相当をイベント名に
+        ...stampSelected("show"),
         rand_pts: 0, delta_score: 0, total_score: score,
         rand_min: RAND.min, rand_max: RAND.max, rand_dist: RAND.dist,
     };
 }
-
 
 function recordSelect(selectedPos, randPts) {
     const t = triplet();
@@ -298,6 +311,7 @@ function recordSelect(selectedPos, randPts) {
         rand_min: RAND.min, rand_max: RAND.max, rand_dist: RAND.dist,
     };
 }
+
 function recordRefresh() {
     const t = triplet();
     return {
@@ -309,12 +323,11 @@ function recordRefresh() {
         l_sum_pts: t.L.imgPts + t.L.posPts,
         c_sum_pts: t.C.imgPts + t.C.posPts,
         r_sum_pts: t.R.imgPts + t.R.posPts,
-        ...stampSelected("refresh"),     // ★ ここで null 相当をイベント名に
+        ...stampSelected("refresh"),
         rand_pts: 0, delta_score: REFRESH_SCORE, total_score: score,
         rand_min: RAND.min, rand_max: RAND.max, rand_dist: RAND.dist,
     };
 }
-
 
 /* ========== 送信キュー（URL エンコード；sendBeacon→fetch） ========== */
 const QUEUE_KEY = "imggame_queue_v2";
