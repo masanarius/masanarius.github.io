@@ -3,7 +3,7 @@
 /* =========================================================
    バージョン管理
 ========================================================= */
-const APP_VERSION = "39";  // ★バージョン更新（表示確認用）
+const APP_VERSION = "40";  // ★バージョン更新（表示確認用）
 
 
 /* =========================================================
@@ -13,56 +13,89 @@ const BASE_SCORE = 0;
 const DEFAULT_SCORE = 1;
 const SCORE_BY = {
     file: {},
-    color: { blu: 3, grn: 2, pnk: 1, yel: 4 },
-    pattern: { str: 3, box: 4, chk: 2, dot: 1, hrb: 2 },
-    shape: { cir: 1, tri: 3, sqr: 4, pnt: 1, hex: 2 }
+    // アルファベット順（後ろほど高得点）／ブラックリストは 0
+    color: {
+        grn: 1,
+        ind: 2,
+        lmn: 3,
+        lps: 4,
+        org: 0,  // blacklist
+        pnk: 5,
+        trq: 0,  // blacklist
+        yel: 6
+    },
+    pattern: {
+        bsl: 1,
+        chk: 2,
+        dch: 0,  // blacklist
+        dgr: 0,  // blacklist
+        dot: 3,
+        grd: 4,  // (旧 box)
+        sla: 5,
+        str: 0   // blacklist
+    },
+    shape: {
+        cir: 1,
+        hex: 0,  // blacklist
+        oct: 0,  // blacklist
+        pbd: 2,
+        plt: 3,
+        pnt: 0,  // blacklist (五角形)
+        squ: 4,
+        tri: 5
+    }
 };
+
 
 /* ========== スコア設定 ========== */
 const POSITION_SCORE = { left: 6, center: 4, right: 2 };
 const REFRESH_SCORE = 0;
 
-// マスター
-const COLORS = ['yel', 'grn', 'blu', 'pnk'];
-const PATTERNS = ['str', 'dot', 'box', 'hrb', 'chk'];
-const SHAPES = ['cir', 'tri', 'sqr', 'pnt', 'hex'];
+// マスター（image_generator.py に合わせる）
+const COLORS = ['org', 'yel', 'lmn', 'ind', 'trq', 'lps', 'grn', 'pnk'];
+const PATTERNS = ['dot', 'str', 'grd', 'sla', 'bsl', 'chk', 'dch', 'dgr'];
+const SHAPES = ['squ', 'cir', 'tri', 'pbd', 'plt', 'pnt', 'hex', 'oct'];
+
 
 /* ========== ブラックリスト（参加者別） ========== */
+/* ========== ブラックリスト（参加者別：順序を shapes → patterns → colors に変更） ========== */
 const EXCLUDE_BY_SUBJECT = {
-    "1": { colors: ['pnk'], patterns: ['box', 'chk'], shapes: ['tri', 'pnt'] },
-    "2": { colors: ['pnk'], patterns: ['hrb', 'chk'], shapes: ['hex', 'pnt'] },
-    "3": { colors: ['yel'], patterns: ['box', 'chk'], shapes: ['hex', 'pnt'] },
-    "4": { colors: ['yel'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
+    "1": { shapes: ['tri', 'plt'], patterns: ['grd', 'sla'], colors: ['lmn', 'lps', 'pnk'] },
+    "2": { shapes: ['tri', 'plt'], patterns: ['grd', 'sla'], colors: ['yel', 'ind', 'grn'] },
+    "3": { shapes: ['tri', 'plt'], patterns: ['bsl', 'chk'], colors: ['lmn', 'lps', 'pnk'] },
+    "4": { shapes: ['tri', 'plt'], patterns: ['bsl', 'chk'], colors: ['yel', 'ind', 'grn'] },
 
-    "5": { colors: ['pnk'], patterns: ['chk', 'hrb'], shapes: ['tri', 'cir'] },
-    "6": { colors: ['yel'], patterns: ['chk', 'hrb'], shapes: ['tri', 'cir'] },
-    "7": { colors: ['pnk'], patterns: ['chk', 'hrb'], shapes: ['tri', 'cir'] },
-    "8": { colors: ['yel'], patterns: ['chk', 'hrb'], shapes: ['tri', 'cir'] },
+    "5": { shapes: ['squ', 'pbd'], patterns: ['grd', 'sla'], colors: ['lmn', 'lps', 'pnk'] },
+    "6": { shapes: ['squ', 'pbd'], patterns: ['grd', 'sla'], colors: ['yel', 'ind', 'grn'] },
+    "7": { shapes: ['squ', 'pbd'], patterns: ['bsl', 'chk'], colors: ['lmn', 'lps', 'pnk'] },
+    "8": { shapes: ['squ', 'pbd'], patterns: ['bsl', 'chk'], colors: ['yel', 'ind', 'grn'] },
 
-    "9": { colors: ['pnk'], patterns: ['box', 'hrb'], shapes: ['hex', 'cir'] },
-    "10": { colors: ['yel'], patterns: ['box', 'hrb'], shapes: ['hex', 'cir'] },
-    "11": { colors: ['pnk'], patterns: ['box', 'hrb'], shapes: ['hex', 'cir'] },
-    "12": { colors: ['yel'], patterns: ['box', 'hrb'], shapes: ['hex', 'cir'] },
+    "9": { shapes: ['tri', 'plt'], patterns: ['grd', 'sla'], colors: ['lmn', 'lps', 'pnk'] },
+    "10": { shapes: ['tri', 'plt'], patterns: ['grd', 'sla'], colors: ['yel', 'ind', 'grn'] },
+    "11": { shapes: ['tri', 'plt'], patterns: ['bsl', 'chk'], colors: ['lmn', 'lps', 'pnk'] },
+    "12": { shapes: ['tri', 'plt'], patterns: ['bsl', 'chk'], colors: ['yel', 'ind', 'grn'] },
 
-    "13": { colors: ['pnk'], patterns: ['box', 'hrb'], shapes: ['tri', 'cir'] },
-    "14": { colors: ['yel'], patterns: ['box', 'hrb'], shapes: ['tri', 'cir'] },
-    "15": { colors: ['pnk'], patterns: ['box', 'hrb'], shapes: ['tri', 'cir'] },
-    "16": { colors: ['yel'], patterns: ['box', 'hrb'], shapes: ['tri', 'cir'] },
+    "13": { shapes: ['squ', 'pbd'], patterns: ['grd', 'sla'], colors: ['lmn', 'lps', 'pnk'] },
+    "14": { shapes: ['squ', 'pbd'], patterns: ['grd', 'sla'], colors: ['yel', 'ind', 'grn'] },
+    "15": { shapes: ['squ', 'pbd'], patterns: ['bsl', 'chk'], colors: ['lmn', 'lps', 'pnk'] },
+    "16": { shapes: ['squ', 'pbd'], patterns: ['bsl', 'chk'], colors: ['yel', 'ind', 'grn'] },
 
-    "17": { colors: ['pnk'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
-    "18": { colors: ['yel'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
-    "19": { colors: ['pnk'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
-    "20": { colors: ['yel'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
+    "17": { shapes: ['tri', 'plt'], patterns: ['grd', 'sla'], colors: ['lmn', 'lps', 'pnk'] },
+    "18": { shapes: ['tri', 'plt'], patterns: ['grd', 'sla'], colors: ['yel', 'ind', 'grn'] },
+    "19": { shapes: ['tri', 'plt'], patterns: ['bsl', 'chk'], colors: ['lmn', 'lps', 'pnk'] },
+    "20": { shapes: ['tri', 'plt'], patterns: ['bsl', 'chk'], colors: ['yel', 'ind', 'grn'] },
 
-    "default": { colors: [], patterns: [], shapes: [] },
+    "default": { shapes: [], patterns: [], colors: [] },
 };
+
 
 /* ========== グローバル ブラックリスト（全参加者共通） ========== */
 const EXCLUDE_GLOBAL = {
-    colors: [],   // 例: ['pnk']
-    patterns: [], // 例: ['chk']
-    shapes: []    // 例: ['cir']
+    colors: ['org', 'trq'],          // オレンジ, ターコイズ
+    patterns: ['str', 'dch', 'dgr'],   // ストライプ, DCH, DGR
+    shapes: ['pnt', 'hex', 'oct']    // 五角形, 六角形, 八角形
 };
+
 
 /* グローバル×参加者別の除外をマージ（和集合） */
 function mergeExclude(globalExc, subjectExc) {
