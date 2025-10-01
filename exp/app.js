@@ -8,8 +8,8 @@ const DEFAULT_SCORE = 1;
 const SCORE_BY = {
     file: {},
     color: { blu: 3, grn: 2, pnk: 1, yel: 4 },
-    pattern: { str: 3, box: 4, chk: 2, dot: 1, hrb: 10 },
-    shape: { cir: 10, tri: 3, sqr: 4, pnt: 1, hex: 2 }
+    pattern: { str: 3, box: 4, chk: 2, dot: 1, hrb: 2 },
+    shape: { cir: 1, tri: 3, sqr: 4, pnt: 1, hex: 2 }
 };
 
 /* ========== スコア設定 ========== */
@@ -23,9 +23,13 @@ const SHAPES = ['cir', 'tri', 'sqr', 'pnt', 'hex'];
 
 /* ========== ブラックリスト ========== */
 const EXCLUDE_BY_SUBJECT = {
-    "1": { colors: ['pnk'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
-    "2": { colors: ['yel'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
-    "3": { colors: ['pnk'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
+    "1": { colors: ['pnk'], patterns: ['box', 'chk'], shapes: ['tri', 'pnt'] },
+    "2": { colors: ['pnk'], patterns: ['hrb', 'chk'], shapes: ['hex', 'pnt'] },
+    "3": { colors: ['yel'], patterns: ['box', 'chk'], shapes: ['hex', 'pnt'] },
+
+
+
+
     "4": { colors: ['yel'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
 
     "5": { colors: ['pnk'], patterns: ['chk', 'hrb'], shapes: ['tri', 'cir'] },
