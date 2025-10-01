@@ -3,7 +3,7 @@
 /* =========================================================
    バージョン管理
 ========================================================= */
-const APP_VERSION = "37";  // ★ここでバージョン番号を更新
+const APP_VERSION = "39";  // ★バージョン更新（表示確認用）
 
 
 /* =========================================================
@@ -27,15 +27,11 @@ const COLORS = ['yel', 'grn', 'blu', 'pnk'];
 const PATTERNS = ['str', 'dot', 'box', 'hrb', 'chk'];
 const SHAPES = ['cir', 'tri', 'sqr', 'pnt', 'hex'];
 
-/* ========== ブラックリスト ========== */
+/* ========== ブラックリスト（参加者別） ========== */
 const EXCLUDE_BY_SUBJECT = {
     "1": { colors: ['pnk'], patterns: ['box', 'chk'], shapes: ['tri', 'pnt'] },
     "2": { colors: ['pnk'], patterns: ['hrb', 'chk'], shapes: ['hex', 'pnt'] },
     "3": { colors: ['yel'], patterns: ['box', 'chk'], shapes: ['hex', 'pnt'] },
-
-
-
-
     "4": { colors: ['yel'], patterns: ['chk', 'hrb'], shapes: ['hex', 'cir'] },
 
     "5": { colors: ['pnk'], patterns: ['chk', 'hrb'], shapes: ['tri', 'cir'] },
@@ -61,12 +57,30 @@ const EXCLUDE_BY_SUBJECT = {
     "default": { colors: [], patterns: [], shapes: [] },
 };
 
+/* ========== グローバル ブラックリスト（全参加者共通） ========== */
+const EXCLUDE_GLOBAL = {
+    colors: [],   // 例: ['pnk']
+    patterns: [], // 例: ['chk']
+    shapes: []    // 例: ['cir']
+};
+
+/* グローバル×参加者別の除外をマージ（和集合） */
+function mergeExclude(globalExc, subjectExc) {
+    const g = globalExc || {};
+    const s = subjectExc || {};
+    const uniq = (arr) => Array.from(new Set((arr || []).filter(Boolean)));
+    return {
+        colors: uniq([...(g.colors || []), ...(s.colors || [])]),
+        patterns: uniq([...(g.patterns || []), ...(s.patterns || [])]),
+        shapes: uniq([...(g.shapes || []), ...(s.shapes || [])]),
+    };
+}
+
 // バージョン表記を反映
 const versionEl = document.getElementById("versionText");
 if (versionEl) {
     versionEl.textContent = `ver.${APP_VERSION}`;
 }
-
 
 
 /* ========== 表示制御 ========== */
@@ -137,8 +151,6 @@ const E = {
     rand_dist: "entry.697536712",
 };
 
-
-
 /* ========== 乱数設定 ========== */
 const RAND = { enabled: false, min: 0, max: 0, dist: "uniform" };
 function sampleRand() {
@@ -157,8 +169,7 @@ let subjectId = null;
 let sessionId = null;
 let started = false;
 
-
-
+/* ブラックリストを適用してプールを生成 */
 function buildFilesFromExclude(exc) {
     const denyC = new Set(exc?.colors ?? []);
     const denyP = new Set(exc?.patterns ?? []);
@@ -179,7 +190,7 @@ function buildFilesFromExclude(exc) {
 }
 
 // 初期（待機）
-let CURRENT_RULES = EXCLUDE_BY_SUBJECT["default"];
+let CURRENT_RULES = mergeExclude(EXCLUDE_GLOBAL, EXCLUDE_BY_SUBJECT["default"]);
 let FILES = buildFilesFromExclude(CURRENT_RULES);
 
 /* ========== 状態 ========== */
@@ -204,7 +215,10 @@ function startGameIfReady() {
     if (started || !bothReady()) return;
     started = true;
 
-    CURRENT_RULES = EXCLUDE_BY_SUBJECT[subjectId] || EXCLUDE_BY_SUBJECT["default"];
+    CURRENT_RULES = mergeExclude(
+        EXCLUDE_GLOBAL,
+        EXCLUDE_BY_SUBJECT[subjectId] || EXCLUDE_BY_SUBJECT["default"]
+    );
     FILES = buildFilesFromExclude(CURRENT_RULES);
 
     score = 0; updateScore(0);
