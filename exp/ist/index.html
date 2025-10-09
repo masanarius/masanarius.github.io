@@ -42,28 +42,26 @@
 
         header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             gap: 12px;
             margin-bottom: 18px
         }
 
-        /* ★ 左側（タイトル＋セレクト群）をまとめて左寄せ */
+        /* 左側（タイトル＋セレクト群） */
         .header-left {
             display: flex;
-            align-items: center;
-            gap: 16px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
             min-width: 0;
         }
 
-        .controls {
+        /* Session/Player を横並びに */
+        .controls-row {
             display: flex;
-            flex-direction: column;
-            /* ← 横並びから縦並びに変更 */
-            align-items: flex-start;
-            /* ← 左揃えにする */
-            gap: 6px;
-            /* ← 間隔を少し狭める（好みに応じて） */
+            align-items: center;
+            gap: 12px;
         }
 
         #sessionBlock,
@@ -71,16 +69,16 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            width: 100%;
-            /* ← 左右幅を揃える（任意） */
         }
 
         #sessionSelect,
         #idSelect {
             padding: 6px;
             border-radius: 6px;
+            border: 1px solid rgba(148, 163, 184, .2);
+            background: #1f2937;
+            color: var(--text);
         }
-
 
         h1 {
             font-size: 20px;
@@ -88,11 +86,26 @@
             letter-spacing: .03em
         }
 
+        /* スコアボード全体を右寄せ・縦配置 */
         .scoreboard {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+            font-weight: 600
+        }
+
+        /* 上段：Score / High / Reset */
+        .upper-scores {
             display: flex;
             align-items: center;
             gap: 14px;
-            font-weight: 600
+        }
+
+        /* 下段：Trial を右寄せ */
+        .lower-scores {
+            text-align: right;
+            width: 100%;
         }
 
         .score {
@@ -246,7 +259,7 @@
             margin: 2px 0;
         }
 
-        /* Player/Session の見た目を統一 */
+        /* Player/Session の見た目統一 */
         #idSelect,
         #sessionSelect {
             padding: 6px;
@@ -265,21 +278,20 @@
 <body>
     <div class="wrap">
         <header>
-            <!-- ★ タイトルとセレクト群を左側にまとめる -->
             <div class="header-left">
                 <h1 id="title">ランダム画像クリックゲーム</h1>
 
-                <!-- ★ 左から Session → Player の順に並べて左揃え -->
-                <div class="controls">
+                <div class="controls-row">
+                    <!-- 横並び -->
                     <div id="sessionBlock">
-                        <label for="sessionSelect">Session ID: </label>
+                        <label for="sessionSelect">Session ID:</label>
                         <select id="sessionSelect">
                             <option value="">Select</option>
                         </select>
                     </div>
 
                     <div id="idBlock">
-                        <label for="idSelect">Player ID: </label>
+                        <label for="idSelect">Player ID:</label>
                         <select id="idSelect">
                             <option value="">Select</option>
                         </select>
@@ -288,12 +300,17 @@
             </div>
 
             <div class="scoreboard" aria-live="polite">
-                <div class="score" id="score"><span class="label">Score：</span>0</div>
-                <div class="score" id="high"><span class="label">High：</span>0</div>
-                <div class="score" id="trial"><span class="label">Trial：</span>0/20</div>
-                <button class="btn secondary" id="resetBtn">Reset</button>
+                <div class="upper-scores">
+                    <div class="score" id="score"><span class="label">Score：</span>0</div>
+                    <div class="score" id="high"><span class="label">High：</span>0</div>
+                    <button class="btn secondary" id="resetBtn">Reset</button>
+                </div>
+                <div class="lower-scores">
+                    <div class="score" id="trial"><span class="label">Trial：</span>0/20</div>
+                </div>
             </div>
         </header>
+
 
         <main class="grid" id="grid" aria-label="画像の選択肢"></main>
 
