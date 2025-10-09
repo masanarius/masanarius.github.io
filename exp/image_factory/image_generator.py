@@ -46,7 +46,7 @@ colors_hex = {
     "lmn": "#F0E442",
     "ind": "#2E3C9D",
     "trq": "#56B4E9",
-    "lps": "#0072B2",
+    "blu": "#0072B2",
     "grn": "#009E73",
     "pnk": "#CC79A7",
 }
