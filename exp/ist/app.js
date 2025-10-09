@@ -178,7 +178,6 @@ const E = {
     delta_score: "entry.333867801",
     total_score: "entry.453560264",
 };
-
 /* ========== ID / プール ========== */
 const idSelect = document.getElementById('idSelect');
 for (let i = 1; i <= 20; i++) { const o = document.createElement('option'); o.value = i; o.textContent = i; idSelect.appendChild(o); }
