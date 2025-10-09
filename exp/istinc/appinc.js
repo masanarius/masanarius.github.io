@@ -3,7 +3,7 @@
 /* =========================================================
    バージョン管理
 ========================================================= */
-const APP_VERSION = "52";  // ★バージョン更新（表示確認用）
+const APP_VERSION = "53";  // ★バージョン更新（表示確認用）
 
 
 /* =========================================================
@@ -15,19 +15,19 @@ const SCORE_BY = {
     file: {},
 
     color: {
-        blu: 3,
-        grn: 5,
-        yel: 7
+        blu: 5,
+        grn: 7,
+        yel: 9
     },
     pattern: {
-        dot: 3,
-        grd: 5,
-        str: 7
+        dot: 5,
+        grd: 7,
+        str: 9
     },
     shape: {
-        cir: 3,
-        squ: 5,
-        tri: 7
+        cir: 5,
+        squ: 7,
+        tri: 9
     }
 };
 
@@ -52,31 +52,34 @@ const EXCLUDE_BY_SUBJECT = {
 const MASK_BY_SUBJECT = {
 
     "1": { colors: ['blu'], patterns: ['str'], shapes: [] },
-    "2": { colors: ['blu'], patterns: [], shapes: ['tri'] },
-    "3": { colors: ['yel'], patterns: ['dot'], shapes: [] },
+    "2": { colors: ['yel'], patterns: ['dot'], shapes: [] },
+    "3": { colors: ['blu'], patterns: [], shapes: ['tri'] },
     "4": { colors: ['yel'], patterns: [], shapes: ['cir'] },
     "5": { colors: [], patterns: ['dot'], shapes: ['tri'] },
     "6": { colors: [], patterns: ['str'], shapes: ['cir'] },
 
-    "7": { colors: ['blu'], patterns: ['str'], shapes: [] },  // 7 % 6 = 1
-    "8": { colors: ['blu'], patterns: [], shapes: ['tri'] },  // 8 % 6 = 2
-    "9": { colors: ['yel'], patterns: ['dot'], shapes: [] },  // 9 % 6 = 3
-    "10": { colors: ['yel'], patterns: [], shapes: ['cir'] }, // 10 % 6 = 4
-    "11": { colors: [], patterns: ['dot'], shapes: ['tri'] }, // 11 % 6 = 5
-    "12": { colors: [], patterns: ['str'], shapes: ['cir'] }, // 12 % 6 = 0
+    "7": { colors: ['blu'], patterns: ['str'], shapes: [] },
+    "8": { colors: ['yel'], patterns: ['dot'], shapes: [] },
+    "9": { colors: ['blu'], patterns: [], shapes: ['tri'] },
+    "10": { colors: ['yel'], patterns: [], shapes: ['cir'] },
+    "11": { colors: [], patterns: ['dot'], shapes: ['tri'] },
+    "12": { colors: [], patterns: ['str'], shapes: ['cir'] },
 
-    "13": { colors: ['blu'], patterns: ['str'], shapes: [] }, // 13 % 6 = 1
-    "14": { colors: ['blu'], patterns: [], shapes: ['tri'] }, // 14 % 6 = 2
-    "15": { colors: ['yel'], patterns: ['dot'], shapes: [] }, // 15 % 6 = 3
-    "16": { colors: ['yel'], patterns: [], shapes: ['cir'] }, // 16 % 6 = 4
-    "17": { colors: [], patterns: ['dot'], shapes: ['tri'] }, // 17 % 6 = 5
-    "18": { colors: [], patterns: ['str'], shapes: ['cir'] }, // 18 % 6 = 0
+    "13": { colors: ['blu'], patterns: ['str'], shapes: [] },
+    "14": { colors: ['yel'], patterns: ['dot'], shapes: [] },
+    "15": { colors: ['blu'], patterns: [], shapes: ['tri'] },
+    "16": { colors: ['yel'], patterns: [], shapes: ['cir'] },
+    "17": { colors: [], patterns: ['dot'], shapes: ['tri'] },
+    "18": { colors: [], patterns: ['str'], shapes: ['cir'] },
 
-    "19": { colors: ['blu'], patterns: ['str'], shapes: [] }, // 19 % 6 = 1
-    "20": { colors: ['blu'], patterns: [], shapes: ['tri'] }, // 20 % 6 = 2
+    "19": { colors: ['blu'], patterns: ['str'], shapes: [] },
+    "20": { colors: ['yel'], patterns: ['dot'], shapes: [] },
 
 
-    "default": { colors: [], patterns: [], shapes: [] },
+
+
+
+    "default": { colors: [], patterns: [], shapes: [] }
 };
 
 // CURRENT_MASK_RULES の初期化
