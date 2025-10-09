@@ -3,7 +3,7 @@
 /* =========================================================
    バージョン管理
 ========================================================= */
-const APP_VERSION = "46";  // ★バージョン更新（表示確認用）
+const APP_VERSION = "47";  // ★バージョン更新（表示確認用）
 
 
 /* =========================================================
@@ -224,7 +224,7 @@ updateScore(0); updateTrialUI();
 
 // 待機表示
 function renderWaiting() {
-    grid.innerHTML = '<div class="points" style="margin:8px auto">Player ID と Session ID を選択してください．</div>';
+    grid.innerHTML = '<div class="points" style="margin:8px auto">Session ID と Player ID を選択してください．</div>';
 }
 
 const bothReady = () => !!subjectId && !!sessionId;
