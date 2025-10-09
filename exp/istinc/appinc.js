@@ -3,7 +3,7 @@
 /* =========================================================
    バージョン管理
 ========================================================= */
-const APP_VERSION = "47.inc";  // ★バージョン更新（表示確認用）
+const APP_VERSION = "48.inc";  // ★バージョン更新（表示確認用）
 
 
 /* =========================================================
@@ -47,7 +47,7 @@ const EXCLUDE_BY_SUBJECT = {
     "default": { shapes: [], patterns: [], colors: [] },
 };
 
-/* ========== マスクリスト（参加者別：順序を shapes → patterns → colors に変更） 【追加】 ========== */
+/* ========== マスクリスト（参加者別：順序を shapes → patterns → colors に変更） ========== */
 const MASK_BY_SUBJECT = {
     // 例: player 1 は 'yel' (5点), 'cir' (1点) がマスク対象。
     "1": { shapes: ['cir'], patterns: [], colors: ['yel'] },
@@ -57,6 +57,7 @@ const MASK_BY_SUBJECT = {
 
     "default": { shapes: [], patterns: [], colors: [] },
 };
+// CURRENT_MASK_RULES の初期化
 let CURRENT_MASK_RULES = MASK_BY_SUBJECT["default"];
 
 
@@ -179,9 +180,9 @@ function buildFilesFromExclude(exc) {
     return files;
 }
 
-// 初期（待機）
-// CURRENT_RULES はファイル定義時に初期化
-let FILES = buildFilesFromExclude(mergeExclude(EXCLUDE_GLOBAL, EXCLUDE_BY_SUBJECT["default"]));
+// 💡【修正】CURRENT_RULESの初期宣言を、より安全なこの位置（グローバルスコープ）に移動
+let CURRENT_RULES = mergeExclude(EXCLUDE_GLOBAL, EXCLUDE_BY_SUBJECT["default"]);
+let FILES = buildFilesFromExclude(CURRENT_RULES);
 
 /* ========== 状態 ========== */
 const IMG_PATH_PREFIX = 'images/';
@@ -211,7 +212,7 @@ function startGameIfReady() {
     );
     FILES = buildFilesFromExclude(CURRENT_RULES);
 
-    // 💡【追加】マスクルールを更新
+    // マスクルールを更新
     CURRENT_MASK_RULES = MASK_BY_SUBJECT[subjectId] || MASK_BY_SUBJECT["default"];
 
     score = 0; updateScore(0);
@@ -258,7 +259,7 @@ function getScoreForKey(key) {
 }
 
 /**
- * 図形キーと現在のマスクルールに基づき、点数を分割する 【追加】
+ * 図形キーと現在のマスクルールに基づき、点数を分割する
  * @param {string} key - 図形キー (例: 'yel_dot_cir.png')
  * @param {object} rules - CURRENT_MASK_RULES
  * @returns {{maskedPts: number, visiblePts: number}}
@@ -482,13 +483,13 @@ function hydrateCard(article, key) {
 
     const base = getScoreForKey(key);
 
-    // 💡【修正】マスク点数を計算
+    // マスク点数を計算
     const { maskedPts, visiblePts } = calculateMaskedPoints(key, CURRENT_MASK_RULES);
 
     article.dataset.key = key;
     article.dataset.value = base; // baseValはログと計算のために常に合計点を保持
 
-    // 💡【修正】初期表示（クリック前）のポップアップテキストを決定
+    // 初期表示（クリック前）のポップアップテキストを決定
     let initialPopText = `+${base}`;
     if (maskedPts > 0) {
         initialPopText = `+${visiblePts} + ?`;
@@ -510,11 +511,11 @@ function hydrateCard(article, key) {
         const bonus = Number(POSITION_SCORE[pos] || 0);
         const baseVal = Number(article.dataset.value || 0);
 
-        // 💡【追加】ポップアップ要素から分割された点数を取得
+        // ポップアップ要素から分割された点数を取得
         const currentVisiblePts = Number(pop.dataset.visible);
         const currentMaskedPts = Number(pop.dataset.masked);
 
-        // 💡【追加】マスク判定とクラス付与（CSSでマスク表示）
+        // マスク判定とクラス付与（CSSでマスク表示）
         const [c, p, s] = key.replace('.png', '').split('_');
         article.classList.remove('mask-color', 'mask-pattern', 'mask-shape'); // リセット
         if (CURRENT_MASK_RULES.colors.includes(c)) article.classList.add('mask-color');
@@ -524,7 +525,7 @@ function hydrateCard(article, key) {
 
         const final = baseVal + bonus;
 
-        // 💡【修正】ポップアップ表示テキストの決定（クリック時）
+        // ポップアップ表示テキストの決定（クリック時）
         if (UI_SHOW.popup) {
             const displayVisible = currentVisiblePts + bonus; // ポジションボーナスは常に可視
 
@@ -547,7 +548,7 @@ function hydrateCard(article, key) {
         const after = () => {
             article.dataset.lock = '';
 
-            // 💡【修正】マスククラスの解除と初期表示に戻す
+            // マスククラスの解除と初期表示に戻す
             article.classList.remove('mask-color', 'mask-pattern', 'mask-shape');
             const initialPopText = currentMaskedPts > 0 ? `+${currentVisiblePts} + ?` : `+${baseVal}`;
             if (UI_SHOW.popup) pop.textContent = initialPopText;
