@@ -3,7 +3,7 @@
 /* =========================================================
    バージョン管理
 ========================================================= */
-const APP_VERSION = "49.inc";  // ★バージョン更新（表示確認用）
+const APP_VERSION = "50.inc";  // ★バージョン更新（表示確認用）
 
 
 /* =========================================================
@@ -37,26 +37,48 @@ const POSITION_SCORE = { left: 0, center: 0, right: 0 };
 const REFRESH_SCORE = 0;
 
 // マスター（image_generator.py に合わせる）
-const COLORS = ['yel', 'grn', 'blu'];
-const PATTERNS = ['dot', 'str', 'grd'];
-const SHAPES = ['squ', 'cir', 'tri'];
+const COLORS = ['blu', 'grn', 'yel'];
+const PATTERNS = ['dot', 'grd', 'str'];
+const SHAPES = ['cir', 'squ', 'tri'];
 
 
-/* ========== ブラックリスト（参加者別：順序を shapes → patterns → colors に変更） ========== */
+/* ========== ブラックリスト（参加者別：順序を Colors → Patterns → Shapes に変更） ========== */
 const EXCLUDE_BY_SUBJECT = {
-    "default": { shapes: [], patterns: [], colors: [] },
+    // 順序を Colors, Patterns, Shapes (CPS) に修正
+    "default": { colors: [], patterns: [], shapes: [] },
 };
 
-/* ========== マスクリスト（参加者別：順序を shapes → patterns → colors に変更） ========== */
+
 const MASK_BY_SUBJECT = {
-    // 例: player 1 は 'yel' (5点), 'cir' (1点) がマスク対象。
-    "1": { shapes: ['cir'], patterns: [], colors: ['yel'] },
 
-    // 例: player 2 は 'grd' (3点) がマスク対象。
-    "2": { shapes: [], patterns: ['grd'], colors: [] },
+    "1": { colors: ['blu'], patterns: ['str'], shapes: [] },
+    "2": { colors: ['blu'], patterns: [], shapes: ['tri'] },
+    "3": { colors: ['yel'], patterns: ['dot'], shapes: [] },
+    "4": { colors: ['yel'], patterns: [], shapes: ['cir'] },
+    "5": { colors: [], patterns: ['dot'], shapes: ['tri'] },
+    "6": { colors: [], patterns: ['str'], shapes: ['cir'] },
 
-    "default": { shapes: [], patterns: [], colors: [] },
+    "7": { colors: ['blu'], patterns: ['str'], shapes: [] },  // 7 % 6 = 1
+    "8": { colors: ['blu'], patterns: [], shapes: ['tri'] },  // 8 % 6 = 2
+    "9": { colors: ['yel'], patterns: ['dot'], shapes: [] },  // 9 % 6 = 3
+    "10": { colors: ['yel'], patterns: [], shapes: ['cir'] }, // 10 % 6 = 4
+    "11": { colors: [], patterns: ['dot'], shapes: ['tri'] }, // 11 % 6 = 5
+    "12": { colors: [], patterns: ['str'], shapes: ['cir'] }, // 12 % 6 = 0
+
+    "13": { colors: ['blu'], patterns: ['str'], shapes: [] }, // 13 % 6 = 1
+    "14": { colors: ['blu'], patterns: [], shapes: ['tri'] }, // 14 % 6 = 2
+    "15": { colors: ['yel'], patterns: ['dot'], shapes: [] }, // 15 % 6 = 3
+    "16": { colors: ['yel'], patterns: [], shapes: ['cir'] }, // 16 % 6 = 4
+    "17": { colors: [], patterns: ['dot'], shapes: ['tri'] }, // 17 % 6 = 5
+    "18": { colors: [], patterns: ['str'], shapes: ['cir'] }, // 18 % 6 = 0
+
+    "19": { colors: ['blu'], patterns: ['str'], shapes: [] }, // 19 % 6 = 1
+    "20": { colors: ['blu'], patterns: [], shapes: ['tri'] }, // 20 % 6 = 2
+
+
+    "default": { colors: [], patterns: [], shapes: [] },
 };
+
 // CURRENT_MASK_RULES の初期化
 let CURRENT_MASK_RULES = MASK_BY_SUBJECT["default"];
 
