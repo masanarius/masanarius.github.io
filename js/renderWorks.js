@@ -62,7 +62,7 @@ function createCard(entry) {
   const tagStyle = `bg-gray-100 text-xs px-1 py-0.5 rounded-none leading-tight`;
 
   const tagElems = [];
-  for (let i = 1; i <= 1000; i++) {
+  for (let i = 1; i <= 5; i++) {
     const tagEn = entry[`tag${i}_en`];
     const tagJp = entry[`tag${i}_jp`];
     if (tagJp && tagJp.trim()) {
@@ -175,7 +175,7 @@ function renderCards(data, containerId) {
     button.className = `mt-2 text-sm font-semibold text-${color}-700 bg-${color}-100 hover:bg-${color}-200 px-4 py-1 rounded transition`;
     button.innerHTML = 'Show All <span class="ml-1">▼</span>';
 
-    let visibleCount = 3;
+    let visibleCount = 1000;
     function renderSection(showAll = false) {
       const count = showAll ? entries.length : visibleCount;
       section.innerHTML = entries.slice(0, count).map(createCard).join('\n');
