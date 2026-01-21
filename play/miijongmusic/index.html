@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Miijong BGM Player</title>
+  <style>
+    body {
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: #ffffff;
+  color: #333;
+}
+
+.container {
+  width: min(520px, 92vw);
+  display: grid;
+  gap: 18px;
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  color: #CC2C7E;
+  font-weight: 700;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px 16px;
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+
+  /* 影でカード感 */
+  box-shadow: 0 8px 20px rgba(204, 44, 126, 0.12);
+}
+
+h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #CC2C7E;
+  font-weight: 600;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  width: 96px;          /* タップ領域は大きく */
+  height: 96px;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 64px;      /* ★ アイコンを巨大に */
+  line-height: 1;
+
+  background: transparent; /* ★ 枠・背景なし */
+  color: #CC2C7E;          /* 通常色 */
+
+  border: none;            /* ★ 枠なし */
+  border-radius: 0;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    transform 0.08s ease,
+    opacity 0.12s ease,
+    color 0.12s ease;
+}
+
+/* 押した感だけ出す */
+button:active {
+  transform: scale(0.92);
+  opacity: 0.85;
+}
+
+/* 再生中（色だけ反転） */
+button.playing {
+  color: #ffffff;
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mii ジャン BGM </h1>
+
+    <div class="card">
+      <h2>メイン</h2>
+      <audio id="a-normal" preload="auto" playsinline>
+        <source src="m4a/normal.m4a" type="audio/mp4" />
+      </audio>
+
+      <div class="row">
+        <button id="n-toggle">▶️</button>
+        <button id="n-restart">⏪</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>リーチ</h2>
+      <audio id="a-reach" preload="auto" playsinline>
+        <source src="m4a/reach.m4a" type="audio/mp4" />
+      </audio>
+
+      <div class="row">
+        <button id="r-toggle">▶️</button>
+        <button id="r-restart">⏪</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  /* ===== ここだけ編集 ===== */
+  const LOOPS = {
+    normal: { start: 2.7,  end: 76.4  },
+    reach:  { start: 43.7, end: 86.85 }
+  };
+  /* ====================== */
+
+  const EPS = 0.02;
+  const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+
+  const players = [];
+
+  function setupTrack({ audioId, toggleId, restartId, loop }) {
+    const audio = document.getElementById(audioId);
+    const toggle = document.getElementById(toggleId);
+    const restart = document.getElementById(restartId);
+
+    function stopAndResetOthers() {
+      for (const p of players) {
+        if (p.audio === audio) continue;
+        p.audio.pause();
+        p.audio.currentTime = 0;
+        p.updToggle();
+      }
+    }
+
+    function updToggle() {
+      toggle.textContent = audio.paused ? "▶️" : "⏸️";
+    }
+
+    async function playSafe() {
+      try { await audio.play(); } catch(e) {}
+    }
+
+    toggle.onclick = async () => {
+      if (audio.paused) stopAndResetOthers();
+      audio.paused ? await playSafe() : audio.pause();
+      updToggle();
+    };
+
+    restart.onclick = async () => {
+      stopAndResetOthers();
+      audio.currentTime = 0;
+      await playSafe();
+      updToggle();
+    };
+
+    // ループ制御（終了秒に来たら開始秒へ）
+    audio.addEventListener("timeupdate", () => {
+      const dur = audio.duration;
+      if (!Number.isFinite(dur)) return;
+
+      const ls = clamp(loop.start, 0, Math.max(0, dur - EPS));
+      const le = clamp(loop.end, EPS, dur);
+
+      if (!audio.paused && le > ls && audio.currentTime >= le - EPS) {
+        audio.currentTime = ls;
+        audio.play().catch(()=>{});
+      }
+    });
+
+    audio.addEventListener("play", updToggle);
+    audio.addEventListener("pause", updToggle);
+
+    updToggle();
+    players.push({ audio, updToggle });
+  }
+
+  setupTrack({
+    audioId: "a-normal",
+    toggleId: "n-toggle",
+    restartId: "n-restart",
+    loop: LOOPS.normal
+  });
+
+  setupTrack({
+    audioId: "a-reach",
+    toggleId: "r-toggle",
+    restartId: "r-restart",
+    loop: LOOPS.reach
+  });
+</script>
+</body>
+</html>
