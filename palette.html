@@ -128,15 +128,18 @@ function buildBody(){
       cell.style.background=hex;
       cell.onclick=()=>copy(hex);
 
+      // ラベルコンテナ
       const label=document.createElement("div");
-      label.className="absolute inset-x-1 bottom-1 text-[9px] font-mono text-gray-900";
-      label.innerHTML=`
-        <span class="inline-block px-1 py-0.5 rounded bg-white/80 backdrop-blur border border-white/60">
-          ${hex}
-        </span>
-      `;
-      cell.appendChild(label);
+      label.className="absolute inset-1 flex flex-col justify-end text-[9px] font-mono text-gray-900";
 
+      label.innerHTML=`
+        <div class="bg-white/85 backdrop-blur rounded px-1 py-0.5 border border-white/60 leading-tight">
+          <div class="text-[8px] font-semibold">${s}</div>
+          <div>${hex}</div>
+        </div>
+      `;
+
+      cell.appendChild(label);
       row.appendChild(cell);
     }
 
