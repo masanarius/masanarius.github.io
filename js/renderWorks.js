@@ -77,7 +77,7 @@ function createCard(entry) {
     tagElems.push(`
       <span class="${tagStyle} flex items-center gap-1">
         <a href="${entry.url}" target="_blank" class="flex items-center gap-1">
-          URL <img src="img/popup.png" alt="popup icon" class="w-3 h-3">
+          Link <img src="img/popup.png" alt="popup icon" class="w-3 h-3">
         </a>
       </span>
     `);
