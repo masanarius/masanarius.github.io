@@ -1,0 +1,122 @@
+[
+  {
+    "id": "A",
+    "color": "red-500",
+    "icon": "img/a.png",
+    "title": "インターネットと情報社会",
+    "sections": "4",
+    "assignment": "小テスト",
+    "points": "5",
+    "class_day": "前期第1回",
+    "summary": "私たちが生きる情報社会の歴史的な位置付けと，その基盤技術であるインターネットに対する理解を深めます．",
+    "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/A_%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%8D%E3%83%83%E3%83%88?csf=1&web=1&e=OlI5pf"
+  },
+  {
+    "id": "B",
+    "color": "cyan-500",
+    "icon": "img/b.png",
+    "title": "コンピュータ",
+    "sections": "15",
+    "assignment": "小テスト",
+    "points": "5",
+    "class_day": "前期第2回",
+    "summary": "コンピュータの基本構成や仕組みを学ぶカテゴリです．",
+    "link": "materials/category-b.html"
+  },
+  {
+    "id": "C",
+    "color": "yellow-500",
+    "icon": "img/c.png",
+    "title": "メール",
+    "sections": "3",
+    "assignment": "小テスト",
+    "points": "5",
+    "class_day": "前期第3回",
+    "summary": "電子メールの基本操作やマナーを学ぶカテゴリです．",
+    "link": "materials/category-c.html"
+  },
+  {
+    "id": "D",
+    "color": "green-500",
+    "icon": "img/d.png",
+    "title": "情報収集と発信",
+    "sections": "4",
+    "assignment": "小テスト",
+    "points": "5",
+    "class_day": "前期第4回",
+    "summary": "必要な情報を収集し整理して発信する基礎を学ぶカテゴリです．",
+    "link": "materials/category-d.html"
+  },
+  {
+    "id": "E",
+    "color": "sky-600",
+    "icon": "img/e.png",
+    "title": "Word",
+    "sections": "5",
+    "assignment": "文書提出",
+    "points": "5",
+    "class_day": "前期第5回",
+    "summary": "Wordを用いた文書作成の基本操作を学ぶカテゴリです．",
+    "link": "materials/category-e.html"
+  },
+  {
+    "id": "F",
+    "color": "amber-500",
+    "icon": "img/f.png",
+    "title": "情報セキュリティと情報倫理・法規",
+    "sections": "4",
+    "assignment": "小テスト",
+    "points": "5",
+    "class_day": "前期第6回",
+    "summary": "情報セキュリティの基礎と情報倫理や法規を学ぶカテゴリです．",
+    "link": "materials/category-f.html"
+  },
+  {
+    "id": "G",
+    "color": "pink-500",
+    "icon": "img/g.png",
+    "title": "文献引用とライティング",
+    "sections": "4",
+    "assignment": "調査レポート",
+    "points": "10",
+    "class_day": "前期第7回",
+    "summary": "文献引用の方法とアカデミックライティングの基礎を学ぶカテゴリです．",
+    "link": "materials/category-g.html"
+  },
+  {
+    "id": "H",
+    "color": "blue-500",
+    "icon": "img/h.png",
+    "title": "AIと機械学習",
+    "sections": "3",
+    "assignment": "実験レポート",
+    "points": "20",
+    "class_day": "前期第8回",
+    "summary": "AIと機械学習の基本的な考え方を学ぶカテゴリです．",
+    "link": "materials/category-h.html"
+  },
+  {
+    "id": "I",
+    "color": "indigo-800",
+    "icon": "img/i.png",
+    "title": "強化学習",
+    "sections": "2",
+    "assignment": "実験レポート",
+    "points": "40",
+    "class_day": "前期第9回",
+    "summary": "強化学習の基本概念に触れながら総合的な理解を深めるカテゴリです．",
+    "link": "materials/category-i.html"
+  },
+  {
+    "id": "Z",
+    "color": "neutral-500",
+    "icon": "img/z.png",
+    "title": "ガイダンス",
+    "sections": "5",
+    "assignment": "なし",
+    "points": "0",
+    "class_day": "前期第1回",
+    "summary": "前期「情報リテラシーI（AIを含む）」と後期「情報リテラシーII（数理DSを含む）」のガイダンス資料です．",
+    "link": "materials/category-i.html"
+  }
+]

@@ -34,23 +34,15 @@
   </footer>
 
   <script>
-    function parseCSV(text) {
-      const lines = text.trim().split("\n");
-      const headers = lines[0].split(",");
-      return lines.slice(1).map(line => {
-        const values = line.split(",");
-        const row = {};
-        headers.forEach((h, i) => row[h] = values[i]);
-        return row;
-      });
-    }
-
     function createCard(item) {
       const article = document.createElement("article");
       article.className =
         `flex flex-col gap-4 rounded-2xl border border-slate-200 border-t-4 bg-white p-5 shadow-sm border-t-${item.color}`;
 
-      const buttonHover = item.color.replace(/(\d+)$/, m => String(Number(m) + 100 <= 900 ? Number(m) + 100 : m));
+      const buttonHover = item.color.replace(/(\d+)$/, (m) => {
+        const next = Number(m) + 100;
+        return String(next <= 900 ? next : m);
+      });
 
       article.innerHTML = `
         <div class="flex items-start gap-4">
@@ -82,28 +74,37 @@
         <p class="text-sm leading-7 text-slate-600">${item.summary}</p>
 
         <div class="mt-auto">
-        <a
-          href="${item.link}"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-block rounded-lg px-4 py-2.5 text-sm font-semibold text-white bg-${item.color} hover:bg-${buttonHover}"
-        >
-          授業資料を見る
-        </a>
-      </div>
+          <a
+            href="${item.link}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block rounded-lg px-4 py-2.5 text-sm font-semibold text-white bg-${item.color} hover:bg-${buttonHover}"
+          >
+            授業資料を見る
+          </a>
+        </div>
       `;
       return article;
     }
 
-    fetch("categories.csv")
-      .then(response => response.text())
-      .then(csvText => {
-        const data = parseCSV(csvText);
-        const grid = document.getElementById("card-grid");
-        data.forEach(item => grid.appendChild(createCard(item)));
+    fetch("categories.json")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("categories.json の読み込みに失敗しました．");
+        }
+        return response.json();
       })
-      .catch(error => {
-        console.error("CSVの読み込みに失敗しました:", error);
+      .then((data) => {
+        const grid = document.getElementById("card-grid");
+        data.forEach((item) => grid.appendChild(createCard(item)));
+      })
+      .catch((error) => {
+        console.error(error);
+        document.getElementById("card-grid").innerHTML = `
+          <p class="col-span-full rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            categories.json の読み込みに失敗しました．ファイル名と配置場所を確認してください．
+          </p>
+        `;
       });
   </script>
 </body>
