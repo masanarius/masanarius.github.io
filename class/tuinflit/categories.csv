@@ -1,5 +1,5 @@
 ﻿id,color,icon,title,sections,assignment,points,class_day,summary,link
-A,red-500,img/a.png,インターネットと情報社会,4,小テスト,5,前期第1回,インターネットの基礎知識と情報社会におけるコミュニケーションのあり方を学ぶカテゴリです．,materials/category-a.html
+A,red-500,img/a.png,インターネットと情報社会,4,小テスト,5,前期第1回,私たちが生きる情報社会の歴史的な位置付けと，その基盤技術であるインターネットに対する理解を深めます．,https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/A_%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%8D%E3%83%83%E3%83%88?csf=1&web=1&e=eLCYBm
 B,cyan-500,img/b.png,コンピュータ,15,小テスト,5,前期第2回,コンピュータの基本構成や仕組みを学ぶカテゴリです．,materials/category-b.html
 C,yellow-500,img/c.png,メール,3,小テスト,5,前期第3回,電子メールの基本操作やマナーを学ぶカテゴリです．,materials/category-c.html
 D,green-500,img/d.png,情報収集と発信,4,小テスト,5,前期第4回,必要な情報を収集し整理して発信する基礎を学ぶカテゴリです．,materials/category-d.html
