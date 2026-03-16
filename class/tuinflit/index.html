@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>World Website</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:"Helvetica Neue",Arial,sans-serif;
+  line-height:1.6;
+  color:#222;
+  background:#ffffff;
+}
+
+/* ナビゲーション */
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  padding:16px 40px;
+  display:flex;
+  justify-content:flex-end;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(8px);
+  z-index:1000;
+}
+
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:28px;
+}
+
+nav a{
+  text-decoration:none;
+  color:#0f172a;
+  font-weight:600;
+}
+
+nav a:hover{
+  color:#2563eb;
+}
+
+/* ヘッダー */
+header{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:80px 20px 20px;
+  background:#ffffff;
+}
+
+.hero{
+  max-width:1100px;
+  width:100%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:32px;
+  align-items:center;
+}
+
+.hero-text h1{
+  font-size:2.6rem;
+  margin-bottom:16px;
+  color:#0f172a;
+}
+
+.hero-text p{
+  font-size:1rem;
+  margin-bottom:22px;
+  color:#334155;
+}
+
+.hero-text a{
+  display:inline-block;
+  padding:12px 22px;
+  background:#2563eb;
+  color:white;
+  text-decoration:none;
+  border-radius:10px;
+}
+
+.hero-text a:hover{
+  background:#1d4ed8;
+}
+
+.hero-image img{
+  width:100%;
+  max-width:460px;
+  display:block;
+  margin:0 auto;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.10);
+  background:white;
+}
+
+footer{
+  text-align:center;
+  padding:16px 20px;
+  background:#0f172a;
+  color:#cbd5e1;
+}
+
+@media (max-width:800px){
+
+  header{
+    padding:90px 20px 30px;
+  }
+
+  .hero{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .hero-text{
+    order:2;
+  }
+
+  .hero-image{
+    order:1;
+  }
+
+  .hero-text h1{
+    font-size:2rem;
+  }
+
+  nav{
+    justify-content:center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <ul>
+    <li><a href="#">授業情報</a></li>
+    <li><a href="#">カテゴリ一覧</a></li>
+  </ul>
+</nav>
+
+<header>
+  <div class="hero">
+
+    <div class="hero-image">
+      <img src="img/world.png" alt="世界のイメージ">
+    </div>
+
+    <div class="hero-text">
+      <h1>情報リテラシー I & II</h1>
+      <p>
+        常葉大学外国語学部および造形学部で開講される情報リテラシー I & II の授業ポータルサイトです。担当講師は市川雅也です。
+      </p>
+      <a href="#">講義資料</a>
+    </div>
+
+  </div>
+</header>
+
+<footer>
+  <p>© 2026 World Website</p>
+</footer>
+
+</body>
+</html>
