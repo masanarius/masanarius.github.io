@@ -82,10 +82,15 @@
         <p class="text-sm leading-7 text-slate-600">${item.summary}</p>
 
         <div class="mt-auto">
-          <a href="${item.link}" class="inline-block rounded-lg px-4 py-2.5 text-sm font-semibold text-white bg-${item.color} hover:bg-${buttonHover}">
-            授業資料を見る
-          </a>
-        </div>
+        <a
+          href="${item.link}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block rounded-lg px-4 py-2.5 text-sm font-semibold text-white bg-${item.color} hover:bg-${buttonHover}"
+        >
+          授業資料を見る
+        </a>
+      </div>
       `;
       return article;
     }
