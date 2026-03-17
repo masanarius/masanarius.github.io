@@ -20,32 +20,32 @@
     "assignment": "小テスト",
     "points": "5",
     "class_day": "前期第2回",
-    "summary": "コンピュータの基本構成や仕組みを学ぶカテゴリです．",
-    "link": "materials/category-b.html"
+    "summary": "情報社会の標準装備であるコンピュータを上手く，正しく，素早く扱うためのあれこれの習得をめざします．",
+    "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/B_%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF?csf=1&web=1&e=ZRCEaq"
   },
   {
     "id": "C",
     "color": "yellow-500",
     "icon": "img/c.png",
     "title": "メール",
-    "sections": "3",
+    "sections": "11",
     "assignment": "小テスト",
     "points": "5",
     "class_day": "前期第3回",
     "summary": "電子メールの基本操作やマナーを学ぶカテゴリです．",
-    "link": "materials/category-c.html"
+    "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/C_%E3%83%A1%E3%83%BC%E3%83%AB?csf=1&web=1&e=3GSYy2"
   },
   {
     "id": "D",
     "color": "green-500",
     "icon": "img/d.png",
     "title": "情報収集と発信",
-    "sections": "4",
+    "sections": "7",
     "assignment": "小テスト",
     "points": "5",
     "class_day": "前期第4回",
     "summary": "必要な情報を収集し整理して発信する基礎を学ぶカテゴリです．",
-    "link": "materials/category-d.html"
+    "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/D_%E6%83%85%E5%A0%B1%E5%8F%8E%E9%9B%86%E3%81%A8%E7%99%BA%E4%BF%A1?csf=1&web=1&e=crpFke"
   },
   {
     "id": "E",
@@ -57,7 +57,7 @@
     "points": "5",
     "class_day": "前期第5回",
     "summary": "Wordを用いた文書作成の基本操作を学ぶカテゴリです．",
-    "link": "materials/category-e.html"
+    "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/E_Word?csf=1&web=1&e=JKqVw6"
   },
   {
     "id": "F",
@@ -68,7 +68,7 @@
     "assignment": "小テスト",
     "points": "5",
     "class_day": "前期第6回",
-    "summary": "情報セキュリティの基礎と情報倫理や法規を学ぶカテゴリです．",
+    "summary": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/F_%E6%83%85%E5%A0%B1%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%81%A8%E5%80%AB%E7%90%86%E3%83%BB%E6%B3%95%E8%A6%8F?csf=1&web=1&e=lkFPcU",
     "link": "materials/category-f.html"
   },
   {
@@ -80,7 +80,7 @@
     "assignment": "調査レポート",
     "points": "10",
     "class_day": "前期第7回",
-    "summary": "文献引用の方法とアカデミックライティングの基礎を学ぶカテゴリです．",
+    "summary": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/G_%E6%96%87%E7%8C%AE%E5%BC%95%E7%94%A8?csf=1&web=1&e=KDdK2p",
     "link": "materials/category-g.html"
   },
   {
@@ -104,7 +104,7 @@
     "assignment": "実験レポート",
     "points": "40",
     "class_day": "前期第9回",
-    "summary": "強化学習の基本概念に触れながら総合的な理解を深めるカテゴリです．",
+    "summary": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/H_AI%E3%81%A8%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92?csf=1&web=1&e=07RDeV．",
     "link": "materials/category-i.html"
   },
   {
@@ -117,6 +117,6 @@
     "points": "0",
     "class_day": "前期第1回",
     "summary": "前期「情報リテラシーI（AIを含む）」と後期「情報リテラシーII（数理DSを含む）」のガイダンス資料です．",
-    "link": "materials/category-i.html"
+    "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/I_%E5%BC%B7%E5%8C%96%E5%AD%A6%E7%BF%92?csf=1&web=1&e=cJ2kIu"
   }
 ]
