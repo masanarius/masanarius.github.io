@@ -13,7 +13,7 @@
       <ul class="flex gap-7 text-sm font-semibold text-slate-900">
         <li><a href="index.html" class="hover:text-blue-600">ホーム</a></li>
         <li><a href="index.html" class="hover:text-blue-600">授業情報</a></li>
-        <li><a href="categories.html" class="hover:text-blue-600">カテゴリ一覧</a></li>
+        <li><a href="category.html" class="hover:text-blue-600">カテゴリ一覧</a></li>
       </ul>
     </div>
   </nav>
@@ -30,7 +30,7 @@
   </main>
 
   <footer class="mt-12 bg-slate-900 px-5 py-6 text-center text-sm text-slate-300">
-    <p>© 2026 情報リテラシー I &amp; II</p>
+    <p>© 2026 Masanari Ichikawa</p>
   </footer>
 
   <script>
@@ -87,10 +87,10 @@
       return article;
     }
 
-    fetch("categories.json")
+    fetch("data.json")
       .then((response) => {
         if (!response.ok) {
-          throw new Error("categories.json の読み込みに失敗しました．");
+          throw new Error("data.json の読み込みに失敗しました．");
         }
         return response.json();
       })
@@ -102,7 +102,7 @@
         console.error(error);
         document.getElementById("card-grid").innerHTML = `
           <p class="col-span-full rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            categories.json の読み込みに失敗しました．ファイル名と配置場所を確認してください．
+            data.json の読み込みに失敗しました．ファイル名と配置場所を確認してください．
           </p>
         `;
       });
