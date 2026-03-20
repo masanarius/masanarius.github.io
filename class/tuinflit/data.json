@@ -39,7 +39,7 @@
     "id": "D",
     "color": "green-500",
     "icon": "img/d.png",
-    "title": "情報検索",
+    "title": "情報収集",
     "sections": "7",
     "assignment": "小テスト",
     "points": "5",
@@ -61,39 +61,39 @@
   },
   {
     "id": "F",
-    "color": "amber-500",
+    "color": "violet-600",
     "icon": "img/f.png",
-    "title": "文献引用",
-    "sections": "4",
-    "assignment": "なし",
-    "points": "0",
-    "class_day": "前期第6回",
-    "summary": "文献引用の手法とアカデミックライティングの基礎など，レポート執筆に役立てられる技能を習得します．",
-    "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/F_%E6%96%87%E7%8C%AE%E5%BC%95%E7%94%A8?csf=1&web=1&e=pcHbrq"
-  },
-  {
-    "id": "G",
-    "color": "pink-500",
-    "icon": "img/g.png",
     "title": "サイバー攻撃とセキュリティ",
     "sections": "5",
     "assignment": "調査レポート",
     "points": "10",
     "class_day": "前期第7回",
     "summary": "情報やコンピュータを狙う攻撃と，それらから身を守る術について学習します．",
-    "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/G_%E3%82%B5%E3%82%A4%E3%83%90%E3%83%BC%E6%94%BB%E6%92%83?csf=1&web=1&e=37BT63"
+    "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/F_%E3%82%B5%E3%82%A4%E3%83%90%E3%83%BC%E6%94%BB%E6%92%83?csf=1&web=1&e=1MKLKV"
   },
   {
-    "id": "H",
-    "color": "violet-600",
-    "icon": "img/h.png",
+    "id": "G",
+    "color": "pink-500",
+    "icon": "img/g.png",
     "title": "情報倫理と法",
     "sections": "5",
     "assignment": "調査レポート",
     "points": "0",
     "class_day": "前期第7回",
     "summary": "情報社会で尊重すべき権利や法について学びます．",
-    "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/H_%E6%83%85%E5%A0%B1%E5%80%AB%E7%90%86?csf=1&web=1&e=cXmpxJ"
+    "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/G_%E6%83%85%E5%A0%B1%E5%80%AB%E7%90%86?csf=1&web=1&e=7ykzLh"
+  },
+  {
+    "id": "H",
+    "color": "amber-500",
+    "icon": "img/h.png",
+    "title": "文献引用",
+    "sections": "4",
+    "assignment": "なし",
+    "points": "0",
+    "class_day": "前期第6回",
+    "summary": "文献引用の手法とアカデミックライティングの基礎など，レポート執筆に役立てられる技能を習得します．",
+    "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/H_%E6%96%87%E7%8C%AE%E5%BC%95%E7%94%A8?csf=1&web=1&e=n3xwes"
   },
   {
     "id": "I",
