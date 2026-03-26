@@ -62,7 +62,7 @@
   {
     "id": "F",
     "color": "amber-500",
-    "icon": "img/h.png",
+    "icon": "img/f.png",
     "title": "文献引用",
     "sections": "10",
     "assignment": "なし",
@@ -90,7 +90,7 @@
     "title": "AIと機械学習",
     "sections": "8",
     "assignment": "実験レポート",
-    "points": "20",
+    "points": "30",
     "class_day": "前期 #10,11",
     "summary": "AI・生成AIについて概説するパートです．教師あり学習を用いた画像認識AIモデルの制作にも挑戦します．",
     "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/H_AI?csf=1&web=1&e=n3tIuO"
@@ -102,7 +102,7 @@
     "title": "強化学習",
     "sections": "3",
     "assignment": "実験レポート",
-    "points": "40",
+    "points": "30",
     "class_day": "前期 #12~14",
     "summary": "前期の期末課題です．強化学習によってエージェントが知的な振る舞いを習得する過程を観察します．",
     "link": "https://tumail.sharepoint.com/:f:/r/sites/msteams_2564b1/Shared%20Documents/General/inflit/I_%E5%BC%B7%E5%8C%96%E5%AD%A6%E7%BF%92?csf=1&web=1&e=7GERDe"
