@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>年間イベント表</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 24px;
+            background: #f7f7f7;
+            color: #222;
+        }
+
+        h1 {
+            margin-bottom: 16px;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .year-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .year-tab {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 10px;
+            background: #d1d5db;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .year-tab.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 760px;
+            table-layout: fixed;
+        }
+
+        col.month-col {
+            width: 70px;
+        }
+
+        col.event-col {
+            width: calc((100% - 70px) / 3);
+        }
+
+        th,
+        td {
+            border: 1px solid #cfcfcf;
+            padding: 8px;
+            vertical-align: top;
+        }
+
+        th {
+            background: #e9eef5;
+            text-align: center;
+        }
+
+        td.month-cell {
+            width: 70px;
+            text-align: center;
+            font-weight: bold;
+            background: #f0f4f8;
+            white-space: nowrap;
+        }
+
+        td.event-cell {
+            position: relative;
+            min-height: 120px;
+            height: 120px;
+            background: #fff;
+        }
+
+        .cell-inner {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .add-button-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 6px;
+        }
+
+        .add-button {
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: white;
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .event-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+
+        .event-list li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .event-item-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 4px 0;
+        }
+
+        .event-main {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .event-day-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #eef2f7;
+            border: 1px solid #d8e0ea;
+            color: #334155;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1.6;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .event-name {
+            flex: 1;
+            padding-top: 1px;
+        }
+
+        .menu-btn {
+            border: none;
+            background: transparent;
+            color: #64748b;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+            padding: 2px 6px;
+            flex-shrink: 0;
+        }
+
+        .menu-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .empty-text {
+            color: #888;
+            font-size: 13px;
+            padding-left: 4px;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            width: 360px;
+            max-width: calc(100vw - 32px);
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal h2 {
+            margin: 0 0 16px 0;
+            font-size: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 12px;
+            border: 1px solid #cfcfcf;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 18px;
+        }
+
+        .modal-buttons button {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .cancel-btn {
+            background: #9ca3af;
+            color: white;
+        }
+
+        .confirm-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .footer-buttons {
+            margin-top: 16px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .footer-buttons button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #6b7280;
+            color: white;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>年間イベント表</h1>
+
+    <div class="top-bar">
+        <div class="year-tabs">
+            <button class="year-tab active" data-year="2026">2026</button>
+            <button class="year-tab" data-year="2027">2027</button>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <colgroup>
+                <col class="month-col" />
+                <col class="event-col" />
+                <col class="event-col" />
+                <col class="event-col" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>月</th>
+                    <th>上旬</th>
+                    <th>中旬</th>
+                    <th>下旬</th>
+                </tr>
+            </thead>
+            <tbody id="eventTableBody"></tbody>
+        </table>
+
+        <div class="footer-buttons">
+            <button id="clearYearBtn">表示中の年を全消去</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2 id="modalTitle">イベント登録</h2>
+
+            <div class="form-group">
+                <label for="eventDayInput">日</label>
+                <input type="number" id="eventDayInput" min="1" max="31" placeholder="例：12" />
+            </div>
+
+            <div class="form-group">
+                <label for="eventNameInput">イベント名</label>
+                <input type="text" id="eventNameInput" placeholder="例：研究発表会" />
+            </div>
+
+            <div class="modal-buttons">
+                <button class="cancel-btn" id="cancelBtn" type="button">キャンセル</button>
+                <button class="delete-btn" id="deleteBtn" type="button" style="display: none;">削除</button>
+                <button class="confirm-btn" id="confirmBtn" type="button">決定</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const periods = [
+            { key: "early", label: "上旬" },
+            { key: "middle", label: "中旬" },
+            { key: "late", label: "下旬" }
+        ];
+
+        let currentYear = "2026";
+        let modalMode = "add";
+        let currentTarget = {
+            month: null,
+            period: null,
+            index: null
+        };
+
+        const tableBody = document.getElementById("eventTableBody");
+        const modalOverlay = document.getElementById("modalOverlay");
+        const modalTitle = document.getElementById("modalTitle");
+        const eventDayInput = document.getElementById("eventDayInput");
+        const eventNameInput = document.getElementById("eventNameInput");
+        const cancelBtn = document.getElementById("cancelBtn");
+        const confirmBtn = document.getElementById("confirmBtn");
+        const deleteBtn = document.getElementById("deleteBtn");
+        const clearYearBtn = document.getElementById("clearYearBtn");
+        const yearTabs = document.querySelectorAll(".year-tab");
+
+        function storageKey(year) {
+            return `yearly_events_${year}`;
+        }
+
+        function getYearData(year) {
+            const raw = localStorage.getItem(storageKey(year));
+            if (!raw) return {};
+            try {
+                return JSON.parse(raw);
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function saveYearData(year, data) {
+            localStorage.setItem(storageKey(year), JSON.stringify(data));
+        }
+
+        function getCellEvents(year, month, period) {
+            const data = getYearData(year);
+            const key = `${month}_${period}`;
+            return Array.isArray(data[key]) ? data[key] : [];
+        }
+
+        function setCellEvents(year, month, period, events) {
+            const data = getYearData(year);
+            const key = `${month}_${period}`;
+            data[key] = events;
+            saveYearData(year, data);
+        }
+
+        function sortEvents(events) {
+            return events.sort((a, b) => {
+                if (a.day !== b.day) return a.day - b.day;
+                return a.name.localeCompare(b.name, "ja");
+            });
+        }
+
+        function createTable() {
+            tableBody.innerHTML = "";
+
+            months.forEach(month => {
+                const tr = document.createElement("tr");
+
+                const monthCell = document.createElement("td");
+                monthCell.className = "month-cell";
+                monthCell.textContent = month;
+                tr.appendChild(monthCell);
+
+                periods.forEach(period => {
+                    const td = document.createElement("td");
+                    td.className = "event-cell";
+
+                    const inner = document.createElement("div");
+                    inner.className = "cell-inner";
+
+                    const addButtonRow = document.createElement("div");
+                    addButtonRow.className = "add-button-row";
+
+                    const addButton = document.createElement("button");
+                    addButton.className = "add-button";
+                    addButton.textContent = "＋";
+                    addButton.title = "イベントを追加";
+                    addButton.type = "button";
+                    addButton.addEventListener("click", () => openAddModal(month, period.key));
+
+                    addButtonRow.appendChild(addButton);
+
+                    const content = document.createElement("div");
+                    content.id = `content_${month}_${period.key}`;
+
+                    inner.appendChild(addButtonRow);
+                    inner.appendChild(content);
+                    td.appendChild(inner);
+                    tr.appendChild(td);
+                });
+
+                tableBody.appendChild(tr);
+            });
+
+            renderAllCells();
+        }
+
+        function renderAllCells() {
+            months.forEach(month => {
+                periods.forEach(period => {
+                    renderCell(month, period.key);
+                });
+            });
+        }
+
+        function renderCell(month, period) {
+            const container = document.getElementById(`content_${month}_${period}`);
+            const events = sortEvents([...getCellEvents(currentYear, month, period)]);
+
+            container.innerHTML = "";
+
+            if (events.length === 0) {
+                const empty = document.createElement("div");
+                empty.className = "empty-text";
+                empty.textContent = "イベントなし";
+                container.appendChild(empty);
+                return;
+            }
+
+            const ul = document.createElement("ul");
+            ul.className = "event-list";
+
+            events.forEach((event, index) => {
+                const li = document.createElement("li");
+
+                const row = document.createElement("div");
+                row.className = "event-item-row";
+
+                const main = document.createElement("div");
+                main.className = "event-main";
+
+                const badge = document.createElement("span");
+                badge.className = "event-day-badge";
+                badge.textContent = `${event.day}日`;
+
+                const name = document.createElement("span");
+                name.className = "event-name";
+                name.textContent = event.name;
+
+                const menuBtn = document.createElement("button");
+                menuBtn.className = "menu-btn";
+                menuBtn.type = "button";
+                menuBtn.title = "編集";
+                menuBtn.setAttribute("aria-label", "編集");
+                menuBtn.innerHTML = "&vellip;";
+                menuBtn.addEventListener("click", () => {
+                    openEditModal(month, period, index);
+                });
+
+                main.appendChild(badge);
+                main.appendChild(name);
+                row.appendChild(main);
+                row.appendChild(menuBtn);
+                li.appendChild(row);
+                ul.appendChild(li);
+            });
+
+            container.appendChild(ul);
+        }
+
+        function openAddModal(month, period) {
+            modalMode = "add";
+            currentTarget.month = month;
+            currentTarget.period = period;
+            currentTarget.index = null;
+
+            modalTitle.textContent = "イベント登録";
+            eventDayInput.value = "";
+            eventNameInput.value = "";
+            deleteBtn.style.display = "none";
+
+            modalOverlay.classList.add("show");
+            eventDayInput.focus();
+        }
+
+        function openEditModal(month, period, index) {
+            modalMode = "edit";
+            currentTarget.month = month;
+            currentTarget.period = period;
+            currentTarget.index = index;
+
+            const events = getCellEvents(currentYear, month, period);
+            const event = events[index];
+            if (!event) return;
+
+            modalTitle.textContent = "イベント編集";
+            eventDayInput.value = event.day;
+            eventNameInput.value = event.name;
+            deleteBtn.style.display = "inline-block";
+
+            modalOverlay.classList.add("show");
+            eventDayInput.focus();
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove("show");
+            currentTarget.month = null;
+            currentTarget.period = null;
+            currentTarget.index = null;
+            modalMode = "add";
+        }
+
+        function validateEventInput() {
+            const day = Number(eventDayInput.value);
+            const name = eventNameInput.value.trim();
+
+            if (!currentTarget.month || !currentTarget.period) return null;
+
+            if (!Number.isInteger(day) || day < 1 || day > 31) {
+                alert("日には1〜31の整数を入力してください．");
+                return null;
+            }
+
+            if (!name) {
+                alert("イベント名を入力してください．");
+                return null;
+            }
+
+            return { day, name };
+        }
+
+        function submitModal() {
+            const input = validateEventInput();
+            if (!input) return;
+
+            const events = getCellEvents(currentYear, currentTarget.month, currentTarget.period);
+
+            if (modalMode === "add") {
+                events.push(input);
+            } else if (modalMode === "edit" && currentTarget.index !== null) {
+                events[currentTarget.index] = input;
+            }
+
+            setCellEvents(
+                currentYear,
+                currentTarget.month,
+                currentTarget.period,
+                sortEvents(events)
+            );
+
+            renderCell(currentTarget.month, currentTarget.period);
+            closeModal();
+        }
+
+        function deleteCurrentEvent() {
+            if (modalMode !== "edit" || currentTarget.index === null) return;
+            if (!confirm("このイベントを削除しますか？")) return;
+
+            const events = getCellEvents(currentYear, currentTarget.month, currentTarget.period);
+            events.splice(currentTarget.index, 1);
+
+            setCellEvents(currentYear, currentTarget.month, currentTarget.period, events);
+            renderCell(currentTarget.month, currentTarget.period);
+            closeModal();
+        }
+
+        function switchYear(year) {
+            currentYear = year;
+
+            yearTabs.forEach(tab => {
+                tab.classList.toggle("active", tab.dataset.year === year);
+            });
+
+            renderAllCells();
+        }
+
+        function clearCurrentYear() {
+            if (!confirm(`${currentYear}年のイベントをすべて削除しますか？`)) return;
+            localStorage.removeItem(storageKey(currentYear));
+            renderAllCells();
+        }
+
+        yearTabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                switchYear(tab.dataset.year);
+            });
+        });
+
+        cancelBtn.addEventListener("click", closeModal);
+        confirmBtn.addEventListener("click", submitModal);
+        deleteBtn.addEventListener("click", deleteCurrentEvent);
+        clearYearBtn.addEventListener("click", clearCurrentYear);
+
+        modalOverlay.addEventListener("click", (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        eventDayInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+            }
+        });
+
+        eventNameInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+            }
+        });
+
+        createTable();
+    </script>
+</body>
+
+</html>
