@@ -45,7 +45,7 @@
   },
   {
     "id": "E",
-    "color": "sky-600",
+    "color": "pink-600",
     "icon": "img/e.png",
     "title": "繰り返し for ループ",
     "sections": "7",
@@ -56,7 +56,7 @@
   },
   {
     "id": "F",
-    "color": "amber-500",
+    "color": "violet-500",
     "icon": "img/f.png",
     "title": "繰り返し while ループ",
     "sections": "7",
@@ -67,7 +67,7 @@
   },
   {
     "id": "G",
-    "color": "pink-500",
+    "color": "orange-500",
     "icon": "img/g.png",
     "title": "配列",
     "sections": "10",
@@ -78,7 +78,7 @@
   },
   {
     "id": "H",
-    "color": "blue-500",
+    "color": "lime-500",
     "icon": "img/h.png",
     "title": "外部データのよみかき",
     "sections": "14",
@@ -89,8 +89,19 @@
   },
   {
     "id": "Q",
-    "color": "neutral-500",
+    "color": "blue-500",
     "icon": "img/q.png",
+    "title": "期末課題",
+    "sections": "10",
+    "points": "5",
+    "class_day": "#13,14,15",
+    "summary": "これまでの学習内容を活用して期末課題に取り組みます．",
+    "link": ""
+  },
+  {
+    "id": "Z",
+    "color": "neutral-500",
+    "icon": "img/z.png",
     "title": "期末課題",
     "sections": "10",
     "points": "5",
