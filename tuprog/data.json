@@ -1,0 +1,101 @@
+[
+  {
+    "id": "A",
+    "color": "red-500",
+    "icon": "img/a.png",
+    "title": "図形描画と関数",
+    "sections": "6",
+    "points": "5",
+    "class_day": "#1",
+    "summary": "図形描画を通して，関数の使い方を学びます．",
+    "link": ""
+  },
+  {
+    "id": "B",
+    "color": "cyan-500",
+    "icon": "img/b.png",
+    "title": "テキスト入出力と変数",
+    "sections": "8",
+    "points": "5",
+    "class_day": "#2",
+    "summary": "テキストの入出力と変数の基本を学びます．",
+    "link": ""
+  },
+  {
+    "id": "C",
+    "color": "yellow-500",
+    "icon": "img/c.png",
+    "title": "算術演算",
+    "sections": "6",
+    "points": "5",
+    "class_day": "#3",
+    "summary": "算術演算の基本的な扱い方を学びます．",
+    "link": ""
+  },
+  {
+    "id": "D",
+    "color": "green-500",
+    "icon": "img/d.png",
+    "title": "条件分岐",
+    "sections": "9",
+    "points": "5",
+    "class_day": "#4",
+    "summary": "条件に応じて処理を分ける方法を学びます．",
+    "link": ""
+  },
+  {
+    "id": "E",
+    "color": "sky-600",
+    "icon": "img/e.png",
+    "title": "繰り返し for ループ",
+    "sections": "7",
+    "points": "5",
+    "class_day": "#5,6",
+    "summary": "for ループを用いた繰り返し処理を学びます．",
+    "link": ""
+  },
+  {
+    "id": "F",
+    "color": "amber-500",
+    "icon": "img/f.png",
+    "title": "繰り返し while ループ",
+    "sections": "7",
+    "points": "5",
+    "class_day": "#7",
+    "summary": "while ループを用いた繰り返し処理を学びます．",
+    "link": ""
+  },
+  {
+    "id": "G",
+    "color": "pink-500",
+    "icon": "img/g.png",
+    "title": "配列",
+    "sections": "10",
+    "points": "5",
+    "class_day": "#8,9",
+    "summary": "配列を使ったデータの管理方法を学びます．",
+    "link": ""
+  },
+  {
+    "id": "H",
+    "color": "blue-500",
+    "icon": "img/h.png",
+    "title": "外部データのよみかき",
+    "sections": "14",
+    "points": "5",
+    "class_day": "#10,11,12",
+    "summary": "外部データの読み書きの基本を学びます．",
+    "link": ""
+  },
+  {
+    "id": "Q",
+    "color": "neutral-500",
+    "icon": "img/q.png",
+    "title": "期末課題",
+    "sections": "10",
+    "points": "5",
+    "class_day": "#13,14,15",
+    "summary": "これまでの学習内容を活用して期末課題に取り組みます．",
+    "link": ""
+  }
+]
