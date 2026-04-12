@@ -4,29 +4,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>情報リテラシー I & II</title>
+  <title>プログラミング</title>
   <link rel="icon" href="img/favicon.png" type="image/png">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-
 <body class="bg-white font-sans leading-relaxed text-slate-800">
 
   <nav class="fixed top-0 left-0 z-50 w-full border-b border-slate-200 bg-white/90 backdrop-blur">
-    <div class="mx-auto flex max-w-7xl justify-end px-6 py-4">
+    <div class="mx-auto flex max-w-5xl justify-end px-6 py-4">
       <ul class="flex gap-7 text-sm font-semibold text-slate-900">
-        <li><a href="index.html" class="hover:text-blue-600">ホーム</a></li>
-        <li><a href="about.html" class="hover:text-blue-600">授業情報</a></li>
-        <li><a href="category.html" class="hover:text-blue-600">カテゴリ一覧</a></li>
+        <li><a href="index.html" class="hover:text-blue-600">Home</a></li>
+        <li><a href="about.html" class="hover:text-blue-600">Info</a></li>
+        <li><a href="category.html" class="hover:text-blue-600">Category</a></li>
+        <li><a href="category.html" class="hover:text-blue-600">Textbook</a></li>
+        <li><a href="category.html" class="hover:text-blue-600">Colab</a></li>
+        <li><a href="category.html" class="hover:text-blue-600">Drive</a></li>
       </ul>
     </div>
   </nav>
 
   <header class="flex min-h-screen items-center justify-center bg-white px-5 pb-5 pt-20 md:px-6">
-    <div class="grid w-full max-w-6xl items-center gap-8 md:grid-cols-2">
+    <div class="grid w-full max-w-5xl items-center gap-8 md:grid-cols-2">
 
       <div class="order-1">
-        <img src="img/world.png" alt="世界のイメージ"
+        <img src="img/prog.png" alt="イメージ"
           class="mx-auto block w-full max-w-[460px] rounded-2xl bg-white shadow-[0_10px_30px_rgba(0,0,0,0.10)]" />
       </div>
 
@@ -34,14 +36,34 @@
         <h1 class="mb-4 text-[2rem] font-bold leading-tight text-slate-900 md:text-[2.6rem]">
           プログラミング
         </h1>
+
         <p class="mb-6 text-base leading-7 text-slate-700">
           常葉大学経営学部で開講される抽選科目「プログラミング」の授業ポータルです。担当講師は市川雅也です。
         </p>
-        <a href="https://drive.google.com/drive/folders/11KT4diUI59KDyuGd2qZgoV1Vj3PjIfj4?usp=sharing" target="_blank"
-          rel="noopener noreferrer"
-          class="inline-block rounded-lg bg-emerald-600 px-6 py-3 font-medium text-white hover:bg-emerald-700">
-          講義資料はこちら
-        </a>
+
+        <!-- 🔥 ボタン -->
+        <div class="flex flex-wrap justify-center md:justify-start gap-4">
+
+          <a href="https://drive.google.com/drive/folders/11KT4diUI59KDyuGd2qZgoV1Vj3PjIfj4?usp=sharing" target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700">
+            Drive
+          </a>
+
+          <a href="https://drive.google.com/drive/folders/11KT4diUI59KDyuGd2qZgoV1Vj3PjIfj4?usp=sharing" target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700">
+            Textbook
+          </a>
+
+          <a href="https://drive.google.com/drive/folders/11KT4diUI59KDyuGd2qZgoV1Vj3PjIfj4?usp=sharing" target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700">
+            Colab
+          </a>
+
+        </div>
+
       </div>
 
     </div>

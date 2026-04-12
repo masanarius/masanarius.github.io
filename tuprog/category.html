@@ -4,15 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>カテゴリ | 情報リテラシー I & II</title>
+  <title>カテゴリ | プログラミング</title>
   <link rel="icon" href="img/favicon.png" type="image/png">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-white text-slate-800">
 
-  <nav class="fixed top-0 left-0 z-50 w-full border-b border-slate-200 bg-white/90 backdrop-blur">
-    <div class="mx-auto flex max-w-7xl justify-end px-6 py-4">
+  <nav class="fixed top-0 left-0 z-50 w-full border-b border-slate-300 bg-white">
+    <div class="mx-auto flex max-w-5xl justify-end px-6 py-4">
       <ul class="flex gap-7 text-sm font-semibold text-slate-900">
         <li><a href="index.html" class="hover:text-blue-600">ホーム</a></li>
         <li><a href="about.html" class="hover:text-blue-600">授業情報</a></li>
@@ -21,15 +21,29 @@
     </div>
   </nav>
 
-  <main class="mx-auto max-w-7xl px-5 pb-14 pt-28">
+  <main class="mx-auto max-w-5xl px-5 pb-14 pt-28">
+
     <section class="mb-8">
       <h1 class="mb-2 text-3xl font-bold text-slate-900">カテゴリ一覧</h1>
-      <p class="text-sm leading-7 text-slate-600">
-        情報リテラシー I &amp; II の授業カテゴリ一覧です．
-      </p>
     </section>
 
-    <section id="card-grid" class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4"></section>
+    <section class="overflow-x-auto">
+      <table class="min-w-full border-collapse bg-white">
+        <thead class="bg-slate-100">
+          <tr>
+            <th class="border border-slate-300 px-4 py-3 text-center text-sm font-semibold"></th>
+            <th class="border border-slate-300 px-4 py-3 text-left text-sm font-semibold">パート</th>
+            <th class="border border-slate-300 px-4 py-3 text-center text-sm font-semibold">セクション数</th>
+            <th class="border border-slate-300 px-4 py-3 text-center text-sm font-semibold">配点</th>
+            <th class="border border-slate-300 px-4 py-3 text-center text-sm font-semibold">実施回</th>
+            <th class="border border-slate-300 px-4 py-3 text-center text-sm font-semibold">フォルダ</th>
+          </tr>
+        </thead>
+
+        <tbody id="table-body"></tbody>
+      </table>
+    </section>
+
   </main>
 
   <footer class="mt-12 bg-slate-900 px-5 py-6 text-center text-sm text-slate-300">
@@ -37,75 +51,60 @@
   </footer>
 
   <script>
-    function createCard(item) {
-      const article = document.createElement("article");
-      article.className =
-        `flex flex-col gap-4 rounded-2xl border border-slate-200 border-t-4 bg-white p-5 shadow-sm border-t-${item.color}`;
+    function createRow(item) {
+      const tr = document.createElement("tr");
 
-      const buttonHover = item.color.replace(/(\d+)$/, (m) => {
-        const next = Number(m) + 100;
-        return String(next <= 900 ? next : m);
-      });
+      tr.innerHTML = `
+        <td class="border border-slate-300 px-4 py-2 text-center">
+          <img src="${item.icon}" class="mx-auto h-10 w-10 object-contain" />
+        </td>
 
-      article.innerHTML = `
-        <div class="flex items-start gap-4">
-          <img src="${item.icon}" alt="カテゴリ${item.id}アイコン" class="h-16 w-16 shrink-0 object-contain" />
-          <div class="min-h-[4rem] flex items-center">
-            <h2 class="text-lg font-bold leading-snug text-slate-900">${item.title}</h2>
-          </div>
-        </div>
+        <td class="border border-slate-300 px-4 py-3 text-sm font-medium text-slate-900">
+          ${item.title}
+        </td>
 
-        <div class="grid grid-cols-3 gap-2">
-          <div class="flex flex-col items-center justify-center text-center rounded-lg border border-slate-200 bg-white px-3 py-2">
-            <div class="text-[11px] leading-tight text-slate-500">単元数</div>
-            <div class="text-sm font-semibold text-slate-900">${item.sections}</div>
-          </div>
-          <div class="flex flex-col items-center justify-center text-center rounded-lg border border-slate-200 bg-white px-3 py-2">
-            <div class="text-[11px] leading-tight text-slate-500">配点</div>
-            <div class="text-sm font-semibold text-slate-900">${item.points}</div>
-          </div>
-          <div class="flex flex-col items-center justify-center text-center rounded-lg border border-slate-200 bg-white px-3 py-2">
-            <div class="text-[11px] leading-tight text-slate-500">授業日</div>
-            <div class="text-sm font-semibold text-slate-900">${item.class_day}</div>
-          </div>
-        </div>
+        <td class="border border-slate-300 px-4 py-3 text-center text-sm">
+          ${item.sections}
+        </td>
 
-        <p class="text-sm leading-7 text-slate-600">${item.summary}</p>
+        <td class="border border-slate-300 px-4 py-3 text-center text-sm">
+          ${item.points}
+        </td>
 
-        <div class="mt-auto">
+        <td class="border border-slate-300 px-4 py-3 text-center text-sm">
+          ${item.class_day}
+        </td>
+
+        <td class="border border-slate-300 px-4 py-3 text-center">
           <a
             href="${item.link}"
             target="_blank"
-            rel="noopener noreferrer"
-            class="inline-block rounded-lg px-4 py-2.5 text-sm font-semibold text-white bg-${item.color} hover:bg-${buttonHover}"
+            class="inline-block px-3 py-1.5 text-sm font-semibold text-white bg-${item.color}"
           >
-            授業資料を見る
+            開く
           </a>
-        </div>
+        </td>
       `;
-      return article;
+      return tr;
     }
 
-    fetch("data.json")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("data.json の読み込みに失敗しました．");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const grid = document.getElementById("card-grid");
-        data.forEach((item) => grid.appendChild(createCard(item)));
-      })
-      .catch((error) => {
-        console.error(error);
-        document.getElementById("card-grid").innerHTML = `
-          <p class="col-span-full rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            data.json の読み込みに失敗しました．ファイル名と配置場所を確認してください．
-          </p>
-        `;
-      });
+    const data = [
+      { id: "A", color: "red-500", icon: "img/a.png", title: "図形描画と関数", sections: "6", points: "5", class_day: "#1", link: "" },
+      { id: "B", color: "cyan-500", icon: "img/b.png", title: "テキスト入出力と変数", sections: "8", points: "5", class_day: "#2", link: "" },
+      { id: "C", color: "yellow-500", icon: "img/c.png", title: "算術演算", sections: "6", points: "5", class_day: "#3", link: "" },
+      { id: "D", color: "green-500", icon: "img/d.png", title: "条件分岐", sections: "9", points: "5", class_day: "#4", link: "" },
+      { id: "E", color: "pink-500", icon: "img/e.png", title: "繰り返し for ループ", sections: "7", points: "5", class_day: "#5, 6", link: "" },
+      { id: "F", color: "violet-500", icon: "img/f.png", title: "繰り返し while ループ", sections: "7", points: "5", class_day: "#7", link: "" },
+      { id: "G", color: "orange-500", icon: "img/g.png", title: "配列", sections: "10", points: "5", class_day: "#8, 9", link: "" },
+      { id: "H", color: "lime-500", icon: "img/h.png", title: "外部データのよみかき", sections: "14", points: "5", class_day: "#10 ~ 12", link: "" },
+      { id: "Q", color: "blue-500", icon: "img/q.png", title: "期末課題", sections: "10", points: "60", class_day: "#13 ~ 15", link: "" },
+      { id: "Z", color: "neutral-500", icon: "img/z.png", title: "ガイダンス", sections: "6", points: "-", class_day: "#1", link: "" }
+    ];
+
+    const tableBody = document.getElementById("table-body");
+    data.forEach(item => tableBody.appendChild(createRow(item)));
   </script>
+
 </body>
 
 </html>
