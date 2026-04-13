@@ -2,76 +2,413 @@
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>プログラミング</title>
-  <link rel="icon" href="img/favicon.png" type="image/png">
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programming</title>
+    <link rel="icon" href="img/favicon.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-white font-sans leading-relaxed text-slate-800">
+<body class="bg-white text-slate-800">
 
-  <nav class="fixed top-0 left-0 z-50 w-full border-b border-slate-200 bg-white/90 backdrop-blur">
-    <div class="mx-auto flex max-w-5xl justify-end px-6 py-4">
-      <ul class="flex gap-7 text-sm font-semibold text-slate-900">
-        <li><a href="index.html" class="hover:text-blue-600">Home</a></li>
-        <li><a href="about.html" class="hover:text-blue-600">Info</a></li>
-        <li><a href="category.html" class="hover:text-blue-600">Category</a></li>
-        <li><a href="category.html" class="hover:text-blue-600">Textbook</a></li>
-        <li><a href="category.html" class="hover:text-blue-600">Colab</a></li>
-        <li><a href="category.html" class="hover:text-blue-600">Drive</a></li>
-      </ul>
+    <!-- 背景 -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <img src="img/prog.png" class="w-full h-full object-cover opacity-10">
     </div>
-  </nav>
 
-  <header class="flex min-h-screen items-center justify-center bg-white px-5 pb-5 pt-20 md:px-6">
-    <div class="grid w-full max-w-5xl items-center gap-8 md:grid-cols-2">
+    <main class="relative z-10 mx-auto max-w-3xl px-6 pb-24 pt-16">
 
-      <div class="order-1">
-        <img src="img/prog.png" alt="イメージ"
-          class="mx-auto block w-full max-w-[460px] rounded-2xl bg-white shadow-[0_10px_30px_rgba(0,0,0,0.10)]" />
-      </div>
+        <!-- タイトル -->
+        <section class="mb-10 text-center">
+            <h1 class="text-4xl font-bold text-slate-900 md:text-5xl">
+                PROGRAMMING
+            </h1>
+            <p class="mt-3 text-sm tracking-wide text-slate-400">
+                Faculty of Business Administration, Tokoha University
+            </p>
+        </section>
 
-      <div class="order-2 text-center md:text-left">
-        <h1 class="mb-4 text-[2rem] font-bold leading-tight text-slate-900 md:text-[2.6rem]">
-          プログラミング
-        </h1>
+        <!-- 時間 -->
+        <section class="mb-16 text-center">
+            <p class="text-base font-medium text-slate-900">
+                Every Thursday, 4th Period (15:00–16:30) at B502 Computer Room
+            </p>
+        </section>
 
-        <p class="mb-6 text-base leading-7 text-slate-700">
-          常葉大学経営学部で開講される抽選科目「プログラミング」の授業ポータルです。担当講師は市川雅也です。
-        </p>
+        <!-- SCHEDULE -->
+        <section class="mb-16">
+            <h2 class="mb-6 text-xl font-medium tracking-[0.18em] text-slate-900">
+                SCHEDULE
+            </h2>
 
-        <!-- 🔥 ボタン -->
-        <div class="flex flex-wrap justify-center md:justify-start gap-4">
+            <table class="w-full border-collapse text-sm">
+                <thead class="bg-slate-100">
+                    <tr>
+                        <th class="border px-4 py-2">#</th>
+                        <th class="border px-4 py-2">CONTENT</th>
+                        <th class="border px-4 py-2">SPRING, FY2026</th>
+                        <th class="border px-4 py-2">FALL, FY2026</th>
+                    </tr>
+                </thead>
 
-          <a href="https://drive.google.com/drive/folders/11KT4diUI59KDyuGd2qZgoV1Vj3PjIfj4?usp=sharing" target="_blank"
-            rel="noopener noreferrer"
-            class="inline-block rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700">
-            Drive
-          </a>
+                <tbody>
+                    <tr>
+                        <td class="border px-4 py-2 text-center">1</td>
+                        <td class="border px-4 py-2 text-center">
+                            <div class="flex justify-center gap-1">
+                                <img src="img/z.png" class="h-8">
+                                <img src="img/a.png" class="h-8">
+                            </div>
+                        </td>
+                        <td class="border px-4 py-2 text-center">04/16</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
 
-          <a href="https://drive.google.com/drive/folders/11KT4diUI59KDyuGd2qZgoV1Vj3PjIfj4?usp=sharing" target="_blank"
-            rel="noopener noreferrer"
-            class="inline-block rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700">
-            Textbook
-          </a>
+                    <tr>
+                        <td class="border px-4 py-2 text-center">2</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/b.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">04/23</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
 
-          <a href="https://drive.google.com/drive/folders/11KT4diUI59KDyuGd2qZgoV1Vj3PjIfj4?usp=sharing" target="_blank"
-            rel="noopener noreferrer"
-            class="inline-block rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700">
-            Colab
-          </a>
+                    <tr>
+                        <td class="border px-4 py-2 text-center">3</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/c.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">04/30</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
 
+                    <tr>
+                        <td class="border px-4 py-2 text-center">4</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/d.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">05/07</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">5</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/e.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">05/14</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">6</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/e.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">05/21</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">7</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/f.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">05/28</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">8</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/g.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">06/04</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">9</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/g.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">06/11</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">10</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/h.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">06/18</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">11</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/h.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">06/25</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">12</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/h.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">07/02</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">13</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/q.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">07/09</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">14</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/q.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">07/16</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">15</td>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/q.png" class="mx-auto h-8">
+                        </td>
+                        <td class="border px-4 py-2 text-center">07/30</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- CATEGORY -->
+        <section class="mb-16">
+            <h2 class="mb-6 text-xl font-medium tracking-[0.18em] text-slate-900">
+                CATEGORY
+            </h2>
+
+            <table class="w-full border-collapse text-sm">
+                <thead class="bg-slate-100">
+                    <tr>
+                        <th class="border px-4 py-2">PART</th>
+                        <th class="border px-4 py-2 text-left">CONTENT</th>
+                        <th class="border px-4 py-2">SECTIONS</th>
+                        <th class="border px-4 py-2">POINT</th>
+                        <th class="border px-4 py-2">CLASS</th>
+                        <th class="border px-4 py-2">DEADLINE</th>
+                        <th class="border px-4 py-2">LINK</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/a.png" class="h-8 mx-auto">
+                        </td>
+                        <td class="border px-4 py-2">図形描画と関数</td>
+                        <td class="border px-4 py-2 text-center">6</td>
+                        <td class="border px-4 py-2 text-center">5</td>
+                        <td class="border px-4 py-2 text-center">#1</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                        <td class="border px-4 py-2 text-center">
+                            <a href="#" class="text-blue-600">開く</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/b.png" class="h-8 mx-auto">
+                        </td>
+                        <td class="border px-4 py-2">テキスト入出力と変数</td>
+                        <td class="border px-4 py-2 text-center">8</td>
+                        <td class="border px-4 py-2 text-center">5</td>
+                        <td class="border px-4 py-2 text-center">#2</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                        <td class="border px-4 py-2 text-center">
+                            <a href="#" class="text-blue-600">開く</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/c.png" class="h-8 mx-auto">
+                        </td>
+                        <td class="border px-4 py-2">算術演算</td>
+                        <td class="border px-4 py-2 text-center">6</td>
+                        <td class="border px-4 py-2 text-center">5</td>
+                        <td class="border px-4 py-2 text-center">#3</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                        <td class="border px-4 py-2 text-center">
+                            <a href="#" class="text-blue-600">開く</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/d.png" class="h-8 mx-auto">
+                        </td>
+                        <td class="border px-4 py-2">条件分岐</td>
+                        <td class="border px-4 py-2 text-center">9</td>
+                        <td class="border px-4 py-2 text-center">5</td>
+                        <td class="border px-4 py-2 text-center">#4</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                        <td class="border px-4 py-2 text-center">
+                            <a href="#" class="text-blue-600">開く</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/e.png" class="h-8 mx-auto">
+                        </td>
+                        <td class="border px-4 py-2">繰り返し for ループ</td>
+                        <td class="border px-4 py-2 text-center">7</td>
+                        <td class="border px-4 py-2 text-center">5</td>
+                        <td class="border px-4 py-2 text-center">#5, 6</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                        <td class="border px-4 py-2 text-center">
+                            <a href="#" class="text-blue-600">開く</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/f.png" class="h-8 mx-auto">
+                        </td>
+                        <td class="border px-4 py-2">繰り返し while ループ</td>
+                        <td class="border px-4 py-2 text-center">7</td>
+                        <td class="border px-4 py-2 text-center">5</td>
+                        <td class="border px-4 py-2 text-center">#7</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                        <td class="border px-4 py-2 text-center">
+                            <a href="#" class="text-blue-600">開く</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/g.png" class="h-8 mx-auto">
+                        </td>
+                        <td class="border px-4 py-2">配列</td>
+                        <td class="border px-4 py-2 text-center">10</td>
+                        <td class="border px-4 py-2 text-center">5</td>
+                        <td class="border px-4 py-2 text-center">#8, 9</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                        <td class="border px-4 py-2 text-center">
+                            <a href="#" class="text-blue-600">開く</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/h.png" class="h-8 mx-auto">
+                        </td>
+                        <td class="border px-4 py-2">外部データのよみかき</td>
+                        <td class="border px-4 py-2 text-center">14</td>
+                        <td class="border px-4 py-2 text-center">5</td>
+                        <td class="border px-4 py-2 text-center">#10 - 12</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                        <td class="border px-4 py-2 text-center">
+                            <a href="#" class="text-blue-600">開く</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/q.png" class="h-8 mx-auto">
+                        </td>
+                        <td class="border px-4 py-2">期末課題</td>
+                        <td class="border px-4 py-2 text-center">10</td>
+                        <td class="border px-4 py-2 text-center">60</td>
+                        <td class="border px-4 py-2 text-center">#13 - 15</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                        <td class="border px-4 py-2 text-center">
+                            <a href="#" class="text-blue-600">開く</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-center">
+                            <img src="img/z.png" class="h-8 mx-auto">
+                        </td>
+                        <td class="border px-4 py-2">ガイダンス</td>
+                        <td class="border px-4 py-2 text-center">6</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                        <td class="border px-4 py-2 text-center">#1</td>
+                        <td class="border px-4 py-2 text-center">-</td>
+                        <td class="border px-4 py-2 text-center">
+                            <a href="#" class="text-blue-600">開く</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </section>
+
+        <!-- INFORMATION -->
+        <section>
+            <h2 class="mb-6 text-xl font-medium tracking-[0.18em] text-slate-900">
+                INFORMATION
+            </h2>
+
+            <table class="w-full border-collapse text-sm">
+                <tbody>
+                    <tr>
+                        <th class="border bg-slate-100 px-4 py-2 text-left">授業名</th>
+                        <td class="border px-4 py-2">プログラミング</td>
+                    </tr>
+                    <tr>
+                        <th class="border bg-slate-100 px-4 py-2 text-left">対象学部</th>
+                        <td class="border px-4 py-2">経営学部</td>
+                    </tr>
+                    <tr>
+                        <th class="border bg-slate-100 px-4 py-2 text-left">場所</th>
+                        <td class="border px-4 py-2">B502コンピュータ室</td>
+                    </tr>
+                    <tr>
+                        <th class="border bg-slate-100 px-4 py-2 text-left">時間</th>
+                        <td class="border px-4 py-2">毎週木曜4限（15:00 - 16:30）</td>
+                    </tr>
+                    <tr>
+                        <th class="border bg-slate-100 px-4 py-2 text-left">担当教員</th>
+                        <td class="border px-4 py-2">市川雅也</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <!-- フッター -->
+    <footer class="mt-16 bg-slate-900 px-5 py-4 pb-24 text-center text-slate-300">
+        <p>© 2026 Masanari Ichikawa</p>
+    </footer>
+
+    <!-- 下メニュー -->
+    <nav class="fixed bottom-0 left-0 z-50 w-full border-t border-slate-800 bg-slate-900/80 backdrop-blur">
+        <div class="mx-auto grid max-w-3xl grid-cols-4">
+            <a href="#"
+                class="py-4 text-center text-sm text-slate-300 transition-all duration-200 hover:bg-rose-500 hover:text-white">Textbook</a>
+            <a href="#"
+                class="py-4 text-center text-sm text-slate-300 transition-all duration-200 hover:bg-orange-500 hover:text-white">Colab</a>
+            <a href="#"
+                class="py-4 text-center text-sm text-slate-300 transition-all duration-200 hover:bg-green-600 hover:text-white">Drive</a>
+            <a href="#"
+                class="py-4 text-center text-sm text-slate-300 transition-all duration-200 hover:bg-indigo-500 hover:text-white">Discord</a>
         </div>
-
-      </div>
-
-    </div>
-  </header>
-
-  <footer class="bg-slate-900 px-5 py-4 text-center text-slate-300">
-    <p>© 2026 Masanari Ichikawa</p>
-  </footer>
+    </nav>
 
 </body>
 
