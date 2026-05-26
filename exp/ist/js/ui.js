@@ -1,0 +1,164 @@
+function initializeSelects() {
+
+    const sessionSelect =
+        document.getElementById("sessionSelect");
+
+    const playerSelect =
+        document.getElementById("playerSelect");
+
+    ["選択"].forEach((label) => {
+
+        const s =
+            document.createElement("option");
+
+        s.value = "";
+        s.textContent = label;
+        s.selected = true;
+        s.disabled = true;
+
+        sessionSelect.appendChild(s);
+
+        const p =
+            document.createElement("option");
+
+        p.value = "";
+        p.textContent = label;
+        p.selected = true;
+        p.disabled = true;
+
+        playerSelect.appendChild(p);
+    });
+
+    for (let i = 1; i <= 20; i++) {
+
+        const s =
+            document.createElement("option");
+
+        s.value = i;
+        s.textContent = i;
+
+        sessionSelect.appendChild(s);
+
+        const p =
+            document.createElement("option");
+
+        p.value = i;
+        p.textContent = i;
+
+        playerSelect.appendChild(p);
+    }
+}
+
+function lockSessionID() {
+
+    const select =
+        document.getElementById("sessionSelect");
+
+    select.disabled = true;
+
+    select.classList.add("bg-gray-200");
+
+    startGameIfReady();
+}
+
+function lockPlayerID() {
+
+    const select =
+        document.getElementById("playerSelect");
+
+    select.disabled = true;
+
+    select.classList.add("bg-gray-200");
+
+    startGameIfReady();
+}
+
+function updateTrialCounter() {
+
+    const counter =
+        document.getElementById("trialCounter");
+
+    counter.textContent =
+        `Trial ${currentTrial}/${MAX_TRIAL}`;
+}
+
+function updateTotalScoreArea() {
+
+    const scoreArea =
+        document.getElementById("totalScoreArea");
+
+    if (!SHOW_TOTAL_SCORE) {
+
+        scoreArea.classList.add("hidden");
+
+        return;
+    }
+
+    scoreArea.textContent =
+        `Score ${totalScore}`;
+}
+
+function showTab(tab) {
+
+    const mainTab =
+        document.getElementById("mainTab");
+
+    const historyTab =
+        document.getElementById("historyTab");
+
+    const mainContent =
+        document.getElementById("mainContent");
+
+    const historyContent =
+        document.getElementById("historyContent");
+
+    if (tab === "main") {
+
+        mainContent.classList.remove("hidden");
+        historyContent.classList.add("hidden");
+
+        mainTab.className =
+            "border-b-2 border-blue-600 px-4 py-2 font-semibold text-blue-600";
+
+        historyTab.className =
+            "border-b-2 border-transparent px-4 py-2 font-semibold text-gray-500";
+
+    } else {
+
+        mainContent.classList.add("hidden");
+        historyContent.classList.remove("hidden");
+
+        mainTab.className =
+            "border-b-2 border-transparent px-4 py-2 font-semibold text-gray-500";
+
+        historyTab.className =
+            "border-b-2 border-blue-600 px-4 py-2 font-semibold text-blue-600";
+    }
+}
+
+function addHistoryRow(trial, imageName) {
+
+    const historyList =
+        document.getElementById("historyList");
+
+    const row =
+        document.createElement("div");
+
+    row.className =
+        "grid grid-cols-[80px_1fr] items-center border-t border-gray-200 px-4 py-3";
+
+    row.innerHTML = `
+    <div class="text-sm font-semibold">
+      ${trial}
+    </div>
+
+    <div class="flex items-center justify-center">
+      <img
+        src="images/${imageName}.png"
+        class="h-20 w-20 object-contain"
+      />
+    </div>
+  `;
+
+    historyList.prepend(row);
+}

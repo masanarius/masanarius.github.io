@@ -1,0 +1,7 @@
+initializeSelects();
+
+updateTrialCounter();
+
+updateTotalScoreArea();
+
+hideImages();
