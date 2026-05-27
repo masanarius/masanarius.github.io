@@ -6,3 +6,7 @@ const imageList = [];
 let currentImages = [];
 
 let historyData = [];
+
+let isSelectCoolingDown = false;
+let cooldownRemainingSec = 0;
+let cooldownTimer = null;

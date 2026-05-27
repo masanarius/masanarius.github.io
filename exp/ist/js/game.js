@@ -42,9 +42,15 @@ function refreshImages() {
     updateTotalScoreArea();
 
     setRandomImages();
+
+    saveGameState();
 }
 
 function selectImage(index) {
+
+    if (isSelectCoolingDown) {
+        return;
+    }
 
     if (!isReadyToStart()) {
         return;
@@ -94,6 +100,8 @@ function selectImage(index) {
 
     currentTrial++;
 
+    startSelectCooldown();
+
     updateTrialCounter();
 
     setTimeout(() => {
@@ -104,7 +112,50 @@ function selectImage(index) {
 
         if (currentTrial < MAX_TRIAL) {
             setRandomImages();
+            saveGameState();
+        } else {
+            clearGameState();
         }
 
     }, 700);
+}
+
+function resetGame() {
+
+    clearGameState();
+
+    location.reload();
+}
+
+function startSelectCooldown() {
+
+    isSelectCoolingDown = true;
+
+    cooldownRemainingSec =
+        SELECT_COOLDOWN_SEC;
+
+    updateCooldownArea();
+
+    if (cooldownTimer) {
+        clearInterval(cooldownTimer);
+    }
+
+    cooldownTimer = setInterval(() => {
+
+        cooldownRemainingSec--;
+
+        updateCooldownArea();
+
+        if (cooldownRemainingSec <= 0) {
+
+            clearInterval(cooldownTimer);
+
+            cooldownTimer = null;
+
+            isSelectCoolingDown = false;
+
+            updateCooldownArea();
+        }
+
+    }, 1000);
 }

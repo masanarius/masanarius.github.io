@@ -51,6 +51,10 @@
                 Score 0
             </div>
 
+
+
+
+
         </div>
 
         <!-- Tabs -->
@@ -64,11 +68,23 @@
                 onclick="showTab('history')">
                 History
             </button>
+            <button id="settingTab" class="border-b-2 border-transparent px-4 py-2 font-semibold text-gray-500"
+                onclick="showTab('setting')">
+                Setting
+            </button>
         </div>
 
         <!-- Main -->
         <div id="mainContent">
             <h1 class="mb-4 text-xl font-bold">Main</h1>
+
+            <div class="mb-4 flex justify-end">
+                <div id="cooldownArea"
+                    class="whitespace-nowrap rounded-xl bg-green-600 px-4 py-2 text-lg font-bold text-white">
+                    Select an image
+                </div>
+            </div>
+
 
             <div class="grid grid-cols-3 gap-2">
 
@@ -138,6 +154,15 @@
 
         </div>
 
+        <!-- Setting -->
+        <div id="settingContent" class="hidden">
+
+            <button onclick="resetGame()" class="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white">
+                RESET
+            </button>
+
+        </div>
+
     </div>
 
     <script src="js/config.js"></script>
@@ -147,6 +172,7 @@
     <script src="js/forms.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/game.js"></script>
+    <script src="js/storage.js"></script>
     <script src="js/main.js"></script>
 
 </body>

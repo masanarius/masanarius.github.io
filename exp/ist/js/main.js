@@ -1,7 +1,14 @@
 initializeSelects();
 
+const loaded =
+    loadGameState();
+
 updateTrialCounter();
 
 updateTotalScoreArea();
 
-hideImages();
+updateCooldownArea();
+
+if (!loaded) {
+    hideImages();
+}

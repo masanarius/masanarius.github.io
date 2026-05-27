@@ -62,6 +62,11 @@ function hideImages() {
 
 function setRandomImages() {
 
+    // リロード直後など imageList が空の場合の保険
+    if (imageList.length === 0) {
+        rebuildImageList();
+    }
+
     currentImages =
         getRandomImages(imageList, 3);
 

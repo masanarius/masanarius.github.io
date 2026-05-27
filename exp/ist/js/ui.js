@@ -106,32 +106,50 @@ function showTab(tab) {
     const historyTab =
         document.getElementById("historyTab");
 
+    const settingTab =
+        document.getElementById("settingTab");
+
     const mainContent =
         document.getElementById("mainContent");
 
     const historyContent =
         document.getElementById("historyContent");
 
+    const settingContent =
+        document.getElementById("settingContent");
+
+    mainContent.classList.add("hidden");
+    historyContent.classList.add("hidden");
+    settingContent.classList.add("hidden");
+
+    mainTab.className =
+        "border-b-2 border-transparent px-4 py-2 font-semibold text-gray-500";
+
+    historyTab.className =
+        "border-b-2 border-transparent px-4 py-2 font-semibold text-gray-500";
+
+    settingTab.className =
+        "border-b-2 border-transparent px-4 py-2 font-semibold text-gray-500";
+
     if (tab === "main") {
 
         mainContent.classList.remove("hidden");
-        historyContent.classList.add("hidden");
 
         mainTab.className =
             "border-b-2 border-blue-600 px-4 py-2 font-semibold text-blue-600";
 
-        historyTab.className =
-            "border-b-2 border-transparent px-4 py-2 font-semibold text-gray-500";
+    } else if (tab === "history") {
 
-    } else {
-
-        mainContent.classList.add("hidden");
         historyContent.classList.remove("hidden");
 
-        mainTab.className =
-            "border-b-2 border-transparent px-4 py-2 font-semibold text-gray-500";
-
         historyTab.className =
+            "border-b-2 border-blue-600 px-4 py-2 font-semibold text-blue-600";
+
+    } else if (tab === "setting") {
+
+        settingContent.classList.remove("hidden");
+
+        settingTab.className =
             "border-b-2 border-blue-600 px-4 py-2 font-semibold text-blue-600";
     }
 }
@@ -161,4 +179,27 @@ function addHistoryRow(trial, imageName) {
   `;
 
     historyList.prepend(row);
+}
+
+function updateCooldownArea() {
+
+    const area =
+        document.getElementById("cooldownArea");
+
+    if (!isSelectCoolingDown) {
+
+        area.className =
+            "whitespace-nowrap rounded-xl bg-green-600 px-4 py-2 text-lg font-bold text-white";
+
+        area.textContent =
+            "Select an Image";
+
+        return;
+    }
+
+    area.className =
+        "whitespace-nowrap rounded-xl bg-gray-200 px-4 py-2 text-lg font-bold text-black";
+
+    area.textContent =
+        `Cooldown ${cooldownRemainingSec}`;
 }
