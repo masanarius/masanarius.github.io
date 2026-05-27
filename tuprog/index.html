@@ -39,25 +39,29 @@
 
             <table class="w-full border-collapse text-sm">
                 <tbody>
-                    <td class="border px-4 py-2">2026/5/14</td>
-                    <td class="border px-4 py-2">
-                        <ul class="list-disc pl-5">
-                            <li>テキストPart C01, D08を加筆・修正しました．</li>
-                            <li>課題D08ではC01に新たに掲載している演算子「//」を使う必要があります．またD08の計算は単位をメートルとして計算に小数を使わないことをお勧めします．</li>
-                        </ul>
-                    </td>
-                    </tr>
+                    <!-- 最新のアナウンス -->
                     <tr>
-                        <td class="border px-4 py-2">2026/5/7</td>
+                        <td class="border px-4 py-2 whitespace-nowrap">2026/5/14</td>
                         <td class="border px-4 py-2">
                             <ul class="list-disc pl-5">
-                                <li>テキストPart Cを加筆・修正しました．</li>
-
+                                <li>テキストPart C01, D08を加筆・修正しました．</li>
+                                <li>課題D08ではC01に新たに掲載している演算子「//」を使う必要があります．またD08の計算は単位をメートルとして計算に小数を使わないことをお勧めします．</li>
                             </ul>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="border px-4 py-2">2026/4/23</td>
+
+                    <!-- 2行目以降のアナウンス（初期状態では非表示） -->
+                    <tr class="announcement-extra hidden">
+                        <td class="border px-4 py-2 whitespace-nowrap">2026/5/7</td>
+                        <td class="border px-4 py-2">
+                            <ul class="list-disc pl-5">
+                                <li>テキストPart Cを加筆・修正しました．</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr class="announcement-extra hidden">
+                        <td class="border px-4 py-2 whitespace-nowrap">2026/4/23</td>
                         <td class="border px-4 py-2">
                             <ul class="list-disc pl-5">
                                 <li>共有リンクが正しく設定できていなかった何人かの学生にメールを送りました．</li>
@@ -65,8 +69,9 @@
                             </ul>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="border px-4 py-2">2026/4/16</td>
+
+                    <tr class="announcement-extra hidden">
+                        <td class="border px-4 py-2 whitespace-nowrap">2026/4/16</td>
                         <td class="border px-4 py-2">
                             <ul class="list-disc pl-5">
                                 <li>授業スケジュールを変更しました</li>
@@ -77,11 +82,17 @@
                                 </ul>
                                 <li>テキストのPart Zにおける誤植を修正しました．</li>
                             </ul>
-
                         </td>
                     </tr>
                 </tbody>
             </table>
+
+            <div class="mt-4 text-center">
+                <button id="announcementToggle" type="button"
+                    class="rounded-full border border-slate-300 bg-white px-5 py-2 text-sm text-slate-700 transition hover:bg-slate-100">
+                    過去のお知らせを見る
+                </button>
+            </div>
         </section>
 
         <!-- CONTENTS -->
@@ -110,208 +121,218 @@
                         </tr>
                     </thead>
 
-                <tbody>
+                    <tbody>
 
-                    <!-- A -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/a.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">図形描画と関数</td>
-                        <td class="border px-4 py-2 text-center">6</td>
-                        <td class="border px-4 py-2 text-center">5</td>
-                        <td class="border px-4 py-2 text-center">#1, 2</td>
-                        <td class="border px-4 py-2 text-center">4/16, 4/23</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://drive.google.com/drive/folders/1OL90BqeVgT9LbE4BWIeeVlvl4v4PuGwD?usp=drive_link"
-                                target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
-                        </td>
-                        <td class="border px-4 py-2 text-center">4/29</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://forms.cloud.microsoft/r/TFgWHXs8pn" target="_blank"
-                                rel="noopener noreferrer" class="text-blue-600">提出する</a>
-                        </td>
-                    </tr>
+                        <!-- A -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/a.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">図形描画と関数</td>
+                            <td class="border px-4 py-2 text-center">6</td>
+                            <td class="border px-4 py-2 text-center">5</td>
+                            <td class="border px-4 py-2 text-center">#1, 2</td>
+                            <td class="border px-4 py-2 text-center">4/16, 4/23</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://drive.google.com/drive/folders/1OL90BqeVgT9LbE4BWIeeVlvl4v4PuGwD?usp=drive_link"
+                                    target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
+                            </td>
+                            <td class="border px-4 py-2 text-center">4/29</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://forms.cloud.microsoft/r/TFgWHXs8pn" target="_blank"
+                                    rel="noopener noreferrer" class="text-blue-600">提出する</a>
+                            </td>
+                        </tr>
 
-                    <!-- B -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/b.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">テキスト入出力と変数</td>
-                        <td class="border px-4 py-2 text-center">8</td>
+                        <!-- B -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/b.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">テキスト入出力と変数</td>
+                            <td class="border px-4 py-2 text-center">8</td>
 
-                        <td class="border px-4 py-2 text-center">5</td>
-                        <td class="border px-4 py-2 text-center">#3</td>
-                        <td class="border px-4 py-2 text-center">4/30</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://drive.google.com/drive/folders/1O_B_FdGo_EZgwr9CBg_79quoUlOFSUL6?usp=drive_link"
-                                target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
-                        </td>
-                        <td class="border px-4 py-2 text-center">5/6</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://forms.cloud.microsoft/r/kAPa1Kagz3" target="_blank"
-                                rel="noopener noreferrer" class="text-blue-600">提出する</a>
-                        </td>
-                    </tr>
+                            <td class="border px-4 py-2 text-center">5</td>
+                            <td class="border px-4 py-2 text-center">#3</td>
+                            <td class="border px-4 py-2 text-center">4/30</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://drive.google.com/drive/folders/1O_B_FdGo_EZgwr9CBg_79quoUlOFSUL6?usp=drive_link"
+                                    target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
+                            </td>
+                            <td class="border px-4 py-2 text-center">5/6</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://forms.cloud.microsoft/r/kAPa1Kagz3" target="_blank"
+                                    rel="noopener noreferrer" class="text-blue-600">提出する</a>
+                            </td>
+                        </tr>
 
-                    <!-- C -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/c.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">算術演算</td>
-                        <td class="border px-4 py-2 text-center">6</td>
+                        <!-- C -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/c.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">算術演算</td>
+                            <td class="border px-4 py-2 text-center">6</td>
 
-                        <td class="border px-4 py-2 text-center">5</td>
-                        <td class="border px-4 py-2 text-center">#4</td>
-                        <td class="border px-4 py-2 text-center">5/7</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://drive.google.com/drive/folders/1swr3KttnRy2SKaqgyGftVtQSYlOgf66t?usp=drive_link"
-                                target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
-                        </td>
-                        <td class="border px-4 py-2 text-center">5/13</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://forms.cloud.microsoft/r/dktYgahwGz" target="_blank"
-                                rel="noopener noreferrer" class="text-blue-600">提出する</a>
-                        </td>
-                    </tr>
+                            <td class="border px-4 py-2 text-center">5</td>
+                            <td class="border px-4 py-2 text-center">#4</td>
+                            <td class="border px-4 py-2 text-center">5/7</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://drive.google.com/drive/folders/1swr3KttnRy2SKaqgyGftVtQSYlOgf66t?usp=drive_link"
+                                    target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
+                            </td>
+                            <td class="border px-4 py-2 text-center">5/13</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://forms.cloud.microsoft/r/dktYgahwGz" target="_blank"
+                                    rel="noopener noreferrer" class="text-blue-600">提出する</a>
+                            </td>
+                        </tr>
 
-                    <!-- D -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/d.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">条件分岐</td>
-                        <td class="border px-4 py-2 text-center">9</td>
+                        <!-- D -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/d.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">条件分岐</td>
+                            <td class="border px-4 py-2 text-center">9</td>
 
-                        <td class="border px-4 py-2 text-center">5</td>
-                        <td class="border px-4 py-2 text-center">#5</td>
-                        <td class="border px-4 py-2 text-center">5/14</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://drive.google.com/drive/folders/1ZbOWrbfc9dI8AFgALxK_V2DudOg1q5U1?usp=drive_link"
-                                target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
-                        </td>
-                        <td class="border px-4 py-2 text-center">5/20</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://forms.cloud.microsoft/r/jvSX3H4VwN" target="_blank"
-                                rel="noopener noreferrer" class="text-blue-600">提出する</a>
-                        </td>
-                    </tr>
+                            <td class="border px-4 py-2 text-center">5</td>
+                            <td class="border px-4 py-2 text-center">#5</td>
+                            <td class="border px-4 py-2 text-center">5/14</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://drive.google.com/drive/folders/1ZbOWrbfc9dI8AFgALxK_V2DudOg1q5U1?usp=drive_link"
+                                    target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
+                            </td>
+                            <td class="border px-4 py-2 text-center">5/20</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://forms.cloud.microsoft/r/jvSX3H4VwN" target="_blank"
+                                    rel="noopener noreferrer" class="text-blue-600">提出する</a>
+                            </td>
+                        </tr>
 
-                    <!-- E -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/e.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">繰り返し for ループ</td>
-                        <td class="border px-4 py-2 text-center">7</td>
+                        <!-- E -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/e.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">繰り返し for ループ</td>
+                            <td class="border px-4 py-2 text-center">7</td>
 
-                        <td class="border px-4 py-2 text-center">5</td>
-                        <td class="border px-4 py-2 text-center">#6, 7</td>
-                        <td class="border px-4 py-2 text-center">5/21, 5/28</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://drive.google.com/drive/folders/1772hg71nsG19YuEaxbU7miKyl5Wb3PdW?usp=drive_link"
-                                target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
-                        </td>
-                        <td class="border px-4 py-2 text-center">6/3</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://forms.cloud.microsoft/r/zAGH4ybcg4" target="_blank"
-                                rel="noopener noreferrer" class="text-blue-600">提出する</a>
-                        </td>
-                    </tr>
+                            <td class="border px-4 py-2 text-center">5</td>
+                            <td class="border px-4 py-2 text-center">#6, 7</td>
+                            <td class="border px-4 py-2 text-center">5/21, 5/28</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://drive.google.com/drive/folders/1772hg71nsG19YuEaxbU7miKyl5Wb3PdW?usp=drive_link"
+                                    target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
+                            </td>
+                            <td class="border px-4 py-2 text-center">6/3</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://forms.cloud.microsoft/r/zAGH4ybcg4" target="_blank"
+                                    rel="noopener noreferrer" class="text-blue-600">提出する</a>
+                            </td>
+                        </tr>
 
-                    <!-- F -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/f.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">繰り返し while ループ</td>
-                        <td class="border px-4 py-2 text-center">7</td>
+                        <!-- F -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/f.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">繰り返し while ループ</td>
+                            <td class="border px-4 py-2 text-center">7</td>
 
-                        <td class="border px-4 py-2 text-center">5</td>
-                        <td class="border px-4 py-2 text-center">#8</td>
-                        <td class="border px-4 py-2 text-center">6/4</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://drive.google.com/drive/folders/1igvrtVbeDQsanrS7WvVCiOOYHAYc4gsH?usp=drive_link"
-                                target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
-                        </td>
-                        <td class="border px-4 py-2 text-center">6/10</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://forms.cloud.microsoft/r/cRkuBMFAVW" target="_blank"
-                                rel="noopener noreferrer" class="text-blue-600">提出する</a>
-                        </td>
-                    </tr>
+                            <td class="border px-4 py-2 text-center">5</td>
+                            <td class="border px-4 py-2 text-center">#8</td>
+                            <td class="border px-4 py-2 text-center">6/4</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://drive.google.com/drive/folders/1igvrtVbeDQsanrS7WvVCiOOYHAYc4gsH?usp=drive_link"
+                                    target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
+                            </td>
+                            <td class="border px-4 py-2 text-center">6/10</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://forms.cloud.microsoft/r/cRkuBMFAVW" target="_blank"
+                                    rel="noopener noreferrer" class="text-blue-600">提出する</a>
+                            </td>
+                        </tr>
 
-                    <!-- G -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/g.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">配列</td>
-                        <td class="border px-4 py-2 text-center">10</td>
+                        <!-- G -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/g.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">配列</td>
+                            <td class="border px-4 py-2 text-center">10</td>
 
-                        <td class="border px-4 py-2 text-center">5</td>
-                        <td class="border px-4 py-2 text-center">#9, 10</td>
-                        <td class="border px-4 py-2 text-center">6/11, 6/18</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://drive.google.com/drive/folders/1_4NBtb5x0RsGAJ8hqgn0mp7FfKskXGDf?usp=sharing"
-                                target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
-                        </td>
-                        <td class="border px-4 py-2 text-center">6/24</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://forms.cloud.microsoft/r/ikXQnT9gdw" target="_blank"
-                                rel="noopener noreferrer" class="text-blue-600">提出する</a>
-                        </td>
-                    </tr>
+                            <td class="border px-4 py-2 text-center">5</td>
+                            <td class="border px-4 py-2 text-center">#9, 10</td>
+                            <td class="border px-4 py-2 text-center">6/11, 6/18</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://drive.google.com/drive/folders/1_4NBtb5x0RsGAJ8hqgn0mp7FfKskXGDf?usp=sharing"
+                                    target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
+                            </td>
+                            <td class="border px-4 py-2 text-center">6/24</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://forms.cloud.microsoft/r/ikXQnT9gdw" target="_blank"
+                                    rel="noopener noreferrer" class="text-blue-600">提出する</a>
+                            </td>
+                        </tr>
 
-                    <!-- H -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/h.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">外部データのよみかき</td>
-                        <td class="border px-4 py-2 text-center">14</td>
+                        <!-- H -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/h.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">外部データのよみかき</td>
+                            <td class="border px-4 py-2 text-center">14</td>
 
-                        <td class="border px-4 py-2 text-center">5</td>
-                        <td class="border px-4 py-2 text-center">#11, 12</td>
-                        <td class="border px-4 py-2 text-center">6/25, 7/2</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://drive.google.com/drive/folders/1-uOpi38x7198ejGkFyfdnZjj7g5bPN8I?usp=drive_link"
-                                target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
-                        </td>
-                        <td class="border px-4 py-2 text-center">7/8</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://forms.cloud.microsoft/r/K79gL1GWxm" target="_blank"
-                                rel="noopener noreferrer" class="text-blue-600">提出する</a>
-                        </td>
-                    </tr>
+                            <td class="border px-4 py-2 text-center">5</td>
+                            <td class="border px-4 py-2 text-center">#11, 12</td>
+                            <td class="border px-4 py-2 text-center">6/25, 7/2</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://drive.google.com/drive/folders/1-uOpi38x7198ejGkFyfdnZjj7g5bPN8I?usp=drive_link"
+                                    target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
+                            </td>
+                            <td class="border px-4 py-2 text-center">7/8</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://forms.cloud.microsoft/r/K79gL1GWxm" target="_blank"
+                                    rel="noopener noreferrer" class="text-blue-600">提出する</a>
+                            </td>
+                        </tr>
 
-                    <!-- Q -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/q.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">期末課題</td>
-                        <td class="border px-4 py-2 text-center">10</td>
+                        <!-- Q -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/q.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">期末課題</td>
+                            <td class="border px-4 py-2 text-center">10</td>
 
-                        <td class="border px-4 py-2 text-center">60</td>
-                        <td class="border px-4 py-2 text-center">#13 - 15</td>
-                        <td class="border px-4 py-2 text-center">7/9, 7/16, 7/30</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://drive.google.com/drive/folders/1OXg-czVdJ3_cNqb0gMo_BER6rAXrzgBm?usp=drive_link"
-                                target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
-                        </td>
-                        <td class="border px-4 py-2 text-center">8/5</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://forms.cloud.microsoft/r/9eR2jc0Q1K" target="_blank"
-                                rel="noopener noreferrer" class="text-blue-600">提出する</a>
-                        </td>
-                    </tr>
+                            <td class="border px-4 py-2 text-center">60</td>
+                            <td class="border px-4 py-2 text-center">#13 - 15</td>
+                            <td class="border px-4 py-2 text-center">7/9, 7/16, 7/30</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://drive.google.com/drive/folders/1OXg-czVdJ3_cNqb0gMo_BER6rAXrzgBm?usp=drive_link"
+                                    target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
+                            </td>
+                            <td class="border px-4 py-2 text-center">8/5</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://forms.cloud.microsoft/r/9eR2jc0Q1K" target="_blank"
+                                    rel="noopener noreferrer" class="text-blue-600">提出する</a>
+                            </td>
+                        </tr>
 
-                    <!-- Z -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/z.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">ガイダンス</td>
-                        <td class="border px-4 py-2 text-center">5</td>
+                        <!-- Z -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/z.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">ガイダンス</td>
+                            <td class="border px-4 py-2 text-center">5</td>
 
-                        <td class="border px-4 py-2 text-center">0</td>
-                        <td class="border px-4 py-2 text-center">#1</td>
-                        <td class="border px-4 py-2 text-center">4/16</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://drive.google.com/drive/folders/1EcVRC8zy94yoKJZ5FbJttOxWTbI9dWqW?usp=drive_link"
-                                target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
-                        </td>
-                        <td class="border px-4 py-2 text-center">4/16</td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="https://forms.cloud.microsoft/r/0zdrdYtNqJ" target="_blank"
-                                rel="noopener noreferrer" class="text-blue-600">提出する</a>
-                        </td>
-                    </tr>
+                            <td class="border px-4 py-2 text-center">0</td>
+                            <td class="border px-4 py-2 text-center">#1</td>
+                            <td class="border px-4 py-2 text-center">4/16</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://drive.google.com/drive/folders/1EcVRC8zy94yoKJZ5FbJttOxWTbI9dWqW?usp=drive_link"
+                                    target="_blank" rel="noopener noreferrer" class="text-blue-600">開く</a>
+                            </td>
+                            <td class="border px-4 py-2 text-center">4/16</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="https://forms.cloud.microsoft/r/0zdrdYtNqJ" target="_blank"
+                                    rel="noopener noreferrer" class="text-blue-600">提出する</a>
+                            </td>
+                        </tr>
 
-                </tbody>
+                    </tbody>
                 </table>
             </div>
         </section>
@@ -345,63 +366,67 @@
                         </tr>
                     </thead>
 
-                <tbody>
+                    <tbody>
 
-                    <!-- A -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/a.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">図形描画と関数</td>
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- points -->
-                        <td class="border px-4 py-2 text-center">28</td> <!-- accept -->
-                        <td class="border px-4 py-2 text-center">4.9</td> <!-- average -->
-                        <td class="border px-4 py-2 text-center">4.0</td> <!-- min -->
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- Q1 -->
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- Q2 -->
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- Q3 -->
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- max -->
-                    </tr>
-                    <!-- B -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/b.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">テキスト入出力と変数</td>
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- points -->
-                        <td class="border px-4 py-2 text-center">27</td> <!-- accept -->
-                        <td class="border px-4 py-2 text-center">4.4</td> <!-- average -->
-                        <td class="border px-4 py-2 text-center">3.0</td> <!-- min -->
-                        <td class="border px-4 py-2 text-center">4.0</td> <!-- Q1 -->
-                        <td class="border px-4 py-2 text-center">4.5</td> <!-- Q2 -->
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- Q3 -->
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- max -->
-                    </tr>
+                        <!-- A -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/a.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">図形描画と関数</td>
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- points -->
+                            <td class="border px-4 py-2 text-center">28</td> <!-- accept -->
+                            <td class="border px-4 py-2 text-center">4.9</td> <!-- average -->
+                            <td class="border px-4 py-2 text-center">4.0</td> <!-- min -->
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- Q1 -->
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- Q2 -->
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- Q3 -->
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- max -->
+                        </tr>
+                        <!-- B -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/b.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">テキスト入出力と変数</td>
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- points -->
+                            <td class="border px-4 py-2 text-center">27</td> <!-- accept -->
+                            <td class="border px-4 py-2 text-center">4.4</td> <!-- average -->
+                            <td class="border px-4 py-2 text-center">3.0</td> <!-- min -->
+                            <td class="border px-4 py-2 text-center">4.0</td> <!-- Q1 -->
+                            <td class="border px-4 py-2 text-center">4.5</td> <!-- Q2 -->
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- Q3 -->
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- max -->
+                        </tr>
 
-                    <!-- C -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/c.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">算術演算</td>
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- points -->
-                        <td class="border px-4 py-2 text-center">25</td> <!-- accept -->
-                        <td class="border px-4 py-2 text-center">4.6</td> <!-- average -->
-                        <td class="border px-4 py-2 text-center">4.0</td> <!-- min -->
-                        <td class="border px-4 py-2 text-center">4.1</td> <!-- Q1 -->
-                        <td class="border px-4 py-2 text-center">4.5</td> <!-- Q2 -->
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- Q3 -->
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- max -->
-                    </tr>
+                        <!-- C -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/c.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">算術演算</td>
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- points -->
+                            <td class="border px-4 py-2 text-center">25</td> <!-- accept -->
+                            <td class="border px-4 py-2 text-center">4.6</td> <!-- average -->
+                            <td class="border px-4 py-2 text-center">4.0</td> <!-- min -->
+                            <td class="border px-4 py-2 text-center">4.1</td> <!-- Q1 -->
+                            <td class="border px-4 py-2 text-center">4.5</td> <!-- Q2 -->
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- Q3 -->
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- max -->
+                        </tr>
 
-                    <!-- D -->
-                    <tr>
-                        <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/d.png" class="h-8 mx-auto"></td>
-                        <td class="border px-4 py-2">条件分岐</td>
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- points -->
-                        <td class="border px-4 py-2 text-center">24</td> <!-- accept -->
-                        <td class="border px-4 py-2 text-center">4.9</td> <!-- average -->
-                        <td class="border px-4 py-2 text-center">4.0</td> <!-- min -->
-                        <td class="border px-4 py-2 text-center">4.1</td> <!-- Q1 -->
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- Q2 -->
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- Q3 -->
-                        <td class="border px-4 py-2 text-center">5.0</td> <!-- max -->
-                    </tr>
-                </tbody>
+                        <!-- D -->
+                        <tr>
+                            <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img src="img/d.png"
+                                    class="h-8 mx-auto"></td>
+                            <td class="border px-4 py-2">条件分岐</td>
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- points -->
+                            <td class="border px-4 py-2 text-center">24</td> <!-- accept -->
+                            <td class="border px-4 py-2 text-center">4.9</td> <!-- average -->
+                            <td class="border px-4 py-2 text-center">4.0</td> <!-- min -->
+                            <td class="border px-4 py-2 text-center">4.1</td> <!-- Q1 -->
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- Q2 -->
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- Q3 -->
+                            <td class="border px-4 py-2 text-center">5.0</td> <!-- max -->
+                        </tr>
+                    </tbody>
                 </table>
             </div>
 
@@ -484,6 +509,21 @@
             </a>
         </div>
     </nav>
+
+    <script>
+        const announcementToggle = document.getElementById('announcementToggle');
+        const announcementExtraRows = document.querySelectorAll('.announcement-extra');
+
+        announcementToggle.addEventListener('click', () => {
+            const isHidden = announcementExtraRows[0].classList.contains('hidden');
+
+            announcementExtraRows.forEach((row) => {
+                row.classList.toggle('hidden');
+            });
+
+            announcementToggle.textContent = isHidden ? '閉じる' : 'もっと見る';
+        });
+    </script>
 
 </body>
 
