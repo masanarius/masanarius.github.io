@@ -31,69 +31,104 @@
             </p>
         </section>
 
-        <!-- INFORMATION -->
+        <!-- announcement -->
         <section class="mb-16">
             <h2 class="mb-6 text-xl font-medium tracking-[0.18em] text-slate-900">
                 ANNOUNCEMENT
             </h2>
 
-            <table class="w-full border-collapse text-sm">
-                <tbody>
-                    <!-- 最新のアナウンス -->
-                    <tr>
-                        <td class="border px-4 py-2 whitespace-nowrap">2026/5/14</td>
-                        <td class="border px-4 py-2">
-                            <ul class="list-disc pl-5">
-                                <li>テキストPart C01, D08を加筆・修正しました．</li>
-                                <li>課題D08ではC01に新たに掲載している演算子「//」を使う必要があります．またD08の計算は単位をメートルとして計算に小数を使わないことをお勧めします．</li>
-                            </ul>
-                        </td>
-                    </tr>
+            <!-- 最新のお知らせ -->
+            <article class="mb-4 rounded-xl border border-slate-200 bg-white p-5">
 
-                    <!-- 2行目以降のアナウンス（初期状態では非表示） -->
-                    <tr class="announcement-extra hidden">
-                        <td class="border px-4 py-2 whitespace-nowrap">2026/5/7</td>
-                        <td class="border px-4 py-2">
-                            <ul class="list-disc pl-5">
-                                <li>テキストPart Cを加筆・修正しました．</li>
-                            </ul>
-                        </td>
-                    </tr>
+                <div class="mb-2 text-sm text-slate-400">
+                    2026.05.14 更新
+                </div>
 
-                    <tr class="announcement-extra hidden">
-                        <td class="border px-4 py-2 whitespace-nowrap">2026/4/23</td>
-                        <td class="border px-4 py-2">
-                            <ul class="list-disc pl-5">
-                                <li>共有リンクが正しく設定できていなかった何人かの学生にメールを送りました．</li>
-                                <li>メールを受け取った学生は，期日までに正しいリンクで再提出してください．</li>
-                            </ul>
-                        </td>
-                    </tr>
+                <h3 class="mb-3 text-lg font-medium text-slate-900">
+                    テキスト修正について
+                </h3>
 
-                    <tr class="announcement-extra hidden">
-                        <td class="border px-4 py-2 whitespace-nowrap">2026/4/16</td>
-                        <td class="border px-4 py-2">
-                            <ul class="list-disc pl-5">
-                                <li>授業スケジュールを変更しました</li>
-                                <ul class="list-disc pl-5">
-                                    <li>Part A を1授業回分追加する代わりに，Part Hを1授業回分削減しました．</li>
-                                    <li>これに伴い，Part B ~ G の実施回を当初の予定より1週ずつ後ろにずらします．</li>
-                                    <li>これに伴い，Part Aの課題締め切りは4/29に延期されました．</li>
-                                </ul>
-                                <li>テキストのPart Zにおける誤植を修正しました．</li>
-                            </ul>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <ul class="list-disc space-y-2 pl-5 text-sm leading-7 text-slate-700">
+                    <li>
+                        テキスト Part C01, D08 を加筆・修正しました．
+                    </li>
 
-            <div class="mt-4 text-center">
-                <button id="announcementToggle" type="button"
-                    class="rounded-full border border-slate-300 bg-white px-5 py-2 text-sm text-slate-700 transition hover:bg-slate-100">
-                    過去のお知らせを見る
-                </button>
-            </div>
+                    <li>
+                        課題 D08 では，新たに掲載した演算子「//」を使うと便利です．
+                    </li>
+
+                    <li>
+                        D08 の計算は，単位をメートルとして小数を使わないことを推奨します．
+                    </li>
+                </ul>
+
+            </article>
+
+            <!-- 過去のお知らせ -->
+            <details class="group">
+
+                <summary
+                    class="cursor-pointer list-none rounded-full border border-slate-300 bg-white px-5 py-2 text-center text-sm text-slate-700 transition hover:bg-slate-100">
+
+                    <span class="group-open:hidden">
+                        過去のお知らせを見る
+                    </span>
+
+                    <span class="hidden group-open:inline">
+                        閉じる
+                    </span>
+
+                </summary>
+
+                <div class="mt-6 space-y-4">
+
+                    <!-- 2026.05.07 -->
+                    <article class="rounded-xl border border-slate-200 bg-white p-5">
+
+                        <div class="mb-2 text-sm text-slate-400">
+                            2026.05.07 更新
+                        </div>
+
+                        <h3 class="mb-3 text-lg font-medium text-slate-900">
+                            テキスト修正
+                        </h3>
+
+                        <ul class="list-disc space-y-2 pl-5 text-sm leading-7 text-slate-700">
+                            <li>
+                                テキスト Part C を加筆・修正しました．
+                            </li>
+                        </ul>
+
+                    </article>
+
+                    <!-- 2026.04.23 -->
+                    <article class="rounded-xl border border-slate-200 bg-white p-5">
+
+                        <div class="mb-2 text-sm text-slate-400">
+                            2026.04.23 更新
+                        </div>
+
+                        <h3 class="mb-3 text-lg font-medium text-slate-900">
+                            共有リンク設定について
+                        </h3>
+
+                        <ul class="list-disc space-y-2 pl-5 text-sm leading-7 text-slate-700">
+                            <li>
+                                共有リンクが正しく設定されていなかった学生にメールを送りました．
+                            </li>
+
+                            <li>
+                                メールを受け取った学生は，期日までに正しいリンクで再提出してください．
+                            </li>
+                        </ul>
+
+                    </article>
+
+                </div>
+
+            </details>
         </section>
+
 
         <!-- CONTENTS -->
         <section class="mb-16">
