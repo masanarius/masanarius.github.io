@@ -25,9 +25,27 @@
     </section>
     <!-- CONTENTS -->
     <section class="mb-16">
-      <h2 class="mb-6 text-xl font-medium tracking-[0.18em] text-slate-900">
-        CONTENTS
-      </h2>
+      <div class="mb-6 flex items-center justify-between gap-4">
+        <h2 class="text-xl font-medium tracking-[0.18em] text-slate-900">
+          CONTENTS
+        </h2>
+
+        <div id="contentsFilter" class="flex flex-wrap justify-end gap-4 text-sm text-slate-600">
+          <label class="inline-flex items-center gap-1">
+            <input type="checkbox" data-filter-group="ai" />
+            A-I
+          </label>
+          <label class="inline-flex items-center gap-1">
+            <input type="checkbox" data-filter-group="jq" checked />
+            J-Q
+          </label>
+          <label class="inline-flex items-center gap-1">
+            <input type="checkbox" data-filter-group="sz" checked />
+            S,Z
+          </label>
+        </div>
+      </div>
+
       <div class="overflow-x-auto">
         <table class="min-w-[1200px] border-collapse text-sm">
           <thead class="bg-slate-100">
@@ -47,7 +65,7 @@
           </thead>
           <tbody>
             <!-- A -->
-            <tr>
+            <tr data-content-group="ai">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/a.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">インターネットと情報社会</td>
@@ -66,7 +84,7 @@
               </td>
             </tr>
             <!-- B -->
-            <tr>
+            <tr data-content-group="ai">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/b.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">コンピュータ</td>
@@ -85,7 +103,7 @@
               </td>
             </tr>
             <!-- C -->
-            <tr>
+            <tr data-content-group="ai">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/c.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">メール</td>
@@ -104,7 +122,7 @@
               </td>
             </tr>
             <!-- D -->
-            <tr>
+            <tr data-content-group="ai">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/d.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">情報収集</td>
@@ -123,7 +141,7 @@
               </td>
             </tr>
             <!-- E -->
-            <tr>
+            <tr data-content-group="ai">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/e.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">Word</td>
@@ -142,7 +160,7 @@
               </td>
             </tr>
             <!-- F -->
-            <tr>
+            <tr data-content-group="ai">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/f.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">文献引用</td>
@@ -159,7 +177,7 @@
               <td class="border px-4 py-2 text-center">-</td>
             </tr>
             <!-- G -->
-            <tr>
+            <tr data-content-group="ai">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/g.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">サイバー攻撃と情報保護</td>
@@ -178,7 +196,7 @@
               </td>
             </tr>
             <!-- H -->
-            <tr>
+            <tr data-content-group="ai">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/h.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">AIと機械学習</td>
@@ -197,7 +215,7 @@
               </td>
             </tr>
             <!-- I -->
-            <tr>
+            <tr data-content-group="ai">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/i.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">強化学習</td>
@@ -216,7 +234,7 @@
               </td>
             </tr>
             <!-- J -->
-            <tr>
+            <tr data-content-group="jq">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/j.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">データと倫理</td>
@@ -235,7 +253,7 @@
               </td>
             </tr>
             <!-- K -->
-            <tr>
+            <tr data-content-group="jq">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/k.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">PowerPoint</td>
@@ -254,7 +272,7 @@
               </td>
             </tr>
             <!-- L -->
-            <tr>
+            <tr data-content-group="jq">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/l.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">Excel</td>
@@ -273,7 +291,7 @@
               </td>
             </tr>
             <!-- M -->
-            <tr>
+            <tr data-content-group="jq">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/m.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">関数</td>
@@ -292,7 +310,7 @@
               </td>
             </tr>
             <!-- N -->
-            <tr>
+            <tr data-content-group="jq">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/n.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">グラフ</td>
@@ -311,7 +329,7 @@
               </td>
             </tr>
             <!-- O -->
-            <tr>
+            <tr data-content-group="jq">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/o.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">統計と実験法</td>
@@ -330,7 +348,7 @@
               </td>
             </tr>
             <!-- P -->
-            <tr>
+            <tr data-content-group="jq">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/p.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">データサイエンス</td>
@@ -349,7 +367,7 @@
               </td>
             </tr>
             <!-- Q -->
-            <tr>
+            <tr data-content-group="jq">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/q.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">プレゼンテーション</td>
@@ -368,7 +386,7 @@
               </td>
             </tr>
             <!-- S: まとめ -->
-            <tr>
+            <tr data-content-group="sz">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/s.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">まとめ</td>
@@ -385,7 +403,7 @@
               <td class="border px-4 py-2 text-center">-</td>
             </tr>
             <!-- Z: ガイダンス -->
-            <tr>
+            <tr data-content-group="sz">
               <td class="sticky left-0 z-10 bg-white border px-4 py-2 text-center"><img class="h-8 mx-auto"
                   src="img/z.png" /></td>
               <td class="border px-4 py-2 whitespace-nowrap">ガイダンス</td>
@@ -405,19 +423,159 @@
         </table>
       </div>
     </section>
-    <!-- INFORMATION -->
+
+    <!-- ANNOUNCEMENT -->
     <section class="mb-16">
-      <h2 class="mb-6 text-xl font-medium tracking-[0.18em] text-slate-900">
+      <h2 class="mt-3 mb-6 text-xl font-medium tracking-[0.18em] text-slate-900">
         ANNOUNCEMENT
       </h2>
-      <h3 class="mb-1 text-lg font-medium text-slate-900">欠席した授業における成績の取り扱い（2026.05.07 更新）</h3>
-      <p class="text-sm text-slate-600">
-        ガイダンスでも説明した通り，この授業では講義の出席・欠席に関わらず，成績は小テストやレポートの成績によって採点されます．
-        したがって講義を欠席した場合でも，期日までに課題提出を終えていなければ，そのパートの評価に影響しますので注意してください．
-        ただし，疾病など長期的に課題に取り組むことが困難な事由があった場合，客観的にそのことを証明できる資料が提示されれば，例外的に別途課題を指示します．
-      </p>
 
+      <div class="announcement-item">
+        <h3 class="accordion-header mt-6">
+          <span class="arrow">▶</span>
+          Part H: Webカメラを利用した演習に伴うグループの編成と登録（2026.06.04 更新）
+        </h3>
+
+        <div class="accordion-content">
+          <p class="text-sm text-slate-600 mt-3">
+            H99 では，Webカメラを利用した演習を行います．
+            貸し出せるWebカメラの数に限りがあるので，Part H の授業までに，4人以上のグループを各自で結成してください．
+            また，各グループで学籍番号が一番若い人は，下記のリンクからグループ登録を行なってください．
+          </p>
+
+          <p class="text-sm text-slate-600 mt-3">
+            <a href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=Pz6yVUTcNEGYkBfdIwxgz-n0HwcChJZDlR5vtTVjDeBUMDJVR0FUVlBOUFVKNDFWUzdaRlNBTlROMS4u"
+              target="_blank" rel="noopener noreferrer" class="text-blue-600">
+              グループ登録はこちらから
+            </a>
+          </p>
+        </div>
+      </div>
+
+
+
+
+      <div class="announcement-item">
+        <h3 class="accordion-header mt-6">
+          <span class="arrow">▶</span>
+          レポートの遅延提出の取り扱い（2026.05.26 更新）
+        </h3>
+
+        <div class="accordion-content">
+          <p class="text-sm text-slate-600 mt-3">
+            大学は自由に学べる環境ですから，レポートを提出するかどうかは各自の自由です．
+            したがって，提出しないという選択そのものを問題にするつもりはありません（一般社会では大いに問題になる場合がほとんどですが）．
+            一方で，あなたが単位の取得を目的としているのなら，レポートを提出しないという行為は極めて非合理的です．
+            なぜならば，自ら得点の機会を放棄しておきながら，その一方で単位取得という結果だけを期待していることになるからです．
+            課題を提出するかどうかは自由ですが，その選択によって生じる結果もまた，自ら引き受けなければならないことを自覚してください．
+          </p>
+
+          <p class="text-sm text-slate-600 mt-3">
+            大学は自由に学ぶ場ですので，未提出者が遅延提出を行うかどうかは，各自の判断に委ねます．
+            ただし，遅延提出者の得点は60％に換算します．
+            60％換算とは，仮に100点相当のレポートを提出しても60点としてしか評価されないことを意味しています．
+            あなたが単位取得を目指している場合，遅延提出は極めて不利な条件での評価となることを理解してください．
+            これは遅延提出者に対する罰則というより，期限内に提出した学生に対する公平性を確保するための措置です．
+            遅延提出する場合は，授業者宛てに電子メールで課題を提出してください．
+          </p>
+        </div>
+      </div>
+
+      <div class="announcement-item">
+        <h3 class="accordion-header mt-6">
+          <span class="arrow">▶</span>
+          欠席した授業における成績の取り扱い（2026.05.07 更新）
+        </h3>
+
+        <div class="accordion-content">
+          <p class="text-sm text-slate-600 mt-3">
+            ガイダンスでも説明した通り，この授業では講義の出席・欠席に関わらず，成績は小テストやレポートの成績によって採点されます．
+            したがって講義の欠席者も，期日までに課題提出を終えていなければ，そのパートの評価に影響しますので注意してください．
+            ただし，疾病など長期的に課題に取り組むことが困難な事由があった場合，客観的にそのことを証明できる資料が提示されれば，別途課題を指示します．
+          </p>
+        </div>
+      </div>
     </section>
+
+    <style>
+      .accordion-header {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .arrow {
+        display: inline-block;
+        transition: transform 0.2s ease;
+      }
+
+      .accordion-content {
+        display: none;
+        margin-left: 1.5rem;
+      }
+
+      .accordion-header.open .arrow {
+        transform: rotate(90deg);
+      }
+    </style>
+
+    <script>
+      document.querySelectorAll(".accordion-header").forEach(header => {
+        header.addEventListener("click", () => {
+          header.classList.toggle("open");
+
+          const content = header.nextElementSibling;
+          content.style.display =
+            content.style.display === "block" ? "none" : "block";
+        });
+      });
+    </script>
+
+    <script>
+      const contentsFilterKey = "contentsFilterState";
+
+      const defaultContentsFilterState = {
+        ai: true,
+        jq: true,
+        sz: true
+      };
+
+      const savedContentsFilterState = JSON.parse(
+        localStorage.getItem(contentsFilterKey) || "null"
+      );
+
+      const contentsFilterState = {
+        ...defaultContentsFilterState,
+        ...savedContentsFilterState
+      };
+
+      function applyContentsFilter() {
+        document.querySelectorAll("[data-content-group]").forEach(row => {
+          const group = row.dataset.contentGroup;
+          row.style.display = contentsFilterState[group] ? "" : "none";
+        });
+      }
+
+      document.querySelectorAll("[data-filter-group]").forEach(checkbox => {
+        const group = checkbox.dataset.filterGroup;
+
+        checkbox.checked = contentsFilterState[group];
+
+        checkbox.addEventListener("change", () => {
+          contentsFilterState[group] = checkbox.checked;
+          localStorage.setItem(
+            contentsFilterKey,
+            JSON.stringify(contentsFilterState)
+          );
+          applyContentsFilter();
+        });
+      });
+
+      applyContentsFilter();
+    </script>
+
+
     <section class="mb-10">
       <h2 class="mb-6 text-xl font-medium tracking-[0.18em] text-slate-900">
         INFORMATION
