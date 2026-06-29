@@ -186,19 +186,16 @@ function updateCooldownArea() {
     const area =
         document.getElementById("cooldownArea");
 
-    if (!isSelectCoolingDown) {
+    area.className =
+        "w-full text-center text-lg font-bold";
 
-        area.className =
-            "whitespace-nowrap rounded-xl bg-green-600 px-4 py-2 text-lg font-bold text-white";
+    if (!isSelectCoolingDown) {
 
         area.textContent =
             "Select an Image";
 
         return;
     }
-
-    area.className =
-        "whitespace-nowrap rounded-xl bg-gray-200 px-4 py-2 text-lg font-bold text-black";
 
     area.textContent =
         `Cooldown ${cooldownRemainingSec}`;

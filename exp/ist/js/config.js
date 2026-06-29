@@ -3,7 +3,7 @@ const PAT = ["dot", "grd", "str"];
 const SHP = ["cir", "pnt", "tri", "squ"];
 
 const MAX_TRIAL = 30;
-const SHOW_TOTAL_SCORE = true;
+const SHOW_TOTAL_SCORE = false;
 const REFRESH_SCORE = 0;
 
 const PLAYER_MOD_BASE = 4;
@@ -134,4 +134,4 @@ const hiddenFeedbackRuleByPlayerMod = {
     }
 };
 
-const SELECT_COOLDOWN_SEC = 30.0;
+const SELECT_COOLDOWN_SEC = 3.0;
