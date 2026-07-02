@@ -31,9 +31,15 @@ function getPlayerID() {
 
 function refreshImages() {
 
+    if (isRefreshCoolingDown) {
+        return;
+    }
+
     if (!isReadyToStart()) {
         return;
     }
+
+    startRefreshCooldown();
 
     refreshCountInTrial++;
 
@@ -155,6 +161,39 @@ function startSelectCooldown() {
             isSelectCoolingDown = false;
 
             updateCooldownArea();
+        }
+
+    }, 1000);
+}
+
+function startRefreshCooldown() {
+
+    isRefreshCoolingDown = true;
+
+    refreshCooldownRemainingSec =
+        REFRESH_COOLDOWN_SEC;
+
+    updateRefreshButton();
+
+    if (refreshCooldownTimer) {
+        clearInterval(refreshCooldownTimer);
+    }
+
+    refreshCooldownTimer = setInterval(() => {
+
+        refreshCooldownRemainingSec--;
+
+        updateRefreshButton();
+
+        if (refreshCooldownRemainingSec <= 0) {
+
+            clearInterval(refreshCooldownTimer);
+
+            refreshCooldownTimer = null;
+
+            isRefreshCoolingDown = false;
+
+            updateRefreshButton();
         }
 
     }, 1000);

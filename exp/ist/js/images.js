@@ -67,8 +67,19 @@ function setRandomImages() {
         rebuildImageList();
     }
 
+    let nextImages = [];
+
+    do {
+        nextImages =
+            getRandomImages(imageList, 3);
+    } while (
+        imageList.length > 3 &&
+        currentImages.length === 3 &&
+        nextImages.every((path, index) => path === currentImages[index])
+    );
+
     currentImages =
-        getRandomImages(imageList, 3);
+        nextImages;
 
     const imageIDs =
         ["img1", "img2", "img3"];

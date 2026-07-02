@@ -200,3 +200,27 @@ function updateCooldownArea() {
     area.textContent =
         `Cooldown ${cooldownRemainingSec}`;
 }
+
+function updateRefreshButton() {
+
+    const button =
+        document.getElementById("refreshButton");
+
+    if (!button) {
+        return;
+    }
+
+    if (!isRefreshCoolingDown) {
+
+        button.disabled = false;
+
+        button.textContent = "Refresh";
+
+        return;
+    }
+
+    button.disabled = true;
+
+    button.textContent =
+        `Cooldown ${refreshCooldownRemainingSec}`;
+}

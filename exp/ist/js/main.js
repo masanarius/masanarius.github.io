@@ -9,6 +9,8 @@ updateTotalScoreArea();
 
 updateCooldownArea();
 
+updateRefreshButton();
+
 if (!loaded) {
     hideImages();
 }

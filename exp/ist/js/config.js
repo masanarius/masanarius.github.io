@@ -135,3 +135,4 @@ const hiddenFeedbackRuleByPlayerMod = {
 };
 
 const SELECT_COOLDOWN_SEC = 3.0;
+const REFRESH_COOLDOWN_SEC = 5.0;
