@@ -35,6 +35,11 @@ function refreshImages() {
         return;
     }
 
+    if (!ENABLE_REFRESH_DURING_SELECT_COOLDOWN &&
+        isSelectCoolingDown) {
+        return;
+    }
+
     if (!isReadyToStart()) {
         return;
     }
@@ -141,6 +146,7 @@ function startSelectCooldown() {
         SELECT_COOLDOWN_SEC;
 
     updateCooldownArea();
+    updateRefreshButton();
 
     if (cooldownTimer) {
         clearInterval(cooldownTimer);
@@ -161,6 +167,7 @@ function startSelectCooldown() {
             isSelectCoolingDown = false;
 
             updateCooldownArea();
+            updateRefreshButton();
         }
 
     }, 1000);

@@ -124,3 +124,4 @@ const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
 
 const SELECT_COOLDOWN_SEC = 10.0;
 const REFRESH_COOLDOWN_SEC = 5.0;
+const ENABLE_REFRESH_DURING_SELECT_COOLDOWN = false;

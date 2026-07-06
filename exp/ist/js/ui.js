@@ -210,17 +210,32 @@ function updateRefreshButton() {
         return;
     }
 
-    if (!isRefreshCoolingDown) {
+    // Selectクールダウン中はRefresh禁止
+    if (
+        !ENABLE_REFRESH_DURING_SELECT_COOLDOWN &&
+        isSelectCoolingDown
+    ) {
 
-        button.disabled = false;
+        button.disabled = true;
 
         button.textContent = "Refresh";
 
         return;
     }
 
-    button.disabled = true;
+    // Refreshクールダウン中
+    if (isRefreshCoolingDown) {
 
-    button.textContent =
-        `Cooldown ${refreshCooldownRemainingSec}`;
+        button.disabled = true;
+
+        button.textContent =
+            `Cooldown ${refreshCooldownRemainingSec}`;
+
+        return;
+    }
+
+    // 押せる状態
+    button.disabled = false;
+
+    button.textContent = "Refresh";
 }
