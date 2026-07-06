@@ -2,7 +2,7 @@ const COL = ["pnk", "blu", "grn", "yel"];
 const PAT = ["dot", "grd", "str", "chk"];
 const SHP = ["cir", "pnt", "tri", "squ"];
 
-const MAX_TRIAL = 30;
+const MAX_TRIAL = 60;
 const SHOW_TOTAL_SCORE = false;
 const REFRESH_SCORE = 0;
 
@@ -127,5 +127,5 @@ const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
     }
 };
 
-const SELECT_COOLDOWN_SEC = 3.0;
-const REFRESH_COOLDOWN_SEC = 3.0;
+const SELECT_COOLDOWN_SEC = 10.0;
+const REFRESH_COOLDOWN_SEC = 10.0;
