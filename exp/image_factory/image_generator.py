@@ -73,14 +73,14 @@ CHK_COLOR  = (0, 0, 0, 255)
 # =========================================================
 
 patterns = [
-    "dot",  # ドット
-    "str",  # 縦縞
-    "grd",  # 格子
-    # "sla",  # ／
-    # "bsl",  # ＼
-    "chk",  # 市松
-    # "dch",  # 斜め市松
-    # "dgr",  # 斜めグリッド
+    "fms",
+    "cms",
+    "sdt",
+    "ldt",
+    "nst",
+    "wst",
+    "fch",
+    "cch",
 ]
 
 shapes = [
@@ -92,7 +92,7 @@ shapes = [
     # "plt",  # 細い＋
     # "xbd",  # 太い×
     # "xlt",  # 細い×
-    # "hex",  # 六角形
+    "hex",  # 六角形
     # "oct",  # 八角形
 ]
 
@@ -226,16 +226,20 @@ def draw_border_regular_polygon(draw, color, pts_outer):
 # =========================================================
 
 def draw_dots(draw, step=48, r=6):
+    row = 0
 
     for y in range(step // 2, SIZE, step):
 
-        for x in range(step // 2, SIZE, step):
+        x_offset = 0 if row % 2 == 0 else step // 2
+
+        for x in range(step // 2 + x_offset, SIZE, step):
 
             draw.ellipse(
                 [x - r, y - r, x + r, y + r],
                 fill=DOT_COLOR
             )
 
+        row += 1
 
 def draw_vertical_stripes(draw, stripe_width=20):
 
@@ -593,23 +597,35 @@ def render_pattern_layer_by_key(key: str):
 
     d = ImageDraw.Draw(layer)
 
-    if key == "dot":
-        draw_dots(d)
+    if key == "fms" or key == "grd":
+        draw_grid(d, step=64, width=5)
 
-    elif key == "str":
-        draw_vertical_stripes(d)
+    elif key == "cms":
+        draw_grid(d, step=96, width=8)
 
-    elif key == "grd":
-        draw_grid(d)
+    elif key == "sdt" or key == "dot":
+        draw_dots(d, step=48, r=6)
+
+    elif key == "ldt":
+        draw_dots(d, step=80, r=12)
+
+    elif key == "nst" or key == "str":
+        draw_vertical_stripes(d, stripe_width=20)
+
+    elif key == "wst":
+        draw_vertical_stripes(d, stripe_width=40)
+
+    elif key == "fch" or key == "chk":
+        draw_checker_vh(d, cell=48)
+
+    elif key == "cch":
+        draw_checker_vh(d, cell=80)
 
     elif key == "sla":
         draw_diag_stripes(d, kind="sla")
 
     elif key == "bsl":
         draw_diag_stripes(d, kind="bsl")
-
-    elif key == "chk":
-        draw_checker_vh(d)
 
     elif key == "dch":
         draw_checker_diag_fill(layer)
@@ -621,7 +637,6 @@ def render_pattern_layer_by_key(key: str):
         raise ValueError(f"unknown pattern: {key}")
 
     return layer
-
 
 # =========================================================
 # 図形別描画

@@ -1,6 +1,6 @@
 const COL = ["pnk", "blu", "grn", "yel"];
-const PAT = ["dot", "grd", "str", "chk"];
-const SHP = ["cir", "pnt", "tri", "squ"];
+const PAT = ["sdt", "ldt", "fms", "cms", "nst", "wst", "fch", "cch"];
+const SHP = ["cir", "hex", "pnt", "tri", "squ"];
 
 const MAX_TRIAL = 60;
 const SHOW_TOTAL_SCORE = false;
@@ -55,20 +55,26 @@ const colorScore = {
 const shapeScore = {
     pnt: -1,
     cir: 0,
+    hex: 0,
     squ: 1,
     tri: 2
 };
 
 const patternScore = {
-    dot: -1,
-    grd: 0,
-    chk: 1,
-    str: 2
+    // dot: -1,
+    // grd: 0,
+    // chk: 1,
+    // str: 2,
+    ldt: -1, sdt: 2,
+    cms: 0, fms: 0,
+    cch: 1, fch: 1,
+    wst: 2, nst: -1
+
 };
 
 const positionScore = {
     left: 0,
-    center: 0,
+    center: 1,
     right: 0
 };
 
@@ -79,51 +85,40 @@ const shapeScale = {
     cir: 1.00,
     tri: 1.15,
     squ: 0.95,
-    pnt: 1.30
+    pnt: 1.30,
+    hex: 1.10
 };
 
 const hiddenRuleByPlayerMod = { // 表示されない
-    0: { COL: [], PAT: [], SHP: [] },
-    1: { COL: [], PAT: [], SHP: [] },
-    2: { COL: [], PAT: [], SHP: [] },
-    3: { COL: [], PAT: [], SHP: [] }
+    0: { COL: [], PAT: ["ldt", "cms", "cch", "wst"], SHP: ["hex"] },
+    1: { COL: [], PAT: ["ldt", "cms", "cch", "wst"], SHP: ["cir"] },
+    2: { COL: [], PAT: ["sdt", "fms", "fch", "nst"], SHP: ["hex"] },
+    3: { COL: [], PAT: ["sdt", "fms", "fch", "nst"], SHP: ["cir"] }
 };
 
 const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
     0: {
-        COL: ["yel"],
-        PAT: [],
+        COL: [],
+        PAT: ["sdt"],
         SHP: []
     },
 
     1: {
-        COL: ["blu"],
-        PAT: [],
+        COL: [],
+        PAT: ["nst"],
         SHP: []
     },
 
     2: {
         COL: [],
-        PAT: ["chk"],
+        PAT: ["ldt"],
         SHP: []
     },
 
     3: {
         COL: [],
-        PAT: ["str"],
+        PAT: ["wst"],
         SHP: []
-    },
-
-    4: {
-        COL: [],
-        PAT: [],
-        SHP: ["squ"]
-    },
-
-    5: {
-        COL: [],
-        PAT: [],
-        SHP: ["tri"]
     }
 };
 
