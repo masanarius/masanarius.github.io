@@ -45,8 +45,8 @@ const FORM_ENTRIES = {
 
     selected_img_pts: "entry.1382321511",
     selected_img_shape_pts: "entry.449527582",
-    selected_img_color_pts: "entry.1737912420",
-    selected_img_pattern_pts: "entry.451493913",
+    selected_img_color_pts: "entry.705426569",
+    selected_img_pattern_pts: "entry.614853997",
     selected_pos_pts: "entry.1313096228",
 
     delta_score: "entry.333867801",
