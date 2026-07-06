@@ -60,9 +60,29 @@ function hideImages() {
     });
 }
 
+function preloadImages(paths, callback) {
+
+    let loadedCount = 0;
+
+    paths.forEach((path) => {
+
+        const img = new Image();
+
+        img.onload = img.onerror = () => {
+
+            loadedCount++;
+
+            if (loadedCount === paths.length) {
+                callback();
+            }
+        };
+
+        img.src = path;
+    });
+}
+
 function setRandomImages() {
 
-    // リロード直後など imageList が空の場合の保険
     if (imageList.length === 0) {
         rebuildImageList();
     }
@@ -78,37 +98,42 @@ function setRandomImages() {
         nextImages.every((path, index) => path === currentImages[index])
     );
 
-    currentImages =
-        nextImages;
+    preloadImages(nextImages, () => {
 
-    const imageIDs =
-        ["img1", "img2", "img3"];
+        currentImages =
+            nextImages;
 
-    const scoreIDs =
-        ["score1", "score2", "score3"];
+        const imageIDs =
+            ["img1", "img2", "img3"];
 
-    currentImages.forEach((path, index) => {
+        const scoreIDs =
+            ["score1", "score2", "score3"];
 
-        const img =
-            document.getElementById(imageIDs[index]);
+        currentImages.forEach((path, index) => {
 
-        const popup =
-            document.getElementById(scoreIDs[index]);
+            const img =
+                document.getElementById(imageIDs[index]);
 
-        const { shp } = getImageInfo(path);
+            const popup =
+                document.getElementById(scoreIDs[index]);
 
-        img.src = path;
+            const { shp } =
+                getImageInfo(path);
 
-        img.classList.remove("hidden");
+            img.src =
+                path;
 
-        const scale =
-            shapeScale[shp] || 1.0;
+            img.classList.remove("hidden");
 
-        img.style.maxWidth = "92%";
-        img.style.maxHeight = "92%";
-        img.style.transform =
-            `scale(${scale})`;
+            const scale =
+                shapeScale[shp] || 1.0;
 
-        popup.classList.add("hidden");
+            img.style.maxWidth = "92%";
+            img.style.maxHeight = "92%";
+            img.style.transform =
+                `scale(${scale})`;
+
+            popup.classList.add("hidden");
+        });
     });
 }
