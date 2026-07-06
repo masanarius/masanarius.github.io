@@ -1,5 +1,5 @@
-const COL = ["amb", "blu", "cob", "grn", "yel"];
-const PAT = ["dot", "grd", "str"];
+const COL = ["pnk", "blu", "grn", "yel"];
+const PAT = ["dot", "grd", "str", "chk"];
 const SHP = ["cir", "pnt", "tri", "squ"];
 
 const MAX_TRIAL = 30;
