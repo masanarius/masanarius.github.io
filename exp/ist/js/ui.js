@@ -198,7 +198,7 @@ function updateCooldownArea() {
     }
 
     area.textContent =
-        `図形選択が可能になるまで ${cooldownRemainingSec}秒`;
+        `図形が選択できるまで ${cooldownRemainingSec}秒`;
 }
 
 function updateRefreshButton() {
@@ -218,7 +218,7 @@ function updateRefreshButton() {
 
         button.disabled = true;
 
-        button.textContent = "再抽選";
+        button.textContent = "3枚を再抽選する";
 
         return;
     }
@@ -229,7 +229,7 @@ function updateRefreshButton() {
         button.disabled = true;
 
         button.textContent =
-            `再抽選が可能になるまで ${refreshCooldownRemainingSec}秒`;
+            `再抽選できるまで ${refreshCooldownRemainingSec}秒`;
 
         return;
     }

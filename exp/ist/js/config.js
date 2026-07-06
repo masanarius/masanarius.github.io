@@ -38,9 +38,17 @@ const FORM_ENTRIES = {
     r_sum_pts: "entry.2121136899",
 
     selected_img: "entry.1193759899",
+    selected_img_shape: "entry.158281576",
+    selected_img_color: "entry.901393716",
+    selected_img_pattern: "entry.1281819507",
     selected_pos: "entry.1916842762",
+
     selected_img_pts: "entry.1382321511",
+    selected_img_shape_pts: "entry.449527582",
+    selected_img_color_pts: "entry.1737912420",
+    selected_img_pattern_pts: "entry.451493913",
     selected_pos_pts: "entry.1313096228",
+
     delta_score: "entry.333867801",
     total_score: "entry.453560264"
 };
@@ -85,7 +93,7 @@ const shapeScale = {
     cir: 1.00,
     tri: 1.15,
     squ: 0.95,
-    pnt: 1.25,
+    pnt: 1.20,
     hex: 1.15
 };
 

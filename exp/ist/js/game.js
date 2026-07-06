@@ -76,6 +76,9 @@ function selectImage(index) {
     const imageName =
         getImageName(path);
 
+    const { col, pat, shp } =
+        getImageInfo(path);
+
     const position =
         positionNames[index];
 
@@ -98,6 +101,50 @@ function selectImage(index) {
             : formatScore(score);
 
     popup.classList.remove("hidden");
+
+    sendLogToGoogleForms({
+        time: new Date().toLocaleString("ja-JP", {
+            timeZone: "Asia/Tokyo"
+        }),
+
+        session_id: getSessionID(),
+        player_id: getPlayerID(),
+        trial: currentTrial + 1,
+        refreshing: refreshCountInTrial,
+        event: "SELECT",
+
+        l_img: getImageName(currentImages[0]),
+        c_img: getImageName(currentImages[1]),
+        r_img: getImageName(currentImages[2]),
+
+        l_img_pts: calculateImageScore(currentImages[0]),
+        c_img_pts: calculateImageScore(currentImages[1]),
+        r_img_pts: calculateImageScore(currentImages[2]),
+
+        l_pos_pts: positionScore.left,
+        c_pos_pts: positionScore.center,
+        r_pos_pts: positionScore.right,
+
+        l_sum_pts: calculateScore(currentImages[0], "left"),
+        c_sum_pts: calculateScore(currentImages[1], "center"),
+        r_sum_pts: calculateScore(currentImages[2], "right"),
+
+        selected_img: imageName,
+        selected_pos: position,
+
+        selected_img_shape: shp,
+        selected_img_color: col,
+        selected_img_pattern: pat,
+
+        selected_img_shape_pts: shapeScore[shp],
+        selected_img_color_pts: colorScore[col],
+        selected_img_pattern_pts: patternScore[pat],
+
+        selected_img_pts: calculateImageScore(path),
+        selected_pos_pts: positionScore[position],
+        delta_score: score,
+        total_score: totalScore
+    });
 
     historyData.push({
         trial: currentTrial + 1,
