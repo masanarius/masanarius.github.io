@@ -74,7 +74,7 @@ const patternScore = {
 
 const positionScore = {
     left: 0,
-    center: 1,
+    center: 0,
     right: 0
 };
 
@@ -85,8 +85,8 @@ const shapeScale = {
     cir: 1.00,
     tri: 1.15,
     squ: 0.95,
-    pnt: 1.30,
-    hex: 1.10
+    pnt: 1.25,
+    hex: 1.15
 };
 
 const hiddenRuleByPlayerMod = { // 表示されない
