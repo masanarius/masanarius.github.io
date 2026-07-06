@@ -83,9 +83,10 @@ const shapeScale = {
 };
 
 const hiddenRuleByPlayerMod = { // 表示されない
-    COL: [],
-    PAT: [],
-    SHP: []
+    0: { COL: [], PAT: [], SHP: [] },
+    1: { COL: [], PAT: [], SHP: [] },
+    2: { COL: [], PAT: [], SHP: [] },
+    3: { COL: [], PAT: [], SHP: [] }
 };
 
 const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
