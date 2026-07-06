@@ -237,5 +237,5 @@ function updateRefreshButton() {
     // 押せる状態
     button.disabled = false;
 
-    button.textContent = "Refresh";
+    button.textContent = "3枚を再抽選する";
 }
