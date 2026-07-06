@@ -78,7 +78,7 @@ patterns = [
     "grd",  # 格子
     # "sla",  # ／
     # "bsl",  # ＼
-    # "chk",  # 市松
+    "chk",  # 市松
     # "dch",  # 斜め市松
     # "dgr",  # 斜めグリッド
 ]
@@ -103,19 +103,24 @@ shapes = [
 
 colors_hex = {
     #"org": "#f97316", # orange 500
-    "amb": "#fbbf24", # amber 400
-    "yel": "#facc15", # yellow 400
+    # "amb": "#fbbf24", # amber 400
+    # "yel": "#facc15", # yellow 400
     # "cyn": "#06b6d4", # cyan 500
     # "sky": "#0ea5e9", # sky 500
-    "grn": "#22c55e", # green 500
-    "blu": "#2563eb", # blue 600
-    "cob":  "#1d4ed8", # blue 700
+    # "grn": "#22c55e", # green 500
+    # "blu": "#2563eb", # blue 600
+    # "cob":  "#1d4ed8", # blue 700
     # "org": "#D55E00",
     # "lmn": "#F0E442",
     # "ind": "#2E3C9D",
     # "trq": "#56B4E9",
     # "blu": "#0072B2",
     # "pnk": "#CC79A7",
+
+    "blu": "#0072B2",
+    "grn": "#009E73",
+    "yel": "#E69F00",
+    "pnk": "#CC79A7"
 }
 
 colors = {

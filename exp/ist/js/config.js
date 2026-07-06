@@ -46,30 +46,30 @@ const FORM_ENTRIES = {
 };
 
 const colorScore = {
-    grn: -1,
-    blu: 0,
+    pnk: -1,
+    grn: 0,
     yel: 1,
-    cob: 1,
-    amb: 0
+    blu: 2
 };
 
 const shapeScore = {
-    tri: -1,
+    pnt: -1,
     cir: 0,
     squ: 1,
-    pnt: 0
+    tri: 2
 };
 
 const patternScore = {
-    str: 1,
     dot: -1,
-    grd: 0
+    grd: 0,
+    chk: 1,
+    str: 2
 };
 
 const positionScore = {
-    left: -1,
+    left: 0,
     center: 0,
-    right: 1
+    right: 0
 };
 
 const positionNames = ["left", "center", "right"];
@@ -82,57 +82,47 @@ const shapeScale = {
     pnt: 1.30
 };
 
-const hiddenRuleByPlayerMod = {
+const hiddenRuleByPlayerMod = { // 表示されない
+
+};
+
+const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
     0: {
-        COL: ["cob", "amb"],
-        SHP: ["cir"],
-        PAT: []
+        COL: ["yel"],
+        PAT: [],
+        SHP: []
     },
 
     1: {
-        COL: ["cob", "amb"],
-        SHP: ["pnt"],
-        PAT: []
+        COL: ["blu"],
+        PAT: [],
+        SHP: []
     },
 
     2: {
-        COL: ["yel", "blu"],
-        SHP: ["cir"],
-        PAT: []
+        COL: [],
+        PAT: ["chk"],
+        SHP: []
     },
 
     3: {
-        COL: ["yel", "blu"],
-        SHP: ["pnt"],
-        PAT: []
-    }
-};
-
-const hiddenFeedbackRuleByPlayerMod = {
-    0: {
         COL: [],
         PAT: ["str"],
         SHP: []
     },
 
-    1: {
-        COL: [],
-        PAT: ["dot"],
-        SHP: []
-    },
-
-    2: {
-        COL: [],
-        PAT: [],
-        SHP: ["tri"]
-    },
-
-    3: {
+    4: {
         COL: [],
         PAT: [],
         SHP: ["squ"]
+    },
+
+    5: {
+        COL: [],
+        PAT: [],
+        SHP: ["tri"]
     }
 };
 
 const SELECT_COOLDOWN_SEC = 3.0;
-const REFRESH_COOLDOWN_SEC = 5.0;
+const REFRESH_COOLDOWN_SEC = 3.0;
