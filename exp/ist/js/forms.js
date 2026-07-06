@@ -16,7 +16,7 @@ function sendLogToGoogleForms(logData) {
 
     });
 
-    console.log([...formData.entries()]);
+    // console.log([...formData.entries()]);
 
     fetch(GOOGLE_FORM_ACTION_URL, {
         method: "POST",
