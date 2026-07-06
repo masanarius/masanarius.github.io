@@ -192,13 +192,13 @@ function updateCooldownArea() {
     if (!isSelectCoolingDown) {
 
         area.textContent =
-            "Select an Image";
+            "図形を1つ選択せよ";
 
         return;
     }
 
     area.textContent =
-        `Cooldown ${cooldownRemainingSec}`;
+        `図形選択が可能になるまで ${cooldownRemainingSec}秒`;
 }
 
 function updateRefreshButton() {
@@ -218,7 +218,7 @@ function updateRefreshButton() {
 
         button.disabled = true;
 
-        button.textContent = "Refresh";
+        button.textContent = "再抽選";
 
         return;
     }
@@ -229,7 +229,7 @@ function updateRefreshButton() {
         button.disabled = true;
 
         button.textContent =
-            `Cooldown ${refreshCooldownRemainingSec}`;
+            `再抽選が可能になるまで ${refreshCooldownRemainingSec}秒`;
 
         return;
     }
