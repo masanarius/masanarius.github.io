@@ -598,10 +598,10 @@ def render_pattern_layer_by_key(key: str):
 
     d = ImageDraw.Draw(layer)
 
-    if key == "cgr" or key == "grd":
-        draw_grid(d, step=64, width=5)
+    if key == "fgr" or key == "grd":
+        draw_grid(d, step=48, width=4)
 
-    elif key == "fgr":
+    elif key == "cgr":
         draw_grid(d, step=96, width=8)
 
     elif key == "fdt" or key == "dot":
@@ -611,13 +611,13 @@ def render_pattern_layer_by_key(key: str):
         draw_dots(d, step=80, r=12)
 
     elif key == "fst" or key == "str":
-        draw_vertical_stripes(d, stripe_width=20)
+        draw_vertical_stripes(d, stripe_width=12)
 
     elif key == "cst":
         draw_vertical_stripes(d, stripe_width=40)
 
     elif key == "fch" or key == "chk":
-        draw_checker_vh(d, cell=48)
+        draw_checker_vh(d, cell=32)
 
     elif key == "cch":
         draw_checker_vh(d, cell=80)
