@@ -81,7 +81,7 @@ const patternScore = {
     cdt: -1, fdt: 1,
     cgr: 0, fgr: 2,
     cch: 1, fch: -1,
-    wst: 2, nst: 0
+    cst: 2, fst: 0
 
 };
 
