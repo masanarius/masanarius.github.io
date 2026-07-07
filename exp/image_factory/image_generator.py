@@ -617,10 +617,10 @@ def render_pattern_layer_by_key(key: str):
         draw_vertical_stripes(d, stripe_width=40)
 
     elif key == "fch" or key == "chk":
-        draw_checker_vh(d, cell=32)
+        draw_checker_vh(d, cell=48)   # ← 32 → 48
 
     elif key == "cch":
-        draw_checker_vh(d, cell=80)
+        draw_checker_vh(d, cell=96)   # ← 80 → 96
 
     elif key == "sla":
         draw_diag_stripes(d, kind="sla")
