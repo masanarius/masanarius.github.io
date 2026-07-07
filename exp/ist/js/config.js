@@ -95,11 +95,16 @@ const positionNames = ["left", "center", "right"];
 const positionNamesForLog = ["LEFT", "CENTER", "RIGHT"];
 
 const shapeScale = {
+    // cir: 1.00,
+    // tri: 1.15,
+    // squ: 0.95,
+    // pnt: 1.20,
+    // hex: 1.15
     cir: 1.00,
-    tri: 1.15,
-    squ: 0.95,
-    pnt: 1.20,
-    hex: 1.15
+    tri: 1.00,
+    squ: 1.00,
+    pnt: 1.00,
+    hex: 1.00
 };
 
 const hiddenRuleByPlayerMod = { // 表示されない
@@ -135,6 +140,6 @@ const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
     }
 };
 
-const SELECT_COOLDOWN_SEC = 2.0;
-const REFRESH_COOLDOWN_SEC = 2.0;
+const SELECT_COOLDOWN_SEC = 0.5;
+const REFRESH_COOLDOWN_SEC = 0.5;
 const ENABLE_REFRESH_DURING_SELECT_COOLDOWN = false;
