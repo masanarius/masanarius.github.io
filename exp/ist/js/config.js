@@ -104,16 +104,10 @@ const shapeScale = {
 };
 
 const hiddenRuleByPlayerMod = { // 表示されない
-    0: {
-        COL: [], PAT: ["cdt", "cgr",
-            "cch", "cst"], SHP: ["hex"]
-    },
-    1: {
-        COL: [], PAT: ["cdt", "cgr",
-            "cch", "cst"], SHP: ["cir"]
-    },
-    2: { COL: [], PAT: ["fdt", "fgr", "fch", "fst"], SHP: ["hex"] },
-    3: { COL: [], PAT: ["fdt", "fgr", "fch", "fst"], SHP: ["cir"] }
+    0: { COL: [], PAT: ["cdt", "cgr", "cch", "cst"], SHP: ["hex"] }, // 粗い = 細かいが表示されない
+    1: { COL: [], PAT: ["cdt", "cgr", "cch", "cst"], SHP: ["cir"] }, // 粗い = 細かいが表示されない
+    2: { COL: [], PAT: ["fdt", "fgr", "fch", "fst"], SHP: ["hex"] }, // 細かい = 粗いが表示されない
+    3: { COL: [], PAT: ["fdt", "fgr", "fch", "fst"], SHP: ["cir"] }  // 細かい = 粗いが表示されない
 };
 
 const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
@@ -131,13 +125,13 @@ const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
 
     2: {
         COL: [],
-        PAT: ["cdt"],
+        PAT: ["cch"],
         SHP: []
     },
 
     3: {
         COL: [],
-        PAT: ["cst"],
+        PAT: ["cgr"],
         SHP: []
     }
 };
