@@ -1,4 +1,4 @@
-# pip install pillow
+# pip ifstall pillow
 from PIL import Image, ImageDraw, ImageChops, ImageFilter
 import math, os
 
@@ -73,14 +73,14 @@ CHK_COLOR  = (0, 0, 0, 255)
 # =========================================================
 
 patterns = [
-    "fms",
-    "cms",
-    "sdt",
-    "ldt",
-    "nst",
-    "wst",
-    "fch",
+    "cgr",
+    "fgr",
+    "cdt",
+    "fdt",
+    "cst",
+    "fst",
     "cch",
+    "fch",
 ]
 
 shapes = [
@@ -597,22 +597,22 @@ def render_pattern_layer_by_key(key: str):
 
     d = ImageDraw.Draw(layer)
 
-    if key == "fms" or key == "grd":
+    if key == "cgr" or key == "grd":
         draw_grid(d, step=64, width=5)
 
-    elif key == "cms":
+    elif key == "fgr":
         draw_grid(d, step=96, width=8)
 
-    elif key == "sdt" or key == "dot":
+    elif key == "fdt" or key == "dot":
         draw_dots(d, step=48, r=6)
 
-    elif key == "ldt":
+    elif key == "cdt":
         draw_dots(d, step=80, r=12)
 
-    elif key == "nst" or key == "str":
+    elif key == "fst" or key == "str":
         draw_vertical_stripes(d, stripe_width=20)
 
-    elif key == "wst":
+    elif key == "cst":
         draw_vertical_stripes(d, stripe_width=40)
 
     elif key == "fch" or key == "chk":

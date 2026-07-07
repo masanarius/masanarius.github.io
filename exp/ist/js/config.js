@@ -1,5 +1,10 @@
 const COL = ["pnk", "blu", "grn", "yel"];
-const PAT = ["sdt", "ldt", "fms", "cms", "nst", "wst", "fch", "cch"];
+const PAT = [
+    "fdt", "cdt",
+    "fgr", "cgr",
+    "fst", "cst",
+    "fch", "cch"
+];
 const SHP = ["cir", "hex", "pnt", "tri", "squ"];
 
 const MAX_TRIAL = 60;
@@ -73,8 +78,9 @@ const patternScore = {
     // grd: 0,
     // chk: 1,
     // str: 2,
-    ldt: -1, sdt: 1,
-    cms: 0, fms: 2,
+    cdt: -1, fdt: 1,
+    cgr: 0
+    , fgr: 2,
     cch: 1, fch: -1,
     wst: 2, nst: 0
 
@@ -98,34 +104,40 @@ const shapeScale = {
 };
 
 const hiddenRuleByPlayerMod = { // 表示されない
-    0: { COL: [], PAT: ["ldt", "cms", "cch", "wst"], SHP: ["hex"] },
-    1: { COL: [], PAT: ["ldt", "cms", "cch", "wst"], SHP: ["cir"] },
-    2: { COL: [], PAT: ["sdt", "fms", "fch", "nst"], SHP: ["hex"] },
-    3: { COL: [], PAT: ["sdt", "fms", "fch", "nst"], SHP: ["cir"] }
+    0: {
+        COL: [], PAT: ["cdt", "cgr",
+            "cch", "cst"], SHP: ["hex"]
+    },
+    1: {
+        COL: [], PAT: ["cdt", "cgr",
+            "cch", "cst"], SHP: ["cir"]
+    },
+    2: { COL: [], PAT: ["fdt", "fgr", "fch", "fst"], SHP: ["hex"] },
+    3: { COL: [], PAT: ["fdt", "fgr", "fch", "fst"], SHP: ["cir"] }
 };
 
 const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
     0: {
         COL: [],
-        PAT: ["sdt"],
+        PAT: ["fdt"],
         SHP: []
     },
 
     1: {
         COL: [],
-        PAT: ["nst"],
+        PAT: ["fst"],
         SHP: []
     },
 
     2: {
         COL: [],
-        PAT: ["ldt"],
+        PAT: ["cdt"],
         SHP: []
     },
 
     3: {
         COL: [],
-        PAT: ["wst"],
+        PAT: ["cst"],
         SHP: []
     }
 };
