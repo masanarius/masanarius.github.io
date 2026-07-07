@@ -1,4 +1,4 @@
-# pip ifstall pillow
+# pip install pillow
 from PIL import Image, ImageDraw, ImageChops, ImageFilter
 import math, os
 
@@ -62,6 +62,25 @@ CANVAS_BG = (0, 0, 0, 0)          # 透明背景
 PAT_BG    = (255, 255, 255, 255)  # 模様背景
 
 BORDER_WIDTH = 40
+
+# 図形ごとの追加余白．
+# 完成画像をHTML側で拡大縮小すると模様の細かさも変わってしまうため，
+# 画像生成時点で図形そのものの大きさを調整する．
+SHAPE_PAD = {
+    "squ": 44,
+    "cir": 20,
+    "tri": 0,
+    "pnt": 8,
+    "hex": 12,
+    "oct": 12,
+    "pbd": 20,
+    "plt": 20,
+    "xbd": 20,
+    "xlt": 20,
+}
+
+def get_shape_pad(shape: str) -> int:
+    return SHAPE_PAD.get(shape, 0)
 
 DOT_COLOR  = (0, 0, 0, 255)
 LINE_COLOR = (0, 0, 0, 255)
@@ -139,24 +158,27 @@ def create_base():
     return img, ImageDraw.Draw(img)
 
 
-def draw_border_rect(draw, color):
+def draw_border_rect(draw, color, shape="squ"):
+
+    extra = get_shape_pad(shape)
 
     draw.rectangle(
-        [0, 0, SIZE - 1, SIZE - 1],
+        [extra, extra, SIZE - 1 - extra, SIZE - 1 - extra],
         outline=color,
         width=BORDER_WIDTH
     )
 
 
-def draw_border_circle(draw, color):
+def draw_border_circle(draw, color, shape="cir"):
 
     w = BORDER_WIDTH
+    extra = get_shape_pad(shape)
 
     bbox = [
-        w // 2,
-        w // 2,
-        SIZE - 1 - w // 2,
-        SIZE - 1 - w // 2
+        extra + w // 2,
+        extra + w // 2,
+        SIZE - 1 - extra - w // 2,
+        SIZE - 1 - extra - w // 2
     ]
 
     draw.ellipse(
@@ -374,9 +396,10 @@ def draw_diag_grid(draw, step=64, width=5):
 # マスク生成
 # =========================================================
 
-def rect_inner_mask():
+def rect_inner_mask(shape="squ"):
 
-    pad = BORDER_WIDTH // 2 + 1
+    extra = get_shape_pad(shape)
+    pad = BORDER_WIDTH // 2 + 1 + extra
 
     m = Image.new("L", (SIZE, SIZE), 0)
 
@@ -388,17 +411,18 @@ def rect_inner_mask():
     return m
 
 
-def circle_mask():
+def circle_mask(shape="cir"):
 
     m = Image.new("L", (SIZE, SIZE), 0)
 
     w = BORDER_WIDTH
+    extra = get_shape_pad(shape)
 
     bbox = [
-        w // 2,
-        w // 2,
-        SIZE - 1 - w // 2,
-        SIZE - 1 - w // 2
+        extra + w // 2,
+        extra + w // 2,
+        SIZE - 1 - extra - w // 2,
+        SIZE - 1 - extra - w // 2
     ]
 
     ImageDraw.Draw(m).ellipse(
@@ -409,18 +433,22 @@ def circle_mask():
     return m
 
 
-def triangle_inner_mask():
+def triangle_inner_mask(shape="tri"):
 
     w = BORDER_WIDTH
+    extra = get_shape_pad(shape)
 
-    base = SIZE - w
-
+    base = SIZE - 2 * extra - w
     h = int(base * math.sqrt(3) / 2)
 
+    left = extra + w // 2
+    right = SIZE - extra - w // 2
+    top = int(round((SIZE - h) / 2))
+
     pts_outer = [
-        (SIZE // 2, w // 2),
-        (w // 2, w // 2 + h),
-        (SIZE - w // 2, w // 2 + h),
+        (SIZE // 2, top),
+        (left, top + h),
+        (right, top + h),
     ]
 
     d_in = BORDER_WIDTH / 2.0 + 1.0
@@ -475,9 +503,11 @@ def regular_polygon_points(n, radius, rotation_deg=-90.0):
     return pts
 
 
-def polygon_inner_mask(n):
+def polygon_inner_mask(n, shape="pnt"):
 
-    R_out = SIZE / 2.0 - BORDER_WIDTH / 2.0 - 2.0
+    extra = get_shape_pad(shape)
+
+    R_out = SIZE / 2.0 - BORDER_WIDTH / 2.0 - 2.0 - extra
 
     R_in = max(
         1.0,
@@ -682,10 +712,10 @@ def draw_border_by_shape(img, color, shape, masks, pctx):
     d = ImageDraw.Draw(img)
 
     if shape == "squ":
-        draw_border_rect(d, color)
+        draw_border_rect(d, color, shape)
 
     elif shape == "cir":
-        draw_border_circle(d, color)
+        draw_border_circle(d, color, shape)
 
     elif shape == "tri":
         draw_border_triangle(d, color, masks["tri"][1])
@@ -744,17 +774,17 @@ def draw_border_by_shape(img, color, shape, masks, pctx):
 
 masks = {
 
-    "rect": rect_inner_mask(),
+    "rect": rect_inner_mask("squ"),
 
-    "cir": circle_mask(),
+    "cir": circle_mask("cir"),
 
-    "tri": triangle_inner_mask(),
+    "tri": triangle_inner_mask("tri"),
 
-    "pnt": polygon_inner_mask(5),
+    "pnt": polygon_inner_mask(5, "pnt"),
 
-    "hex": polygon_inner_mask(6),
+    "hex": polygon_inner_mask(6, "hex"),
 
-    "oct": polygon_inner_mask(8),
+    "oct": polygon_inner_mask(8, "oct"),
 }
 
 
