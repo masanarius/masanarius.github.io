@@ -2,8 +2,8 @@ const COL = ["pnk", "blu", "grn", "yel"];
 const PAT = [
     "fdt", "cdt",
     "fgr", "cgr",
-    "fst", "cst",
-    "fch", "cch"
+    "fch", "cch",
+    "fst", "cst"
 ];
 const SHP = ["cir", "hex", "pnt", "tri", "squ"];
 
@@ -79,8 +79,7 @@ const patternScore = {
     // chk: 1,
     // str: 2,
     cdt: -1, fdt: 1,
-    cgr: 0
-    , fgr: 2,
+    cgr: 0, fgr: 2,
     cch: 1, fch: -1,
     wst: 2, nst: 0
 
