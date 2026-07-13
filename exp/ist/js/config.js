@@ -71,7 +71,12 @@ const shapeScore = {
     pnt: -1,
     cir: 0,
     squ: 1,
-    tri: 2
+    tri: 2,
+
+    dia: -1,
+    spd: 0,
+    hrt: 1,
+    clb: 2
 };
 
 const patternScore = {
