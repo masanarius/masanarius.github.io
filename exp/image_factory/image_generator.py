@@ -48,7 +48,8 @@ def hex_rgba(s: str, default_alpha: int = 255):
 # 保存先
 # =========================================================
 
-OUTPUT_DIR = "images"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR = os.path.join(SCRIPT_DIR, "images")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
@@ -92,28 +93,21 @@ CHK_COLOR  = (0, 0, 0, 255)
 # =========================================================
 
 patterns = [
-    "cgr",
-    "fgr",
-    "cdt",
-    "fdt",
-    "cst",
-    "fst",
-    "cch",
-    "fch",
+    "gst",  # 通常ストライプ（縦縞）
+    "dst",  # 斜めストライプ
+    "vgr",  # 縦横グリッド
+    "dgr",  # 斜めグリッド
+    "vch",  # 縦横チェック
+    "dch",  # 斜めチェック
+    "gdt",  # 格子点ドット
+    "ddt",  # 斜め配置ドット
 ]
 
 shapes = [
-    "squ",  # 四角
     "cir",  # 円
-    "tri",  # 三角
+    "tri",  # 三角形
+    "squ",  # 四角形
     "pnt",  # 五角形
-    "hex",  # 六角形
-    # "pbd",  # 太い＋
-    # "plt",  # 細い＋
-    # "xbd",  # 太い×
-    # "xlt",  # 細い×
-    
-    # "oct",  # 八角形
 ]
 
 
@@ -122,25 +116,19 @@ shapes = [
 # =========================================================
 
 colors_hex = {
-    #"org": "#f97316", # orange 500
-    # "amb": "#fbbf24", # amber 400
-    # "yel": "#facc15", # yellow 400
-    # "cyn": "#06b6d4", # cyan 500
-    # "sky": "#0ea5e9", # sky 500
-    # "grn": "#22c55e", # green 500
-    # "blu": "#2563eb", # blue 600
-    # "cob":  "#1d4ed8", # blue 700
-    # "org": "#D55E00",
-    # "lmn": "#F0E442",
-    # "ind": "#2E3C9D",
-    # "trq": "#56B4E9",
-    # "blu": "#0072B2",
-    # "pnk": "#CC79A7",
+    # Pale colors（従来の4色）
+    # 名前は p + 色名2字の3文字で統一する．
+    "ppn": "#CC79A7",  # pale pink
+    "pyl": "#E69F00",  # pale yellow
+    "pgn": "#009E73",  # pale green
+    "pbl": "#0072B2",  # pale blue
 
-    "blu": "#0072B2",
-    "grn": "#009E73",
-    "yel": "#E69F00",
-    "pnk": "#CC79A7"
+    # Vivid colors
+    # 名前は v + 色名2字の3文字で統一する．
+    "vpn": "#FF33FF",  # vivid pink
+    "vyl": "#FFFF00",  # vivid yellow
+    "vgn": "#00FF00",  # vivid green
+    "vbl": "#0066FF",  # vivid blue
 }
 
 colors = {
@@ -248,15 +236,14 @@ def draw_border_regular_polygon(draw, color, pts_outer):
 # 模様描画
 # =========================================================
 
-def draw_dots(draw, step=48, r=6):
+def draw_dots(draw, step=64, r=8, staggered=False):
+    """ドットを格子状または1行おきに半ピッチずらして描画する．"""
     row = 0
 
     for y in range(step // 2, SIZE, step):
-
-        x_offset = 0 if row % 2 == 0 else step // 2
+        x_offset = step // 2 if staggered and row % 2 == 1 else 0
 
         for x in range(step // 2 + x_offset, SIZE, step):
-
             draw.ellipse(
                 [x - r, y - r, x + r, y + r],
                 fill=DOT_COLOR
@@ -272,6 +259,7 @@ def draw_vertical_stripes(draw, stripe_width=20):
             [x, 0, x + stripe_width, SIZE],
             fill=LINE_COLOR
         )
+
 
 
 def draw_grid(draw, step=64, width=5):
@@ -628,41 +616,29 @@ def render_pattern_layer_by_key(key: str):
 
     d = ImageDraw.Draw(layer)
 
-    if key == "fgr" or key == "grd":
-        draw_grid(d, step=48, width=4)
+    if key == "gst":
+        draw_vertical_stripes(d, stripe_width=20)
 
-    elif key == "cgr":
-        draw_grid(d, step=96, width=8)
+    elif key == "dst":
+        draw_diag_stripes(d, step=40, width=20, kind="sla")
 
-    elif key == "fdt" or key == "dot":
-        draw_dots(d, step=48, r=6)
-
-    elif key == "cdt":
-        draw_dots(d, step=80, r=12)
-
-    elif key == "fst" or key == "str":
-        draw_vertical_stripes(d, stripe_width=12)
-
-    elif key == "cst":
-        draw_vertical_stripes(d, stripe_width=40)
-
-    elif key == "fch" or key == "chk":
-        draw_checker_vh(d, cell=48)   # ← 32 → 48
-
-    elif key == "cch":
-        draw_checker_vh(d, cell=96)   # ← 80 → 96
-
-    elif key == "sla":
-        draw_diag_stripes(d, kind="sla")
-
-    elif key == "bsl":
-        draw_diag_stripes(d, kind="bsl")
-
-    elif key == "dch":
-        draw_checker_diag_fill(layer)
+    elif key == "vgr":
+        draw_grid(d, step=64, width=6)
 
     elif key == "dgr":
-        draw_diag_grid(d)
+        draw_diag_grid(d, step=64, width=6)
+
+    elif key == "vch":
+        draw_checker_vh(d, cell=64)
+
+    elif key == "dch":
+        draw_checker_diag_fill(layer, cell=64)
+
+    elif key == "gdt":
+        draw_dots(d, step=64, r=9, staggered=False)
+
+    elif key == "ddt":
+        draw_dots(d, step=64, r=9, staggered=True)
 
     else:
         raise ValueError(f"unknown pattern: {key}")
@@ -838,6 +814,8 @@ PCTX["xlt"] = {
 # 画像生成
 # =========================================================
 
+generated_count = 0
+
 for cname, border_col in colors.items():
 
     for shape in shapes:
@@ -871,4 +849,8 @@ for cname, border_col in colors.items():
                 "PNG"
             )
 
-print("completed")
+            generated_count += 1
+
+expected_count = len(colors) * len(shapes) * len(patterns)
+assert generated_count == expected_count
+print(f"completed: {generated_count} images -> {OUTPUT_DIR}")

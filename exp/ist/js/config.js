@@ -1,11 +1,15 @@
-const COL = ["pnk", "blu", "grn", "yel"];
-const PAT = [
-    "fdt", "cdt",
-    "fgr", "cgr",
-    "fch", "cch",
-    "fst", "cst"
+const COL = [
+    "ppn", "pyl", "pgn", "pbl",
+    "vpn", "vyl", "vgn", "vbl"
 ];
-const SHP = ["cir", "hex", "pnt", "tri", "squ"];
+
+const PAT = [
+    "str", "chk", "dot", "wav"
+];
+const SHP = [
+    "cir", "pnt", "tri", "squ",
+    "spd", "hrt", "clv", "dia"
+];
 
 const MAX_TRIAL = 60;
 const SHOW_TOTAL_SCORE = false;
@@ -59,29 +63,26 @@ const FORM_ENTRIES = {
 };
 
 const colorScore = {
-    pnk: -1,
-    grn: 0,
-    yel: 1,
-    blu: 2
+    ppn: -1, pyl: 0, pgn: 1, pbl: 2,
+    vpn: 1, vyl: 2, vgn: -1, vbl: 0
 };
 
 const shapeScore = {
     pnt: -1,
     cir: 0,
-    hex: 0,
     squ: 1,
     tri: 2
 };
 
 const patternScore = {
-    // dot: -1,
-    // grd: 0,
-    // chk: 1,
-    // str: 2,
-    cdt: -1, fdt: 1,
-    cgr: 0, fgr: 2,
-    cch: 1, fch: -1,
-    cst: 2, fst: 0
+    dot: -1,
+    wav: 0,
+    chk: 1,
+    str: 2,
+    // cdt: -1, fdt: 1,
+    // cgr: 0, fgr: 2,
+    // cch: 1, fch: -1,
+    // cst: 2, fst: 0
 
 };
 
@@ -100,42 +101,61 @@ const shapeScale = {
     // squ: 0.95,
     // pnt: 1.20,
     // hex: 1.15
-    cir: 1.00,
-    tri: 1.00,
-    squ: 1.00,
-    pnt: 1.00,
-    hex: 1.00
+    // cir: 1.00,
+    // tri: 1.00,
+    // squ: 1.00,
+    // pnt: 1.00,
+    // hex: 1.00
 };
 
-const hiddenRuleByPlayerMod = { // 表示されない
-    0: { COL: [], PAT: ["cdt", "cgr", "cch", "cst"], SHP: ["hex"] }, // 粗い = 細かいが表示されない
-    1: { COL: [], PAT: ["cdt", "cgr", "cch", "cst"], SHP: ["cir"] }, // 粗い = 細かいが表示されない
-    2: { COL: [], PAT: ["fdt", "fgr", "fch", "fst"], SHP: ["hex"] }, // 細かい = 粗いが表示されない
-    3: { COL: [], PAT: ["fdt", "fgr", "fch", "fst"], SHP: ["cir"] }  // 細かい = 粗いが表示されない
+const visibleRuleByPlayerMod = {
+    0: {
+        COL: ["ppn", "pyl", "pgn", "pbl"],
+        PAT: PAT,
+        SHP: ["cir", "pnt", "tri", "squ"]
+    },
+
+    1: {
+        COL: ["ppn", "pyl", "pgn", "pbl"],
+        PAT: PAT,
+        SHP: ["spd", "hrt", "clv", "dia"]
+    },
+
+    2: {
+        COL: ["vpn", "vyl", "vgn", "vbl"],
+        PAT: PAT,
+        SHP: ["cir", "pnt", "tri", "squ"]
+    },
+
+    3: {
+        COL: ["vpn", "vyl", "vgn", "vbl"],
+        PAT: PAT,
+        SHP: ["spd", "hrt", "clv", "dia"]
+    }
 };
 
 const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
     0: {
-        COL: [],
-        PAT: ["fdt"],
+        COL: ["pbl"],
+        PAT: [],
         SHP: []
     },
 
     1: {
-        COL: [],
-        PAT: ["fst"],
+        COL: ["ppn"],
+        PAT: [],
         SHP: []
     },
 
     2: {
-        COL: [],
-        PAT: ["cch"],
+        COL: ["vyl"],
+        PAT: [],
         SHP: []
     },
 
     3: {
-        COL: [],
-        PAT: ["cgr"],
+        COL: ["vgn"],
+        PAT: [],
         SHP: []
     }
 };

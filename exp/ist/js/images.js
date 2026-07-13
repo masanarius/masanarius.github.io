@@ -13,28 +13,16 @@ function rebuildImageList() {
 
     const mod = playerID % PLAYER_MOD_BASE;
 
-    const rule =
-        hiddenRuleByPlayerMod[mod];
+    const rule = visibleRuleByPlayerMod[mod];
 
-    for (const col of COL) {
-        for (const pat of PAT) {
-            for (const shp of SHP) {
-
-                if (rule.COL.includes(col)) {
-                    continue;
-                }
-
-                if (rule.PAT.includes(pat)) {
-                    continue;
-                }
-
-                if (rule.SHP.includes(shp)) {
-                    continue;
-                }
+    for (const col of rule.COL) {
+        for (const pat of rule.PAT) {
+            for (const shp of rule.SHP) {
 
                 imageList.push(
                     `images/${col}_${pat}_${shp}.png`
                 );
+
             }
         }
     }
