@@ -76,7 +76,7 @@ const shapeScore = {
     dia: -1,
     spd: 0,
     hrt: 1,
-    clb: 2
+    clv: 2
 };
 
 const patternScore = {
