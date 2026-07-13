@@ -63,8 +63,8 @@ const FORM_ENTRIES = {
 };
 
 const colorScore = {
-    ppn: -1, pyl: 0, pgn: 1, pbl: 2,
-    vpn: 1, vyl: 2, vgn: -1, vbl: 0
+    ppn: -1, pgn: 0, pyl: 1, pbl: 2,
+    vpn: 2, vgn: 1, vyl: 0, vbl: -1
 };
 
 const shapeScore = {
@@ -147,19 +147,19 @@ const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
     },
 
     1: {
-        COL: ["ppn"],
+        COL: ["pgn"],
         PAT: [],
         SHP: []
     },
 
     2: {
-        COL: ["vyl"],
+        COL: ["vpn"],
         PAT: [],
         SHP: []
     },
 
     3: {
-        COL: ["vgn"],
+        COL: ["vyl"],
         PAT: [],
         SHP: []
     }
