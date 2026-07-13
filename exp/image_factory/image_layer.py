@@ -25,17 +25,17 @@ OUTPUT_DIR = BASE_DIR / "images"
 #   gn = green
 #   bl = blue
 COLORS = {
-    # Pale
-    "ppn": "#CC79A7",  # pale pink
-    "pyl": "#E69F00",  # pale yellow
-    "pgn": "#009E73",  # pale green
-    "pbl": "#0072B2",  # pale blue
+    # Set A
+    "ppn": "#CC79A7",
+    "pyl": "#E69F00",
+    "pgn": "#009E73",
+    "pbl": "#0072B2",
 
-    # Vivid
-    "vpn": "#FF33FF",
-    "vyl": "#FFFF00",
-    "vgn": "#00FF66",
-    "vbl": "#3366FF",
+    # Set B
+    "vpn": "#E05AA8",
+    "vyl": "#F2C300",
+    "vgn": "#00B884",
+    "vbl": "#356FD4",
 }
 
 # 画像サイズが異なる場合，背景画像のサイズへ自動的に合わせる
