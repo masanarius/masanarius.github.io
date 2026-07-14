@@ -153,13 +153,13 @@ const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
     },
 
     2: {
-        COL: ["vpn"],
+        COL: ["vyl"],
         PAT: [],
         SHP: []
     },
 
     3: {
-        COL: ["vyl"],
+        COL: ["vpn"],
         PAT: [],
         SHP: []
     }
