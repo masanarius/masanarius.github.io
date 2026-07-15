@@ -7,10 +7,8 @@ let currentImages = [];
 
 let historyData = [];
 
-let isSelectCoolingDown = false;
+// SelectとRefreshで共用するクールタイム状態
+let isCoolingDown = false;
 let cooldownRemainingSec = 0;
 let cooldownTimer = null;
-
-let isRefreshCoolingDown = false;
-let refreshCooldownRemainingSec = 0;
-let refreshCooldownTimer = null;
+let cooldownSource = null;

@@ -31,12 +31,8 @@ function getPlayerID() {
 
 function refreshImages() {
 
-    if (isRefreshCoolingDown) {
-        return;
-    }
-
-    if (!ENABLE_REFRESH_DURING_SELECT_COOLDOWN &&
-        isSelectCoolingDown) {
+    // 共通クールタイム中は，RefreshもSelectも禁止
+    if (isCoolingDown) {
         return;
     }
 
@@ -44,7 +40,11 @@ function refreshImages() {
         return;
     }
 
-    startRefreshCooldown();
+    if (currentTrial >= MAX_TRIAL) {
+        return;
+    }
+
+    startCooldown(REFRESH_COOLDOWN_SEC, "REFRESH");
 
     refreshCountInTrial++;
 
@@ -89,7 +89,8 @@ function refreshImages() {
 
 function selectImage(index) {
 
-    if (isSelectCoolingDown) {
+    // 共通クールタイム中は，RefreshもSelectも禁止
+    if (isCoolingDown) {
         return;
     }
 
@@ -102,6 +103,10 @@ function selectImage(index) {
     }
 
     const path = currentImages[index];
+
+    if (!path) {
+        return;
+    }
 
     const imageName =
         getImageName(path);
@@ -188,7 +193,7 @@ function selectImage(index) {
 
     currentTrial++;
 
-    startSelectCooldown();
+    startCooldown(SELECT_COOLDOWN_SEC, "SELECT");
 
     updateTrialCounter();
 
@@ -215,70 +220,37 @@ function resetGame() {
     location.reload();
 }
 
-function startSelectCooldown() {
-
-    isSelectCoolingDown = true;
-
-    cooldownRemainingSec =
-        SELECT_COOLDOWN_SEC;
-
-    updateCooldownArea();
-    updateRefreshButton();
+// Select後とRefresh後の待機を，この関数だけで管理する
+function startCooldown(durationSec, source) {
 
     if (cooldownTimer) {
         clearInterval(cooldownTimer);
+        cooldownTimer = null;
     }
+
+    isCoolingDown = true;
+    cooldownRemainingSec = durationSec;
+    cooldownSource = source;
+
+    updateCooldownArea();
+    updateActionControls();
 
     cooldownTimer = setInterval(() => {
 
         cooldownRemainingSec--;
-
-        updateCooldownArea();
 
         if (cooldownRemainingSec <= 0) {
 
             clearInterval(cooldownTimer);
 
             cooldownTimer = null;
-
-            isSelectCoolingDown = false;
-
-            updateCooldownArea();
-            updateRefreshButton();
+            isCoolingDown = false;
+            cooldownRemainingSec = 0;
+            cooldownSource = null;
         }
 
-    }, 1000);
-}
-
-function startRefreshCooldown() {
-
-    isRefreshCoolingDown = true;
-
-    refreshCooldownRemainingSec =
-        REFRESH_COOLDOWN_SEC;
-
-    updateRefreshButton();
-
-    if (refreshCooldownTimer) {
-        clearInterval(refreshCooldownTimer);
-    }
-
-    refreshCooldownTimer = setInterval(() => {
-
-        refreshCooldownRemainingSec--;
-
-        updateRefreshButton();
-
-        if (refreshCooldownRemainingSec <= 0) {
-
-            clearInterval(refreshCooldownTimer);
-
-            refreshCooldownTimer = null;
-
-            isRefreshCoolingDown = false;
-
-            updateRefreshButton();
-        }
+        updateCooldownArea();
+        updateActionControls();
 
     }, 1000);
 }

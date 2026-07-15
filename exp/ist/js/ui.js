@@ -189,7 +189,7 @@ function updateCooldownArea() {
     area.className =
         "w-full text-center text-lg font-bold";
 
-    if (!isSelectCoolingDown) {
+    if (!isCoolingDown) {
 
         area.textContent =
             "【選択フェーズ】図形を1枚選択せよ";
@@ -197,45 +197,44 @@ function updateCooldownArea() {
         return;
     }
 
+    const actionName =
+        cooldownSource === "REFRESH"
+            ? "再抽選後"
+            : "選択後";
+
     area.textContent =
-        `【待機フェーズ】 残り${cooldownRemainingSec}秒`;
+        `【待機フェーズ】${actionName}・残り${cooldownRemainingSec}秒`;
 }
 
-function updateRefreshButton() {
+function updateActionControls() {
 
-    const button =
+    const refreshButton =
         document.getElementById("refreshButton");
 
-    if (!button) {
+    const imageButtons = [
+        document.getElementById("imageButton1"),
+        document.getElementById("imageButton2"),
+        document.getElementById("imageButton3")
+    ];
+
+    imageButtons.forEach((button) => {
+        if (button) {
+            button.disabled = isCoolingDown;
+        }
+    });
+
+    if (!refreshButton) {
         return;
     }
 
-    // Selectクールダウン中はRefresh禁止
-    if (
-        !ENABLE_REFRESH_DURING_SELECT_COOLDOWN &&
-        isSelectCoolingDown
-    ) {
+    refreshButton.disabled = isCoolingDown;
 
-        button.disabled = true;
+    refreshButton.textContent = isCoolingDown
+        ? `操作できるまで あと${cooldownRemainingSec}秒`
+        : "3枚を再抽選する";
+}
 
-        button.textContent = "3枚を再抽選する";
-
-        return;
-    }
-
-    // Refreshクールダウン中
-    if (isRefreshCoolingDown) {
-
-        button.disabled = true;
-
-        button.textContent =
-            `再抽選できるまで あと${refreshCooldownRemainingSec}秒`;
-
-        return;
-    }
-
-    // 押せる状態
-    button.disabled = false;
-
-    button.textContent = "3枚を再抽選する";
+// 既存コードから呼ばれても動くように残す
+function updateRefreshButton() {
+    updateActionControls();
 }
