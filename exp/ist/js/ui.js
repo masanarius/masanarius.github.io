@@ -197,13 +197,8 @@ function updateCooldownArea() {
         return;
     }
 
-    const actionName =
-        cooldownSource === "REFRESH"
-            ? "再抽選後"
-            : "選択後";
-
     area.textContent =
-        `【待機フェーズ】${actionName}・残り${cooldownRemainingSec}秒`;
+        `操作できるまで あと${cooldownRemainingSec}秒`;
 }
 
 function updateActionControls() {
