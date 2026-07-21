@@ -192,7 +192,7 @@ function updateCooldownArea() {
     if (!isCoolingDown) {
 
         area.textContent =
-            "【選択フェーズ】図形を1枚選択せよ";
+            "図形を1枚選択せよ";
 
         return;
     }
