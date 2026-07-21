@@ -231,7 +231,7 @@ function updateActionControls() {
 
     refreshButton.textContent = isCoolingDown
         ? `操作できるまで あと${cooldownRemainingSec}秒`
-        : "3枚を再抽選する";
+        : "再抽選";
 }
 
 // 既存コードから呼ばれても動くように残す
