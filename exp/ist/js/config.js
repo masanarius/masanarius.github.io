@@ -11,7 +11,7 @@ const SHP = [
     "spd", "hrt", "clv", "dia"
 ];
 
-const MAX_TRIAL = 60;
+const MAX_TRIAL = 90;
 const SHOW_TOTAL_SCORE = false;
 const REFRESH_SCORE = 0;
 
