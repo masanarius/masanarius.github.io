@@ -25,17 +25,15 @@ OUTPUT_DIR = BASE_DIR / "images"
 #   gn = green
 #   bl = blue
 COLORS = {
-    # Set A
-    #"ppn": "#CC79A7",
+    # Set A (Pale)
     "pyl": "#E69F00",
     "pgn": "#009E73",
     "pbl": "#0072B2",
 
-    # Set B
-    #"vpn": "#E05AA8",
-    "vyl": "#F2C300",
-    "vgn": "#00B884",
-    "vbl": "#356FD4",
+    # Set B (Vivid)
+    "vyl": "#FFD400",  # より鮮やかな黄
+    "vgn": "#00D68F",  # より鮮やかな緑
+    "vbl": "#2D5BFF",  # より鮮やかな青
 }
 
 # 画像サイズが異なる場合，背景画像のサイズへ自動的に合わせる

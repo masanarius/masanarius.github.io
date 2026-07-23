@@ -15,7 +15,7 @@ const MAX_TRIAL = 90;
 const SHOW_TOTAL_SCORE = false;
 const REFRESH_SCORE = 0;
 
-const PLAYER_MOD_BASE = 4;
+const PLAYER_MOD_BASE = 8;
 
 const ENABLE_GOOGLE_FORMS = true;
 
@@ -204,4 +204,4 @@ const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
 };
 
 const SELECT_COOLDOWN_SEC = 20;
-const REFRESH_COOLDOWN_SEC = 10;
+const REFRESH_COOLDOWN_SEC = 5;
