@@ -1,14 +1,14 @@
 const COL = [
-    "ppn", "pyl", "pgn", "pbl",
-    "vpn", "vyl", "vgn", "vbl"
+    "pyl", "pgn", "pbl",
+    "vyl", "vgn", "vbl"
 ];
 
 const PAT = [
-    "str", "chk", "dot", "wav"
+    "str", "dot", "grd"
 ];
 const SHP = [
-    "cir", "pnt", "tri", "squ",
-    "spd", "hrt", "clv", "dia"
+    "pnt", "tri", "squ",
+    "spd", "hrt", "clv",
 ];
 
 const MAX_TRIAL = 90;
@@ -63,32 +63,24 @@ const FORM_ENTRIES = {
 };
 
 const colorScore = {
-    ppn: -1, pgn: 0, pyl: 1, pbl: 2,
-    vpn: 2, vgn: 1, vyl: 0, vbl: -1
+    vyl: 1, vgn: 0, vbl: -1,
+    pyl: -1, pgn: 0, pbl: 1
 };
 
 const shapeScore = {
     pnt: -1,
-    cir: 0,
-    squ: 1,
-    tri: 2,
+    squ: 0,
+    tri: 1,
 
-    dia: -1,
-    spd: 0,
-    hrt: 1,
-    clv: 2
+    spd: -1,
+    hrt: 0,
+    clv: 1
 };
 
 const patternScore = {
     dot: -1,
-    wav: 0,
-    chk: 1,
-    str: 2,
-    // cdt: -1, fdt: 1,
-    // cgr: 0, fgr: 2,
-    // cch: 1, fch: -1,
-    // cst: 2, fst: 0
-
+    grd: 0,
+    str: 1
 };
 
 const positionScore = {
@@ -115,54 +107,100 @@ const shapeScale = {
 
 const visibleRuleByPlayerMod = {
     0: {
-        COL: ["ppn", "pyl", "pgn", "pbl"],
+        COL: ["vyl", "vgn", "vbl"],
         PAT: PAT,
-        SHP: ["cir", "pnt", "tri", "squ"]
+        SHP: ["pnt", "squ", "tri"]
     },
-
     1: {
-        COL: ["ppn", "pyl", "pgn", "pbl"],
+        COL: ["vyl", "vgn", "vbl"],
         PAT: PAT,
-        SHP: ["spd", "hrt", "clv", "dia"]
+        SHP: ["pnt", "squ", "tri"]
     },
-
     2: {
-        COL: ["vpn", "vyl", "vgn", "vbl"],
+        COL: ["pyl", "pgn", "pbl"],
         PAT: PAT,
-        SHP: ["cir", "pnt", "tri", "squ"]
+        SHP: ["pnt", "squ", "tri"]
+    },
+    3: {
+        COL: ["pyl", "pgn", "pbl"],
+        PAT: PAT,
+        SHP: ["pnt", "squ", "tri"]
     },
 
-    3: {
-        COL: ["vpn", "vyl", "vgn", "vbl"],
+    4: {
+        COL: ["vyl", "vgn", "vbl"],
         PAT: PAT,
-        SHP: ["spd", "hrt", "clv", "dia"]
-    }
+        SHP: ["spd", "hrt", "clv"]
+    },
+    5: {
+        COL: ["vyl", "vgn", "vbl"],
+        PAT: PAT,
+        SHP: ["spd", "hrt", "clv"]
+    },
+    6: {
+        COL: ["pyl", "pgn", "pbl"],
+        PAT: PAT,
+        SHP: ["spd", "hrt", "clv"]
+    },
+    7: {
+        COL: ["pyl", "pgn", "pbl"],
+        PAT: PAT,
+        SHP: ["spd", "hrt", "clv"]
+    },
+
+
 };
 
 const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
     0: {
-        COL: ["pbl"],
-        PAT: [],
-        SHP: []
-    },
-
-    1: {
-        COL: ["pgn"],
-        PAT: [],
-        SHP: []
-    },
-
-    2: {
         COL: ["vyl"],
         PAT: [],
         SHP: []
     },
 
+    1: {
+        COL: ["vbl"],
+        PAT: [],
+        SHP: []
+    },
+
+    2: {
+        COL: ["pbl"],
+        PAT: [],
+        SHP: []
+    },
+
     3: {
-        COL: ["vpn"],
+        COL: ["pyl"],
+        PAT: [],
+        SHP: []
+    },
+
+    4: {
+        COL: ["vyl"],
+        PAT: [],
+        SHP: []
+    },
+
+    5: {
+        COL: ["vbl"],
+        PAT: [],
+        SHP: []
+    },
+
+    6: {
+        COL: ["pbl"],
+        PAT: [],
+        SHP: []
+    },
+
+    7: {
+        COL: ["pyl"],
         PAT: [],
         SHP: []
     }
+
+
 };
 
 const SELECT_COOLDOWN_SEC = 20;

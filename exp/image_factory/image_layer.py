@@ -26,13 +26,13 @@ OUTPUT_DIR = BASE_DIR / "images"
 #   bl = blue
 COLORS = {
     # Set A
-    "ppn": "#CC79A7",
+    #"ppn": "#CC79A7",
     "pyl": "#E69F00",
     "pgn": "#009E73",
     "pbl": "#0072B2",
 
     # Set B
-    "vpn": "#E05AA8",
+    #"vpn": "#E05AA8",
     "vyl": "#F2C300",
     "vgn": "#00B884",
     "vbl": "#356FD4",
