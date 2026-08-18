@@ -1,0 +1,207 @@
+const COL = [
+    "pyl", "pgn", "pbl",
+    "vyl", "vgn", "vbl"
+];
+
+const PAT = [
+    "str", "dot", "grd"
+];
+const SHP = [
+    "pnt", "tri", "squ",
+    "spd", "hrt", "clv",
+];
+
+const MAX_TRIAL = 90;
+const SHOW_TOTAL_SCORE = false;
+const REFRESH_SCORE = 0;
+
+const PLAYER_MOD_BASE = 8;
+
+const ENABLE_GOOGLE_FORMS = false;
+
+const GOOGLE_FORM_ACTION_URL =
+    "https://docs.google.com/forms/d/e/1FAIpQLSe6judp3oDNOHDpBNW22eaB9JiwuvnuwCBJ8tvHWUiOdhFqmw/formResponse";
+
+const FORM_ENTRIES = {
+    time: "entry.1571500214",
+    session_id: "entry.1437906042",
+    player_id: "entry.1675133863",
+    trial: "entry.1673476348",
+    refreshing: "entry.1384988083",
+    event: "entry.2001340447",
+
+    l_img: "entry.1538485900",
+    c_img: "entry.1353722818",
+    r_img: "entry.40212684",
+
+    l_img_pts: "entry.103761169",
+    c_img_pts: "entry.1387556079",
+    r_img_pts: "entry.1571065213",
+
+    l_pos_pts: "entry.1984614365",
+    c_pos_pts: "entry.1602656512",
+    r_pos_pts: "entry.891595214",
+
+    l_sum_pts: "entry.782728472",
+    c_sum_pts: "entry.1810463804",
+    r_sum_pts: "entry.2121136899",
+
+    selected_img: "entry.1193759899",
+    selected_img_shape: "entry.158281576",
+    selected_img_color: "entry.901393716",
+    selected_img_pattern: "entry.1281819507",
+    selected_pos: "entry.1916842762",
+
+    selected_img_pts: "entry.1382321511",
+    selected_img_shape_pts: "entry.449527582",
+    selected_img_color_pts: "entry.705426569",
+    selected_img_pattern_pts: "entry.614853997",
+    selected_pos_pts: "entry.1313096228",
+
+    delta_score: "entry.333867801",
+    total_score: "entry.453560264"
+};
+
+const colorScore = {
+    vyl: 1, vgn: 0, vbl: -1,
+    pyl: -1, pgn: 0, pbl: 1
+};
+
+const shapeScore = {
+    pnt: -1,
+    squ: 0,
+    tri: 1,
+
+    spd: -1,
+    hrt: 0,
+    clv: 1
+};
+
+const patternScore = {
+    dot: -1,
+    grd: 0,
+    str: 1
+};
+
+const positionScore = {
+    left: 0,
+    center: 0,
+    right: 0
+};
+
+const positionNames = ["left", "center", "right"];
+const positionNamesForLog = ["LEFT", "CENTER", "RIGHT"];
+
+const shapeScale = {
+    // cir: 1.00,
+    // tri: 1.15,
+    // squ: 0.95,
+    // pnt: 1.20,
+    // hex: 1.15
+    // cir: 1.00,
+    // tri: 1.00,
+    // squ: 1.00,
+    // pnt: 1.00,
+    // hex: 1.00
+};
+
+const visibleRuleByPlayerMod = {
+    0: {
+        COL: ["vyl", "vgn", "vbl"],
+        PAT: PAT,
+        SHP: ["pnt", "squ", "tri"]
+    },
+    1: {
+        COL: ["vyl", "vgn", "vbl"],
+        PAT: PAT,
+        SHP: ["pnt", "squ", "tri"]
+    },
+    2: {
+        COL: ["pyl", "pgn", "pbl"],
+        PAT: PAT,
+        SHP: ["pnt", "squ", "tri"]
+    },
+    3: {
+        COL: ["pyl", "pgn", "pbl"],
+        PAT: PAT,
+        SHP: ["pnt", "squ", "tri"]
+    },
+
+    4: {
+        COL: ["vyl", "vgn", "vbl"],
+        PAT: PAT,
+        SHP: ["spd", "hrt", "clv"]
+    },
+    5: {
+        COL: ["vyl", "vgn", "vbl"],
+        PAT: PAT,
+        SHP: ["spd", "hrt", "clv"]
+    },
+    6: {
+        COL: ["pyl", "pgn", "pbl"],
+        PAT: PAT,
+        SHP: ["spd", "hrt", "clv"]
+    },
+    7: {
+        COL: ["pyl", "pgn", "pbl"],
+        PAT: PAT,
+        SHP: ["spd", "hrt", "clv"]
+    },
+
+
+};
+
+const hiddenFeedbackRuleByPlayerMod = { // 得点が「？」になる
+    0: {
+        COL: ["vyl"],
+        PAT: [],
+        SHP: []
+    },
+
+    1: {
+        COL: ["vbl"],
+        PAT: [],
+        SHP: []
+    },
+
+    2: {
+        COL: ["pbl"],
+        PAT: [],
+        SHP: []
+    },
+
+    3: {
+        COL: ["pyl"],
+        PAT: [],
+        SHP: []
+    },
+
+    4: {
+        COL: ["vyl"],
+        PAT: [],
+        SHP: []
+    },
+
+    5: {
+        COL: ["vbl"],
+        PAT: [],
+        SHP: []
+    },
+
+    6: {
+        COL: ["pbl"],
+        PAT: [],
+        SHP: []
+    },
+
+    7: {
+        COL: ["pyl"],
+        PAT: [],
+        SHP: []
+    }
+
+
+};
+
+const SELECT_COOLDOWN_SEC = 3;
+const REFRESH_COOLDOWN_SEC = 3;

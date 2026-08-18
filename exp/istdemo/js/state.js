@@ -1,0 +1,14 @@
+let currentTrial = 0;
+let totalScore = 0;
+let refreshCountInTrial = 0;
+
+const imageList = [];
+let currentImages = [];
+
+let historyData = [];
+
+// SelectとRefreshで共用するクールタイム状態
+let isCoolingDown = false;
+let cooldownRemainingSec = 0;
+let cooldownTimer = null;
+let cooldownSource = null;
