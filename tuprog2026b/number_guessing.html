@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数当てゲーム</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            appearance: textfield;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-6">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-4">数当てゲーム</h1>
+        <p class="text-gray-600 text-center mb-6">
+            0〜999 の整数を当ててください．
+        </p>
+
+        <div class="space-y-4">
+            <div>
+                <label for="guessInput" class="block text-sm font-medium text-gray-700 mb-2">
+                    数字を入力
+                </label>
+                <input id="guessInput" type="number" min="0" max="999"
+                    class="w-full rounded-xl border border-gray-300 px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="0〜999" />
+            </div>
+
+            <button id="submitButton"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition">
+                判定する
+            </button>
+
+            <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                <p class="text-gray-800">
+                    <span class="font-semibold">ヒント：</span>
+                    <span id="message">数字を入力してください．</span>
+                </p>
+                <p class="text-gray-800 mt-2">
+                    <span class="font-semibold">試行回数：</span>
+                    <span id="trialCount">0</span>
+                </p>
+            </div>
+
+            <button id="restartButton"
+                class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition hidden">
+                もう一度遊ぶ
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let answer = Math.floor(Math.random() * 1000);
+        let trial = 0;
+        let cleared = false;
+
+        const guessInput = document.getElementById('guessInput');
+        const submitButton = document.getElementById('submitButton');
+        const restartButton = document.getElementById('restartButton');
+        const message = document.getElementById('message');
+        const trialCount = document.getElementById('trialCount');
+
+        function updateTrialDisplay() {
+            trialCount.textContent = trial;
+        }
+
+        function judgeGuess() {
+            if (cleared) return;
+
+            const value = guessInput.value.trim();
+
+            if (value === '') {
+                message.textContent = '数字を入力してください．';
+                return;
+            }
+
+            const guess = Number(value);
+
+            if (!Number.isInteger(guess) || guess < 0 || guess > 999) {
+                message.textContent = '0〜999の整数を入力してください．';
+                return;
+            }
+
+            trial++;
+            updateTrialDisplay();
+
+            if (guess < answer) {
+                message.textContent = guess + ' より大きいです．';
+            } else if (guess > answer) {
+                message.textContent = guess + ' より小さいです．';
+            } else {
+                message.textContent = '正解です！ ' + trial + ' 回で当てました．';
+                cleared = true;
+                submitButton.disabled = true;
+                submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+                guessInput.disabled = true;
+                restartButton.classList.remove('hidden');
+            }
+
+            guessInput.value = '';
+            guessInput.focus();
+        }
+
+        function restartGame() {
+            answer = Math.floor(Math.random() * 1000);
+            trial = 0;
+            cleared = false;
+            updateTrialDisplay();
+            message.textContent = '新しいゲームを開始しました．数字を入力してください．';
+            guessInput.disabled = false;
+            submitButton.disabled = false;
+            submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            restartButton.classList.add('hidden');
+            guessInput.value = '';
+            guessInput.focus();
+        }
+
+        submitButton.addEventListener('click', judgeGuess);
+        restartButton.addEventListener('click', restartGame);
+
+        guessInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                judgeGuess();
+            }
+        });
+
+        updateTrialDisplay();
+    </script>
+</body>
+
+</html>
