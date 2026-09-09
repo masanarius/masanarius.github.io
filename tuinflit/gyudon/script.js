@@ -1,7 +1,11 @@
 const MIN_GRAMS = 50;
 const MAX_GRAMS = 110;
-let total = 1000;
+let total = 100;
 let yAxisMax = 100;
+let targetMeanA = 80.5;
+let targetMeanB = 79.5;
+let activeA = true;
+let activeB = true;
 const binsA = Array(MAX_GRAMS - MIN_GRAMS + 1).fill(0);
 const binsB = Array(MAX_GRAMS - MIN_GRAMS + 1).fill(0);
 const valuesA = [];
@@ -53,8 +57,8 @@ function generateExperiment() {
   seed = 20260908;
   allValuesA = []; allValuesB = [];
   for (let i = 0; i < total; i += 1) {
-    allValuesA.push(sample(80.5, 5.0));
-    allValuesB.push(sample(79.5, 4.8));
+    allValuesA.push(sample(targetMeanA, 5.0));
+    allValuesB.push(sample(targetMeanB, 4.8));
   }
   const expectedMode = total / (Math.min(5.0, 4.8) * Math.sqrt(2 * Math.PI));
   yAxisMax = niceCeiling(expectedMode + 2 * Math.sqrt(expectedMode));
@@ -138,21 +142,27 @@ function render() {
   $('sampleCount').textContent = count.toLocaleString('ja-JP');
   $('progressBar').style.width = `${count / total * 100}%`;
   $('seekBar').value = count;
-  const a = stats(valuesA); const b = stats(valuesB);
-  if (a && b) {
-    $('meanA').firstChild.textContent = a.mean.toFixed(1); $('medianA').firstChild.textContent = a.median.toFixed(1); $('sdA').textContent = a.sd.toFixed(1);
-    $('meanB').firstChild.textContent = b.mean.toFixed(1); $('medianB').firstChild.textContent = b.median.toFixed(1); $('sdB').textContent = b.sd.toFixed(1);
-  }
+  renderStoreStats('A', stats(valuesA), targetMeanA);
+  renderStoreStats('B', stats(valuesB), targetMeanB);
   drawDensity();
+}
+
+function renderStoreStats(store, result, targetMean) {
+  if (!result) return;
+  $(`mean${store}`).firstChild.textContent = result.mean.toFixed(1);
+  $(`median${store}`).firstChild.textContent = result.median.toFixed(1);
+  $(`sd${store}`).textContent = result.sd.toFixed(1);
+  const error = result.mean - targetMean;
+  $(`error${store}`).firstChild.textContent = `${error >= 0 ? '+' : ''}${error.toFixed(2)}`;
 }
 
 function measureOne() {
   const a = allValuesA[count];
   const b = allValuesB[count];
-  valuesA.push(a); valuesB.push(b);
-  binsA[a - MIN_GRAMS] += 1; binsB[b - MIN_GRAMS] += 1;
+  if (activeA) { valuesA.push(a); binsA[a - MIN_GRAMS] += 1; }
+  if (activeB) { valuesB.push(b); binsB[b - MIN_GRAMS] += 1; }
   count += 1;
-  $('weightA').textContent = a; $('weightB').textContent = b;
+  $('weightA').textContent = activeA ? a : 'OFF'; $('weightB').textContent = activeB ? b : 'OFF';
 }
 
 function seekTo(target) {
@@ -162,16 +172,17 @@ function seekTo(target) {
   binsA.fill(0); binsB.fill(0); valuesA.length = 0; valuesB.length = 0;
   for (let i = 0; i < count; i += 1) {
     const a = allValuesA[i]; const b = allValuesB[i];
-    valuesA.push(a); valuesB.push(b); binsA[a - MIN_GRAMS] += 1; binsB[b - MIN_GRAMS] += 1;
+    if (activeA) { valuesA.push(a); binsA[a - MIN_GRAMS] += 1; }
+    if (activeB) { valuesB.push(b); binsB[b - MIN_GRAMS] += 1; }
   }
-  $('weightA').textContent = count ? allValuesA[count - 1] : '—';
-  $('weightB').textContent = count ? allValuesB[count - 1] : '—';
+  $('weightA').textContent = activeA ? (count ? allValuesA[count - 1] : '—') : 'OFF';
+  $('weightB').textContent = activeB ? (count ? allValuesB[count - 1] : '—') : 'OFF';
   $('emptyState').style.display = count ? 'none' : '';
   $('densityEmpty').style.display = count ? 'none' : '';
   $('startButton').querySelector('.play-icon').textContent = count >= total ? '✓' : '▶';
   $('startButton').querySelector('.button-label').textContent = count >= total ? '計測完了' : (count ? 'ここから再開' : '計測スタート');
   if (!count) {
-    ['meanA','medianA','meanB','medianB'].forEach((id) => { $(id).firstChild.textContent = '—'; });
+    ['meanA','medianA','meanB','medianB','errorA','errorB'].forEach((id) => { $(id).firstChild.textContent = '—'; });
     ['sdA','sdB'].forEach((id) => { $(id).textContent = '—'; });
   }
   render();
@@ -214,8 +225,9 @@ function reset() {
   lastFrameTime = null; sampleBudget = 0;
   binsA.fill(0); binsB.fill(0); valuesA.length = 0; valuesB.length = 0;
   barsA.forEach((bar, index) => { bar.style.height = '0%'; barsB[index].style.height = '0%'; });
-  ['weightA','weightB'].forEach((id) => { $(id).textContent = '—'; });
-  ['meanA','medianA','meanB','medianB'].forEach((id) => { $(id).firstChild.textContent = '—'; });
+  $('weightA').textContent = activeA ? '—' : 'OFF';
+  $('weightB').textContent = activeB ? '—' : 'OFF';
+  ['meanA','medianA','meanB','medianB','errorA','errorB'].forEach((id) => { $(id).firstChild.textContent = '—'; });
   ['sdA','sdB'].forEach((id) => { $(id).textContent = '—'; });
   $('sampleCount').textContent = '0'; $('progressBar').style.width = '0%'; $('emptyState').style.display = '';
   $('densityEmpty').style.display = ''; drawDensity();
@@ -233,10 +245,34 @@ $('orderSlider').addEventListener('input', (event) => {
   $('progressTotal').textContent = formatted;
   $('seekMax').textContent = formatted;
   $('seekBar').max = total;
-  $('totalBowls').textContent = `${(total * 2).toLocaleString('ja-JP')}杯`;
-  document.title = `牛丼${(total * 2).toLocaleString('ja-JP')}杯で差は見える？ | GYŪDON GRAM LAB`;
+  const activeCount = Number(activeA) + Number(activeB);
+  $('totalBowls').textContent = `${(total * activeCount).toLocaleString('ja-JP')}杯`;
+  document.title = `牛丼${(total * activeCount).toLocaleString('ja-JP')}杯で差は見える？ | GYŪDON GRAM LAB`;
   reset();
 });
+function updateTargetMean(store, value) {
+  const mean = Number(value);
+  if (store === 'A') targetMeanA = mean; else targetMeanB = mean;
+  $(`meanOutput${store}`).textContent = `${mean.toFixed(1)}g`;
+  reset();
+}
+$('meanSliderA').addEventListener('input', (event) => updateTargetMean('A', event.target.value));
+$('meanSliderB').addEventListener('input', (event) => updateTargetMean('B', event.target.value));
+function updateRunTargets(changedStore) {
+  if (!$('runA').checked && !$('runB').checked) $(changedStore === 'A' ? 'runB' : 'runA').checked = true;
+  activeA = $('runA').checked; activeB = $('runB').checked;
+  $('storeCardA').classList.toggle('inactive', !activeA);
+  $('storeCardB').classList.toggle('inactive', !activeB);
+  document.querySelector('.stat-card.red').classList.toggle('inactive', !activeA);
+  document.querySelector('.stat-card.blue').classList.toggle('inactive', !activeB);
+  const activeCount = Number(activeA) + Number(activeB);
+  $('activeStoreCount').textContent = activeCount;
+  $('totalBowls').textContent = `${(total * activeCount).toLocaleString('ja-JP')}杯`;
+  document.title = `牛丼${(total * activeCount).toLocaleString('ja-JP')}杯で差は見える？ | GYŪDON GRAM LAB`;
+  reset();
+}
+$('runA').addEventListener('change', () => updateRunTargets('A'));
+$('runB').addEventListener('change', () => updateRunTargets('B'));
 window.addEventListener('resize', drawDensity);
 generateExperiment();
 drawDensity();

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f5efe2">
-  <title>牛丼、何杯で差が見える？ | GYŪDON GRAM LAB</title>
+  <title>牛丼200杯で差は見える？ | GYŪDON GRAM LAB</title>
   <meta name="description" content="赤屋根と青屋根の牛丼を1000杯ずつ測り、1g刻みのヒストグラムで比較するシミュレーション。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,41 +24,42 @@
     <section class="hero">
       <div>
         <p class="eyebrow">BEEF WEIGHT EXPERIMENT</p>
-        <h1>牛丼、<span id="totalBowls">2,000杯</span>測れば差は見える？</h1>
+        <h1>牛丼、<span id="totalBowls">200杯</span>測れば差は見える？</h1>
       </div>
-      <p class="intro">赤屋根のA店と、青屋根のB店。<br>各<span id="introOrderCount">1,000</span>杯を注文し、牛肉の重さを1g単位で記録します。</p>
+      <p class="intro">赤屋根のA店と、青屋根のB店。<br>各<span id="introOrderCount">100</span>杯を注文し、牛肉の重さを1g単位で記録します。</p>
     </section>
 
     <section class="store-strip" aria-label="比較店舗">
-      <article class="store-card store-a">
+      <article class="store-card store-a" id="storeCardA">
         <div class="shop-icon" aria-hidden="true"><span class="roof"></span><span class="shop-body"><i></i><i></i></span></div>
-        <div><p>赤屋根</p><h2>牛丼屋さん A</h2></div>
+        <div class="store-info"><p>赤屋根</p><h2>牛丼屋さん A</h2><label class="mean-control red-mean" for="meanSliderA"><span>設定平均</span><input id="meanSliderA" type="range" min="60" max="100" value="80.5" step="0.5"><output id="meanOutputA">80.5g</output></label></div>
         <div class="live-weight"><span>今回の牛肉</span><strong id="weightA">—</strong><small>g</small></div>
       </article>
       <div class="versus">VS</div>
-      <article class="store-card store-b">
+      <article class="store-card store-b" id="storeCardB">
         <div class="shop-icon" aria-hidden="true"><span class="roof"></span><span class="shop-body"><i></i><i></i></span></div>
-        <div><p>青屋根</p><h2>牛丼屋さん B</h2></div>
+        <div class="store-info"><p>青屋根</p><h2>牛丼屋さん B</h2><label class="mean-control blue-mean" for="meanSliderB"><span>設定平均</span><input id="meanSliderB" type="range" min="60" max="100" value="79.5" step="0.5"><output id="meanOutputB">79.5g</output></label></div>
         <div class="live-weight"><span>今回の牛肉</span><strong id="weightB">—</strong><small>g</small></div>
       </article>
     </section>
 
     <section class="control-panel">
       <div class="progress-wrap">
-        <div class="progress-copy"><span>計測進捗</span><strong><b id="sampleCount">0</b> / <span id="progressTotal">1,000</span> 杯 × 2店</strong></div>
+        <div class="progress-copy"><span>計測進捗</span><strong><b id="sampleCount">0</b> / <span id="progressTotal">100</span> 杯 × <span id="activeStoreCount">2</span>店</strong></div>
         <div class="progress-track"><span id="progressBar"></span></div>
-        <label class="seek-control" for="seekBar"><span>0</span><input id="seekBar" type="range" min="0" max="1000" value="0" step="1" aria-label="計測位置"><span id="seekMax">1,000</span></label>
+        <label class="seek-control" for="seekBar"><span>0</span><input id="seekBar" type="range" min="0" max="100" value="0" step="1" aria-label="計測位置"><span id="seekMax">100</span></label>
       </div>
       <div class="controls">
         <button id="startButton" class="primary-button"><span class="play-icon">▶</span><span class="button-label">計測スタート</span></button>
         <button id="resetButton" class="icon-button" aria-label="リセット" title="リセット">↻</button>
-        <label class="order-control" for="orderSlider"><span>各店の注文数</span><input id="orderSlider" type="range" min="100" max="10000" value="1000" step="100"><output id="orderOutput">1,000杯</output></label>
+        <fieldset class="run-target-control"><legend>計測対象</legend><label><input id="runA" type="checkbox" checked><span>A店</span></label><label><input id="runB" type="checkbox" checked><span>B店</span></label></fieldset>
+        <label class="order-control" for="orderSlider"><span>各店の注文数</span><input id="orderSlider" type="range" min="100" max="1000" value="100" step="100"><output id="orderOutput">100杯</output></label>
         <label class="speed-control">速度
           <select id="speedSelect">
-            <option value="15">ゆっくり</option>
-            <option value="60" selected>ふつう</option>
-            <option value="180">はやい</option>
-            <option value="600">一気に</option>
+            <option value="3">ゆっくり</option>
+            <option value="10" selected>ふつう</option>
+            <option value="40">はやい</option>
+            <option value="200">一気に</option>
           </select>
         </label>
       </div>
@@ -78,7 +79,7 @@
             <div class="histogram" id="histogram" role="img" aria-label="牛肉量のヒストグラム">
               <div class="empty-state" id="emptyState"><span>READY</span><p>計測を開始すると、<br>ここに分布が現れます。</p></div>
             </div>
-            <div class="x-axis"><span>50g</span><span>65g</span><span>80g</span><span>95g</span><span>110g</span><b>牛肉の重さ</b></div>
+            <div class="x-axis"><span>50</span><span>55</span><span>60</span><span>65</span><span>70</span><span>75</span><span>80</span><span>85</span><span>90</span><span>95</span><span>100</span><span>105</span><span>110g</span><b>牛肉の重さ</b></div>
           </div>
         </div>
         <div class="chart-panel">
@@ -90,15 +91,15 @@
               <canvas id="densityCanvas" role="img" aria-label="平滑化した牛肉量の分布曲線"></canvas>
               <div class="empty-state" id="densityEmpty"><span>SMOOTH</span><p>分布をなめらかな曲線で<br>比較します。</p></div>
             </div>
-            <div class="x-axis"><span>50g</span><span>65g</span><span>80g</span><span>95g</span><span>110g</span><b>牛肉の重さ</b></div>
+            <div class="x-axis"><span>50</span><span>55</span><span>60</span><span>65</span><span>70</span><span>75</span><span>80</span><span>85</span><span>90</span><span>95</span><span>100</span><span>105</span><span>110g</span><b>牛肉の重さ</b></div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="stats-grid">
-      <article class="stat-card red"><div><p>赤屋根 A</p><h3>統計サマリー</h3></div><dl><div><dt>平均</dt><dd id="meanA">—<small>g</small></dd></div><div><dt>中央値</dt><dd id="medianA">—<small>g</small></dd></div><div><dt>標準偏差</dt><dd id="sdA">—</dd></div></dl></article>
-      <article class="stat-card blue"><div><p>青屋根 B</p><h3>統計サマリー</h3></div><dl><div><dt>平均</dt><dd id="meanB">—<small>g</small></dd></div><div><dt>中央値</dt><dd id="medianB">—<small>g</small></dd></div><div><dt>標準偏差</dt><dd id="sdB">—</dd></div></dl></article>
+      <article class="stat-card red"><div><p>赤屋根 A</p><h3>統計サマリー</h3></div><dl><div><dt>平均</dt><dd id="meanA">—<small>g</small></dd></div><div><dt>中央値</dt><dd id="medianA">—<small>g</small></dd></div><div><dt>標準偏差</dt><dd id="sdA">—</dd></div><div><dt>平均誤差</dt><dd id="errorA">—<small>g</small></dd></div></dl></article>
+      <article class="stat-card blue"><div><p>青屋根 B</p><h3>統計サマリー</h3></div><dl><div><dt>平均</dt><dd id="meanB">—<small>g</small></dd></div><div><dt>中央値</dt><dd id="medianB">—<small>g</small></dd></div><div><dt>標準偏差</dt><dd id="sdB">—</dd></div><div><dt>平均誤差</dt><dd id="errorB">—<small>g</small></dd></div></dl></article>
     </section>
     <footer><span>※ 架空の店舗・シミュレーションデータです。</span><span>ONE BOWL AT A TIME.</span></footer>
   </main>
